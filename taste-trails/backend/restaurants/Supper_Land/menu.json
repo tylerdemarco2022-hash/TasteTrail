@@ -1,0 +1,212 @@
+[
+  {
+    "category": "Starters",
+    "name": "Fried Green Tomatoes",
+    "description": "Crispy fried green tomatoes, remoulade, fresh greens"
+  },
+  {
+    "category": "Starters",
+    "name": "Deviled Eggs",
+    "description": "Paprika, bacon crumbles, chives"
+  },
+  {
+    "category": "Starters",
+    "name": "Shrimp and Grits",
+    "description": "Stone-ground grits, andouille sausage, creamy sauce"
+  },
+  {
+    "category": "Starters",
+    "name": "Pork Belly Bites",
+    "description": "Caramelized pork belly, apple gastrique"
+  },
+  {
+    "category": "Starters",
+    "name": "Duck Confit Fries",
+    "description": "Hand-cut fries topped with duck confit, crispy onions"
+  },
+  {
+    "category": "Starters",
+    "name": "Spinach Artichoke Dip",
+    "description": "Creamy dip with spinach, artichokes, served with crostini"
+  },
+  {
+    "category": "Starters",
+    "name": "Crispy Calamari",
+    "description": "Tender squid, marinara sauce, lemon"
+  },
+  {
+    "category": "Starters",
+    "name": "Brussels Sprout Hash",
+    "description": "Roasted Brussels sprouts, crispy bacon, balsamic glaze"
+  },
+  {
+    "category": "Soups",
+    "name": "She-Crab Soup",
+    "description": "Fresh local crab, cream, sherry, crab roe garnish"
+  },
+  {
+    "category": "Soups",
+    "name": "Butternut Squash Bisque",
+    "description": "Roasted squash, sage, cream, crispy sage leaves"
+  },
+  {
+    "category": "Soups",
+    "name": "Lobster Bisque",
+    "description": "Maine lobster, sherry cream, cognac"
+  },
+  {
+    "category": "Soups",
+    "name": "French Onion Soup",
+    "description": "Caramelized onions, beef stock, Gruyère, crusty bread"
+  },
+  {
+    "category": "Salads",
+    "name": "House Salad",
+    "description": "Mixed greens, seasonal vegetables, house vinaigrette"
+  },
+  {
+    "category": "Salads",
+    "name": "Wedge Salad",
+    "description": "Iceberg lettuce, blue cheese crumbles, bacon, tomatoes, ranch"
+  },
+  {
+    "category": "Salads",
+    "name": "Warm Beet Salad",
+    "description": "Roasted beets, arugula, goat cheese, candied walnuts, balsamic"
+  },
+  {
+    "category": "Salads",
+    "name": "Grilled Salmon Salad",
+    "description": "Atlantic salmon, mixed greens, cucumber, tomatoes, lemon vinaigrette"
+  },
+  {
+    "category": "Salads",
+    "name": "Cobb Salad",
+    "description": "Turkey, bacon, egg, avocado, blue cheese, ranch dressing"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Pan-Seared Diver Scallops",
+    "description": "Lemon beurre blanc, risotto, microgreens"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Cedar-Plank Salmon",
+    "description": "Maple glaze, roasted vegetables, wild rice"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Filet Mignon",
+    "description": "Center-cut beef, roasted garlic mashed potatoes, red wine jus"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Prime Ribeye",
+    "description": "14 oz, hand-cut fries, compound butter, seasonal vegetables"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Herb-Roasted Chicken",
+    "description": "Half chicken, lemon jus, roasted potatoes, seasonal vegetables"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Duck Breast",
+    "description": "Cherry-port reduction, creamed corn, crispy skin"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Braised Short Ribs",
+    "description": "Tender beef short ribs, root vegetables, burgundy reduction"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Lobster Tail",
+    "description": "Broiled or grilled, drawn butter, roasted potatoes, asparagus"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Pecan-Crusted Flounder",
+    "description": "Panko-pecan crust, lemon butter sauce, seasonal vegetables"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Surf and Turf",
+    "description": "Filet mignon and lobster tail, béarnaise, roasted vegetables"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Pasta Carbonara",
+    "description": "Guanciale, egg yolk, Pecorino Romano, fresh pasta"
+  },
+  {
+    "category": "Main Courses",
+    "name": "Seafood Paella",
+    "description": "Saffron rice, shrimp, scallops, clams, mussels, saffron broth"
+  },
+  {
+    "category": "Sides",
+    "name": "Truffle Mac and Cheese",
+    "description": "Creamy three-cheese sauce, shaved truffles"
+  },
+  {
+    "category": "Sides",
+    "name": "Creamed Corn",
+    "description": "Fresh corn, cream, butter"
+  },
+  {
+    "category": "Sides",
+    "name": "Garlic Mashed Potatoes",
+    "description": "Roasted garlic, butter, cream"
+  },
+  {
+    "category": "Sides",
+    "name": "Seasonal Vegetables",
+    "description": "Fresh market selection"
+  },
+  {
+    "category": "Sides",
+    "name": "Wild Rice Pilaf",
+    "description": "Toasted wild rice, dried cranberries, pecans"
+  },
+  {
+    "category": "Desserts",
+    "name": "Chocolate Lava Cake",
+    "description": "Warm flourless chocolate cake, ice cream, berries"
+  },
+  {
+    "category": "Desserts",
+    "name": "Crème Brûlée",
+    "description": "Vanilla bean custard, torched sugar"
+  },
+  {
+    "category": "Desserts",
+    "name": "Pecan Pie",
+    "description": "Classic Southern pecan pie, vanilla ice cream"
+  },
+  {
+    "category": "Desserts",
+    "name": "Bread Pudding",
+    "description": "Bourbon sauce, whipped cream"
+  },
+  {
+    "category": "Desserts",
+    "name": "Cheesecake",
+    "description": "New York style, graham cracker crust, berry compote"
+  },
+  {
+    "category": "Desserts",
+    "name": "Tiramisu",
+    "description": "Espresso, mascarpone, cocoa powder"
+  },
+  {
+    "category": "Desserts",
+    "name": "Key Lime Pie",
+    "description": "Tart and sweet, whipped cream, graham cracker crust"
+  },
+  {
+    "category": "Desserts",
+    "name": "Chocolate Mousse",
+    "description": "Rich dark chocolate, fresh berries, whipped cream"
+  }
+]

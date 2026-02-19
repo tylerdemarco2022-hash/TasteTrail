@@ -1,0 +1,778 @@
+[
+  {
+    "name": "U.S. National Whitewater Center",
+    "address": "5000 Whitewater Center Pkwy, Charlotte, NC 28214, USA",
+    "website": "http://www.whitewater.org/",
+    "phone": "(704) 391-3900",
+    "place_id": "ChIJvd734yC9VogRIh4ieMP2mJ8",
+    "rating": 4.7,
+    "types": [
+      "establishment",
+      "food",
+      "park",
+      "point_of_interest",
+      "restaurant",
+      "tourist_attraction",
+      "travel_agency"
+    ]
+  },
+  {
+    "name": "Good Food on Montford",
+    "address": "1701 Montford Dr, Charlotte, NC 28209, USA",
+    "website": "http://www.goodfoodonmontford.com/",
+    "phone": "(704) 525-0881",
+    "place_id": "ChIJLWZe8FOeVogR2_XZWK0dvUE",
+    "rating": 4.5,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "AvidXchange Music Factory",
+    "address": "1000 Nc Music Factory Blvd, Charlotte, NC 28206, USA",
+    "website": "http://www.avidxchangemusicfactory.com/",
+    "phone": "(704) 916-8970",
+    "place_id": "ChIJPWL3zzegVogREvWh36XRqtw",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Lucky Strike South Charlotte",
+    "address": "1700 Montford Dr, Charlotte, NC 28209, USA",
+    "website": "https://www.luckystrikeent.com/location/lucky-strike-south-charlotte?utm_source=gbp&utm_medium=organic&utm_campaign=yext_listings",
+    "phone": "(980) 985-3683",
+    "place_id": "ChIJFUVT5FOeVogRGEzO-cn36LE",
+    "rating": 4.3,
+    "types": [
+      "bar",
+      "bowling_alley",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant",
+      "store"
+    ]
+  },
+  {
+    "name": "Bowlero Charlotte",
+    "address": "210 E Trade St, Charlotte, NC 28202, USA",
+    "website": "https://www.bowlero.com/location/bowlero-charlotte/?utm_source=gbp&utm_medium=organic&utm_campaign=yext_listings",
+    "phone": "(704) 716-9300",
+    "place_id": "ChIJ7cS_6yWgVogRdftyxiP7Vyc",
+    "rating": 4,
+    "types": [
+      "bar",
+      "bowling_alley",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant",
+      "store"
+    ]
+  },
+  {
+    "name": "Cabo Fish Taco",
+    "address": "3201 N Davidson St, Charlotte, NC 28205, USA",
+    "website": "http://www.cabofishtaco.com/",
+    "phone": "(704) 332-8868",
+    "place_id": "ChIJaXI8ldkfVIgREdpCYwTQs6c",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "VBGB Beer Hall and Garden/Restaurant",
+    "address": "920 Hamilton St, Charlotte, NC 28206, USA",
+    "website": "http://vbgbuptown.com/",
+    "phone": "(704) 333-4111",
+    "place_id": "ChIJIVXP2DegVogR_bp3H2r2P5k",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Church and Union Charlotte",
+    "address": "127 N Tryon St #8, Charlotte, NC 28202, USA",
+    "website": "http://www.churchandunioncharlotte.com/",
+    "phone": "(704) 919-1322",
+    "place_id": "ChIJaU3FayWgVogRSbDBMGyJSPo",
+    "rating": 4.2,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Mimosa Grill",
+    "address": "327 S Tryon St, Charlotte, NC 28202, USA",
+    "website": "https://mimosagrill.com/",
+    "phone": "(704) 343-0700",
+    "place_id": "ChIJ4Tu10iigVogReMG47k8Zp8g",
+    "rating": 4.2,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "The Cowfish Sushi Burger Bar",
+    "address": "4310 Sharon Rd, Charlotte, NC 28211, USA",
+    "website": "http://www.thecowfish.com/",
+    "phone": "(704) 365-1922",
+    "place_id": "ChIJ_1Tp9RWeVogRt-7px831f7w",
+    "rating": 4.6,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Chima Steakhouse",
+    "address": "139 S Tryon St, Charlotte, NC 28202, USA",
+    "website": "http://www.chimasteakhouse.com/",
+    "phone": "(704) 601-4141",
+    "place_id": "ChIJyQ9xcC-gVogReRYhXMnL-_U",
+    "rating": 4.6,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Bentley's Restaurant",
+    "address": "4620 Piedmont Row Dr #110, Charlotte, NC 28210, USA",
+    "website": "https://bentleysrestaurantnc.com/",
+    "phone": "(704) 343-9201",
+    "place_id": "ChIJWcEwWC-gVogRyY3V0W6C9bI",
+    "rating": 4.4,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Melting Pot",
+    "address": "901 S Kings Dr #140B, Charlotte, NC 28204, USA",
+    "website": "https://www.meltingpot.com/charlotte-midtown-nc/",
+    "phone": "(704) 334-4400",
+    "place_id": "ChIJRZB6fZKfVogRjcsba8Ytyv4",
+    "rating": 4.7,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Firehouse Subs Concord Mills",
+    "address": "8111 Concord Mills Boulevard #670, Concord, NC 28027, USA",
+    "website": "https://www.firehousesubs.com/",
+    "phone": "(704) 979-9900",
+    "place_id": "ChIJ89u7FUMbVIgR5q65p2x7ATw",
+    "rating": 4.1,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Aria Tuscan Grill",
+    "address": "100 N Tryon St, Charlotte, NC 28202, USA",
+    "website": "http://www.ariacharlotte.com/",
+    "phone": "(704) 376-8880",
+    "place_id": "ChIJMaMPcyWgVogRcu7gWmymEvY",
+    "rating": 4.3,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Ruth's Chris Steak House",
+    "address": "6000 Fairview Rd, Charlotte, NC 28210, USA",
+    "website": "https://www.ruthschrisphg.com/charlotte-southpark",
+    "phone": "(704) 556-1115",
+    "place_id": "ChIJvWOPnGmeVogRyzWp_3svyYo",
+    "rating": 4.6,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Rí Rá Irish Pub",
+    "address": "208 N Tryon St, Charlotte, NC 28202, USA",
+    "website": "https://rira.com/charlotte/",
+    "phone": "(704) 333-5554",
+    "place_id": "ChIJd0nFFSWgVogRoio2VliELF4",
+    "rating": 4.4,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Cantina 1511",
+    "address": "4271 Park Rd, Charlotte, NC 28209, USA",
+    "website": null,
+    "phone": "(704) 331-9222",
+    "place_id": "ChIJE1wwDZefVogRVr2RBqBhuTs",
+    "rating": 4.2,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Pineville Ice House",
+    "address": "400 Towne Centre Blvd, Pineville, NC 28134, USA",
+    "website": "http://www.pinevilleice.com/",
+    "phone": "(704) 889-9000",
+    "place_id": "ChIJu3M2RI6cVogRTS8100rZEM0",
+    "rating": 4.4,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "health",
+      "point_of_interest",
+      "restaurant",
+      "school",
+      "store"
+    ]
+  },
+  {
+    "name": "Ru San's",
+    "address": "2440 Park Rd, Charlotte, NC 28203, USA",
+    "website": "http://www.rusans.com/",
+    "phone": "(704) 374-0008",
+    "place_id": "ChIJM1LSIKCfVogRYMBZFPBlvnU",
+    "rating": 4.5,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Edgewater Bar & Grille",
+    "address": "8629 J M Keynes Dr, Charlotte, NC 28262, USA",
+    "website": "http://www.edgewaterbarandgrille.com/",
+    "phone": "(704) 916-2831",
+    "place_id": "ChIJY7Z9wyQcVIgR2Ad1Ps9Cs2c",
+    "rating": 4.2,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Alexander Michael's",
+    "address": "401 W 9th St, Charlotte, NC 28202, USA",
+    "website": "http://www.almikestavern.com/",
+    "phone": "(704) 332-6789",
+    "place_id": "ChIJCfh4NTqgVogR838O89IIMow",
+    "rating": 4.7,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "The Capital Grille",
+    "address": "201 N Tryon St, Charlotte, NC 28202, USA",
+    "website": "https://www.thecapitalgrille.com/locations/nc/charlotte/charlotte/8011?cmpid=br:tcg_ag:ie_ch:loc_ca:TCGGMB_sn:gmb_gt:charlotte-nc-8011_pl:locurl_rd:1008",
+    "phone": "(704) 348-1400",
+    "place_id": "ChIJ33BVPCWgVogRw-RVIBbNCHg",
+    "rating": 4.7,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Texas Roadhouse",
+    "address": "10400 E Independence Blvd, Matthews, NC 28105, USA",
+    "website": "https://www.texasroadhouse.com/locations/north-carolina/matthews?utm_source=listing&utm_medium=search",
+    "phone": "(704) 814-0285",
+    "place_id": "ChIJB_r7x_YjVIgRsCa8BSkqn7A",
+    "rating": 4.2,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Azteca mexican restaurant",
+    "address": "7340 Smith Corners Blvd, Charlotte, NC 28269, USA",
+    "website": "http://www.aztecarestaurantcharlotte.com/",
+    "phone": "(704) 598-4068",
+    "place_id": "ChIJr4xjvqenVogRsF0JoCXBBxM",
+    "rating": 4.2,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "The Olde Mecklenburg Brewery & Biergarten",
+    "address": "4150 Yancey Rd, Charlotte, NC 28217, USA",
+    "website": "https://www.ombbeer.com/",
+    "phone": "(704) 459-8329",
+    "place_id": "ChIJ2zlDlyOfVogR7wSibZVclIc",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Mert's Heart And Soul",
+    "address": "214 N College St, Charlotte, NC 28202, USA",
+    "website": "https://mertscharlotte.com/",
+    "phone": "(704) 342-4222",
+    "place_id": "ChIJ71Ry-ySgVogROc3bp7uwN2A",
+    "rating": 4.2,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Basil Thai Charlotte",
+    "address": "210 N Church St, Charlotte, NC 28202, USA",
+    "website": "http://www.eatatbasil.com/charlotte",
+    "phone": "(704) 332-7212",
+    "place_id": "ChIJv20aTCWgVogRo63cwwVJbTo",
+    "rating": 4.1,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Boardwalk Billy's Raw Bar and Ribs",
+    "address": "9005 J M Keynes Dr #2, Charlotte, NC 28262, USA",
+    "website": "https://university.boardwalkbillys.com/#",
+    "phone": "(704) 503-7427",
+    "place_id": "ChIJ_7a5WzscVIgRM3lXdHYyhoE",
+    "rating": 4.3,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Texas Roadhouse",
+    "address": "7801 Gateway Ln NW, Concord, NC 28027, USA",
+    "website": "https://www.texasroadhouse.com/locations/north-carolina/concord?utm_source=listing&utm_medium=search",
+    "phone": "(704) 979-3090",
+    "place_id": "ChIJ6yTbGFsbVIgRwsFF1F0IinE",
+    "rating": 4.2,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Rooster's Wood-fired Kitchen Southpark",
+    "address": "6601 Carnegie Blvd, Charlotte, NC 28211, USA",
+    "website": "http://www.roosterskitchen.com/",
+    "phone": "(704) 366-8688",
+    "place_id": "ChIJ8SnVaz6eVogRi9hFG8_fG2E",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Fleming’s Prime Steakhouse & Wine Bar",
+    "address": "210 E Trade St Suite C-110, Charlotte, NC 28202, USA",
+    "website": "https://www.flemingssteakhouse.com/Locations/NC/Charlotte?y_source=1_MTU1MDMxNjAtNzE1LWxvY2F0aW9uLndlYnNpdGU%3D",
+    "phone": "(704) 333-4266",
+    "place_id": "ChIJ7cS_6yWgVogR-FZQSpuaiTg",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Fortune Garden",
+    "address": "5894 809 E Arrowood Rd #1800, Charlotte, NC 28217, USA",
+    "website": "https://orderfortunegarden.com/",
+    "phone": "(704) 523-2828",
+    "place_id": "ChIJVYcqIaKeVogRSnQcT3J7BoE",
+    "rating": 3.8,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Park Road Shopping Center",
+    "address": "4101 Park Rd, Charlotte, NC 28209, USA",
+    "website": "http://parkroadshoppingcenter.com/",
+    "phone": null,
+    "place_id": "ChIJN6H1n1SeVogRgoXGuw6ApDw",
+    "rating": 4.5,
+    "types": [
+      "establishment",
+      "food",
+      "grocery_or_supermarket",
+      "point_of_interest",
+      "restaurant",
+      "shopping_mall",
+      "store"
+    ]
+  },
+  {
+    "name": "Sullivan's Steakhouse",
+    "address": "1928 South Blvd #200, Charlotte, NC 28203, USA",
+    "website": "https://sullivanssteakhouse.com/charlotte/",
+    "phone": "(704) 335-8228",
+    "place_id": "ChIJTdBP9nmfVogRC62UuanKepc",
+    "rating": 4.4,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Waldhorn Restaurant",
+    "address": "12101 Lancaster Hwy, Pineville, NC 28134, USA",
+    "website": "http://www.waldhorn.us/",
+    "phone": "(704) 540-7047",
+    "place_id": "ChIJj1VdY5GcVogRFsvasU1qLTo",
+    "rating": 4.7,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Thai Orchid Restaurant",
+    "address": "4223 Providence Rd Unit 7, Charlotte, NC 28211, USA",
+    "website": "https://thaiorchidrestaurantcharlotte.com/?utm_source=google",
+    "phone": "(704) 364-1134",
+    "place_id": "ChIJBQ7XQZEgVIgR24F0OpPTm4w",
+    "rating": 4.4,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Bad Daddy's Burger Bar",
+    "address": "1626 East Blvd, Charlotte, NC 28203, USA",
+    "website": "https://www.baddaddysburgerbar.com/locations/bad-daddys-burger-bar-14",
+    "phone": "(704) 714-4888",
+    "place_id": "ChIJs1barZefVogRgUDoM9WzMpE",
+    "rating": 4.3,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Common Market Plaza Midwood",
+    "address": "2007 Commonwealth Ave, Charlotte, NC 28205, USA",
+    "website": "https://commonmarketisgood.com/plaza-midwood/",
+    "phone": "(704) 334-6209",
+    "place_id": "ChIJD5OUXgCgVogRY-jdOPI66fg",
+    "rating": 4.5,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "grocery_or_supermarket",
+      "liquor_store",
+      "point_of_interest",
+      "restaurant",
+      "store"
+    ]
+  },
+  {
+    "name": "Midnight Diner",
+    "address": "420 E Trade St, Charlotte, NC 28202, USA",
+    "website": "https://midnightdinercharlotte.com/",
+    "phone": "(980) 207-3641",
+    "place_id": "ChIJeXjyeICfVogRK24wMhuRSr4",
+    "rating": 4.3,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Jocks & Jills",
+    "address": "4109 S Stream Blvd, Charlotte, NC 28217, USA",
+    "website": "https://jocksandjills.com/",
+    "phone": "(704) 423-0001",
+    "place_id": "ChIJ_8bayd-YVogRMHoloGFeVYo",
+    "rating": 4.2,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Ruth's Chris Steak House",
+    "address": "222 S Tryon St, Charlotte, NC 28202, USA",
+    "website": "https://www.ruthschrisphg.com/charlotte-uptown",
+    "phone": "(704) 338-9444",
+    "place_id": "ChIJnW07FC-gVogRn-uFW8VUyx0",
+    "rating": 4.5,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Dilworth Neighborhood Grille",
+    "address": "911 E Morehead St, Charlotte, NC 28204, USA",
+    "website": "https://dilworthgrille.com/dilworthgrille-charlotte?utm_source=google",
+    "phone": "(704) 377-3808",
+    "place_id": "ChIJr0fg_YWfVogR-pn_9djnJgI",
+    "rating": 4.2,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Saffron Indian Cuisine",
+    "address": "2135 Ayrsley Town Blvd B, Charlotte, NC 28273, USA",
+    "website": "http://saffron-cuisine.com/",
+    "phone": "(980) 297-7722",
+    "place_id": "ChIJBxRlxNebVogRL7wHDf7Q-fk",
+    "rating": 4.1,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Luce",
+    "address": "Truist Center, 214 N Tryon St J, Charlotte, NC 28202, USA",
+    "website": "http://www.conterestaurantgroup.com/",
+    "phone": "(704) 344-9222",
+    "place_id": "ChIJQVLqFyWgVogRg91Gr3ReBNA",
+    "rating": 4.4,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Mama Ricotta's",
+    "address": "601 S Kings Dr AA, Charlotte, NC 28204, USA",
+    "website": "https://www.mamaricottas.com/",
+    "phone": "(704) 343-0148",
+    "place_id": "ChIJbT-Vu42fVogRZIIqgTiyxw0",
+    "rating": 4.6,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Jason's Deli",
+    "address": "1600 E Woodlawn Rd, Charlotte, NC 28209, USA",
+    "website": "https://www.jasonsdeli.com/locations/nc/charlotte/1600-e-woodlawn-rd/",
+    "phone": "(704) 676-5858",
+    "place_id": "ChIJT42KbVSeVogRuwLImO_0xVc",
+    "rating": 4.4,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant",
+      "store"
+    ]
+  },
+  {
+    "name": "Landmark Restaurant Diner",
+    "address": "4429 Central Ave, Charlotte, NC 28205, USA",
+    "website": "https://www.orderlandmarkdinercharlottenc.com/",
+    "phone": "(704) 532-1153",
+    "place_id": "ChIJzR10moAfVIgRAj0VE9m7PrE",
+    "rating": 4.4,
+    "types": [
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Starbucks Coffee Company",
+    "address": "1401 East Blvd, Charlotte, NC 28203, USA",
+    "website": "https://www.starbucks.com/store-locator/store/17711/",
+    "phone": "(704) 338-9911",
+    "place_id": "ChIJV1vO4ZmfVogRQW0twxLgWi0",
+    "rating": 4.2,
+    "types": [
+      "cafe",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant",
+      "store"
+    ]
+  },
+  {
+    "name": "Crave Dessert Bar",
+    "address": "500 W 5th St UNIT 120, Charlotte, NC 28202, USA",
+    "website": "http://www.cravedessertbar.com/",
+    "phone": "(704) 335-0588",
+    "place_id": "ChIJPRcYTDCgVogR8GtNLay9Vnw",
+    "rating": 4.3,
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "night_club",
+      "point_of_interest",
+      "restaurant"
+    ]
+  },
+  {
+    "name": "Kenilworth Commons",
+    "address": "1235 East Blvd, Charlotte, NC 28203, USA",
+    "website": "https://edens.com/property/kenilworth-commons",
+    "phone": null,
+    "place_id": "ChIJq_gWIZqfVogROxpNrAOZtMI",
+    "rating": 4.4,
+    "types": [
+      "establishment",
+      "food",
+      "grocery_or_supermarket",
+      "point_of_interest",
+      "restaurant",
+      "shopping_mall",
+      "store"
+    ]
+  },
+  {
+    "name": "Triple C Brewing Company",
+    "address": "2900 Griffith St, Charlotte, NC 28203, USA",
+    "website": "http://www.triplecbrewing.com/",
+    "phone": "(704) 372-3212",
+    "place_id": "ChIJ1T-o8myfVogRNFJXvqrG328",
+    "rating": 4.6,
+    "types": [
+      "establishment",
+      "food",
+      "liquor_store",
+      "point_of_interest",
+      "restaurant",
+      "store"
+    ]
+  }
+]

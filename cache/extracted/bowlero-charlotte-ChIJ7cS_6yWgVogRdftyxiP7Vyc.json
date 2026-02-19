@@ -1,0 +1,138 @@
+{
+  "categories": [
+    {
+      "category": "Eats & Drinks",
+      "items": [
+        {
+          "dish_name": "Nacho Avalanche",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Burgers",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Wings",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Dunk Tank",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Power Tower",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Pizza Party",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Sweet Spot",
+          "description": "",
+          "price": ""
+        },
+        {
+          "dish_name": "Pizza & Pitcher Combo",
+          "description": "This crowd-favorite combo features hot cheese or pepperoni pizza and a pitcher of ice-cold margarita, beer or soda, all for an unbeatable price.",
+          "price": ""
+        },
+        {
+          "dish_name": "Caramel Apple Craft Lemonade",
+          "description": "Sweet meets tart in this refreshing sip: crisp apple flavor blended with a swirl of rich caramel, served ice-cold for the perfect refresh.",
+          "price": ""
+        }
+      ]
+    },
+    {
+      "category": "Promotions",
+      "items": [
+        {
+          "dish_name": "After Party",
+          "description": "Keep the night alive with After Party, our special that gives you unlimited bowling for only $28.99. Perfect for friends, fun, and unforgettable nights out.",
+          "price": "28.99"
+        },
+        {
+          "dish_name": "Night Strike",
+          "description": "During Night Strike, enjoy unlimited bowling (shoe rental included!) for only $21.99—the perfect way to keep the party going.",
+          "price": "21.99"
+        },
+        {
+          "dish_name": "Unlimited Bowling & Arcade Play",
+          "description": "Enjoy unlimited bowling & shoe rental for just $17.99 and unlimited arcade play for just $17.99.",
+          "price": "17.99"
+        },
+        {
+          "dish_name": "Half-Price Arcade Play",
+          "description": "Get your game on and enjoy 50% off arcade play all day long.",
+          "price": ""
+        },
+        {
+          "dish_name": "The Special",
+          "description": "Buy two games, get the third 50% off! The Special makes every game more fun (and more affordable).",
+          "price": ""
+        }
+      ]
+    },
+    {
+      "category": "Food & Drink",
+      "items": [
+        {
+          "dish_name": "Pizza & Pitcher Combo",
+          "description": "This crowd-favorite combo features hot cheese or pepperoni pizza and a pitcher of ice-cold margarita, beer or soda, all for an unbeatable price.",
+          "price": ""
+        },
+        {
+          "dish_name": "Caramel Apple Craft Lemonade",
+          "description": "Sweet meets tart in this refreshing sip: crisp apple flavor blended with a swirl of rich caramel, served ice-cold for the perfect refresh.",
+          "price": ""
+        },
+        {
+          "dish_name": "Nacho Avalanche",
+          "description": "Brace yourself for a flavor strike with our Nacho Avalanche – it's a game-changer!",
+          "price": ""
+        },
+        {
+          "dish_name": "Cheeseburgers",
+          "description": "Roll a perfect game and savor the flavor with our unbeatable cheeseburgers!",
+          "price": ""
+        },
+        {
+          "dish_name": "Wings",
+          "description": "Wing your way to victory with our irresistible, saucy wings!",
+          "price": ""
+        },
+        {
+          "dish_name": "Dunk Tank",
+          "description": "Make a splash with our Dunk Tank! This large, shareable drink is perfect for kicking off a night of fun with friends.",
+          "price": ""
+        },
+        {
+          "dish_name": "Power Tower",
+          "description": "Raise the bar on fun with our towering beer tower.",
+          "price": ""
+        },
+        {
+          "dish_name": "Pizza Party",
+          "description": "Score a slice of perfection with our piping hot, cheesy pizza – a winner every time!",
+          "price": ""
+        },
+        {
+          "dish_name": "Milkshakes",
+          "description": "Cool down after a heated game with our deliciously creamy milkshakes!",
+          "price": ""
+        }
+      ]
+    },
+    {
+      "category": "Menu Items",
+      "items": []
+    }
+  ]
+}

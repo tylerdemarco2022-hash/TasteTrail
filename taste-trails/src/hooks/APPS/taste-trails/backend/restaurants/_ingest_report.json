@@ -1,0 +1,311 @@
+[
+  {
+    "name": "The Capital Grille",
+    "url": "https://www.thecapitalgrille.com/menu/dinner",
+    "status": "error"
+  },
+  {
+    "name": "Fahrenheit",
+    "url": "https://www.fahrenheit-charlotte.com/menus/#dinner",
+    "status": "error"
+  },
+  {
+    "name": "Stagioni",
+    "url": "https://www.stagioniclt.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "5Church Charlotte",
+    "url": "https://www.5churchcharlotte.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "Haberdish",
+    "url": "https://www.haberdish.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "The Fig Tree Restaurant",
+    "url": "https://www.thefigtreerestaurant.com/dinner-menu",
+    "status": "error"
+  },
+  {
+    "name": "Bentley's Restaurant",
+    "url": "https://bentleysrestaurant.com/dinner-menu",
+    "status": "error"
+  },
+  {
+    "name": "Sea Level NC",
+    "url": "https://www.sealevelnc.com/menus/#dinner",
+    "status": "ok",
+    "count": 1
+  },
+  {
+    "name": "Kindred",
+    "url": "https://www.kindreddavidson.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "Good Food on Montford",
+    "url": "https://goodfoodonthemontford.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "The Cellar at Duckworth's",
+    "url": "https://www.thecellaratduckworths.com/menus",
+    "status": "ok",
+    "count": 1
+  },
+  {
+    "name": "Mico Restaurant",
+    "url": "https://www.micorestaurant.com/menus",
+    "status": "error"
+  },
+  {
+    "name": "Bardo",
+    "url": "https://bardorestaurant.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Angeline's",
+    "url": "https://www.angelinesrestaurant.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "Dressler's Restaurant",
+    "url": "https://www.dresslersrestaurant.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Rooster's Wood-Fired Kitchen",
+    "url": "https://roosterskitchen.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Oak Steakhouse Charlotte",
+    "url": "https://www.oaksteakhouserestaurant.com/charlotte/menus",
+    "status": "error"
+  },
+  {
+    "name": "Aria Tuscan Grill",
+    "url": "https://www.ariacharlotte.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "La Belle Helene",
+    "url": "https://labellehelene.com/menus",
+    "status": "error"
+  },
+  {
+    "name": "Fin & Fino",
+    "url": "https://finandfino.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Alexander Michael's",
+    "url": "https://www.alexandermichaels.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Bernardin's Restaurant",
+    "url": "https://www.bernardinsrestaurant.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "Cajun Queen",
+    "url": "https://cajunqueen.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Chima Steakhouse",
+    "url": "https://chimasteakhouse.com/charlotte/menu/",
+    "status": "error"
+  },
+  {
+    "name": "Cowbell Burger & Whiskey Bar",
+    "url": "https://cowbellburgerbar.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Dolce Osteria",
+    "url": "https://dolceosteria.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Eddie V's Prime Seafood",
+    "url": "https://www.eddiev.com/menu/dinner/",
+    "status": "error"
+  },
+  {
+    "name": "Luce Ristorante & Bar",
+    "url": "https://www.lucecharlotte.com/dinner",
+    "status": "error"
+  },
+  {
+    "name": "Mama Ricotta's",
+    "url": "https://www.mamaricottas.com/dinner-menu",
+    "status": "error"
+  },
+  {
+    "name": "McNinch House Restaurant",
+    "url": "https://www.mcninchhouse.com/dinner-menu",
+    "status": "error"
+  },
+  {
+    "name": "Midwood Smokehouse",
+    "url": "https://midwoodsmokehouse.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Napa on Providence",
+    "url": "https://www.napacharotte.com/dinner-menu",
+    "status": "error"
+  },
+  {
+    "name": "O-Ku Sushi Charlotte",
+    "url": "https://o-kusushi.com/locations/charlotte/menu/",
+    "status": "error"
+  },
+  {
+    "name": "Peppervine",
+    "url": "https://www.peppervine.com/dinner",
+    "status": "ok",
+    "count": 1
+  },
+  {
+    "name": "Ruth's Chris Steak House",
+    "url": "https://www.ruthschris.com/menu/dinner/",
+    "status": "error"
+  },
+  {
+    "name": "Supperland",
+    "url": "https://supper.land/menu",
+    "status": "error"
+  },
+  {
+    "name": "The Goodyear House",
+    "url": "https://www.thegoodyearhouse.com/menus",
+    "status": "ok",
+    "count": 11
+  },
+  {
+    "name": "The King's Kitchen",
+    "url": "https://www.thekingskitchen.org/menu",
+    "status": "error"
+  },
+  {
+    "name": "The Melting Pot",
+    "url": "https://www.meltingpot.com/charlotte-nc/menu",
+    "status": "error"
+  },
+  {
+    "name": "Vana",
+    "url": "https://www.vanacharlotte.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "300 East",
+    "url": "https://300east.net/menu",
+    "status": "error"
+  },
+  {
+    "name": "Bulla Gastrobar",
+    "url": "https://bullagastrobar.com/menu/charlotte/",
+    "status": "ok",
+    "count": 8
+  },
+  {
+    "name": "Calle Sol Latin Cafe",
+    "url": "https://www.callesolcafe.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Calle Sol",
+    "url": "https://www.callesolcafe.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Dilworth Tasting Room",
+    "url": "https://dilworthtastingroom.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Foxcroft Wine Co.",
+    "url": "https://foxcroftwineco.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Futo Buta",
+    "url": "https://www.futobuta.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Indaco Charlotte",
+    "url": "https://indacocharlotte.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Letty's",
+    "url": "https://www.lettys.com/menu",
+    "status": "ok",
+    "count": 2
+  },
+  {
+    "name": "Link & Pin",
+    "url": "https://linkandpin.com/menu",
+    "status": "ok",
+    "count": 1
+  },
+  {
+    "name": "Little Mama's Italian Kitchen",
+    "url": "https://www.littlemamasitalian.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Lupie's Cafe",
+    "url": "https://www.lupiescafe.com/menu",
+    "status": "ok",
+    "count": 2
+  },
+  {
+    "name": "Menya Daruma",
+    "url": "https://www.menyadaruma.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Morton's The Steakhouse",
+    "url": "https://www.mortons.com/location/charlotte/menu/",
+    "status": "error"
+  },
+  {
+    "name": "North Italia",
+    "url": "https://www.northitalia.com/locations/charlotte/menu",
+    "status": "ok",
+    "count": 3
+  },
+  {
+    "name": "Paco's Tacos & Tequila",
+    "url": "https://www.pacostacosandtequila.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Pink Bellies",
+    "url": "https://www.pinkbellies.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "Soul Gastrolounge",
+    "url": "https://www.soulgastrolounge.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "The Asbury",
+    "url": "https://www.theasburyclt.com/menu",
+    "status": "error"
+  },
+  {
+    "name": "The Cowfish Sushi Burger Bar",
+    "url": "https://www.thecowfish.com/locations/charlotte/menu",
+    "status": "error"
+  }
+]

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7
+    container_name: taste_trails_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: taste_trails_backend
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:3000"
+    command: ["node", "server.js"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "const http=require('http');http.get('http://127.0.0.1:3000/health',res=>{if(res.statusCode===200)process.exit(0);else process.exit(1)}).on('error',()=>process.exit(1));"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    build: .
+    container_name: taste_trails_worker
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: ["node", "worker.js"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "const net=require('net');const s=net.createConnection(6379,'redis',()=>{s.write('*1\\r\\n$4\\r\\nPING\\r\\n');});s.setTimeout(2000);s.on('data',d=>{if(d.toString().includes('PONG'))process.exit(0);else process.exit(2)});s.on('error',()=>process.exit(2));s.on('timeout',()=>process.exit(2));"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  redis_data:
+    name: taste_trails_redis_data

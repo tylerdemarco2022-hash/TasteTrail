@@ -1,0 +1,107 @@
+{
+  "restaurant_name": "Culinary Dropout",
+  "city": "Charlotte",
+  "state": "NC",
+  "sections": [
+    {
+      "name": "Starters",
+      "items": [
+        {"name": "Yesterday's Soup", "description": "it's better the next day"},
+        {"name": "Soft Pretzels & Provolone Fondue", "description": "sea salt"},
+        {"name": "Spicy Shrimp Crispy Rice", "description": "avocado, kimchi rice, chili crunch, sweet soy"},
+        {"name": "Wagyu Pigs In a Blanket", "description": "honey mustard crème fraîche"},
+        {"name": "BBQ Pork Belly Nachos", "description": "black bean, guacamole, sour cream, pico de gallo"},
+        {"name": "Crispy Popcorn Shrimp", "description": "zucchini, grilled lemon, roasted garlic aioli"},
+        {"name": "Whipped Feta & Tahini Dip", "description": "fresh pomegranate seed, pistachio crunch, grilled ciabatta"},
+        {"name": "Crispy Brussels Sprouts", "description": "gochujang, mint, cilantro"},
+        {"name": "Hot Wings", "description": "buffalo sauce, honey mustard seed, shaved carrots & celery, parmesan"},
+        {"name": "House Potato Chips", "description": "famous onion dip"}
+      ]
+    },
+    {
+      "name": "Antipasti",
+      "items": [
+        {"name": "Grilled Asparagus", "description": ""},
+        {"name": "Marinated Olives", "description": ""},
+        {"name": "Crusty Bread, Garlic Oil & Balsamic", "description": ""},
+        {"name": "House Smoked Salmon Dip, Crushed Pretzel", "description": ""},
+        {"name": "Marcona Almonds", "description": ""},
+        {"name": "Prosciutto Deviled Eggs", "description": ""},
+        {"name": "Molinari Sopressata", "description": ""},
+        {"name": "Hot Coppa", "description": ""},
+        {"name": "Prosciutto di San Daniele", "description": ""},
+        {"name": "Dolce Gorgonzola", "description": ""},
+        {"name": "Prairie Breeze Cheddar", "description": ""},
+        {"name": "Truffle Crescenza", "description": ""},
+        {"name": "Aged Manchego", "description": ""},
+        {"name": "Pimento Cheese", "description": ""},
+        {"name": "Episode 163 - The Slicer", "description": "chef's selection of thinly sliced meats, cheese & snacks"}
+      ]
+    },
+    {
+      "name": "Salads",
+      "items": [
+        {"name": "House Salad", "description": "grape tomato, cucumber, heirloom carrot, parmesan, buttermilk ranch"},
+        {"name": "Classic Caesar", "description": "toasted cheese croutons"},
+        {"name": "Asian Crunch", "description": "purple cabbage, avocado, sesame, roasted cashew, fresno, dried mango, thai curry vinaigrette"},
+        {"name": "Butternut Squash & Kale", "description": "bartlett pear, ancient grains, date, pistachio, toasted mulberry, white cheddar, maple tahini vinaigrette"},
+        {"name": "Chopped Chicken", "description": "avocado, bacon, heirloom tomato, white cheddar, deviled egg, bacon bbq ranch"}
+      ]
+    },
+    {
+      "name": "Sandwiches",
+      "items": [
+        {"name": "Turkey Pastrami", "description": "pretzel roll, swiss, coleslaw, 1000 island"},
+        {"name": "Shaved Prime Rib Dip", "description": "fontina, horseradish crème fraîche, au jus"},
+        {"name": "The M.A.C. Burger", "description": "double cheeseburger, onion, lettuce, pickle, 1000 island"},
+        {"name": "The Pub Burger", "description": "havarti, bacon, mayo, house bbq sauce"},
+        {"name": "Crispy Chicken Katsu", "description": "japanese milk bread, spicy miso aioli, napa slaw, hoisin"}
+      ]
+    },
+    {
+      "name": "Detroit Style Pizza",
+      "items": [
+        {"name": "Cheese", "description": "provolone, havarti, mozzarella cheese, parmesan, di napoli tomato & basil"},
+        {"name": "Black Truffle Mushroom", "description": "smoked onion alfredo, mozzarella cheese, arugula"},
+        {"name": "Pepperoni & Italian Sausage", "description": "di napoli tomato, mozzarella cheese"}
+      ]
+    },
+    {
+      "name": "Entrées",
+      "items": [
+        {"name": "36-Hour Pork Ribs", "description": "jalapeño, molasses, fries"},
+        {"name": "Ma...The Meatloaf !?!", "description": "broccolini, smashed potato, gravy"},
+        {"name": "Mongolian Short Rib", "description": "charred scallion, bok choy, soft egg, crispy onion, yuzu sticky rice, thai chili"},
+        {"name": "Steak Frites", "description": "prime skirt steak, black truffle butter, french fries"},
+        {"name": "Spicy Rigatoni", "description": "chicken sausage, roasted mushroom, spinach, calabrian panna, pecorino bread crumb"},
+        {"name": "Korean Style Ribeye Cap", "description": "zucchini, beech mushroom, roasted onion, cilantro"},
+        {"name": "Beer Battered Fish & Chips", "description": "coleslaw, tartar sauce"},
+        {"name": "Fried Chicken", "description": "buttermilk biscuit, smashed potato, gravy"},
+        {"name": "Spicy Vegan Curry", "description": "griddled sweet potato, eggplant, snap pea, shiitake mushrooms, black rice"},
+        {"name": "Roasted Salmon", "description": "butternut squash, toasted couscous, crispy brussels sprouts"}
+      ]
+    },
+    {
+      "name": "Cocktails & Drinks",
+      "items": [
+        {"name": "Giddy Up Espresso Martini", "description": ""},
+        {"name": "Flaco Verde Margarita", "description": ""},
+        {"name": "Playboi Stache", "description": ""},
+        {"name": "Old Fashioned American Spirit", "description": ""},
+        {"name": "Paloma Spritz", "description": ""},
+        {"name": "Tijuana Spa Water", "description": ""},
+        {"name": "Abandoned Cadillac", "description": ""},
+        {"name": "Peaches & Rye", "description": ""},
+        {"name": "Two to Mango", "description": ""},
+        {"name": "Cali & Tay Skinny Margarita", "description": ""},
+        {"name": "Full Moon Party", "description": ""},
+        {"name": "Lil Mez Daisy", "description": ""},
+        {"name": "Campfire Vibes", "description": ""},
+        {"name": "Evil Jungle Princess", "description": ""},
+        {"name": "Room Service", "description": ""},
+        {"name": "El Matador", "description": ""},
+        {"name": "Dropout Classic Mule", "description": ""}
+      ]
+    }
+  ]
+}

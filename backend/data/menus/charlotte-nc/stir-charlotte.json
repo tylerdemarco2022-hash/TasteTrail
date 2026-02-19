@@ -1,0 +1,75 @@
+{
+  "restaurant_name": "STIR",
+  "city": "Charlotte",
+  "state": "NC",
+  "sections": [
+    {
+      "name": "Starters",
+      "items": [
+        {"name": "Parmesan White Truffle Fries", "description": ""},
+        {"name": "Tillamook Sliders", "description": ""},
+        {"name": "Fried Green Tomatoes", "description": ""},
+        {"name": "Hummus & Pimento Trio", "description": ""},
+        {"name": "Blackened Fish Tacos", "description": ""},
+        {"name": "Chicken Lettuce Wraps", "description": ""}
+      ]
+    },
+    {
+      "name": "Soups & Salads",
+      "items": [
+        {"name": "Crab Bisque", "description": ""},
+        {"name": "Caesar Wedge", "description": ""},
+        {"name": "Stir Chop Salad", "description": ""},
+        {"name": "Stir Chicken Chop", "description": ""},
+        {"name": "Veggie Chop Salad", "description": ""},
+        {"name": "Iceberg Wedge", "description": ""},
+        {"name": "Seared Tuna Salad", "description": ""}
+      ]
+    },
+    {
+      "name": "Sandwiches & Burgers",
+      "items": [
+        {"name": "Tillamook Cheeseburger", "description": ""},
+        {"name": "Fried Green Tomato Burger", "description": ""},
+        {"name": "Plant-Based Burger", "description": ""},
+        {"name": "Spicy Tuna Burger", "description": ""}
+      ]
+    },
+    {
+      "name": "Entrées",
+      "items": [
+        {"name": "Scallop & Shrimp White Cheddar Mac & Cheese", "description": ""},
+        {"name": "Chicken Picatta", "description": ""},
+        {"name": "Grilled Chicken Caprese", "description": ""},
+        {"name": "Crispy Mahi Bowl", "description": ""},
+        {"name": "Filet & House Goat Cheese Ravioli", "description": ""},
+        {"name": "Center Cut Filet", "description": ""},
+        {"name": "Steak Frites", "description": ""},
+        {"name": "Seared Scallops", "description": ""},
+        {"name": "Shrimp & Grits", "description": ""},
+        {"name": "Roasted Vegetables & Farro", "description": ""},
+        {"name": "Grilled Salmon", "description": ""}
+      ]
+    },
+    {
+      "name": "Desserts",
+      "items": [
+        {"name": "Matcha Green Tea Cheesecake", "description": ""},
+        {"name": "Chocolate Espresso Flourless Cake", "description": ""}
+      ]
+    },
+    {
+      "name": "Sides",
+      "items": [
+        {"name": "Grilled Asparagus", "description": ""},
+        {"name": "Grilled Vegetables", "description": ""},
+        {"name": "Roasted Root Vegetables", "description": ""},
+        {"name": "Vegetables & Farro", "description": ""},
+        {"name": "Hand-Cut Fries", "description": ""},
+        {"name": "Roasted Potatoes", "description": ""},
+        {"name": "Cilantro Slaw", "description": ""},
+        {"name": "White Cheddar Grits", "description": ""}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "name": "VideoPlayerNextgendashWorkerEntrypointBundle",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "VideoPlayerNextgendashWorkerWithDebugEntrypointBundle",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "VideoPlayerNextgendashWorkerV2EntrypointWorkerBundle",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "FileHashWorkerBundle",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "MAWMainWebWorkerV2Bundle",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "WAMediaWasmWorkerBundle",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "like",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "love",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "selfie",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "dorothy",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "toto",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "haha",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "yay",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "wow",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "confused",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "support",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "sorry",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "anger",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "flame",
+    "description": "",
+    "category": "Menu"
+  },
+  {
+    "name": "plane",
+    "description": "",
+    "category": "Menu"
+  }
+]

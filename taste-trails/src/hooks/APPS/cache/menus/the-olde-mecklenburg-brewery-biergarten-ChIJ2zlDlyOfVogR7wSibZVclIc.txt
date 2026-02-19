@@ -1,0 +1,76 @@
+Locations sub-menu
+Locations
+Overview
+LoSo
+Ballantyne
+Beers
+Events sub-menu
+Events
+Brewery Events
+Book An Event
+About sub-menu
+About
+Our Story
+FAQ
+Careers
+Order Beer To-Go
+Contact
+Community
+Shop
+Gift Cards
+Press
+Menus
+Privacy Policy
+Facebook
+Twitter
+Instagram
+LinkedIn
+Tiktok
+Home
+Welcome to The Olde Mecklenburg Brewery
+Experience the perfect combination of Southern hospitality and classic German brewing tradition at OMB in Charlotte, NC. Our spacious biergarten is the perfect spot to enjoy a pint of our handcrafted beers made according to the Reinheitsgebot tradition. For over a decade, we've been proudly crafting quality beer and creating memorable moments.
+Fresh Beer Brewed Here
+Charlotte born and brewed since 2009. Enjoy fresh award-winning German-style beer made with only four ingredients: water, malt, hops, and yeast.
+BIERGARTEN
+Discover the Olde Mecklenburg Brewery Biergarten — the largest Biergarten in the Southeast! It’s the perfect place for people, pets, and life’s simple pleasures. Set on one picturesque acre surrounded by 100-year-old oak, mature pecan, and hickory trees.
+Charlotte's Oldest Brewery
+Charlotte's oldest standing independent brewery, serving the Carolinas since 2009.
+Host Your Next Event With Us
+Beer Finder
+Email Signup
+Home | The Olde Mecklenburg Brewery in Charlotte, NC
+WebFont.load({typekit: { id : "kyb6mnc" }});
+Modernizr.addTest("maybemobile", function(){ return (Modernizr.touchevents && Modernizr.mq("only screen and (max-width: 768px)")) ? true : false; });
+window.Sensei = { settings: { store: { enabled: false, cart_quantity: null }, gmaps: { apikey: "AIzaSyCxtTPdJqQMOwjsbKBO3adqPGzBR1MgC5g", styles: [ { "featureType": "all", "elementType": "labels.text.fill", "stylers": [ { "color": "#ae672b" }, { "lightness": "-26" } ] }, { "featureType": "all", "elementType": "labels.text.stroke", "stylers": [ { "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }, { "weight": "2.43" } ] }, { "featureType": "all", "elementType": "labels.icon", "stylers": [ { "visibility": "off" } ] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [ { "color": "#fefefe" }, { "lightness": 20 } ] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [ { "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 } ] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [ { "color": "#f2eccb" }, { "lightness": "0" } ] }, { "featureType": "poi", "elementType": "geometry", "stylers": [ { "color": "#f2eccb" }, { "lightness": "-15" } ] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [ { "color": "#ae672b" }, { "lightness": "46" } ] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [ { "color": "#f2eccb" }, { "lightness": "43" } ] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [ { "color": "#1a1718" }, { "lightness": 29 }, { "weight": "0.33" } ] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [ { "color": "#f2eccb" }, { "lightness": "51" } ] }, { "featureType": "road.arterial", "elementType": "geometry.stroke", "stylers": [ { "color": "#1a1718" }, { "weight": "0.33" } ] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [ { "color": "#ffffff" }, { "lightness": "100" }, { "saturation": "-4" } ] }, { "featureType": "road.local", "elementType": "geometry.stroke", "stylers": [ { "color": "#1a1718" }, { "weight": "0.33" } ] }, { "featureType": "transit", "elementType": "geometry", "stylers": [ { "color": "#f2f2f2" }, { "lightness": 19 } ] }, { "featureType": "water", "elementType": "geometry", "stylers": [ { "color": "#f2eccb" }, { "lightness": "82" } ] } ], icon: "https://images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/images/54172mapmarker-mbn.png", mobile_icon: "https%3A//images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/images/54172mapmarker-mbn.png%3Fw%3D50%26fit%3Dmax%26auto%3Dcompress%2Cformat%26cs%3Dorigin" }, recaptcha_v3:{ enabled: true, site_key: "6Ldh0uwrAAAAABZNEucYwqZZ3oOahk4lRhONMg5a" }, galleries: { autoplay: false, fade: false }, heros: { autoplay_galleries: true }, srcset_enabled: false }, modernizr: window.Modernizr }; /* ====== BOOTSTRAP VARIABLES ====== */ /* Slider dots */ window.Sensei.settings.galleries.dots = false; window.Sensei.settings.galleries.arrows = true; /* Slider speed */ window.Sensei.settings.galleries.autoplaySpeed = 3000; window.Sensei.settings.galleries.speed = 2000; /* Triple panel slideshow */ window.Sensei.settings.galleries.centerMode = false; /* ====== PRESET JAVASCRIPT ====== */ document.addEventListener('DOMContentLoaded', () => { const flexibleSections = [ '.c-split', '.c-tout-overlay', '.c-one-col--text', '.c-two-col--text', '.c-two-col--freeform', '.col-md-6', '.col-md-4', '.col-md-6--odd .menu-section', '.col-md-6--even .menu-section', '.col-md-4--odd:first-child .menu-section', '.col-md-4--even .menu-section', '.col-md-4--last .menu-section', '.tabs-panel > :last-child > .menu-section', ]; function addClassesToSections(classesArray) { const pairedClassesArray = classesArray.map( (selector) => `${selector} + ${selector.split(' ').pop()}` ); classesArray.forEach((selector) => { const sectionElements = document.querySelectorAll(selector); sectionElements.forEach((sectionElement, index) => { const selectorPrefix = selector.split(' ').pop().slice(1); sectionElement.classList.add( /* Number each section, except .col-* classes, ex: .c-split--1 */ !selectorPrefix.startsWith('col-') ? `${selectorPrefix}--${index + 1}` : selectorPrefix, /* Divide each section, ex: .c-split-odd */ index % 2 === 0 ? `${selectorPrefix}--odd` : `${selectorPrefix}--even`, /* Tag final sections, ex: .c-split--last */ index === sectionElements.length - 1 ? `${selectorPrefix}--last` : selectorPrefix ); }); }); pairedClassesArray.forEach((selector) => { const sectionElements = document.querySelectorAll(selector); sectionElements.forEach((sectionElement) => { const selectorPrefix = selector.split(' ').pop().slice(1); /* Identify paired sections, except .col-* classes, ex: .c-split--pair */ if (!selectorPrefix.startsWith('col-')) sectionElement.classList.add(`${selectorPrefix}--pair`); }); }); } addClassesToSections(flexibleSections); /* Remove single menu tabs */ const removeSingleTabs = document.querySelector('.tabs-nav li:only-child') ? document .querySelector('.tabs-nav li:only-child') .parentElement.remove() : null; /* Remove any empty paragraphs in Two Column Thumbnails */ const removeEmptyParagraphs = document.querySelectorAll( '.c-two-col--freeform p' ) ? document .querySelectorAll('.c-two-col--freeform p') .forEach((p) => p.innerText.trim() === '' && p.remove()) : null; }); /* ====== CUSTOM JAVASCRIPT ====== */ document.addEventListener('DOMContentLoaded', () => { /* Paste your code here */ });
+{"@context": "https://schema.org", "@type": "Organization", "@id": "https://www.ombbeer.com/#organization", "url": "https://www.ombbeer.com", "name": "The Olde Mecklenburg Brewery", "description": "At OMB, our unwavering commitment to fresh, pure, premium-quality beer isn\u2019t just a slogan. It\u2019s an integral part of who we are. Spacious brewery with a pub \u0026 8-acre beer garden offering its house brews in a lively setting. Located in Charlotte, NC.", "logo": "https://images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/images/38166OMB_Logo.png?w=600\u0026fit=max\u0026auto=compress,format\u0026cs=origin\u0026h=600", "subOrganization": [{"@type": "FoodEstablishment", "@id": "https://www.ombbeer.com/location/the-olde-mecklenburg-brewery/#foodestablishment", "url": "https://www.ombbeer.com/location/the-olde-mecklenburg-brewery/", "name": "LoSo", "description": "", "image": "https://images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/YvTtzNTFTeOwvuPJLE2W_DSC08348.jpg?w=1800\u0026fit=max\u0026auto=compress,format\u0026cs=origin\u0026h=1800", "photo": "https://images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/YvTtzNTFTeOwvuPJLE2W_DSC08348.jpg?w=1800\u0026fit=max\u0026auto=compress,format\u0026cs=origin\u0026h=1800", "address": {"@type": "PostalAddress", "name": "LoSo", "streetAddress": "4150 Yancey Road", "addressLocality": "Charlotte", "addressRegion": "NC", "postalCode": "28217"}, "location": {"@type": "PostalAddress", "name": "LoSo", "streetAddress": "4150 Yancey Road", "addressLocality": "Charlotte", "addressRegion": "NC", "postalCode": "28217"}, "telephone": null, "hasMap": "https://www.ombbeer.com/location/the-olde-mecklenburg-brewery/", "parentOrganization": {"@type": "Organization", "@id": "https://www.ombbeer.com/#organization"}, "servesCuisine": "Brewery, German", "priceRange": "$$"}, {"@type": "FoodEstablishment", "@id": "https://www.ombbeer.com/location/the-olde-mecklenburg-brewery-ballantyne/#foodestablishment", "url": "https://www.ombbeer.com/location/the-olde-mecklenburg-brewery-ballantyne/", "name": "Ballantyne", "description": "", "image": "https://images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/images/78129OMB_Ballantyne_-36.jpg?w=1800\u0026fit=max\u0026auto=compress,format\u0026cs=origin\u0026h=1800", "photo": "https://images.getbento.com/accounts/3f877be108734fd6e5681404ded0f8bc/media/images/78129OMB_Ballantyne_-36.jpg?w=1800\u0026fit=max\u0026auto=compress,format\u0026cs=origin\u0026h=1800", "address": {"@type": "PostalAddress", "name": "Ballantyne", "streetAddress": "15025 Bowl Street", "addressLocality": "Charlotte", "addressRegion": "NC", "postalCode": "28277"}, "location": {"@type": "PostalAddress", "name": "Ballantyne", "streetAddress": "15025 Bowl Street", "addressLocality": "Charlotte", "addressRegion": "NC", "postalCode": "28277"}, "telephone": null, "hasMap": "https://www.ombbeer.com/location/the-olde-mecklenburg-brewery-ballantyne/", "parentOrganization": {"@type": "Organization", "@id": "https://www.ombbeer.com/#organization"}, "servesCuisine": "Brewery, German", "priceRange": "$$"}], "sameAs": ["https://www.tiktok.com/@oldemeckbrew", "https://www.facebook.com/OldeMeckBrewery", "https://www.linkedin.com/company/the-olde-mecklenburg-brewery/", "https://www.instagram.com/oldemeckbrew/"], "potentialAction": {"@type": "ReserveAction", "object": {"@type": "Reservation", "name": "Table", "url": "https://www.ombbeer.com/#action-reservations"}, "result": {"@type": "Reservation", "name": "Table"}, "target": "https://www.ombbeer.com"}}
+{"@context": "https://schema.org", "@type": "WebSite", "@id": "https://www.ombbeer.com/#website", "url": "https://www.ombbeer.com", "name": "The Olde Mecklenburg Brewery"}
+{"@context": "https://schema.org", "@type": "WebPage", "@id": "https://www.ombbeer.com/#webpage", "url": "https://www.ombbeer.com", "name": "The Olde Mecklenburg Brewery"}
+Skip to main content
+Toggle Navigation
+powered by BentoBox
+Main content starts here, tab to start navigating
+hero video paused, press to play video
+Playing hero video, press to pause video
+Welcome to The Olde Mecklenburg BreweryExperience the perfect combination of Southern hospitality and classic German brewing tradition at OMB in Charlotte, NC. Our spacious biergarten is the perfect spot to enjoy a pint of our handcrafted beers made according to the Reinheitsgebot tradition. For over a decade, we've been proudly crafting quality beer and creating memorable moments.
+View Beer
+View Events
+Learn More
+leave this field blank
+Please, enter a valid first name
+First Name
+- Required
+Please, enter a valid last name
+Last Name
+Please, enter a valid email
+Email
+Submit
+Please check errors in the form above
+Thank you for signing up for email updates!
+Close
+This site is protected by reCAPTCHA and the Google
+Privacy Policy and
+Terms of Service apply.
+document.addEventListener("DOMContentLoaded", function(){
+window.bentobox.overlayAlertComponent.init('div');
+window.bentobox.bannerAlertComponent.init();
+});

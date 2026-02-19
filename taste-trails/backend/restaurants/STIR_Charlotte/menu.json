@@ -1,0 +1,222 @@
+[
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "One Dozen House Oysters",
+    "description": "Raw or steamed with cocktail sauce, horseradish, mignonette"
+  },
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "Specialty Oysters",
+    "description": "Premium rotating selection, fresh daily, subject to availability"
+  },
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "Oysters Rockefeller",
+    "description": "Spinach, shallots, lemon, sambuca, Parmesan cheese"
+  },
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "Jumbo Shrimp Cocktail",
+    "description": "Cocktail sauce, mustard sauce, lemon"
+  },
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "Cold Bar Platter",
+    "description": "Dozen oysters, steamed shrimp, spicy tuna, crostini, cocktail sauce, horseradish"
+  },
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "STIR Seafood Tower",
+    "description": "Rotating seasonal selections, dozen oysters, dozen steamed shrimp, spicy tuna"
+  },
+  {
+    "category": "Oysters & Raw Bar",
+    "name": "Broiled Oysters",
+    "description": "Lemon, scampi butter, buttered bread crumbs"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Lobster Crab Cakes",
+    "description": "Lobster, lump crab, caper remoulade, arugula, lemon oil"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Whipped Feta",
+    "description": "Honey, lemon oil, spiced pecans, pink peppercorns, crostini, pita, microgreens"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Blackened Mahi Tacos",
+    "description": "Charred salsa, pico de gallo, pickled onions, Cotija cheese, cilantro slaw, crema"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Spicy Tuna Bites",
+    "description": "Sushi rice, tobiko roe, cucumbers, furikake, sriracha potato wontons, pineapple sweet chili sauce"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Cheeseburger Egg Rolls",
+    "description": "House-ground beef, cheddar & American cheese, house pickles, red onion, tomato, thousand island"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Chicken Lettuce Wraps",
+    "description": "Cucumber, carrots, sweet soy jus, water chestnuts, crispy rice sticks, shiitake mushrooms, butter lettuce"
+  },
+  {
+    "category": "Appetizers",
+    "name": "Parmesan White Truffle Fries",
+    "description": "Hand-cut fries, white truffle oil, Parmesan cheese, ranch"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "Crab Bisque",
+    "description": "Crab, cream, sherry, basil oil, crostini, celery leaves"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "Seared Tuna Salad",
+    "description": "Carrots, cucumbers, tomatoes, avocado, sriracha potato wontons, kale chips, cilantro miso vinaigrette"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "STIR Chop Salad",
+    "description": "Romaine, iceberg, salami, mozzarella, tomatoes, marinated garbanzo beans, red wine vinaigrette, crostini"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "Iceberg Wedge",
+    "description": "Tomatoes, onions, bacon, blue cheese crumbles, blue cheese dressing"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "Chicken Chop",
+    "description": "Romaine, iceberg, salami, mozzarella, tomatoes, marinated garbanzo beans, red wine vinaigrette, crostini"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "Caesar Salad",
+    "description": "Romaine, crostini, Parmesan cheese, caesar dressing"
+  },
+  {
+    "category": "Soups & Salads",
+    "name": "STIR Chopped Seafood",
+    "description": "Chopped shrimp & lobster, romaine, iceberg, tomato, avocado, edamame, radish, citrus vinaigrette, crostini"
+  },
+  {
+    "category": "Entrées",
+    "name": "Sesame Steak Bowl",
+    "description": "Sesame soy-marinated steak, fried egg, rice cake, miso kale, sriracha potato wontons, edamame, cucumbers, carrots, avocado"
+  },
+  {
+    "category": "Entrées",
+    "name": "Lobster & Shrimp White Cheddar Mac & Cheese",
+    "description": "Cavatappi pasta, asparagus, lemon oil, buttered bread crumbs, micro greens"
+  },
+  {
+    "category": "Entrées",
+    "name": "Chicken Piccata",
+    "description": "White wine, butter, capers, farro, roasted vegetables"
+  },
+  {
+    "category": "Entrées",
+    "name": "Shrimp & Grits",
+    "description": "Mushrooms, green onions, shrimp stock, white cheddar grits"
+  },
+  {
+    "category": "Entrées",
+    "name": "STIR Steakhouse Burger",
+    "description": "Filet & sirloin fresh ground blend, sharp white cheddar cheese, thousand island, shredded lettuce, house pickles, hand-cut fries"
+  },
+  {
+    "category": "Entrées",
+    "name": "Crispy Mahi Bowl",
+    "description": "Housemade pineapple chili sauce, sweet & sour sushi rice, edamame, pineapple, carrots"
+  },
+  {
+    "category": "Entrées",
+    "name": "STIR Veggie Burger",
+    "description": "Tillamook smoked cheddar, lettuce, tomato, onion, house pickles, lemon aioli, hand-cut fries"
+  },
+  {
+    "category": "Entrées",
+    "name": "Vegan Poke Bowl",
+    "description": "Citrus soy-marinated beets & sweet potatoes, rice cake, miso kale, sriracha potato wontons, edamame, cucumbers, carrots, avocado"
+  },
+  {
+    "category": "Entrées",
+    "name": "Tillamook Cheeseburger",
+    "description": "Two 5 oz beef patties, Tillamook cheddar, tomato, lettuce, onion, mayo, house pickles, hand-cut fries"
+  },
+  {
+    "category": "Entrées",
+    "name": "Tuna Poke Bowl",
+    "description": "Citrus soy-marinated tuna, rice cake, miso kale, sriracha potato wontons, edamame, cucumbers, carrots, avocado, shaved radish, sesame seeds"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Halibut Piccata",
+    "description": "White wine, butter, capers, farro, roasted vegetables"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Seared Tuna",
+    "description": "Furikake crusted tuna, pineapple fried rice, asparagus, soy glaze, arugula salad, sriracha potato wontons"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Shrimp Scampi",
+    "description": "Jumbo shrimp, lemon garlic butter, asparagus, farro, roasted vegetables, lemon oil, buttered bread crumbs, arugula salad"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "18 oz Bone In Ribeye",
+    "description": "Hand-cut fries, housemade steak sauce"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Salmon",
+    "description": "Citrus dill sauce, pickled red onions, farro, roasted vegetables"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Steak Frites",
+    "description": "Marinated hand-cut sirloin, hand-cut fries, housemade steak sauce"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Dover Sole Meuniere",
+    "description": "Lemon, butter, parsley, broccolini, cherry tomatoes"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Center Cut Filet",
+    "description": "Grilled broccolini, crispy diced potatoes, mushrooms, scampi butter, Bordelaise sauce"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Chicken Caprese",
+    "description": "Tomatoes, fresh mozzarella, basil, balsamic reduction, beurre blanc, farro, roasted vegetables"
+  },
+  {
+    "category": "Signature Broiler Selections",
+    "name": "Filet & House Goat Cheese Ravioli",
+    "description": "Center cut filet, housemade goat cheese ravioli, pecan pesto, roasted root vegetables"
+  },
+  {
+    "category": "House Made Desserts",
+    "name": "Matcha Green Tea Cheesecake",
+    "description": "Saltine cracker crust, whipped cream, strawberries, blackberries, blueberries, lemon syrup"
+  },
+  {
+    "category": "House Made Desserts",
+    "name": "Four-Layer Chocolate Cake",
+    "description": "Caramel, fresh whipped cream, strawberries"
+  },
+  {
+    "category": "House Made Desserts",
+    "name": "Creme Brulee with Fresh Berries",
+    "description": "Vanilla creme brulee, strawberries, blackberries, blueberries, lemon syrup, whipped cream, fresh mint"
+  }
+]

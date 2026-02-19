@@ -1,0 +1,112 @@
+[
+  {
+    "category": "Fresh Pressed Juice",
+    "name": "Ginger Sunrise",
+    "description": "Carrot, golden beet, orange, ginger, turmeric"
+  },
+  {
+    "category": "Fresh Pressed Juice",
+    "name": "Lean Green",
+    "description": "Kale, spinach, cucumber, green apple, lemon"
+  },
+  {
+    "category": "Fresh Pressed Juice",
+    "name": "Melon Berry Cooler",
+    "description": "Strawberry, watermelon"
+  },
+  {
+    "category": "Start Your Day",
+    "name": "Steel Cut Oatmeal",
+    "description": "Dried cherries, brown sugar, toasted pecans"
+  },
+  {
+    "category": "Start Your Day",
+    "name": "Smoked Salmon Bruschetta*",
+    "description": "Caper-whipped cream cheese, pickled onion, arugula, thick-cut brioche"
+  },
+  {
+    "category": "Start Your Day",
+    "name": "Greek Yogurt Parfait",
+    "description": "Granola, berries, jam, vanilla greek yogurt"
+  },
+  {
+    "category": "Start Your Day",
+    "name": "Lobster Avocado Toast",
+    "description": "Butter poached lobster, blistered citrus, smashed avocado"
+  },
+  {
+    "category": "Start Your Day",
+    "name": "Bomboloni",
+    "description": "Italian doughnut, seasonal berry jam filling"
+  },
+  {
+    "category": "Plates",
+    "name": "Eggs Your Way*",
+    "description": "Choice of chicken sausage, pork sausage or bacon, crispy potatoes, choice of toast"
+  },
+  {
+    "category": "Plates",
+    "name": "Bacon, Egg & Fontina Sandwich*",
+    "description": "English muffin, fried egg, peppered bacon, fontina cheese"
+  },
+  {
+    "category": "Plates",
+    "name": "Truffle Monte Cristo",
+    "description": "Prosciutto di parma, smoked turkey, taleggio cheese, egg custard, raspberry jam, shaved truffle"
+  },
+  {
+    "category": "Plates",
+    "name": "Egg White Frittata",
+    "description": "Grilled mushroom, asparagus, fontina, arugula, spinach"
+  },
+  {
+    "category": "Plates",
+    "name": "Smoked Ham & Fontina Omelet",
+    "description": "Crispy potatoes, choice of toast"
+  },
+  {
+    "category": "Plates",
+    "name": "Nutella Waffle",
+    "description": "Whipped cream, berries, maple syrup"
+  },
+  {
+    "category": "Plates",
+    "name": "Lobster & Crab Omelet",
+    "description": "Baby spinach, fresh herbs, capers, baby arugula"
+  },
+  {
+    "category": "Plates",
+    "name": "Steak & Eggs*",
+    "description": "Flat iron steak, eggs your way, crispy potatoes"
+  },
+  {
+    "category": "Sides",
+    "name": "Peppered Bacon",
+    "description": null
+  },
+  {
+    "category": "Sides",
+    "name": "Chicken Sausage",
+    "description": null
+  },
+  {
+    "category": "Sides",
+    "name": "Pork Sausage Links",
+    "description": null
+  },
+  {
+    "category": "Sides",
+    "name": "Crispy Potatoes",
+    "description": null
+  },
+  {
+    "category": "Sides",
+    "name": "Choice of Toast or Croissant",
+    "description": null
+  },
+  {
+    "category": "Sides",
+    "name": "Fresh Berries",
+    "description": null
+  }
+]

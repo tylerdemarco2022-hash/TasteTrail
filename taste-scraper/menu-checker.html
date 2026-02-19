@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Checker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e; 
+      color: #eee; 
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 20px; color: #00d9ff; }
+    
+    .controls {
+      display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+      background: #16213e; padding: 15px; border-radius: 8px;
+    }
+    .controls input[type="file"] { flex: 1; }
+    .controls button {
+      padding: 10px 20px; border: none; border-radius: 5px;
+      cursor: pointer; font-weight: bold; transition: all 0.2s;
+    }
+    .btn-load { background: #00d9ff; color: #000; }
+    .btn-save { background: #00ff88; color: #000; }
+    .btn-export { background: #ff9500; color: #000; }
+    .controls button:hover { transform: scale(1.05); }
+    
+    .stats {
+      display: flex; gap: 20px; margin-bottom: 20px; justify-content: center;
+    }
+    .stat {
+      background: #16213e; padding: 15px 25px; border-radius: 8px; text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: bold; }
+    .stat-label { font-size: 12px; color: #888; text-transform: uppercase; }
+    .stat-pending .stat-value { color: #ffcc00; }
+    .stat-approved .stat-value { color: #00ff88; }
+    .stat-rejected .stat-value { color: #ff4444; }
+    .stat-edited .stat-value { color: #00d9ff; }
+    
+    .filters {
+      display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;
+    }
+    .filters button {
+      padding: 8px 16px; border: 2px solid #333; background: transparent;
+      color: #eee; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+    }
+    .filters button.active { border-color: #00d9ff; background: #00d9ff22; }
+    .filters button:hover { border-color: #00d9ff; }
+    
+    .items-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 15px;
+    }
+    
+    .item-card {
+      background: #16213e; border-radius: 10px; padding: 15px;
+      border: 2px solid transparent; transition: all 0.2s;
+    }
+    .item-card.approved { border-color: #00ff88; }
+    .item-card.rejected { border-color: #ff4444; }
+    .item-card.edited { border-color: #00d9ff; }
+    
+    .item-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .item-category {
+      background: #0f3460; padding: 3px 10px; border-radius: 12px;
+      font-size: 11px; text-transform: uppercase; color: #00d9ff;
+    }
+    .item-index { color: #666; font-size: 12px; }
+    
+    .item-name {
+      font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #fff;
+    }
+    .item-description {
+      font-size: 13px; color: #aaa; margin-bottom: 8px; line-height: 1.4;
+    }
+    .item-price {
+      font-size: 16px; color: #00ff88; font-weight: bold; margin-bottom: 12px;
+    }
+    
+    .item-actions {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .item-actions button {
+      flex: 1; padding: 8px; border: none; border-radius: 5px;
+      cursor: pointer; font-size: 12px; font-weight: bold; transition: all 0.2s;
+    }
+    .btn-approve { background: #00ff8833; color: #00ff88; border: 1px solid #00ff88 !important; }
+    .btn-approve:hover { background: #00ff88; color: #000; }
+    .btn-reject { background: #ff444433; color: #ff4444; border: 1px solid #ff4444 !important; }
+    .btn-reject:hover { background: #ff4444; color: #fff; }
+    .btn-edit { background: #00d9ff33; color: #00d9ff; border: 1px solid #00d9ff !important; }
+    .btn-edit:hover { background: #00d9ff; color: #000; }
+    
+    .edit-form {
+      display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #333;
+    }
+    .edit-form.active { display: block; }
+    .edit-form input, .edit-form textarea {
+      width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #333;
+      background: #0f3460; color: #eee; border-radius: 5px; font-family: inherit;
+    }
+    .edit-form textarea { resize: vertical; min-height: 60px; }
+    .edit-form button {
+      padding: 8px 16px; border: none; border-radius: 5px;
+      cursor: pointer; font-weight: bold;
+    }
+    .btn-save-edit { background: #00d9ff; color: #000; }
+    .btn-cancel-edit { background: #666; color: #fff; margin-left: 8px; }
+    
+    .empty-state {
+      text-align: center; padding: 60px; color: #666;
+    }
+    .empty-state h2 { margin-bottom: 10px; }
+    
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #16213e; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;
+    }
+    .modal h2 { margin-bottom: 20px; }
+    .modal textarea {
+      width: 100%; height: 300px; background: #0f3460; color: #eee;
+      border: 1px solid #333; border-radius: 5px; padding: 10px; font-family: monospace;
+    }
+    .modal-actions { margin-top: 15px; display: flex; gap: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🍽️ Menu Checker</h1>
+    
+    <div class="controls">
+      <input type="file" id="fileInput" accept=".json" />
+      <button class="btn-load" onclick="loadFile()">Load JSON</button>
+      <button class="btn-save" onclick="saveProgress()">Save Progress</button>
+      <button class="btn-export" onclick="exportApproved()">Export Approved</button>
+    </div>
+    
+    <div class="stats">
+      <div class="stat stat-pending">
+        <div class="stat-value" id="pendingCount">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat stat-approved">
+        <div class="stat-value" id="approvedCount">0</div>
+        <div class="stat-label">Approved</div>
+      </div>
+      <div class="stat stat-rejected">
+        <div class="stat-value" id="rejectedCount">0</div>
+        <div class="stat-label">Rejected</div>
+      </div>
+      <div class="stat stat-edited">
+        <div class="stat-value" id="editedCount">0</div>
+        <div class="stat-label">Edited</div>
+      </div>
+    </div>
+    
+    <div class="filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="pending">Pending</button>
+      <button data-filter="approved">Approved</button>
+      <button data-filter="rejected">Rejected</button>
+      <button data-filter="edited">Edited</button>
+    </div>
+    
+    <div class="items-grid" id="itemsGrid">
+      <div class="empty-state">
+        <h2>No menu loaded</h2>
+        <p>Load a JSON file to start reviewing menu items</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" id="exportModal">
+    <div class="modal-content">
+      <h2>Export Approved Items</h2>
+      <textarea id="exportData" readonly></textarea>
+      <div class="modal-actions">
+        <button class="btn-save" onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button class="btn-load" onclick="downloadExport()">Download JSON</button>
+        <button class="btn-cancel-edit" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let menuItems = [];
+    let currentFilter = 'all';
+    let fileName = 'menu';
+
+    // Load JSON file
+    function loadFile() {
+      const input = document.getElementById('fileInput');
+      if (!input.files.length) {
+        alert('Please select a JSON file');
+        return;
+      }
+      
+      const file = input.files[0];
+      fileName = file.name.replace('.json', '');
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          menuItems = data.map((item, idx) => ({
+            ...item,
+            _id: idx,
+            _status: item._status || 'pending',
+            _original: { ...item }
+          }));
+          renderItems();
+          updateStats();
+        } catch (err) {
+          alert('Invalid JSON file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Render items based on filter
+    function renderItems() {
+      const grid = document.getElementById('itemsGrid');
+      
+      const filtered = menuItems.filter(item => {
+        if (currentFilter === 'all') return true;
+        return item._status === currentFilter;
+      });
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state"><h2>No items</h2><p>${currentFilter === 'all' ? 'Load a menu file to start' : 'No ' + currentFilter + ' items'}</p></div>`;
+        return;
+      }
+      
+      grid.innerHTML = filtered.map(item => `
+        <div class="item-card ${item._status}" data-id="${item._id}">
+          <div class="item-header">
+            <span class="item-category">${escapeHtml(item.category || 'Unknown')}</span>
+            <span class="item-index">#${item._id + 1}</span>
+          </div>
+          <div class="item-name">${escapeHtml(item.name || 'No name')}</div>
+          <div class="item-description">${escapeHtml(item.description || 'No description')}</div>
+          <div class="item-price">${escapeHtml(item.price || 'No price')}</div>
+          <div class="item-actions">
+            <button class="btn-approve" onclick="setStatus(${item._id}, 'approved')">✓ Approve</button>
+            <button class="btn-reject" onclick="setStatus(${item._id}, 'rejected')">✗ Reject</button>
+            <button class="btn-edit" onclick="toggleEdit(${item._id})">✎ Edit</button>
+          </div>
+          <div class="edit-form" id="edit-${item._id}">
+            <input type="text" id="cat-${item._id}" value="${escapeHtml(item.category || '')}" placeholder="Category" />
+            <input type="text" id="name-${item._id}" value="${escapeHtml(item.name || '')}" placeholder="Name" />
+            <textarea id="desc-${item._id}" placeholder="Description">${escapeHtml(item.description || '')}</textarea>
+            <input type="text" id="price-${item._id}" value="${escapeHtml(item.price || '')}" placeholder="Price" />
+            <button class="btn-save-edit" onclick="saveEdit(${item._id})">Save Changes</button>
+            <button class="btn-cancel-edit" onclick="toggleEdit(${item._id})">Cancel</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Set item status
+    function setStatus(id, status) {
+      const item = menuItems.find(i => i._id === id);
+      if (item) {
+        item._status = status;
+        renderItems();
+        updateStats();
+      }
+    }
+
+    // Toggle edit form
+    function toggleEdit(id) {
+      const form = document.getElementById(`edit-${id}`);
+      form.classList.toggle('active');
+    }
+
+    // Save edit
+    function saveEdit(id) {
+      const item = menuItems.find(i => i._id === id);
+      if (item) {
+        item.category = document.getElementById(`cat-${id}`).value;
+        item.name = document.getElementById(`name-${id}`).value;
+        item.description = document.getElementById(`desc-${id}`).value;
+        item.price = document.getElementById(`price-${id}`).value;
+        item._status = 'edited';
+        renderItems();
+        updateStats();
+      }
+    }
+
+    // Update stats
+    function updateStats() {
+      const stats = { pending: 0, approved: 0, rejected: 0, edited: 0 };
+      menuItems.forEach(item => {
+        if (stats.hasOwnProperty(item._status)) stats[item._status]++;
+      });
+      document.getElementById('pendingCount').textContent = stats.pending;
+      document.getElementById('approvedCount').textContent = stats.approved;
+      document.getElementById('rejectedCount').textContent = stats.rejected;
+      document.getElementById('editedCount').textContent = stats.edited;
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderItems();
+      });
+    });
+
+    // Save progress to localStorage
+    function saveProgress() {
+      localStorage.setItem('menuChecker_' + fileName, JSON.stringify(menuItems));
+      alert('Progress saved! (' + menuItems.length + ' items)');
+    }
+
+    // Export approved items
+    function exportApproved() {
+      const approved = menuItems
+        .filter(item => item._status === 'approved' || item._status === 'edited')
+        .map(({ _id, _status, _original, ...item }) => item);
+      
+      if (approved.length === 0) {
+        alert('No approved or edited items to export');
+        return;
+      }
+      
+      document.getElementById('exportData').value = JSON.stringify(approved, null, 2);
+      document.getElementById('exportModal').classList.add('active');
+    }
+
+    // Copy to clipboard
+    function copyToClipboard() {
+      const textarea = document.getElementById('exportData');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    }
+
+    // Download export
+    function downloadExport() {
+      const data = document.getElementById('exportData').value;
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName + '_verified.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('exportModal').classList.remove('active');
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    // Load from localStorage on startup
+    window.onload = () => {
+      // Check for any saved progress
+      const keys = Object.keys(localStorage).filter(k => k.startsWith('menuChecker_'));
+      if (keys.length > 0) {
+        const lastKey = keys[keys.length - 1];
+        const saved = localStorage.getItem(lastKey);
+        if (saved && confirm('Found saved progress. Load it?')) {
+          menuItems = JSON.parse(saved);
+          fileName = lastKey.replace('menuChecker_', '');
+          renderItems();
+          updateStats();
+        }
+      }
+    };
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

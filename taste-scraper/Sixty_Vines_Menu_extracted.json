@@ -1,0 +1,726 @@
+{
+  "name": "Sixty Vines",
+  "location": "Charlotte, NC",
+  "items": [
+    {
+      "name": "Coppa",
+      "description": "cured pork shoulder",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Cowgirl Creamery MT TAM",
+      "description": "cow milk, triple cream, bloomed",
+      "category": "Appetizers"
+    },
+    {
+      "name": "House Made Ricotta",
+      "description": "cow milk, cracked pepper, olive oil",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Cabot Clothbound",
+      "description": "cow milk, bandaged cheddar",
+      "category": "Appetizers"
+    },
+    {
+      "name": "ROLF BEELER HOCH YBRIG",
+      "description": "raw cow milk, Alpine, cider washed",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Beemster Aged Gouda",
+      "description": "cow milk, firm",
+      "category": "Appetizers"
+    },
+    {
+      "name": "PROSCIUTTO DI PARMA",
+      "description": "farm aged ham, 18 months",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Finocchiona",
+      "description": "fennel seasoned salame",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Speck",
+      "description": "lightly smoked, aged ham",
+      "category": "Appetizers"
+    },
+    {
+      "name": "FRA' MANI SALAMETTO PICCANTE",
+      "description": "Spanish style salame seasoned with pimentón de la vera",
+      "category": "Appetizers"
+    },
+    {
+      "name": "FRA' MANI SOPPRESSATA",
+      "description": "seasoned with garlic & clove",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Point Reyes Blue",
+      "description": "raw cow milk, semi-firm",
+      "category": "Appetizers"
+    },
+    {
+      "name": "Pork Chop",
+      "description": "roasted tri-color carrots, sage brown butter, pistachio & peppadew romesco",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Rainbow Trout",
+      "description": "green lentil ragout, coconut-vadouvan curry, orange, scallion, cilantro",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Pan Roasted Chicken",
+      "description": "chickpeas, roasted tomato, hot pickled peppers,\ntoasted garlic, fresh herbs",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Atlantic Salmon",
+      "description": "shaved brussels sprouts, shallot, braised peppers & smoked paprika vinaigrette",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Angus NY Strip*",
+      "description": "16oz center-cut strip steak, cracked pepper, pickled cherries, charred radicchio, rogue smokey blue cheese",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Double Cabernet Burger",
+      "description": "cabernet smothered patties, potato bun, white cheddar cheese, caramelized onions, worcestershire mayo, tomato, crispy fingerling potatoes",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Wood Grilled Bavette Steak*",
+      "description": "mushroom shallot confit, crispy fingerling potatoes, chives, foie gras-zinfandel demi",
+      "category": "Main Courses"
+    },
+    {
+      "name": "Filet Mignon*",
+      "description": "charred broccolini, cipollini onions, bacon-dijon vinaigrette, black pepper soubise",
+      "category": "Main Courses"
+    },
+    {
+      "name": "OLIVE OIL CITRUS CAKE",
+      "description": "mascarpone whip, seasonal fruit",
+      "category": "Dessert"
+    },
+    {
+      "name": "STICKY TOFFEE CAKE",
+      "description": "rum cake, roasted pineapple, ginger, creme anglaise",
+      "category": "Dessert"
+    },
+    {
+      "name": "BASQUE CHEESECAKE",
+      "description": "caramelized cheesecake, luxardo cherries",
+      "category": "Dessert"
+    },
+    {
+      "name": "DEVILED AFFOGATO",
+      "description": "devil’s food cake, vanilla ice cream, coffee caramel, nitro cold brew coffee shot",
+      "category": "Dessert"
+    },
+    {
+      "name": "FROZÉ",
+      "description": "Diseño Rosé, Jam Jar Sweet Shiraz,\nstrawberries",
+      "category": "Cocktails"
+    },
+    {
+      "name": "Tequila Fix",
+      "description": "Corazón Blanco Tequila, watermelon, lime",
+      "category": "Cocktails"
+    },
+    {
+      "name": "SHIRLEY AFTER DARK (Low ABV)",
+      "description": "Frog's Leap \"Flycatcher\", Antica Formula Sweet, Giuliana Prosecco, orange bitters, Luxardo cherry",
+      "category": "Cocktails"
+    },
+    {
+      "name": "THE SLIPSTREAM",
+      "description": "Hendrick's Gin, Lillet Blanc, Dolin Dry, orange bitters, cucumber ribbon",
+      "category": "Cocktails"
+    },
+    {
+      "name": "CENTERPIECE OLD FASHION FOR TWO",
+      "description": "Old Forester Bourbon, Angostura bitters, orange, peppercorn, rosemary, thyme",
+      "category": "Cocktails"
+    },
+    {
+      "name": "RUBY RED",
+      "description": "Wheatley Vodka, elderflower liqueur, basil, ruby red grapefruit juice",
+      "category": "Cocktails"
+    },
+    {
+      "name": "Wheels Up",
+      "description": "Buffalo Trace Bourbon, Amaro Nonino, Aperol, lemon, homemade blackberry simple, Fee Foam Bitters",
+      "category": "Cocktails"
+    },
+    {
+      "name": "Emily's Spicy Margarita",
+      "description": "jalapeño-infused Mi Campo Reposado, pineapple, fresh lime juice, agave, Tasty Flavor chile pasilla salt",
+      "category": "Cocktails"
+    },
+    {
+      "name": "SCARLET LETTER SANGRITA",
+      "description": "Corazón Blanco Tequila, sparkling brut rosé, Regan’s Orange Bitters, mixed berry simple, pomegranate",
+      "category": "Cocktails"
+    },
+    {
+      "name": "MATCHA MARTINI",
+      "description": "Wheatley Vodka, Crème de Cacao blanc, matcha, oat milk",
+      "category": "Cocktails"
+    },
+    {
+      "name": "The Carajillo",
+      "description": "Licor 43, Calusa Espresso, chocolate spiced salt",
+      "category": "Cocktails"
+    },
+    {
+      "name": "FIRST CRUSH MARTINI",
+      "description": "Grey Goose Vodka, Ferrari-Carano Fume Blanc, St.Germain Elderflower, lemon, sugar coated white grapes",
+      "category": "Cocktails"
+    },
+    {
+      "name": "ANAKOTA",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "PRIDE MOUNTAIN VINEYARDS",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "BODEGAS ALTO MONCAYO",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "NUMANTHIA",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "OVERTURE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "CHAPPELLET SIGNATURE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "Voirin Jumel",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "CHATEAU LA NERTHE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "PAUL HOBBS",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "CHâTEAU OLIVIER BLANC",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "LAURENT PERRIER",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "HUGEL",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "WILLIAM FEVRE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "RAMEY CELLARS",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "TORBRECK",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "FAMILIA TORRES",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "BODEGAS FORJAS DEL SALNES",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "LOVEBLOCK",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "BODEGAS ORDONEZ",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "HONIG",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "TABLAS CREEK",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "ARTERBERRY MARESH",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "RADIO CATEAU",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "SPOTSWOODE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "DOMAINE LOUIS MOREAU PETITE CHABLIS",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "MINER",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "VINA COBOS",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "DOMAINE SEBASTIAN MAGNIEN",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "FISHER",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "OPUS ONE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "DOMAINE CYROT-BUTHIAU POMMARD 1er CRU",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "BILLECART SALMON ROSÉ",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "DOMAINE SPECHT",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "ANTINORI",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "MERRY EDWARDS",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "CHâTEAU LASCOMBES",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "CHÂTEAU LAGRANGE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "BOLLINGER",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "PATZ AND HALL",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "HUAI",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "DOMAINE SERENE",
+      "description": "",
+      "category": "Wine"
+    },
+    {
+      "name": "ROASTED PORK SANDWICH",
+      "description": "slow roasted pork, avocado, worcestershire mayo, scallion, garlic, arugula, citronette, fresno peppers, crispy fingerling potatoes",
+      "category": "Brunch"
+    },
+    {
+      "name": "Tuscan Eggs Benedict",
+      "description": "shaved prosciutto, sourdough English muffins, smoked tomato hollandaise",
+      "category": "Brunch"
+    },
+    {
+      "name": "PORK CHOP",
+      "description": "roasted tri-color carrots, sage brown butter, pistachio & peppadew romesco",
+      "category": "Brunch"
+    },
+    {
+      "name": "Maple Banana French Toast",
+      "description": "brown sugar caramel, Luxardo cherries, cinnamon crumble",
+      "category": "Brunch"
+    },
+    {
+      "name": "Strawberries & Cream",
+      "description": "toasted almond chiffon cake, sugared strawberries,\ncréme anglaise",
+      "category": "Brunch"
+    },
+    {
+      "name": "TORTILLA DE PATATAS",
+      "description": "Spanish omelette with potatoes, roasted garlic & tomato, cucumber, avocado salad",
+      "category": "Brunch"
+    },
+    {
+      "name": "CABERNET BRUNCH BURGER*",
+      "description": "cabernet smothered beef patties, free range egg, potato bun, white cheddar cheese, caramelized onions, worcestershire mayo, tomato, crispy fingerling potatoes",
+      "category": "Brunch"
+    },
+    {
+      "name": "TRUFFLED HAM & CHEESE",
+      "description": "Prosciutto cotto, provolone, fried egg, spicy tomato sauce, toasted sourdough, crispy fingerling potatoes",
+      "category": "Brunch"
+    },
+    {
+      "name": "Charred Broccolini",
+      "description": "charred broccolini, cipollini onions, bacon-dijon vinaigrette",
+      "category": "Extras"
+    },
+    {
+      "name": "Fruit",
+      "description": "seasonal",
+      "category": "Extras"
+    },
+    {
+      "name": "Multi Grain Toast",
+      "description": "seasonal jam, salted butter",
+      "category": "Extras"
+    },
+    {
+      "name": "Carrots",
+      "description": "roasted tri-color carrots, sage brown butter, dill",
+      "category": "Extras"
+    },
+    {
+      "name": "Bacon",
+      "description": "cherry-wood smoked",
+      "category": "Extras"
+    },
+    {
+      "name": "Potatoes",
+      "description": "smashed crispy fingerlings, chives, sea salt",
+      "category": "Extras"
+    },
+    {
+      "name": "The Bright Side",
+      "description": "blood orange juice, Jack Rudy tonic syrup, lemon, Fever-Tree club soda",
+      "category": "Mocktails"
+    },
+    {
+      "name": "Daylight Spritz",
+      "description": "Oddbird Presence N/A White Blend, grapefruit, agave, mint, Fever-Tree Club Soda, rosemary",
+      "category": "Mocktails"
+    },
+    {
+      "name": "Garden Spritz",
+      "description": "Seedlip Garden 108, honey, lime, mint, Fever-Tree ginger ale",
+      "category": "Mocktails"
+    },
+    {
+      "name": "Blackberry Sage & Soda",
+      "description": "homemade blackberry syrup, muddled sage, lemon, Fever-Tree Club Soda",
+      "category": "Mocktails"
+    },
+    {
+      "name": "Oddbird 'GSM' Red Blend",
+      "description": "Saint-Chinian, FR",
+      "category": "Mocktails"
+    },
+    {
+      "name": "'Missing Thorn' by Aaron Pott Sparkling Rosé",
+      "description": "Gayserville, CA",
+      "category": "Mocktails"
+    },
+    {
+      "name": "Oddbird 'Presence' White Blend",
+      "description": "Alsace, FR",
+      "category": "Mocktails"
+    },
+    {
+      "name": "Acqua Filette",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "'Missing Thorn' Sparkling Rosé",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "Calusa Coffee",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "Mighty Leaf Hot Tea",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "Dalai Sofia 'This Lil Peach' Kombucha",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "Oddbird 'GSM' Red Blend",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "Oddbird 'Presence' White Blend",
+      "description": "",
+      "category": "Cafe"
+    },
+    {
+      "name": "CAMPANELLE",
+      "description": "shrimp, garlic, grape tomato, basil, white wine sauce",
+      "category": "Pasta"
+    },
+    {
+      "name": "Rigatoni",
+      "description": "grilled eggplant, san marzano tomato, basil, spinach, crushed pepper, whipped ricotta",
+      "category": "Pasta"
+    },
+    {
+      "name": "BRAISED PORK PAPPARDELLE",
+      "description": "pork shoulder, fennel, san marzano tomato, basil, pecorino romano",
+      "category": "Pasta"
+    },
+    {
+      "name": "CRESTE DI GALLO",
+      "description": "roasted chicken, mushrooms, spinach, oven-dried tomato, pesto cream",
+      "category": "Pasta"
+    },
+    {
+      "name": "SHRIMP & SMOKED BACON",
+      "description": "white sauce, provolone, mozzarella, garlic, scallion, lemon juice, crushed red pepper",
+      "category": "Pizza"
+    },
+    {
+      "name": "FIG & PROSCIUTTO",
+      "description": "white sauce, mozzarella, honey, arugula, sesame seeds",
+      "category": "Pizza"
+    },
+    {
+      "name": "MARGHERITA",
+      "description": "san marzano tomato, mozzarella, pecorino romano, basil, olive oil",
+      "category": "Pizza"
+    },
+    {
+      "name": "SPICY SAUSAGE",
+      "description": "tomato sauce, house made sausage, mozzarella, provolone, pickled fresno peppers, fennel",
+      "category": "Pizza"
+    },
+    {
+      "name": "Mushroom",
+      "description": "oven roasted tomato, mixed mushrooms, roasted garlic purée, cashew cream, basil, cauliflower crust",
+      "category": "Pizza"
+    },
+    {
+      "name": "SIXTY BRUNCH",
+      "description": "white sauce, house-made sausage, bacon, fresno chilies, provolone, mozzarella, maple syrup, sunny side up egg",
+      "category": "Pizza"
+    },
+    {
+      "name": "MARINATED ARTICHOKE",
+      "description": "spinach, garlic, bacon, provolone, white sauce",
+      "category": "Pizza"
+    },
+    {
+      "name": "The Duo",
+      "description": "personal pizza & half house or Caesar salad",
+      "category": "Pizza"
+    },
+    {
+      "name": "House",
+      "description": "spring mix, candied walnuts, fresh strawberries, peppered pecorino, citrus-honey vinaigrette",
+      "category": "Salads"
+    },
+    {
+      "name": "Caesar",
+      "description": "gem lettuce, radicchio, caesar dressing, pecorino crisp",
+      "category": "Salads"
+    },
+    {
+      "name": "SHRIMP & AVOCADO",
+      "description": "baby kale, arugula, grapefruit, watermelon radish, crispy chickpeas, sesame tahini dressing",
+      "category": "Salads"
+    },
+    {
+      "name": "CALI CHICKEN CHOP",
+      "description": "wood-grilled chicken, gem lettuce, radicchio, marcona almonds, salametto piccante, fresh herbs, cracked olives",
+      "category": "Salads"
+    },
+    {
+      "name": "BEET & HERBED GOAT CHEESE",
+      "description": "spring mix, roasted purple, candy striped & golden beets,\nseasonal fruit, micro basil, white balsamic dressing",
+      "category": "Salads"
+    },
+    {
+      "name": "SALMON SMOKED COBB",
+      "description": "butter lettuce, avocado, watermelon radish, hard boiled egg, tomatoes, buttermilk chive vinaigrette",
+      "category": "Salads"
+    },
+    {
+      "name": "Roasted Pork",
+      "description": "slow roasted pork, avocado, worcestershire mayo, scallion, garlic, arugula, citronette, fresno peppers, crispy fingerling potatoes",
+      "category": "Sandwiches"
+    },
+    {
+      "name": "Grilled Chicken",
+      "description": "whipped feta, bacon, arugula, marinated peppers, vine ripe tomato, crispy fingerling potatoes",
+      "category": "Sandwiches"
+    },
+    {
+      "name": "Crescent Court BLT",
+      "description": "tomato jam, arugula, lemon-dill aioli, bacon, vine ripe tomato,\ncrispy fingerling potatoes",
+      "category": "Sandwiches"
+    },
+    {
+      "name": "DOUBLE STACK VINES BURGER*",
+      "description": "double patties, american cheese, fancy sauce, gem lettuce, pickles, potato bun, crispy fingerling potatoes",
+      "category": "Sandwiches"
+    },
+    {
+      "name": "DOUBLE CABERNET BURGER*",
+      "description": "cabernet smothered patties, potato bun, white cheddar cheese, caramelized onions, worcestershire mayo, tomato, crispy fingerling potatoes",
+      "category": "Sandwiches"
+    },
+    {
+      "name": "Truffled Vineyard Fries",
+      "description": "crispy layered potatoes, pecorino, chives, lemon truffle cream",
+      "category": "Shared"
+    },
+    {
+      "name": "Brunch Board",
+      "description": "smoked salmon spread, crushed avocado, marinated\ntomatoes, pickled shallot, cucumber, halved eggs,\ngrilled ciabatta, crispy bacon",
+      "category": "Shared"
+    },
+    {
+      "name": "Wood Grilled Shrimp",
+      "description": "roasted corn, tomato, champagne\nvinaigrette, black garlic aioli",
+      "category": "Shared"
+    },
+    {
+      "name": "CRISPY ZUCCHINI",
+      "description": "tapioca dusted, peppadew peppers, cilantro, sweet chili vinaigrette",
+      "category": "Shared"
+    },
+    {
+      "name": "FRIED CHICKEN + CAVIAR",
+      "description": "buttermilk brined, crispy fried, lemon creme fraiche",
+      "category": "Shared"
+    },
+    {
+      "name": "TUNA CRUDO*",
+      "description": "seared ahi tuna, cucumber, aji amarillo, pineapple, cilantro",
+      "category": "Shared"
+    },
+    {
+      "name": "ALBONDIGAS",
+      "description": "Spanish meatballs, saffron, tomato, smoked paprika,\nalmond gremolata",
+      "category": "Shared"
+    },
+    {
+      "name": "PAN ROASTED MUSSELS",
+      "description": "shallots, white wine, picked herbs, butter, fennel, grilled ciabatta",
+      "category": "Shared"
+    },
+    {
+      "name": "CITRUS OLIVES",
+      "description": "mixed whole olives, fennel, chilis, orange, basil",
+      "category": "Shared"
+    },
+    {
+      "name": "Wood Roasted Cauliflower",
+      "description": "whipped eggplant, grilled flatbread, chili oil",
+      "category": "Shared"
+    },
+    {
+      "name": "BACON-WRAPPED DATES",
+      "description": "bacon wrapped, oven roasted, balsamic glaze",
+      "category": "Shared"
+    },
+    {
+      "name": "BURRATA",
+      "description": "basil pesto, wood grilled ciabatta, tomato & garlic confit, balsamic dijon vinaigrette, sea salt",
+      "category": "Shared"
+    },
+    {
+      "name": "Brussels",
+      "description": "crisp fried, kung pao vinaigrette, scallions, cashews",
+      "category": "Shared"
+    },
+    {
+      "name": "HUMMUS",
+      "description": "red beet hummus, edamame hummus, crisped flatbread",
+      "category": "Shared"
+    },
+    {
+      "name": "Grilled Golden Beets",
+      "description": "whipped feta, toasted pistachio, apricot vinaigrette",
+      "category": "Shared"
+    },
+    {
+      "name": "ORANGE MORNING BREAD",
+      "description": "brown butter cinnamon bites, citrus icing, candied walnuts, coffee crumble",
+      "category": "Shared"
+    }
+  ]
+}

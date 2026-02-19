@@ -1,0 +1,152 @@
+[
+  {
+    "category": "Appetizer",
+    "name": "Caesar Salad",
+    "description": "Romaine, Focaccia Crisps, Parmesan"
+  },
+  {
+    "category": "Appetizer",
+    "name": "Citrus Salad",
+    "description": "Citrus, Ricotta Salata, Winter Chicories, Pistachio, Roasted Beets, Citrus Vinaigrette"
+  },
+  {
+    "category": "Appetizer",
+    "name": "Tomato Bisque",
+    "description": "Pistachio Gremolata"
+  },
+  {
+    "category": "Appetizer",
+    "name": "Margherita Pizza",
+    "description": "Tomato Sauce, Mozzarella, Basil, EVOO"
+  },
+  {
+    "category": "Appetizer",
+    "name": "Pepperoni Pizza",
+    "description": "Tomato Sauce, Spicy Pepperoni, Mozzarella, Basil"
+  },
+  {
+    "category": "Appetizer",
+    "name": "Calabrian Pizza",
+    "description": "Tomato Sauce, House Spicy Sausage, Red Onions, Calabrian Chili Oil, Mozzarella, Basil"
+  },
+  {
+    "category": "Appetizer",
+    "name": "Mushroom Pizza",
+    "description": "Truffle Ricotta, Mozzarella, Roasted Garlic, Arugula, Lemon"
+  },
+  {
+    "category": "Pasta",
+    "name": "Bolognese",
+    "description": "Tagliatelle, Spiced Beef and Pork, Parmesan"
+  },
+  {
+    "category": "Pasta",
+    "name": "Amatriciana",
+    "description": "Spaghetti, Bacon Lardon, D.O.P Tomatoes, Pecorino Romano"
+  },
+  {
+    "category": "Pasta",
+    "name": "Chicken Sugo",
+    "description": "Strozzapreti, Chicken Bolognese, Spinach, Roasted Mushroom"
+  },
+  {
+    "category": "Pasta",
+    "name": "Cacio e Pepe",
+    "description": "Spaghetti, Pecorino, Toasted Black Pepper"
+  },
+  {
+    "category": "Pasta",
+    "name": "Butternut Squash Ravioli",
+    "description": "Sage Brown Butter, Balsamico Modena, Chestnut Muchrooms, Walnuts"
+  },
+  {
+    "category": "For the Table",
+    "name": "#Whipped Ricotta",
+    "description": "Lavender Honey, Lemon Oil, Pistachio, House Bread"
+  },
+  {
+    "category": "For the Table",
+    "name": "Meatballs",
+    "description": "Local Beef and Pork, Rustic Tomato, Whipped Ricotta"
+  },
+  {
+    "category": "For the Table",
+    "name": "Fried Artichokes",
+    "description": "Lemon Aioli"
+  },
+  {
+    "category": "For the Table",
+    "name": "Crispy Brussels",
+    "description": "Balsamic Apples, Pickled Mustard Seed, Pecorino"
+  },
+  {
+    "category": "For the Table",
+    "name": "Calamari Semolina",
+    "description": "Pickled Peppers, Pomodoro"
+  },
+  {
+    "category": "For the Table",
+    "name": "Fire Roasted Shrimp",
+    "description": "Spicy Arrabbiata, Lemon, Pangrattato, House Bread"
+  },
+  {
+    "category": "Mains",
+    "name": "Chicken Scarpariello",
+    "description": "Italian Sausage, Fingerling Potatoes, Cherry Peppers, Jus"
+  },
+  {
+    "category": "Mains",
+    "name": "Grilled New York Strip*",
+    "description": "Braised Local Greens, Fingerling Potatoes, Truffle Jus"
+  },
+  {
+    "category": "Mains",
+    "name": "Seared Salmon*",
+    "description": "Butternut Squash Puree, Roasted Root Vegetable, Honey Glaze"
+  },
+  {
+    "category": "Mains",
+    "name": "Gnocchi",
+    "description": "Braised Duck Ragu, Black Truffle Ricotta, Lemon"
+  },
+  {
+    "category": "Mains",
+    "name": "Veal Ossobuco",
+    "description": "Braised Veal Shank, Pistachio Gremolata, Creamy Polenta"
+  },
+  {
+    "category": "Signature Cuts",
+    "name": "Market White Fish*",
+    "description": "Lemon Butter Sauce, Confit Tomatoes"
+  },
+  {
+    "category": "Signature Cuts",
+    "name": "Florentine Steak*",
+    "description": "Bone-in Ribeye, Balsamic, Greens"
+  },
+  {
+    "category": "Signature Cuts",
+    "name": "Grilled Pork Chop*",
+    "description": "Apple Cider Glaze, Parsnip Double Cream, Brown Butter Root Vegetables, Fresh Herbs"
+  },
+  {
+    "category": "Sides",
+    "name": "Grilled Broccolini",
+    "description": "Chili and Garlic Oil, Lemon"
+  },
+  {
+    "category": "Sides",
+    "name": "Crispy Potatoes",
+    "description": "Smashed Fingerling, Pickles Cippolini Onions, Lemon Crema"
+  },
+  {
+    "category": "Sides",
+    "name": "Local Mushrooms",
+    "description": "Mushroom Ragu, Balsamic"
+  },
+  {
+    "category": "Sides",
+    "name": "Creamy Polenta",
+    "description": "Grated Parmesan and Herbs"
+  }
+]

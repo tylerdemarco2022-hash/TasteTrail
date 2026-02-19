@@ -1,0 +1,393 @@
+Discover
+Featured
+Winter at Whitewater
+The Illness
+Summer Camps
+Adventure Lodging
+Events & Races
+Race Series
+Festivals
+River Jam
+Adventure Dining
+Film Series
+Yoga
+Instruction
+Kayak + SUP Instruction
+Swiftwater Rescue
+First Aid & Wilderness Medicine
+Climbing + Challenge Course
+Yoga Teacher Training
+Whitewater Camps
+Spring Break Camp
+Day Sessions
+Groups & Private Events
+Whitewater Center - Charlotte, NC
+Middleburg - Charleston, SC
+Big Creek Lodge - Mills River, NC
+Windfall - Lansing, NC
+About Whitewater
+Whitewater Stories
+Whitewater Center
+Activities
+Ice Skating
+Ziplines
+Ropes Courses
+Mountain Biking
+Off Leash
+Wildwoods
+Trail Running + Hiking
+Climbing
+Whitewater Rafting
+Whitewater Kayaking + SUP
+Flatwater Paddling
+Deep Water Solo
+Pond Hockey
+Little Learners
+Event Space
+Field Trips
+Catering
+Team Building
+Weddings
+Visit
+Buy Passes
+Calendar + Upcoming Events
+Food & Beverage
+Today's Hours
+Maps
+Outfitters Store
+Waiver
+Big Creek Lodge
+Mills River, NC
+Stay at Big Creek Lodge
+Weddings & Groups
+Whitewater Guides
+Windfall
+Lansing, NC
+Stay at Windfall
+Middleburg
+Charleston, SC
+Stay at Middleburg
+Whitewater Races & Events
+High Camp
+Whitetop, VA - Coming Soon
+Charlotte, NC
+Trail Status
+Trails Closed
+TODAY'S ACTIVITY SCHEDULE
+See Details
+FOOD & BEVERAGE
+12:00 pm - 10:00 pm
+GUEST SERVICES
+9:00 am - 10:00 pm
+Food and Beverage
+The Whitewater Center offers several full-service, fast casual and grab-and-go outlets for food and drinks on the 1,300-acre property.
+River’s Edge
+A full-service dining option featuring a wide selection of food, beer, and wine inside or on the patio overlooking our man-made whitewater river.
+The Trail Center
+Stop by after a day in the woods to grab a drink and refuel. The Trail Center offers a variety of grab and go and hot food options.
+Outfitters
+Stop by the counter for a selection of one of our rotating craft beers on tap. A selection of snacks and nutritional products are available.
+Pump House Biergarten
+Located on Belmont Abbey Island, the Pump House Biergarten offers as many as forty craft beers on tap and a variety of made-to-order food options. Guests can sit down to enjoy a meal or a drink while overlooking the paddlers on the Competition Channel.
+Wildwoods Cabin
+Natalie’s Juice Company and craft-beer on tap, plus snacks and grab-and-go food items. Located within Wildwoods.
+Barley House
+Enjoy food, treats, and beer — with offerings for both people and their dogs. Located within Off Leash.
+The Market
+Featuring several quick grab-and-go options including sandwiches, salads, craft beer and more. The outdoor bar is open during special events and concerts with a variety of craft beer and wine available.
+Company Info
+Employment
+Contact
+FAQ's
+var currentURL = 'https://whitewater.org/whitewater-center/food-and-beverage/';
+var params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9PW6PHW0M8');
+!function(e,t,n,s,a,c,p,i,o,u){e[a]||((i=e[a]=function(){i.process?i.process.apply(i,arguments):i.queue.push(arguments)}).queue=[],i.pixelId="cbd42ac9-c947-41a0-a340-cc2163106c8c",i.t=1*new Date,(o=t.createElement(n)).async=1,o.src="https://found.ee/dmp/pixel.js?t="+864e5*Math.ceil(new Date/864e5),(u=t.getElementsByTagName(n)[0]).parentNode.insertBefore(o,u))}(window,document,"script",0,"foundee");foundee('', 'Y');
+img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }
+Food and Beverage - Whitewater
+{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://whitewater.org/whitewater-center/food-and-beverage/","url":"https://whitewater.org/whitewater-center/food-and-beverage/","name":"Food and Beverage - Whitewater","isPartOf":{"@id":"https://whitewater.org/#website"},"datePublished":"2020-07-22T17:25:18+00:00","dateModified":"2026-02-09T16:10:45+00:00","description":"The Whitewater Center offers several full-service, fast casual and grab-and-go outlets for food and drinks on the 1,300-acre property.","breadcrumb":{"@id":"https://whitewater.org/whitewater-center/food-and-beverage/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://whitewater.org/whitewater-center/food-and-beverage/"]}]},{"@type":"BreadcrumbList","@id":"https://whitewater.org/whitewater-center/food-and-beverage/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whitewater.org/"},{"@type":"ListItem","position":2,"name":"Whitewater Center","item":"https://whitewater.org/whitewater-center/"},{"@type":"ListItem","position":3,"name":"Food and Beverage"}]},{"@type":"WebSite","@id":"https://whitewater.org/#website","url":"https://whitewater.org/","name":"Whitewater","description":"The world&#039;s premier outdoor center featuring 1,300 acres to run, paddle, ride, climb and more located in Charlotte, North Carolina.","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://whitewater.org/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"}]}
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/whitewater.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.3"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+img.wp-smiley, img.emoji {
+display: inline !important;
+border: none !important;
+box-shadow: none !important;
+height: 1em !important;
+width: 1em !important;
+margin: 0 0.07em !important;
+vertical-align: -0.1em !important;
+background: none !important;
+padding: 0 !important;
+}
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+var sgr = {"sgr_site_key":"6LdQw5MaAAAAAKYH6qvsi_EArVCM751GSi9PXfZO"};
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+jQuery(function(jQuery){jQuery.datepicker.setDefaults({"closeText":"Close","currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"nextText":"Next","prevText":"Previous","dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["S","M","T","W","T","F","S"],"dateFormat":"MM d, yy","firstDay":1,"isRTL":false});});
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '236370623380911'); // Insert your pixel ID here.
+fbq('track', 'PageView');
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=236370623380911&ev=PageView&noscript=1"
+/>
+gtag('config', 'AW-927963846');
+gtag('event', 'conversion', {'send_to': 'AW-927963846/OolKCIi68fsCEMa1vroD'});
+gtag('config', 'G-NRGGJGQWPB');
+<img width="1" height="1" src="//action.dstillery.com/orbserv/nspix?adv=cl168729047482136&ns=8069&nc=Whitewater_Homepage_SV&ncv=53&dstOrderId=[OrderId]&dstOrderAmount=[OrderAmount]" />
+/* BOOKING WIDGET STYLING */
+#hostaway-booking-widget {
+max-width: 1000px;
+width: 100%;
+margin: 0 auto 30px;
+border: 1px solid #727272;
+border-radius: 300px;
+box-sizing: border-box;
+position: relative;
+top: -35px;
+#hostaway-booking-widget .hsbw-field {
+padding-left: 50px;
+#hostaway-booking-widget .hsbw-field-icon {
+background-color: #ffe9e9;
+border-color: #cb4242;
+display: flex;
+width: 40px;
+height: 40px;
+position: absolute;
+left: 0;
+#hostaway-booking-widget .hsbw-field-icon svg {
+height: 0.48em;
+width: 0.48em;
+#hostaway-booking-widget .hsbw-field-icon svg,
+#hostaway-booking-widget .hsbw-field-icon svg path {
+fill: #BA0D30;
+#hostaway-booking-widget .hsbw-label {
+color: #000;
+margin: 0 0;
+font-family: 'Brandon';
+font-size: 18px;
+line-height: 1.2;
+#hostaway-booking-widget .hsbw-field-content .hsbw-value {
+font-size: 15px;
+line-height: 1;
+#hostaway-booking-widget .hsbw-calendar {
+padding-bottom: 80px;
+#hostaway-booking-widget .hsbw-calendar .hsbw-calendar-clear {
+right: unset;
+left: 50%;
+transform: translateX(-50%);
+padding: 5px 15px;
+color: #000 !important;
+font-size: 20px;
+#hostaway-booking-widget .hsbw-calendar .hsbw-button svg {
+top: 7px;
+left: 11px;
+#hostaway-booking-widget .hsbw-calendar .hsbw-button.hsbw-calendar-button--left svg {
+left: 10px;
+#hostaway-booking-widget .hsbw-dates .hsbw-calendar:before {
+font-family: "Brandon Medium";
+font-size: 14px;
+color: #ba0d30;
+display: inline-block;
+top: 12px;
+text-transform: uppercase;
+letter-spacing: 0.03em;
+#hostaway-booking-widget .hsbw-dates[data-click="checkout"] .hsbw-calendar:before {
+content:"Check-out";
+#hostaway-booking-widget .hsbw-dates[data-click="checkin"] .hsbw-calendar:before {
+content:"Check-in";
+#hostaway-booking-widget .hsbw-popup_inner {
+border: 1px solid #d8d8d8!important;
+@media screen and (min-width:1251px) {
+#hostaway-booking-widget .hsbw-dates .hsbw-calendar {
+min-width: 330px;
+#hostaway-booking-widget .hsbw-dates .hsbw-calendar-container table {
+max-width: 250px;
+@media screen and (max-width: 1024px) {
+border: none;
+#hostaway-booking-widget .hsbw {
+background-color: transparent;
+.hsbw-grid.hsbw-grid--locations {
+flex-wrap: wrap;
+flex-direction: row;
+justify-content: space-evenly;
+.hsbw-grid_locations,
+.hsbw-dates,
+.hsbw-grid_guests,
+.hsbw-grid_buttons {
+align-items: center;
+justify-content: center;
+width: 47%;
+.hsbw-grid_guests {
+border: 1px solid #b9b9b9;
+margin: 10px 0;
+#hostaway-booking-widget .hsbw-dates,
+#hostaway-booking-widget .hsbw-grid_guests,
+#hostaway-booking-widget .hsbw-grid_locations {
+padding-left: 8px;
+padding-right: 8px;
+#hostaway-booking-widget .hsbw-grid_locations .hsbw-field,
+#hostaway-booking-widget .hsbw-grid_guests .hsbw-field {
+#hostaway-booking-widget .hsbw-dates {
+display: flex !important;
+justify-content: space-between;
+#hostaway-booking-widget .hsbw-grid_guests .hsbw-field-content {
+gap: 0.5em;
+#hostaway-booking-widget .hsbw-grid_guests .hsbw-popup,
+#hostaway-booking-widget .hsbw-grid_locations .hsbw-popup {
+top: 50px;
+#hostaway-booking-widget .hsbw-dates .hsbw-grid_checkin,
+#hostaway-booking-widget .hsbw-dates .hsbw-grid_checkout,
+#hostaway-booking-widget .hsbw-dates .hsbw-field {
+position: unset!important;
+#hostaway-booking-widget .hsbw-dates .hsbw-container {
+top: 60px;
+z-index: 20;
+#hostaway-booking-widget .hsbw-dates .hsbw-field-icon {
+position: unset;
+#hostaway-booking-widget .hsbw-dates .hsbw-container .hsbw-calendar {
+position: relative!important;
+#hostaway-booking-widget .hsbw-field-content .hsbw-dates .hsbw-value {
+font-size: 16px;
+padding-left: 0!important;
+.visit .text-block-section .text-block-inner:has(#hostaway-booking-widget) {
+padding-left: 20px;
+padding-right: 20px;
+#hostaway-booking-widget .hsbw-calendar table {
+@media screen and (max-width: 768px) {
+top: 1px;
+.intro-text .acf-fields-container[data-canto-acf] {
+display:none!important;
+body.page-template-page-interactive-map.subpage.pageNoBanner:not(.page-template-page-about) .site-content,
+body.page-template-page-interactive-map .site-content {
+padding-top: 0 !important;
+.interactive-map-container.fullscreen-layout-map .interactive-map-sidebar .sidebar-top .map-logo img {
+width: 180px;
+body.single-interactive-maps .interactive-map-container .action-button {
+z-index: 99999999999;
+#map-sidebar .sidebarMarkerDetails .details {
+margin-bottom: 20px;
+.repeatable-section.section-image-cards a.button.button-type-link:hover {
+background-color: transparent!important;
+.intro-text:has(#hostaway-booking-widget),
+max-width: 1090px;
+#hostaway-booking-widget .hsbw-grid_locations .hsbw-location-search {
+appearance: none;
+font-size: 17px;
+text-align: center;
+@media screen and (min-width: 960px) {
+.homepage-hero:has(video) video {
+width: auto !important;
+height: 100vh !important;
+/* @media screen and (min-width:1481px) {
+body.subpage #banner .static-banner .slides .iframe-wrapper {
+height: 90vh;
+} */
+margin-top: 40px;
+margin-left: 20px;
+margin-top: 0;
+margin-left: 0;
+@media screen and (max-width: 960px) {
+.new-nav-v2.desktop-navigation li.v-menu-item.has-children a span:after {
+font-family: FontAwesome !important;
+font-size: 22px!important;
+font-weight: 300!important;
+content:"\f107"!important;
+.site:has(#banner .iframe-wrapper video) .site-content {
+background-color: #FFF;
+.calendar-grid-wrapper:has(.activity-schedule-link.is--mobile-event):has(.activity-schedule-link.is--mobile-day) .activity-schedule-link.is--mobile-day {
+Skip to content
+Search for:
+Close
+Buy
+Calendar
+Today
+Today's Snapshot
+Mobile Navigation
+Closed
+Menu
+Grab and Go
+3:00 pm – 9:30 pm
+Hot Food
+5:00 pm – 9:00 pm
+9:00 am - 7:00 pm
+jQuery(document).ready(function ($) {
+var hideSubnavItems = [];
+/* page anchors */
+if( $('[data-section]').length > 0 ) {
+var tabs = '';
+var tabsArr = [];
+$('[data-section]').each(function(){
+var name = $(this).attr('data-section');
+var id = $(this).attr("id");
+var slug = name.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
+var nameArr = name;
+if( hideSubnavItems.length ) {
+if ($.inArray(slug, hideSubnavItems) !== -1) {
+//Do nothing...
+nameArr = '';
+} else {
+tabs += '<span class="mini-nav"><a href="#'+id+'">'+name+'</a></span>';
+//tabsArr.push(nameArr);
+});
+if( $("#pageTabs").length>0 ) {
+$("#pageTabs").html('<div class="wrapper"><div id="tabcontent">'+tabs+'</div></div>');
+$("#pageTabs").show();
+jQuery(document).ready(function($){
+$('#foodSlides').flexslider({
+animation: "slide"
+/* Sub-tabs */
+// if( $(".menu-sections .mstitle").length > 0 ) {
+// 	$("#pageTabs").show();
+// 	$(".menu-sections .mstitle").each(function(){
+// 		var parent = $(this).parents(".mscol");
+// 		var parentId = parent.attr("id");
+// 		var text = $(this).text().replace(/\s/g,' ').trim();
+// 		var tab = '<span class="mini-nav"><a href="#'+parentId+'">'+text+'</a></span>';
+// 		$("#tabcontent").append(tab);
+// 	});
+// 	$(document).on("click","#tabcontent a",function(e) {
+// 	$("#tabcontent a").removeClass("active");
+// 	$(this).addClass('active');
+// });
+// }
+Facebook
+Instagram
+Youtube
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/usnwc-2024\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+window.addEventListener('load', function(){
+jQuery('a:contains("Register")').click(function(){
+gtag('event', 'conversion', {'send_to': 'AW-927963846/VbQcCN2W8o8DEMa1vroD'});
+jQuery(document).ready(function(){
+$(document).on('click','.hsbw-grid_checkout', function(){
+$('.hsbw-dates').attr('data-click','checkout');
+$(document).on('click','.hsbw-grid_checkin', function(){
+$('.hsbw-dates').attr('data-click','checkin');
+( function ( body ) {
+'use strict';
+body.className = body.className.replace( /\btribe-no-js\b/, 'tribe-js' );
+} )( document.body );
+/* <![CDATA[ */var tribe_l10n_datatables = {"aria":{"sort_ascending":": activate to sort column ascending","sort_descending":": activate to sort column descending"},"length_menu":"Show _MENU_ entries","empty_table":"No data available in table","info":"Showing _START_ to _END_ of _TOTAL_ entries","info_empty":"Showing 0 to 0 of 0 entries","info_filtered":"(filtered from _MAX_ total entries)","zero_records":"No matching records found","search":"Search:","all_selected_text":"All items on this page were selected. ","select_all_link":"Select all pages","clear_selection":"Clear Selection.","pagination":{"all":"All","next":"Next","previous":"Previous"},"select":{"rows":{"0":"","_":": Selected %d rows","1":": Selected 1 row"}},"datepicker":{"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["S","M","T","W","T","F","S"],"monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesMin":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"nextText":"Next","prevText":"Prev","currentText":"Today","closeText":"Done","today":"Today","clear":"Clear"}};/* ]]> */
+var saveImapDataAjax = {"ajax_url":"https:\/\/whitewater.org\/wp-admin\/admin-ajax.php","nonce":"a7f946e17d"};
+var frontajax = {"ajaxurl":"https:\/\/whitewater.org\/wp-admin\/admin-ajax.php"};
+acf.data = {"select2L10n":{"matches_1":"One result is available, press enter to select it.","matches_n":"%d results are available, use up and down arrow keys to navigate.","matches_0":"No matches found","input_too_short_1":"Please enter 1 or more characters","input_too_short_n":"Please enter %d or more characters","input_too_long_1":"Please delete 1 character","input_too_long_n":"Please delete %d characters","selection_too_long_1":"You can only select 1 item","selection_too_long_n":"You can only select %d items","load_more":"Loading more results&hellip;","searching":"Searching&hellip;","load_fail":"Loading failed"},"google_map_api":"https:\/\/maps.googleapis.com\/maps\/api\/js?libraries=places&ver=3&callback=Function.prototype&language=en_US","datePickerL10n":{"closeText":"Done","currentText":"Today","nextText":"Next","prevText":"Prev","weekHeader":"Wk","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesMin":["S","M","T","W","T","F","S"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},"dateTimePickerL10n":{"timeOnlyTitle":"Choose Time","timeText":"Time","hourText":"Hour","minuteText":"Minute","secondText":"Second","millisecText":"Millisecond","microsecText":"Microsecond","timezoneText":"Time Zone","currentText":"Now","closeText":"Done","selectText":"Select","amNames":["AM","A"],"pmNames":["PM","P"]},"colorPickerL10n":{"hex_string":"Hex String","rgba_string":"RGBA String"},"iconPickerA11yStrings":{"noResultsForSearchTerm":"No results found for that search term","newResultsFoundForSearchTerm":"The available icons matching your search query have been updated in the icon picker below."},"iconPickeri10n":{"dashicons-admin-appearance":"Appearance Icon","dashicons-admin-collapse":"Collapse Icon","dashicons-admin-comments":"Comments Icon","dashicons-admin-customizer":"Customizer Icon","dashicons-admin-generic":"Generic Icon","dashicons-admin-home":"Home Icon","dashicons-admin-links":"Links Icon","dashicons-admin-media":"Media Icon","dashicons-admin-multisite":"Multisite Icon","dashicons-admin-network":"Network Icon","dashicons-admin-page":"Page Icon","dashicons-admin-plugins":"Plugins Icon","dashicons-admin-post":"Post Icon","dashicons-admin-settings":"Settings Icon","dashicons-admin-site":"Site Icon","dashicons-admin-site-alt":"Site (alt) Icon","dashicons-admin-site-alt2":"Site (alt2) Icon","dashicons-admin-site-alt3":"Site (alt3) Icon","dashicons-admin-tools":"Tools Icon","dashicons-admin-users":"Users Icon","dashicons-airplane":"Airplane Icon","dashicons-album":"Album Icon","dashicons-align-center":"Align Center Icon","dashicons-align-full-width":"Align Full Width Icon","dashicons-align-left":"Align Left Icon","dashicons-align-none":"Align None Icon","dashicons-align-pull-left":"Align Pull Left Icon","dashicons-align-pull-right":"Align Pull Right Icon","dashicons-align-right":"Align Right Icon","dashicons-align-wide":"Align Wide Icon","dashicons-amazon":"Amazon Icon","dashicons-analytics":"Analytics Icon","dashicons-archive":"Archive Icon","dashicons-arrow-down":"Arrow Down Icon","dashicons-arrow-down-alt":"Arrow Down (alt) Icon","dashicons-arrow-down-alt2":"Arrow Down (alt2) Icon","dashicons-arrow-left":"Arrow Left Icon","dashicons-arrow-left-alt":"Arrow Left (alt) Icon","dashicons-arrow-left-alt2":"Arrow Left (alt2) Icon","dashicons-arrow-right":"Arrow Right Icon","dashicons-arrow-right-alt":"Arrow Right (alt) Icon","dashicons-arrow-right-alt2":"Arrow Right (alt2) Icon","dashicons-arrow-up":"Arrow Up Icon","dashicons-arrow-up-alt":"Arrow Up (alt) Icon","dashicons-arrow-up-alt2":"Arrow Up (alt2) Icon","dashicons-art":"Art Icon","dashicons-awards":"Awards Icon","dashicons-backup":"Backup Icon","dashicons-bank":"Bank Icon","dashicons-beer":"Beer Icon","dashicons-bell":"Bell Icon","dashicons-block-default":"Block Default Icon","dashicons-book":"Book Icon","dashicons-book-alt":"Book (alt) Icon","dashicons-buddicons-activity":"Activity Icon","dashicons-buddicons-bbpress-logo":"bbPress Icon","dashicons-buddicons-buddypress-logo":"BuddyPress Icon","dashicons-buddicons-community":"Community Icon","dashicons-buddicons-forums":"Forums Icon","dashicons-buddicons-friends":"Friends Icon","dashicons-buddicons-groups":"Groups Icon","dashicons-buddicons-pm":"PM Icon","dashicons-buddicons-replies":"Replies Icon","dashicons-buddicons-topics":"Topics Icon","dashicons-buddicons-tracking":"Tracking Icon","dashicons-building":"Building Icon","dashicons-businessman":"Businessman Icon","dashicons-businessperson":"Businessperson Icon","dashicons-businesswoman":"Businesswoman Icon","dashicons-button":"Button Icon","dashicons-calculator":"Calculator Icon","dashicons-calendar":"Calendar Icon","dashicons-calendar-alt":"Calendar (alt) Icon","dashicons-camera":"Camera Icon","dashicons-camera-alt":"Camera (alt) Icon","dashicons-car":"Car Icon","dashicons-carrot":"Carrot Icon","dashicons-cart":"Cart Icon","dashicons-category":"Category Icon","dashicons-chart-area":"Chart Area Icon","dashicons-chart-bar":"Chart Bar Icon","dashicons-chart-line":"Chart Line Icon","dashicons-chart-pie":"Chart Pie Icon","dashicons-clipboard":"Clipboard Icon","dashicons-clock":"Clock Icon","dashicons-cloud":"Cloud Icon","dashicons-cloud-saved":"Cloud Saved Icon","dashicons-cloud-upload":"Cloud Upload Icon","dashicons-code-standards":"Code Standards Icon","dashicons-coffee":"Coffee Icon","dashicons-color-picker":"Color Picker Icon","dashicons-columns":"Columns Icon","dashicons-controls-back":"Back Icon","dashicons-controls-forward":"Forward Icon","dashicons-controls-pause":"Pause Icon","dashicons-controls-play":"Play Icon","dashicons-controls-repeat":"Repeat Icon","dashicons-controls-skipback":"Skip Back Icon","dashicons-controls-skipforward":"Skip Forward Icon","dashicons-controls-volumeoff":"Volume Off Icon","dashicons-controls-volumeon":"Volume On Icon","dashicons-cover-image":"Cover Image Icon","dashicons-dashboard":"Dashboard Icon","dashicons-database":"Database Icon","dashicons-database-add":"Database Add Icon","dashicons-database-export":"Database Export Icon","dashicons-database-import":"Database Import Icon","dashicons-database-remove":"Database Remove Icon","dashicons-database-view":"Database View Icon","dashicons-desktop":"Desktop Icon","dashicons-dismiss":"Dismiss Icon","dashicons-download":"Download Icon","dashicons-drumstick":"Drumstick Icon","dashicons-edit":"Edit Icon","dashicons-edit-large":"Edit Large Icon","dashicons-edit-page":"Edit Page Icon","dashicons-editor-aligncenter":"Align Center Icon","dashicons-editor-alignleft":"Align Left Icon","dashicons-editor-alignright":"Align Right Icon","dashicons-editor-bold":"Bold Icon","dashicons-editor-break":"Break Icon","dashicons-editor-code":"Code Icon","dashicons-editor-contract":"Contract Icon","dashicons-editor-customchar":"Custom Character Icon","dashicons-editor-expand":"Expand Icon","dashicons-editor-help":"Help Icon","dashicons-editor-indent":"Indent Icon","dashicons-editor-insertmore":"Insert More Icon","dashicons-editor-italic":"Italic Icon","dashicons-editor-justify":"Justify Icon","dashicons-editor-kitchensink":"Kitchen Sink Icon","dashicons-editor-ltr":"LTR Icon","dashicons-editor-ol":"Ordered List Icon","dashicons-editor-ol-rtl":"Ordered List RTL Icon","dashicons-editor-outdent":"Outdent Icon","dashicons-editor-paragraph":"Paragraph Icon","dashicons-editor-paste-text":"Paste Text Icon","dashicons-editor-paste-word":"Paste Word Icon","dashicons-editor-quote":"Quote Icon","dashicons-editor-removeformatting":"Remove Formatting Icon","dashicons-editor-rtl":"RTL Icon","dashicons-editor-spellcheck":"Spellcheck Icon","dashicons-editor-strikethrough":"Strikethrough Icon","dashicons-editor-table":"Table Icon","dashicons-editor-textcolor":"Text Color Icon","dashicons-editor-ul":"Unordered List Icon","dashicons-editor-underline":"Underline Icon","dashicons-editor-unlink":"Unlink Icon","dashicons-editor-video":"Video Icon","dashicons-ellipsis":"Ellipsis Icon","dashicons-email":"Email Icon","dashicons-email-alt":"Email (alt) Icon","dashicons-email-alt2":"Email (alt2) Icon","dashicons-embed-audio":"Embed Audio Icon","dashicons-embed-generic":"Embed Generic Icon","dashicons-embed-photo":"Embed Photo Icon","dashicons-embed-post":"Embed Post Icon","dashicons-embed-video":"Embed Video Icon","dashicons-excerpt-view":"Excerpt View Icon","dashicons-exit":"Exit Icon","dashicons-external":"External Icon","dashicons-facebook":"Facebook Icon","dashicons-facebook-alt":"Facebook (alt) Icon","dashicons-feedback":"Feedback Icon","dashicons-filter":"Filter Icon","dashicons-flag":"Flag Icon","dashicons-food":"Food Icon","dashicons-format-aside":"Aside Icon","dashicons-format-audio":"Audio Icon","dashicons-format-chat":"Chat Icon","dashicons-format-gallery":"Gallery Icon","dashicons-format-image":"Image Icon","dashicons-format-quote":"Quote Icon","dashicons-format-status":"Status Icon","dashicons-format-video":"Video Icon","dashicons-forms":"Forms Icon","dashicons-fullscreen-alt":"Fullscreen (alt) Icon","dashicons-fullscreen-exit-alt":"Fullscreen Exit (alt) Icon","dashicons-games":"Games Icon","dashicons-google":"Google Icon","dashicons-grid-view":"Grid View Icon","dashicons-groups":"Groups Icon","dashicons-hammer":"Hammer Icon","dashicons-heading":"Heading Icon","dashicons-heart":"Heart Icon","dashicons-hidden":"Hidden Icon","dashicons-hourglass":"Hourglass Icon","dashicons-html":"HTML Icon","dashicons-id":"ID Icon","dashicons-id-alt":"ID (alt) Icon","dashicons-image-crop":"Crop Icon","dashicons-image-filter":"Filter Icon","dashicons-image-flip-horizontal":"Flip Horizontal Icon","dashicons-image-flip-vertical":"Flip Vertical Icon","dashicons-image-rotate":"Rotate Icon","dashicons-image-rotate-left":"Rotate Left Icon","dashicons-image-rotate-right":"Rotate Right Icon","dashicons-images-alt":"Images (alt) Icon","dashicons-images-alt2":"Images (alt2) Icon","dashicons-index-card":"Index Card Icon","dashicons-info":"Info Icon","dashicons-info-outline":"Info Outline Icon","dashicons-insert":"Insert Icon","dashicons-insert-after":"Insert After Icon","dashicons-insert-before":"Insert Before Icon","dashicons-instagram":"Instagram Icon","dashicons-laptop":"Laptop Icon","dashicons-layout":"Layout Icon","dashicons-leftright":"Left Right Icon","dashicons-lightbulb":"Lightbulb Icon","dashicons-linkedin":"LinkedIn Icon","dashicons-list-view":"List View Icon","dashicons-location":"Location Icon","dashicons-location-alt":"Location (alt) Icon","dashicons-lock":"Lock Icon","dashicons-marker":"Marker Icon","dashicons-media-archive":"Archive Icon","dashicons-media-audio":"Audio Icon","dashicons-media-code":"Code Icon","dashicons-media-default":"Default Icon","dashicons-media-document":"Document Icon","dashicons-media-interactive":"Interactive Icon","dashicons-media-spreadsheet":"Spreadsheet Icon","dashicons-media-text":"Text Icon","dashicons-media-video":"Video Icon","dashicons-megaphone":"Megaphone Icon","dashicons-menu":"Menu Icon","dashicons-menu-alt":"Menu (alt) Icon","dashicons-menu-alt2":"Menu (alt2) Icon","dashicons-menu-alt3":"Menu (alt3) Icon","dashicons-microphone":"Microphone Icon","dashicons-migrate":"Migrate Icon","dashicons-minus":"Minus Icon","dashicons-money":"Money Icon","dashicons-money-alt":"Money (alt) Icon","dashicons-move":"Move Icon","dashicons-nametag":"Nametag Icon","dashicons-networking":"Networking Icon","dashicons-no":"No Icon","dashicons-no-alt":"No (alt) Icon","dashicons-open-folder":"Open Folder Icon","dashicons-palmtree":"Palm Tree Icon","dashicons-paperclip":"Paperclip Icon","dashicons-pdf":"PDF Icon","dashicons-performance":"Performance Icon","dashicons-pets":"Pets Icon","dashicons-phone":"Phone Icon","dashicons-pinterest":"Pinterest Icon","dashicons-playlist-audio":"Playlist Audio Icon","dashicons-playlist-video":"Playlist Video Icon","dashicons-plugins-checked":"Plugins Checked Icon","dashicons-plus":"Plus Icon","dashicons-plus-alt":"Plus (alt) Icon","dashicons-plus-alt2":"Plus (alt2) Icon","dashicons-podio":"Podio Icon","dashicons-portfolio":"Portfolio Icon","dashicons-post-status":"Post Status Icon","dashicons-pressthis":"Pressthis Icon","dashicons-printer":"Printer Icon","dashicons-privacy":"Privacy Icon","dashicons-products":"Products Icon","dashicons-randomize":"Randomize Icon","dashicons-reddit":"Reddit Icon","dashicons-redo":"Redo Icon","dashicons-remove":"Remove Icon","dashicons-rest-api":"REST API Icon","dashicons-rss":"RSS Icon","dashicons-saved":"Saved Icon","dashicons-schedule":"Schedule Icon","dashicons-screenoptions":"Screen Options Icon","dashicons-search":"Search Icon","dashicons-share":"Share Icon","dashicons-share-alt":"Share (alt) Icon","dashicons-share-alt2":"Share (alt2) Icon","dashicons-shield":"Shield Icon","dashicons-shield-alt":"Shield (alt) Icon","dashicons-shortcode":"Shortcode Icon","dashicons-slides":"Slides Icon","dashicons-smartphone":"Smartphone Icon","dashicons-smiley":"Smiley Icon","dashicons-sort":"Sort Icon","dashicons-sos":"Sos Icon","dashicons-spotify":"Spotify Icon","dashicons-star-empty":"Star Empty Icon","dashicons-star-filled":"Star Filled Icon","dashicons-star-half":"Star Half Icon","dashicons-sticky":"Sticky Icon","dashicons-store":"Store Icon","dashicons-superhero":"Superhero Icon","dashicons-superhero-alt":"Superhero (alt) Icon","dashicons-table-col-after":"Table Col After Icon","dashicons-table-col-before":"Table Col Before Icon","dashicons-table-col-delete":"Table Col Delete Icon","dashicons-table-row-after":"Table Row After Icon","dashicons-table-row-before":"Table Row Before Icon","dashicons-table-row-delete":"Table Row Delete Icon","dashicons-tablet":"Tablet Icon","dashicons-tag":"Tag Icon","dashicons-tagcloud":"Tagcloud Icon","dashicons-testimonial":"Testimonial Icon","dashicons-text":"Text Icon","dashicons-text-page":"Text Page Icon","dashicons-thumbs-down":"Thumbs Down Icon","dashicons-thumbs-up":"Thumbs Up Icon","dashicons-tickets":"Tickets Icon","dashicons-tickets-alt":"Tickets (alt) Icon","dashicons-tide":"Tide Icon","dashicons-translation":"Translation Icon","dashicons-trash":"Trash Icon","dashicons-twitch":"Twitch Icon","dashicons-twitter":"Twitter Icon","dashicons-twitter-alt":"Twitter (alt) Icon","dashicons-undo":"Undo Icon","dashicons-universal-access":"Universal Access Icon","dashicons-universal-access-alt":"Universal Access (alt) Icon","dashicons-unlock":"Unlock Icon","dashicons-update":"Update Icon","dashicons-update-alt":"Update (alt) Icon","dashicons-upload":"Upload Icon","dashicons-vault":"Vault Icon","dashicons-video-alt":"Video (alt) Icon","dashicons-video-alt2":"Video (alt2) Icon","dashicons-video-alt3":"Video (alt3) Icon","dashicons-visibility":"Visibility Icon","dashicons-warning":"Warning Icon","dashicons-welcome-add-page":"Add Page Icon","dashicons-welcome-comments":"Comments Icon","dashicons-welcome-learn-more":"Learn More Icon","dashicons-welcome-view-site":"View Site Icon","dashicons-welcome-widgets-menus":"Widgets Menus Icon","dashicons-welcome-write-blog":"Write Blog Icon","dashicons-whatsapp":"WhatsApp Icon","dashicons-wordpress":"WordPress Icon","dashicons-wordpress-alt":"WordPress (alt) Icon","dashicons-xing":"Xing Icon","dashicons-yes":"Yes Icon","dashicons-yes-alt":"Yes (alt) Icon","dashicons-youtube":"YouTube Icon"},"mimeTypeIcon":"https:\/\/whitewater.org\/wp-includes\/images\/media\/default.png","mimeTypes":{"jpg|jpeg|jpe":"image\/jpeg","gif":"image\/gif","png":"image\/png","bmp":"image\/bmp","tiff|tif":"image\/tiff","webp":"image\/webp","avif":"image\/avif","ico":"image\/x-icon","heic":"image\/heic","heif":"image\/heif","heics":"image\/heic-sequence","heifs":"image\/heif-sequence","asf|asx":"video\/x-ms-asf","wmv":"video\/x-ms-wmv","wmx":"video\/x-ms-wmx","wm":"video\/x-ms-wm","avi":"video\/avi","divx":"video\/divx","flv":"video\/x-flv","mov|qt":"video\/quicktime","mpeg|mpg|mpe":"video\/mpeg","mp4|m4v":"video\/mp4","ogv":"video\/ogg","webm":"video\/webm","mkv":"video\/x-matroska","3gp|3gpp":"video\/3gpp","3g2|3gp2":"video\/3gpp2","txt|asc|c|cc|h|srt":"text\/plain","csv":"text\/csv","tsv":"text\/tab-separated-values","ics":"text\/calendar","rtx":"text\/richtext","css":"text\/css","vtt":"text\/vtt","dfxp":"application\/ttaf+xml","mp3|m4a|m4b":"audio\/mpeg","aac":"audio\/aac","ra|ram":"audio\/x-realaudio","wav|x-wav":"audio\/wav","ogg|oga":"audio\/ogg","flac":"audio\/flac","mid|midi":"audio\/midi","wma":"audio\/x-ms-wma","wax":"audio\/x-ms-wax","mka":"audio\/x-matroska","rtf":"application\/rtf","pdf":"application\/pdf","class":"application\/java","tar":"application\/x-tar","zip":"application\/zip","gz|gzip":"application\/x-gzip","rar":"application\/rar","7z":"application\/x-7z-compressed","psd":"application\/octet-stream","xcf":"application\/octet-stream","doc":"application\/msword","pot|pps|ppt":"application\/vnd.ms-powerpoint","wri":"application\/vnd.ms-write","xla|xls|xlt|xlw":"application\/vnd.ms-excel","mdb":"application\/vnd.ms-access","mpp":"application\/vnd.ms-project","docx":"application\/vnd.openxmlformats-officedocument.wordprocessingml.document","docm":"application\/vnd.ms-word.document.macroEnabled.12","dotx":"application\/vnd.openxmlformats-officedocument.wordprocessingml.template","dotm":"application\/vnd.ms-word.template.macroEnabled.12","xlsx":"application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet","xlsm":"application\/vnd.ms-excel.sheet.macroEnabled.12","xlsb":"application\/vnd.ms-excel.sheet.binary.macroEnabled.12","xltx":"application\/vnd.openxmlformats-officedocument.spreadsheetml.template","xltm":"application\/vnd.ms-excel.template.macroEnabled.12","xlam":"application\/vnd.ms-excel.addin.macroEnabled.12","pptx":"application\/vnd.openxmlformats-officedocument.presentationml.presentation","pptm":"application\/vnd.ms-powerpoint.presentation.macroEnabled.12","ppsx":"application\/vnd.openxmlformats-officedocument.presentationml.slideshow","ppsm":"application\/vnd.ms-powerpoint.slideshow.macroEnabled.12","potx":"application\/vnd.openxmlformats-officedocument.presentationml.template","potm":"application\/vnd.ms-powerpoint.template.macroEnabled.12","ppam":"application\/vnd.ms-powerpoint.addin.macroEnabled.12","sldx":"application\/vnd.openxmlformats-officedocument.presentationml.slide","sldm":"application\/vnd.ms-powerpoint.slide.macroEnabled.12","onetoc|onetoc2|onetmp|onepkg":"application\/onenote","oxps":"application\/oxps","xps":"application\/vnd.ms-xpsdocument","odt":"application\/vnd.oasis.opendocument.text","odp":"application\/vnd.oasis.opendocument.presentation","ods":"application\/vnd.oasis.opendocument.spreadsheet","odg":"application\/vnd.oasis.opendocument.graphics","odc":"application\/vnd.oasis.opendocument.chart","odb":"application\/vnd.oasis.opendocument.database","odf":"application\/vnd.oasis.opendocument.formula","wp|wpd":"application\/wordperfect","key":"application\/vnd.apple.keynote","numbers":"application\/vnd.apple.numbers","pages":"application\/vnd.apple.pages"},"admin_url":"https:\/\/whitewater.org\/wp-admin\/","ajaxurl":"https:\/\/whitewater.org\/wp-admin\/admin-ajax.php","nonce":"847e6d4947","acf_version":"6.5.0.1","wp_version":"6.8.3","browser":"","locale":"en_US","rtl":false,"screen":null,"post_id":null,"validation":null,"editor":"classic","is_pro":true,"debug":false,"StrictMode":false};
+acf.doAction( 'prepare' );
+$(window).on('load', function() {
+if( $('input.datepicker_with_icon').length ) {
+$('input.datepicker_with_icon').each(function(){
+var id = $(this).attr('id');
+var iconURL = $('input#gforms_calendar_icon_'+id).val();
+$(this).parent().find('img').attr('src',iconURL);
+gtag('config', 'G-L51KQDPENF');

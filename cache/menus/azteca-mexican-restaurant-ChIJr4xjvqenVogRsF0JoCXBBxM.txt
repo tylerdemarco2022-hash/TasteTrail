@@ -1,0 +1,108 @@
+Home
+About Us
+Menu
+Locations
+Gastonia
+Matthews
+Smith Corners
+Woodlawn
+Take Out - To Go
+Azteca Restaurant is Best Mexican Food in Charlotte
+We invite you to visit us and enjoy the special flavor of our mexican food at Azteca Mexican Restaurants in North Carolina
+Our Menu
+Appetizers
+Soups & Salads
+House Specialties
+Combinations
+Lunch Specials
+Mexican Traditionals
+American Dishes
+Desserts
+Follow us on Facebook!
+Azteca Mexican family style restaurant in Charlotte and Gastonia
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://aztecarestaurantcharlotte.com/wp-content/cache/busting/google-tracking/ga-f7707e932a846eeac5cb7f64004b9a5b.js','ga');
+ga('create', 'UA-34008391-1', 'auto');
+ga('send', 'pageview');
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/aztecarestaurantcharlotte.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.4"}};
+/*! This file is auto-generated */
+!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+img.wp-smiley,
+img.emoji {
+display: inline !important;
+border: none !important;
+box-shadow: none !important;
+height: 1em !important;
+width: 1em !important;
+margin: 0 .07em !important;
+vertical-align: -0.1em !important;
+background: none !important;
+padding: 0 !important;
+}
+/*
+You can add your own CSS here.
+Click the help icon above to learn more.
+*/
+@media (min-width: 1024px) {
+.header_logo{
+top:0px;
+.header_mainmenu.logo_above_menu .header_logo{
+left:30%;
+.sf-menu ul.sub-menu{
+background-color:#f5f5f5;
+.home_widgets .widget{
+box-shadow:10px 10px 5px #f5f5f5;
+.entry-content-inner img, .page-content .entry-content-inner img{
+.togo {text-align:center;
+display:block}
+.togo .wp-image-806 size-full {display: block;
+margin-left: auto;
+margin-right: auto;}
+jQuery(document).ready(function(){
+//jQuery(".main_container").find("img").css({opacity: 0, display: "none"});
+jQuery(".main_container").find("img").before('<i class="at-loading icon-spinner icon-spin"></i>');
+jQuery(".main_container").krioImageLoader();
+//jQuery(".home_slider_container").find("img").css({opacity: 0, display: "none"});
+jQuery(".home_slider_container").find("img").before('<i class="at-loading icon-spinner icon-spin"></i>');
+jQuery(".home_slider_container").krioImageLoader();
+});
+Call Us
+jQuery(window).load(function() {
+jQuery('body').addClass('loading');
+jQuery('.flexslider').flexslider({
+animation: "fade",
+slideshowSpeed: 4000,
+slideshow: true,
+easing: "swing",
+pauseOnHover: true,
+start: function(slider){
+jQuery('body').removeClass('loading');
+Our dishes are prepared with the wonderful spices and art of traditional Mexican food. We are proud to be the number one choice for Mexican cuisine in Gastonia, Matthews, Smith Corners, Woodlawn.
+Our MenuAppetizers
+//contact form
+var ajaxurl='https://aztecarestaurantcharlotte.com/wp-admin/admin-ajax.php';
+© 2017 Azteca Mexican Restaurant.
+jQuery(function() {
+////page changer
+jQuery("#page-changer select").change(function() {
+window.location = jQuery("#page-changer select option:selected").val();
+///prettyPhoto
+jQuery(".post-content a[href$='.jpg'], .post-content a[href$='.png']").attr('data-rel', 'prettyPhoto[]');
+jQuery(".page-fullwidth a[href$='.jpg'], .page-fullwidth a[href$='.png']").attr('data-rel', 'prettyPhoto[]');
+jQuery(".page-fullwidth-gallery a[href$='.jpg'], .page-fullwidth-gallery a[href$='.png']").attr('data-rel', 'prettyPhoto[]');
+jQuery(".gallery-detail a[href$='.jpg'], .gallery-detail a[href$='.png']").attr('data-rel', 'prettyPhoto[]');
+jQuery("a[data-rel^='prettyPhoto']").prettyPhoto({
+hook: 'data-rel',
+horizontal_padding: 10, /* The padding on each side of the picture */
+///lightbox
+/*jQuery(".post-content a[href$='.jpg'], .post-content a[href$='.png']").lightBox({
+imageLoading:			'https://aztecarestaurantcharlotte.com/wp-content/themes/dine-and-drink/images/lightbox-ico-loading.gif',		// (string) Path and the name of the loading icon
+imageBtnPrev:			'https://aztecarestaurantcharlotte.com/wp-content/themes/dine-and-drink/images/lightbox-btn-prev.gif',			// (string) Path and the name of the prev button image
+imageBtnNext:			'https://aztecarestaurantcharlotte.com/wp-content/themes/dine-and-drink/images/lightbox-btn-next.gif',			// (string) Path and the name of the next button image
+imageBtnClose:		'https://aztecarestaurantcharlotte.com/wp-content/themes/dine-and-drink/images/lightbox-btn-close.gif',		// (string) Path and the name of the close btn
+imageBlank:				'https://aztecarestaurantcharlotte.com/wp-content/themes/dine-and-drink/images/lightbox-blank.gif',
+jQuery(".page-fullwidth-gallery a[href$='.jpg'], .page-fullwidth-gallery a[href$='.png']").lightBox({
+jQuery(".gallery-detail a[href$='.jpg'], .gallery-detail a[href$='.png']").lightBox({
+});*/

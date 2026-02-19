@@ -1,0 +1,272 @@
+[
+  {
+    "category": "Dinner",
+    "name": "Yesterday's Soup",
+    "description": "it's better the next day"
+  },
+  {
+    "category": "Dinner",
+    "name": "Soft Pretzels & Provolone Fondue",
+    "description": "sea salt"
+  },
+  {
+    "category": "Dinner",
+    "name": "Spicy Shrimp Crispy Rice",
+    "description": "avocado, kimchi rice, chili crunch, sweet soy"
+  },
+  {
+    "category": "Dinner",
+    "name": "Wagyu Pigs In a Blanket",
+    "description": "honey mustard crème fraîche"
+  },
+  {
+    "category": "Dinner",
+    "name": "BBQ Pork Belly Nachos",
+    "description": "black bean, guacamole, sour cream, pico de gallo"
+  },
+  {
+    "category": "Dinner",
+    "name": "Crispy Popcorn Shrimp",
+    "description": "zucchini, grilled lemon, roasted garlic aioli"
+  },
+  {
+    "category": "Dinner",
+    "name": "Whipped Feta & Tahini Dip",
+    "description": "fresh pomegranate seed, apricot preserve, pistachio crunch, grilled ciabatta"
+  },
+  {
+    "category": "Dinner",
+    "name": "Crispy Brussels Sprouts",
+    "description": "gochujang, mint, cilantro"
+  },
+  {
+    "category": "Dinner",
+    "name": "Hot Wings",
+    "description": "buffalo sauce, honey mustard seed, shaved carrots & celery, parmesan"
+  },
+  {
+    "category": "Dinner",
+    "name": "House Potato Chips",
+    "description": "famous onion dip"
+  },
+  {
+    "category": "Dinner",
+    "name": "Grilled Asparagus",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Marinated Olives",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Crusty Bread, Garlic Oil & Balsamic",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "House Smoked Salmon Dip, Crushed Pretzel",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Marcona Almonds",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Prosciutto Deviled Eggs",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Molinari Sopressata",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Hot Coppa",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Prosciutto di San Daniele",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Dolce Gorgonzola",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Prairie Breeze Cheddar",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Truffle Crescenza",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Aged Manchego",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Pimento Cheese",
+    "description": null
+  },
+  {
+    "category": "Dinner",
+    "name": "Episode 163 - The Slicer",
+    "description": "Chef Board: chef's selection of thinly sliced meats, cheese & snacks"
+  },
+  {
+    "category": "Dinner",
+    "name": "House Salad",
+    "description": "grape tomato, cucumber, heirloom carrot, parmesan, buttermilk ranch"
+  },
+  {
+    "category": "Dinner",
+    "name": "Classic Caesar",
+    "description": "toasted cheese croutons"
+  },
+  {
+    "category": "Dinner",
+    "name": "Asian Crunch",
+    "description": "purple cabbage, avocado, sesame, roasted cashew, fresno, dried mango, thai curry vinaigrette"
+  },
+  {
+    "category": "Dinner",
+    "name": "Butternut Squash & Kale",
+    "description": "bartlett pear, ancient grains, date, pistachio, toasted mulberry, white cheddar, maple tahini vinaigrette"
+  },
+  {
+    "category": "Dinner",
+    "name": "Chopped Chicken",
+    "description": "avocado, bacon, heirloom tomato, white cheddar, deviled egg, bacon bbq ranch"
+  },
+  {
+    "category": "Dinner",
+    "name": "Turkey Pastrami",
+    "description": "pretzel roll, swiss, coleslaw, 1000 island"
+  },
+  {
+    "category": "Dinner",
+    "name": "Shaved Prime Rib Dip",
+    "description": "fontina, horseradish crème fraîche, au jus"
+  },
+  {
+    "category": "Dinner",
+    "name": "The M.A.C. Burger",
+    "description": "double cheeseburger, onion, lettuce, pickle, 1000 island"
+  },
+  {
+    "category": "Dinner",
+    "name": "The Pub Burger",
+    "description": "havarti, bacon, mayo, house bbq sauce"
+  },
+  {
+    "category": "Dinner",
+    "name": "Crispy Chicken Katsu",
+    "description": "japanese milk bread, spicy miso aioli, napa slaw, hoisin"
+  },
+  {
+    "category": "Dinner",
+    "name": "Cheese",
+    "description": "provolone, havarti, mozzarella cheese, parmesan, di napoli tomato & lots of fresh basil"
+  },
+  {
+    "category": "Dinner",
+    "name": "Black Truffle Mushroom",
+    "description": "smoked onion alfredo, mozzarella cheese, arugula"
+  },
+  {
+    "category": "Dinner",
+    "name": "Pepperoni & Italian Sausage",
+    "description": "di napoli tomato, mozzarella cheese"
+  },
+  {
+    "category": "Dinner",
+    "name": "36-Hour Pork Ribs",
+    "description": "jalapeño, molasses, fries"
+  },
+  {
+    "category": "Dinner",
+    "name": "Ma...The Meatloaf !?!",
+    "description": "broccolini, smashed potato, gravy"
+  },
+  {
+    "category": "Dinner",
+    "name": "Mongolian Short Rib",
+    "description": "charred scallion, bok choy, soft egg, crispy onion, yuzu sticky rice, thai chili"
+  },
+  {
+    "category": "Dinner",
+    "name": "Steak Frites",
+    "description": "prime skirt steak, black truffle butter, french fries"
+  },
+  {
+    "category": "Dinner",
+    "name": "Spicy Rigatoni",
+    "description": "chicken sausage, roasted mushroom, spinach, calabrian panna, pecorino bread crumb"
+  },
+  {
+    "category": "Dinner",
+    "name": "Korean Style Ribeye Cap",
+    "description": "zucchini, beech mushroom, roasted onion, cilantro; very limited availability"
+  },
+  {
+    "category": "Dinner",
+    "name": "Beer Battered Fish & Chips",
+    "description": "coleslaw, tartar sauce"
+  },
+  {
+    "category": "Dinner",
+    "name": "Fried Chicken",
+    "description": "buttermilk biscuit, smashed potato, gravy (Be patient - it's worth it!)"
+  },
+  {
+    "category": "Dinner",
+    "name": "Spicy Vegan Curry",
+    "description": "griddled sweet potato, eggplant, snap pea, bok choy, shiitake mushrooms, black rice"
+  },
+  {
+    "category": "Dinner",
+    "name": "Roasted Salmon",
+    "description": "butternut squash, toasted couscous, garden herb pesto, crispy brussels sprouts"
+  },
+  {
+    "category": "Cocktails",
+    "name": "Giddy Up Espresso Martini",
+    "description": "vodka, caffe borghetti espresso liqueur, spanish vanilla, cinnamon spiced cold brew"
+  },
+  {
+    "category": "Cocktails",
+    "name": "Flaco Verde Margarita",
+    "description": "coconut washed blanco tequila, fresh avocado, combier pamplemousse, today's lime"
+  },
+  {
+    "category": "Cocktails",
+    "name": "Playboi Stache",
+    "description": "vanilla tea-soaked vodka, passoã passion fruit liqueur, orange oil"
+  },
+  {
+    "category": "Cocktails",
+    "name": "Old Fashioned American Spirit",
+    "description": "rittenhouse rye 100pf, burnt demerara, spiced cacao, bitter trio"
+  },
+  {
+    "category": "Cocktails",
+    "name": "Paloma Spritz",
+    "description": "tradicional blanco tequila, fresh grapefruit, combier pamplemousse, sparkling wine, himalayan pink salt"
+  },
+  {
+    "category": "Cocktails",
+    "name": "Tijuana Spa Water",
+    "description": null
+  }
+]

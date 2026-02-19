@@ -1,0 +1,187 @@
+[
+  {
+    "category": "Dinner",
+    "name": "Osetra Caviar",
+    "description": "Sustainably Farmed Osetra Caviar, Creme Fraiche Egg, Chives, House Chips"
+  },
+  {
+    "category": "Dinner",
+    "name": "Raw Oysters",
+    "description": "Charred Lemon, Mignonette, Horseradish"
+  },
+  {
+    "category": "Dinner",
+    "name": "Tuna Tartar",
+    "description": "AAA Tuna, Yuzu Aioli, Bottarga, Kataifi, Barrel Aged Shoyu, Caviar"
+  },
+  {
+    "category": "Dinner",
+    "name": "Duck Flautas",
+    "description": "Duck Confit, Turnip and Radish Salpicon, Pico, Pecorino, Alabama White Sauce"
+  },
+  {
+    "category": "Dinner",
+    "name": "Charred Oysters",
+    "description": "Chesapeake Bay Oysters, Pecorino, Blackening Spice, Charred Ciabatta"
+  },
+  {
+    "category": "Dinner",
+    "name": "Mussels",
+    "description": "Chorizo, Hearth Charred Tomatoes, Pot Stock, Charred Ciabatta"
+  },
+  {
+    "category": "Dinner",
+    "name": "Charred Wings",
+    "description": "House Made Hot Sauce with Celery, Carrot, and Roth Buttermilk Bleu or Dry Rubbed and topped with Alabama White Sauce, Blistered Onion Confit"
+  },
+  {
+    "category": "Dinner",
+    "name": "Wagyu Skewers",
+    "description": "Wagyu Flat Iron, Arbol Chili, Cilantro Lime Slaw, Chimichurri"
+  },
+  {
+    "category": "Dinner",
+    "name": "Crab Cakes",
+    "description": "Yuzu Miso Crab Cakes, Chipotle Aioli"
+  },
+  {
+    "category": "Dinner",
+    "name": "A Really Good Burger",
+    "description": "American Cheese, Lettuce, Red Onions, Sauce, Brioche"
+  },
+  {
+    "category": "Dinner",
+    "name": "Wagyu Burger",
+    "description": "1/2 lb Wagyu, Aged Cheddar, Caramelized Onions, Truffle Aioli, Brioche"
+  },
+  {
+    "category": "Dinner",
+    "name": "Korean Fried Chicken Sandwich",
+    "description": "Korean Fried Chicken, Gochujang Aioli, Kimchi, House Cucumber, Brioche"
+  },
+  {
+    "category": "Dinner",
+    "name": "House-Made Pecan Pie",
+    "description": "Served Warm with Salted Caramel Ice Cream"
+  },
+  {
+    "category": "Dinner",
+    "name": "Beignets",
+    "description": "With Cold Brew Icing"
+  },
+  {
+    "category": "Dinner",
+    "name": "Bowl of Ice Cream",
+    "description": "Salted Caramel Ice Cream, Bourbon Caramel, Candied Pecans"
+  },
+  {
+    "category": "Dinner",
+    "name": "Seasonal Crumble",
+    "description": "Fruit Compote, Cinnamon Crumble, Salted Caramel Ice Cream"
+  },
+  {
+    "category": "Dinner",
+    "name": "She Crab Soup",
+    "description": "Lump Crab, Bottarga, Crab Roe Creme Fraiche, Chive Oil"
+  },
+  {
+    "category": "Dinner",
+    "name": "Fig and Pear Salad",
+    "description": "Arugula, Pear, Mission Figs, Feta, Crispy Prosciutto, Fig Balsamic Vinaigrette"
+  },
+  {
+    "category": "Dinner",
+    "name": "Caesar Salad",
+    "description": "Romaine, Poached Egg, Parmesan, Bacon Crisp, Crispy Capers"
+  },
+  {
+    "category": "Dinner",
+    "name": "Wedge Salad",
+    "description": "Smoked Bacon, Blistered Tomato, Shaved Purple Onion, Sesame Seed, Roth Buttermilk Bleu"
+  },
+  {
+    "category": "Dinner",
+    "name": "Mediterranean Chicken Piccata",
+    "description": "Seared SMF Chicken Breast over Duck Fat Potatoes, Charred Asparagus, topped with Sundried Tomato Tapenade, Goat Cheese, and Lemon Caper Cream Sauce"
+  },
+  {
+    "category": "Dinner",
+    "name": "Sea Bass",
+    "description": "Chilean Sea Bass, Green Curry, Forbidden Rice, Pickled Kumquat, Jasmine Tea Tuile"
+  },
+  {
+    "category": "Dinner",
+    "name": "Fra Diavolo",
+    "description": "Linguini, Clams, Mussels, Jumbo Shrimp, Asparagus, Tomato Calabrian Chili Sauce"
+  },
+  {
+    "category": "Dinner",
+    "name": "Lamb Shank",
+    "description": "Roz Ma’amar, Braised Lamb Shank, Roasted Carrots, Tobacco Onions, Lamb Demi"
+  },
+  {
+    "category": "Dinner",
+    "name": "Dry-Aged NY Strip",
+    "description": "14oz Boneless"
+  },
+  {
+    "category": "Dinner",
+    "name": "Wagyu Flat Iron",
+    "description": "8oz Boneless"
+  },
+  {
+    "category": "Dinner",
+    "name": "Cowboy Pork Chop",
+    "description": "15oz Bone-In"
+  },
+  {
+    "category": "Dinner",
+    "name": "Tomahawk Steak",
+    "description": "42oz Bone-In, CAB Ribeye, served with Rescoldo Potatoes, Hearth Vegetable Board Dressing, Charred Bread"
+  },
+  {
+    "category": "Dinner",
+    "name": "Steak Frites",
+    "description": "8oz Hanger Steak, topped with Chimichurri, Sesame Seed, with Parmesan, Garlic, and Herb Fries"
+  },
+  {
+    "category": "Dinner",
+    "name": "Bowl of Fries",
+    "description": "House Cut, Parmesan, Garlic, Herb"
+  },
+  {
+    "category": "Dinner",
+    "name": "Asparagus",
+    "description": "Miso Butter, Aleppo"
+  },
+  {
+    "category": "Dinner",
+    "name": "Duck Fat Potatoes",
+    "description": "Crispy Confit Potatoes, Lemon Caper Aioli"
+  },
+  {
+    "category": "Dinner",
+    "name": "Glazed Carrots",
+    "description": "Tri-color Carrots, Sorghum Chili Crisp Glaze, Greens"
+  },
+  {
+    "category": "Dinner",
+    "name": "Hearth Vegetables",
+    "description": "Local Vegetables, Benne"
+  },
+  {
+    "category": "Dinner",
+    "name": "Hearth Shishito Peppers",
+    "description": "Blistered Shishitos Peppers, Soy Honey Glaze, Spiced Peanuts, Benne"
+  },
+  {
+    "category": "Dinner",
+    "name": "7th Street Corn",
+    "description": "Grilled NC Sweet Corn, Dukes Mayo, Blackening Seasoning, Pecorino Cheese, Poblano"
+  },
+  {
+    "category": "Dinner",
+    "name": "Mac & Three Cheese Shells",
+    "description": "Cheddar, American, Parmesan"
+  }
+]

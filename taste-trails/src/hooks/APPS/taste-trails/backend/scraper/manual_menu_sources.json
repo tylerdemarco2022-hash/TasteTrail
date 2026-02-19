@@ -1,0 +1,12 @@
+{
+  "131 Main": {
+    "source_url": "https://131-main.com/wp-content/uploads/2023/01/131-Main-Menu.pdf",
+    "source_type": "PDF",
+    "confidence": 1.0
+  },
+  "Burtons": {
+    "source_url": "https://burtonsgrill.com/wp-content/uploads/2023/01/Burtons-Grill-Dinner-Menu.pdf",
+    "source_type": "PDF",
+    "confidence": 1.0
+  }
+}
