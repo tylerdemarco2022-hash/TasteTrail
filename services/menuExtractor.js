@@ -1,4 +1,8 @@
-const { OpenAI } = require('openai')
+
+
+import { OpenAI } from 'openai';
+import fs from 'fs';
+import * as cheerio from 'cheerio';
 
 const client = (() => {
   if (!process.env.OPENAI_API_KEY) return null
@@ -78,49 +82,109 @@ Never return an empty categories array unless the page clearly contains no menu 
   return parsed
 }
 
-async function extractFullMenu(rawMenuText) {
-  if (!rawMenuText) return { categories: [] }
+
+/**
+ * Enhanced menu extraction: logs <li> count, price matches, HTML length, headings, and saves HTML snapshot.
+ * @param {string} urlOrHtml - If a URL, fetch and parse; if HTML, parse directly.
+ */
+export async function extractFullMenu(urlOrHtml) {
+  let html = '';
+  let url = '';
+  if (/^https?:\/\//.test(urlOrHtml)) {
+    url = urlOrHtml;
+    console.log('Scraping URL:', url);
+    const axios = (await import('axios')).default;
+    const resp = await axios.get(url);
+    html = resp.data;
+  } else {
+    html = urlOrHtml;
+    url = '[raw HTML input]';
+    console.log('Scraping raw HTML input');
+  }
+
+  // Save HTML snapshot
+  try {
+    fs.writeFileSync('debug_menu_page.html', html);
+    console.log('Saved HTML snapshot to debug_menu_page.html');
+  } catch (e) {
+    console.warn('Failed to save HTML snapshot:', e.message);
+  }
+
+  // Parse HTML
+  const $ = cheerio.load(html);
+  const liCount = $('li').length;
+  const htmlLength = html.length;
+  // Price pattern: $12, 12.00, $12.00
+  const priceRegex = /\$\s?\d{1,3}(?:\.\d{2})?|\b\d{1,3}\.\d{2}\b/g;
+  const priceMatches = html.match(priceRegex) || [];
+  // Headings detection
+  const menuKeywords = [
+    'appetizer', 'entree', 'burger', 'sandwich', 'salad', 'pizza', 'pasta', 'starter', 'main', 'dinner', 'lunch', 'dessert', 'drink', 'beverage', 'soup', 'seafood', 'steak', 'special', 'kids', 'side', 'combo', 'platter', 'wrap', 'grill', 'chicken', 'fish', 'beef', 'pork', 'vegetarian', 'vegan', 'gluten', 'brunch', 'breakfast'
+  ];
+  const headings = [];
+  $('h1,h2,h3').each((i, el) => {
+    const txt = $(el).text().toLowerCase();
+    if (menuKeywords.some(k => txt.includes(k))) {
+      headings.push(txt);
+    }
+  });
+  // Lunch/dinner detection
+  const isLunch = headings.some(h => h.includes('lunch'));
+  const isDinner = headings.some(h => h.includes('dinner'));
+  console.log('Total <li> count:', liCount);
+  console.log('Total price matches found:', priceMatches.length);
+  console.log('Raw HTML length:', htmlLength);
+  console.log('Menu-related headings:', headings);
+  if (isLunch) console.log('Detected: LUNCH menu');
+  if (isDinner) console.log('Detected: DINNER menu');
+
+  // Extract visible text for LLM
+  const visibleText = $('body').text();
   // chunk large menus
-  const chunks = chunkText(rawMenuText, 15000)
-  const results = []
+  const chunks = chunkText(visibleText, 15000);
+  const results = [];
   for (const c of chunks) {
     try {
-      const r = await callOpenAIForChunk(c)
-      results.push(r)
+      const r = await callOpenAIForChunk(c);
+      results.push(r);
     } catch (e) {
       // continue; don't crash entire job
-      console.warn('OpenAI menu chunk failed:', e instanceof Error ? e.message : String(e))
+      console.warn('OpenAI menu chunk failed:', e instanceof Error ? e.message : String(e));
     }
   }
-  const merged = mergeMenus(results)
+  const merged = mergeMenus(results);
   // Clean items: remove short or generic entries before saving
   try {
-    const blacklist = ['food','snacks','drinks','beer','promotions','games']
+    const blacklist = ['food','snacks','drinks','beer','promotions','games'];
     for (const cat of merged.categories || []) {
-      const items = Array.isArray(cat.items) ? cat.items : []
+      const items = Array.isArray(cat.items) ? cat.items : [];
       const normalized = items.map(it => ({
         ...it,
         name: (it.name || it.dish_name || '').trim()
-      }))
+      }));
       const cleanedItems = normalized.filter(item =>
         item.name &&
         item.name.length > 2 &&
         !blacklist.includes(item.name.toLowerCase())
-      )
-      cat.items = cleanedItems
+      );
+      cat.items = cleanedItems;
     }
   } catch (cleanErr) {
     // non-fatal
-    console.warn('Menu cleaning failed:', cleanErr instanceof Error ? cleanErr.message : String(cleanErr))
+    console.warn('Menu cleaning failed:', cleanErr instanceof Error ? cleanErr.message : String(cleanErr));
   }
   try {
-    const totalDishCount = merged.categories.reduce((acc, c) => acc + ((c.items && c.items.length) || 0), 0)
-    console.log('Extracted categories:', (merged.categories && merged.categories.length) || 0)
-    console.log('Total dishes extracted:', totalDishCount)
+    const allDishes = (merged.categories || []).flatMap(c => c.items || []);
+    const first10 = allDishes.slice(0, 10).map(d => d.name || d.dish_name || '').filter(Boolean);
+    console.log('First 10 extracted dish names:', first10);
+    const totalDishCount = allDishes.length;
+    console.log('Extracted categories:', (merged.categories && merged.categories.length) || 0);
+    console.log('Total dishes extracted:', totalDishCount);
   } catch (logErr) {
     // non-fatal logging error
   }
-  return merged
+  return merged;
 }
 
-module.exports = { extractFullMenu }
+
+

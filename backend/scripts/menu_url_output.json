@@ -1,0 +1,33 @@
+{
+  "found": true,
+  "domain": "almikestavern.com",
+  "url": "https://almikestavern.com/lunch-%26-dinner-menus/",
+  "confidence": 100,
+  "method": "static",
+  "menuResult": {
+    "found": true,
+    "url": "https://almikestavern.com/lunch-%26-dinner-menus/",
+    "confidence": 100,
+    "parent": "https://almikestavern.com/",
+    "detectionType": "price",
+    "method": "static"
+  },
+  "domainResult": {
+    "found": true,
+    "domain": "almikestavern.com",
+    "rawWebsite": "http://www.almikestavern.com/",
+    "types": [
+      "bar",
+      "establishment",
+      "food",
+      "point_of_interest",
+      "restaurant"
+    ],
+    "placeDetails": {
+      "formatted_address": "401 W 9th St, Charlotte, NC 28202, USA",
+      "name": "Alexander Michael's",
+      "url": "https://maps.google.com/?cid=10102146616259411955",
+      "website": "http://www.almikestavern.com/"
+    }
+  }
+}

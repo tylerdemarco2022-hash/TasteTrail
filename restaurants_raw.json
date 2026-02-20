@@ -1,0 +1,27 @@
+﻿
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : [{"id":"be090267-5388-4411-8627-e8f25d2cf7b4","name":"dixie
+                     drive in ChIJRahXa6gB IgRvyD1xmngNUg","city":"Unknown","st
+                    ate":"Unknown"},{"id":"4b90de80-b6d0-4feb-a8b0-fd99acf83424
+                    ","name":"dixie drive i...
+RawContent        : HTTP/1.1 200 OK
+                    Vary: Origin
+                    Access-Control-Allow-Credentials: true
+                    Connection: keep-alive
+                    Keep-Alive: timeout=5
+                    Content-Length: 14106
+                    Content-Type: application/json; charset=utf-8
+                    Date: Thu, 1...
+Forms             : {}
+Headers           : {[Vary, Origin], [Access-Control-Allow-Credentials, true], 
+                    [Connection, keep-alive], [Keep-Alive, timeout=5]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 14106
+
+
+

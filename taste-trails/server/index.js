@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -38,6 +39,7 @@ import menuRoutes from '../backend/server/routes/menu.js';
 import nearbyRoutes from '../backend/server/routes/nearby.js';
 import followRequestsRoutes from '../backend/server/routes/followRequests.js';
 import authRoutes from './routes/auth.js';
+import scrapeMenuRoutes from './routes/scrapeMenu.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
 
 // Load environment variables from .env file
@@ -139,6 +141,7 @@ app.use((req, res, next) => {
 app.use('/api', menuRoutes);
 app.use('/api', nearbyRoutes);
 app.use('/api', followRequestsRoutes);
+app.use('/api/scrape-menu', scrapeMenuRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 
@@ -479,7 +482,38 @@ app.get('/api/restaurants/:name', async (req, res) => {
   }
 });
 
-// Add search route directly in index.js
+
+// Trending feed endpoint
+app.get('/feed/trending', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('dishes')
+      .select(`id,name,restaurant_id,rating_bayesian,rating_count,emoji_tags,momentum_score,restaurants(name)`)
+      .gt('momentum_score', 0)
+      .order('momentum_score', { ascending: false })
+      .limit(50);
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    const result = data.map(row => ({
+      dish_id: row.id,
+      dish_name: row.name,
+      restaurant_name: row.restaurants?.name || null,
+      rating_bayesian: row.rating_bayesian,
+      rating_count: row.rating_count,
+      emoji_tags: row.emoji_tags,
+      momentum_score: row.momentum_score
+    }));
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message || 'Unknown error' });
+  }
+});
+
+
 app.get('/api/search', async (req, res) => {
   const { q } = req.query;
 
@@ -511,7 +545,7 @@ app.get("/", (req, res) => {
   res.json({ status: "TasteTrails backend running" });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8081;
 
 console.log("Attempting to start server...");
 

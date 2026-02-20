@@ -1,6 +1,0 @@
-Sea_Grill_Diner_Menu_raw.txt
-Sixty_Vines_Menu_raw.txt
-Postino_Menu_raw.txt
-Culinary_Dropout_Menu_raw.txt
-Mama_Ricotta_s_Menu_raw.txt
-The_Crunkleton_Dinner_Menu_raw.txt

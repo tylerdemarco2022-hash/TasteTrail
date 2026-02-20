@@ -43,6 +43,7 @@ export const posts = [
     userId: 'user2',
     user: { name: 'Maya', avatar: 'https://i.pravatar.cc/64?img=12' },
     restaurant: 'Bao & Co',
+    restaurant_id: '00000000-0000-0000-0000-000000000001',
     dish: 'Pork Belly Bao',
     image: 'https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=0b3b2f0975dce9f9f155b9f7a0c1a0a5',
     caption: 'Best bao in town ✨',

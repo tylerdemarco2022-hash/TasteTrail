@@ -208,6 +208,7 @@ export default function Feed({ onOpen }) {
     const restaurantId = r.id || r.restaurantId || r.yelpId;
     const isUuidLike = (value) => typeof value === 'string' && value.length === 36;
     const debugMenuItemsUrl = import.meta.env.VITE_DEBUG_MENU_ITEMS_URL || '';
+    let menu = [];
     try {
       // Try backend menu lookup by id (preferred)
       if (restaurantId) {
@@ -215,7 +216,7 @@ export default function Feed({ onOpen }) {
           const idText = String(restaurantId || '');
           if (isUuidLike(idText)) {
             console.log('API_BASE_URL VALUE:', API_BASE_URL);
-            const finalUrl = debugMenuItemsUrl || `${API_BASE_URL}/api/restaurants/${restaurantId}/menu-items`;
+            const finalUrl = debugMenuItemsUrl || `${API_BASE_URL}/api/restaurants/${restaurantId}/full-menu`;
             console.log('MENU FETCH URL:', finalUrl);
             console.log('FETCH BLOCK ENTERED');
             try {

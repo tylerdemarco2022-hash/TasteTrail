@@ -1,5 +1,5 @@
-const { createLogger, format, transports } = require('winston');
-const monitoring = require('./monitoring');
+import { createLogger, format, transports } from 'winston';
+// const monitoring = require('./monitoring');
 
 const level = process.env.LOG_LEVEL || 'info';
 const isProd = process.env.NODE_ENV === 'production';
@@ -17,27 +17,6 @@ const logger = createLogger({
   transports: [new transports.Console()],
 });
 
-// If Sentry is enabled and logging level is error, forward errors to Sentry.
-if (monitoring && monitoring.enabled) {
-  const Sentry = monitoring.Sentry;
-  const origError = logger.error.bind(logger);
-  logger.error = (msg, ...meta) => {
-    try {
-      if (msg instanceof Error) {
-        Sentry.captureException(msg);
-      } else {
-        // create an Error for the message to capture stack and context
-        const err = new Error(typeof msg === 'string' ? msg : JSON.stringify(msg));
-        Sentry.captureException(err);
-      }
-      if (meta && meta.length) {
-        try { Sentry.addBreadcrumb({ category: 'log', message: JSON.stringify(meta) }); } catch (e) {}
-      }
-    } catch (e) {
-      // swallow
-    }
-    return origError(msg, ...meta);
-  };
-}
+// Monitoring/Sentry integration disabled (monitoring module missing)
 
-module.exports = logger;
+export default logger;

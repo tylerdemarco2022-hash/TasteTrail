@@ -421,3 +421,33 @@ router.post('/ratings', async (req, res) => {
 });
 
 export default router;
+
+// GET /restaurants/:restaurantId/full-menu
+router.get('/restaurants/:restaurantId/full-menu', async (req, res) => {
+  const { restaurantId } = req.params;
+  try {
+    // Fetch menu items for the restaurant
+    const { data: items, error } = await supabase
+      .from('menu_items')
+      .select('id,name,description,price,category,photo_url')
+      .eq('restaurant_id', restaurantId);
+    if (error) return res.status(400).json({ error: error.message });
+    // Group items by category
+    const categories = {};
+    (items || []).forEach(item => {
+      const cat = item.category || 'Menu';
+      if (!categories[cat]) categories[cat] = [];
+      categories[cat].push({
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        photo_url: item.photo_url
+      });
+    });
+    const result = Object.entries(categories).map(([category, items]) => ({ category, items }));
+    res.json({ success: true, categories: result });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});

@@ -50,12 +50,12 @@ export default function MenuView({ post, onBack, showAI }) {
   }, [post.restaurant, post.name])
 
   React.useEffect(() => {
-    // Always try to fetch full menu from backend if restaurant name is available
-    if (post.restaurant) {
-      fetchMenuFromBackend(post.restaurant)
+    // Always try to fetch full menu from backend if restaurant_id is available
+    if (post.restaurant_id) {
+      fetchMenuFromBackend(post.restaurant_id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post.restaurant])
+  }, [post.restaurant_id])
 
   async function triggerMenuScrape() {
     console.log('🔄 Triggering menu scrape for:', post.restaurant || post.name)
@@ -139,8 +139,9 @@ export default function MenuView({ post, onBack, showAI }) {
       const data = await res.json();
       console.log("Full menu response:", data);
 
+      let allItems = [];
       if (data.success && Array.isArray(data.categories) && data.categories.length > 0) {
-        const allItems = data.categories.flatMap((cat) =>
+        allItems = data.categories.flatMap((cat) =>
           (cat.items || []).map((item) => ({
             name: item.name,
             price: item.price,
@@ -148,12 +149,20 @@ export default function MenuView({ post, onBack, showAI }) {
             category: cat.category
           }))
         );
-        setFetchedMenu(allItems);
-      } else {
-        console.warn("Menu fetch failed:", data.error);
       }
+      // Fallback: if no items from backend, use local menu from post
+      if (!allItems.length && post.menu && Array.isArray(post.menu)) {
+        allItems = post.menu;
+        console.log("Fallback to local post.menu", allItems);
+      }
+      setFetchedMenu(allItems);
     } catch (e) {
       console.error("Menu fetch error:", e.message);
+      // Fallback: if error, use local menu from post
+      if (post.menu && Array.isArray(post.menu)) {
+        setFetchedMenu(post.menu);
+        console.log("Fallback to local post.menu after error", post.menu);
+      }
     }
     setMenuLoading(false);
   }
@@ -190,7 +199,9 @@ export default function MenuView({ post, onBack, showAI }) {
   const displayMenu =
     (Array.isArray(fetchedMenu) && fetchedMenu.length ? fetchedMenu : null) ||
     (Array.isArray(aiMenu) && aiMenu.length ? aiMenu : null) ||
-    post.menu || []
+    (Array.isArray(post.menu) && post.menu.length ? post.menu : [])
+  // Show menu URL if available
+  const menuUrl = post.menu_url || post.menuUrl || post.url || null;
 
   const normalizeMenuItems = (menu) => {
     if (Array.isArray(menu)) {

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "node index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "winston": "^3.19.0"
+  },
   "type": "module"
 }

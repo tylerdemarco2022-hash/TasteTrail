@@ -1,8 +1,0 @@
-[
-  { "name": "Greenwood", "lat": 34.1954, "lng": -82.1618, "radius": 7000 },
-  { "name": "Fort Mill", "lat": 35.0074, "lng": -80.9451, "radius": 6000 },
-  { "name": "Charleston", "lat": 32.7765, "lng": -79.9311, "radius": 10000 },
-  { "name": "Columbia", "lat": 34.0007, "lng": -81.0348, "radius": 9000 },
-  { "name": "Greenville", "lat": 34.8526, "lng": -82.3940, "radius": 9000 },
-  { "name": "Rock Hill", "lat": 34.9249, "lng": -81.0251, "radius": 7000 }
-]

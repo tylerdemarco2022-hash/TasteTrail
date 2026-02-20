@@ -1,0 +1,130 @@
+{
+  "results": [
+    {
+      "name": "U.S. National Whitewater Center",
+      "menuUrl": "https://whitewater.org/",
+      "method": "headless-structured-html",
+      "confidence": 30,
+      "failReason": "Not found",
+      "isThirdParty": false,
+      "isHomepage": true,
+      "realMenuSignalScore": 30,
+      "itemsExtracted": 0,
+      "runtimeMs": 12364
+    },
+    {
+      "name": "Good Food on Montford",
+      "menuUrl": "https://www.goodfoodonmontford.com/",
+      "method": "headless-structured-html",
+      "confidence": 0,
+      "failReason": "Not found",
+      "isThirdParty": false,
+      "isHomepage": true,
+      "realMenuSignalScore": 0,
+      "itemsExtracted": 0,
+      "runtimeMs": 20673
+    },
+    {
+      "name": "AvidXchange Music Factory",
+      "menuUrl": "https://oddmenu.com/catalog/",
+      "method": "static",
+      "confidence": 45,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 45,
+      "itemsExtracted": 0,
+      "runtimeMs": 15147
+    },
+    {
+      "name": "Lucky Strike South Charlotte",
+      "menuUrl": "https://www.luckystrikeent.com/menu",
+      "method": "headless-dom-menu-path",
+      "confidence": 90,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 90,
+      "itemsExtracted": 18,
+      "runtimeMs": 92442
+    },
+    {
+      "name": "Bowlero Charlotte",
+      "menuUrl": "https://www.bowlero.com/menu",
+      "method": "headless-dom-menu-path",
+      "confidence": 90,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 90,
+      "itemsExtracted": 15,
+      "runtimeMs": 77185
+    },
+    {
+      "name": "Cabo Fish Taco",
+      "menuUrl": "https://cabofishtaco.com/food",
+      "method": "static",
+      "confidence": 90,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 90,
+      "itemsExtracted": 2,
+      "runtimeMs": 50111
+    },
+    {
+      "name": "VBGB Beer Hall and Garden/Restaurant",
+      "menuUrl": "https://vbgbuptown.com/eat",
+      "method": "static",
+      "confidence": 90,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 90,
+      "itemsExtracted": 0,
+      "runtimeMs": 7127
+    },
+    {
+      "name": "Church and Union Charlotte",
+      "menuUrl": "https://images.getbento.com/accounts/87d17677c0314d566918a53f70dbecbf/media/Gqi5YmKFTpOFBMzCLmE4_25_CUCLTDrinkMenu_9.24.pdf",
+      "method": "static",
+      "confidence": 100,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 100,
+      "itemsExtracted": 0,
+      "runtimeMs": 15698
+    },
+    {
+      "name": "Mimosa Grill",
+      "menuUrl": "https://mimosagrill.com/_files/ugd/67ac2f_c0a61ca9b3ad4997958c9aeb5d6e9308.pdf/",
+      "method": "static",
+      "confidence": 45,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": false,
+      "realMenuSignalScore": 45,
+      "itemsExtracted": 0,
+      "runtimeMs": 42558
+    },
+    {
+      "name": "The Cowfish Sushi Burger Bar",
+      "menuUrl": "https://thecowfish.com/",
+      "method": "static",
+      "confidence": 90,
+      "failReason": null,
+      "isThirdParty": false,
+      "isHomepage": true,
+      "realMenuSignalScore": 90,
+      "itemsExtracted": 0,
+      "runtimeMs": 21940
+    }
+  ],
+  "summary": {
+    "successRate": 20,
+    "avgDish": 3.5,
+    "medianDish": 0,
+    "totalFailures": 8
+  }
+}

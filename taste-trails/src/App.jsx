@@ -220,13 +220,14 @@ function App() {
 
     const openMenu = (post) => {
       console.log('openMenu called with post:', post);
-      if (!post) return
-      // Ensure the restaurant property is set in the menuPost state
+      if (!post) return;
+      // Ensure the restaurant_id is set in the menuPost state
       setMenuPost({
         ...post,
-        restaurant: post.restaurant || post.name
-      })
-      navigate('/menu')
+        restaurant: post.restaurant || post.name,
+        restaurant_id: post.restaurant_id || post.restaurant_id || '00000000-0000-0000-0000-000000000001'
+      });
+      navigate('/menu');
     }
 
     const closeMenu = () => {
