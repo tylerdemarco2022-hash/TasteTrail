@@ -19,6 +19,7 @@
     "helmet": "^8.1.0",
     "node-fetch": "^3.3.2",
     "openai": "^6.21.0",
+    "pdf-parse": "^2.4.5",
     "playwright": "^1.58.2",
     "puppeteer": "^24.37.5",
     "vite": "^7.3.1",

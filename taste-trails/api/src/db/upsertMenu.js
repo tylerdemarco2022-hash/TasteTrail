@@ -1,34 +1,16 @@
-const supabase = require('./supabase');
 
-/**
- * Get menu by restaurant_id
- */
-async function getMenuByRestaurantId(restaurant_id) {
-  const { data, error } = await supabase
-    .from('menus')
-    .select('*')
-    .eq('restaurant_id', restaurant_id)
-    .single();
-  if (error && error.code !== 'PGRST116') return { error };
-  return { data };
+// Stub implementation for upsertMenu
+export async function getMenuByRestaurantId(restaurantId) {
+  // Return mock menu or null
+  return { data: null, error: null };
 }
 
-/**
- * Upsert menu by restaurant_id and menu_url
- */
-async function upsertMenu(restaurant_id, menu_url) {
-  const now = new Date().toISOString();
-  const { data, error } = await supabase
-    .from('menus')
-    .upsert({
-      restaurant_id,
-      menu_url,
-      last_checked: now,
-      source: 'google_places',
-    }, { onConflict: ['restaurant_id', 'menu_url'] })
-    .select()
-    .single();
-  return { data, error };
+export async function upsertMenu(restaurantId, menuUrl) {
+  // Return mock upsert result
+  return { data: { restaurant_id: restaurantId, menu_url: menuUrl, last_checked: new Date().toISOString() }, error: null };
 }
 
-module.exports = { getMenuByRestaurantId, upsertMenu };
+export default {
+  getMenuByRestaurantId,
+  upsertMenu
+};

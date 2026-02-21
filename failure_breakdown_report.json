@@ -1,0 +1,116 @@
+{
+  "failureDomains": [
+    {
+      "domain": "toasttab1.com",
+      "confidence": 0.62,
+      "structural_stability_score": 1,
+      "platform": "ToastTab",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Sparse menu, low item count"
+    },
+    {
+      "domain": "toasttab2.com",
+      "confidence": 0.66,
+      "structural_stability_score": 1,
+      "platform": "ToastTab",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Section collapse, price uniformity"
+    },
+    {
+      "domain": "bentobox1.com",
+      "confidence": 0.59,
+      "structural_stability_score": 0,
+      "platform": "BentoBox",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Modifier leakage, duplicate items"
+    },
+    {
+      "domain": "bentobox2.com",
+      "confidence": 0.65,
+      "structural_stability_score": 1,
+      "platform": "BentoBox",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Low price density, weak section diversity"
+    },
+    {
+      "domain": "square1.com",
+      "confidence": 0.68,
+      "structural_stability_score": 1,
+      "platform": "Square",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Sparse menu, price realism penalty"
+    },
+    {
+      "domain": "spa1.com",
+      "confidence": 0.67,
+      "structural_stability_score": 1,
+      "platform": "SPA React",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Section entropy, duplicate detection"
+    },
+    {
+      "domain": "spa2.com",
+      "confidence": 0.63,
+      "structural_stability_score": 0,
+      "platform": "SPA React",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Low item count, price density"
+    },
+    {
+      "domain": "local1.com",
+      "confidence": 0.58,
+      "structural_stability_score": 0,
+      "platform": "Unknown",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "No platform detected, weak structure"
+    },
+    {
+      "domain": "local2.com",
+      "confidence": 0.61,
+      "structural_stability_score": 1,
+      "platform": "Unknown",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Sparse menu, low price density"
+    },
+    {
+      "domain": "local3.com",
+      "confidence": 0.64,
+      "structural_stability_score": 1,
+      "platform": "Unknown",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Section collapse, duplicate items"
+    },
+    {
+      "domain": "spa3.com",
+      "confidence": 0.69,
+      "structural_stability_score": 1,
+      "platform": "SPA React",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Modifier leakage, price realism penalty"
+    },
+    {
+      "domain": "square2.com",
+      "confidence": 0.60,
+      "structural_stability_score": 0,
+      "platform": "Square",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Low item count, weak section diversity"
+    },
+    {
+      "domain": "bentobox3.com",
+      "confidence": 0.57,
+      "structural_stability_score": 0,
+      "platform": "BentoBox",
+      "strategy": "STATIC_RECOVERED",
+      "failure_reason": "Sparse menu, price density"
+    }
+  ],
+  "groupedByPlatform": {
+    "ToastTab": 2,
+    "BentoBox": 3,
+    "Square": 2,
+    "SPA React": 3,
+    "Unknown": 3
+  },
+  "highRiskPlatforms": ["BentoBox", "SPA React", "Unknown"]
+}

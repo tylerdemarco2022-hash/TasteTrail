@@ -33,6 +33,7 @@ export default function MenuView({ post, onBack, showAI }) {
   const [triedFilter, setTriedFilter] = useState('all') // 'all', 'tried', 'not-tried'
   const didAutoGenerateMenu = useRef(false)
 
+  const [menuData, setMenuData] = useState(null); // New: menuData state for backend menu response
   const API_BASE = import.meta.env.VITE_API_BASE || ''
 
   if (!post) return null
@@ -50,13 +51,12 @@ export default function MenuView({ post, onBack, showAI }) {
   }, [post.restaurant, post.name])
 
   React.useEffect(() => {
-    // Always try to fetch full menu from backend if restaurant_id is available
-    if (post.restaurant_id) {
-      fetchMenuFromBackend(post.restaurant_id)
+    // Always try to fetch full menu from backend if post.id is available
+    if (post.id) {
+      fetchMenuFromBackend(post.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post.restaurant_id])
-
   async function triggerMenuScrape() {
     console.log('🔄 Triggering menu scrape for:', post.restaurant || post.name)
     setMenuLoading(true)
@@ -133,36 +133,16 @@ export default function MenuView({ post, onBack, showAI }) {
   async function fetchMenuFromBackend(restaurantId) {
     setMenuLoading(true);
     try {
-      console.log("Fetching menu for UUID:", restaurantId);
+      console.log("Menu button clicked, fetching for restaurant:", restaurantId);
       const url = `${API_BASE}/api/restaurants/${restaurantId}/full-menu`;
       const res = await fetch(url);
       const data = await res.json();
-      console.log("Full menu response:", data);
-
-      let allItems = [];
-      if (data.success && Array.isArray(data.categories) && data.categories.length > 0) {
-        allItems = data.categories.flatMap((cat) =>
-          (cat.items || []).map((item) => ({
-            name: item.name,
-            price: item.price,
-            description: item.description,
-            category: cat.category
-          }))
-        );
-      }
-      // Fallback: if no items from backend, use local menu from post
-      if (!allItems.length && post.menu && Array.isArray(post.menu)) {
-        allItems = post.menu;
-        console.log("Fallback to local post.menu", allItems);
-      }
-      setFetchedMenu(allItems);
+      console.log("Fetched menu:", data);
+      setMenuData(data);
     } catch (e) {
       console.error("Menu fetch error:", e.message);
-      // Fallback: if error, use local menu from post
-      if (post.menu && Array.isArray(post.menu)) {
-        setFetchedMenu(post.menu);
-        console.log("Fallback to local post.menu after error", post.menu);
-      }
+      alert("Menu fetch error: " + e.message);
+      setMenuData(null);
     }
     setMenuLoading(false);
   }
@@ -775,7 +755,6 @@ export default function MenuView({ post, onBack, showAI }) {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-amber-100">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-amber-100 shadow-2xl shadow-amber-100/60 p-6 lg:p-8">
-
           <div className="overflow-hidden rounded-3xl border border-amber-100 shadow-lg shadow-amber-100/60 mb-6">
             <div className="relative h-56 flex items-end p-6" style={heroStyle}>
               <div className="text-white drop-shadow space-y-2">
@@ -790,8 +769,16 @@ export default function MenuView({ post, onBack, showAI }) {
                 </div>
                 {post.dish && <div className="text-sm text-amber-100/90">Signature: {post.dish}</div>}
                 <div className="flex flex-wrap gap-2 text-xs">
-                  {menuLoading && <span className="px-2 py-1 rounded-full bg-white/25">Loading menu…</span>}
-                  <span className="px-2 py-1 rounded-full bg-white/25">{effectiveMenu.length} items</span>
+                  {menuLoading && (
+                    <span className="px-2 py-1 rounded-full bg-white/25">
+                      <svg className="animate-spin h-5 w-5 text-amber-500 inline mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Loading menu…
+                    </span>
+                  )}
+                  <span className="px-2 py-1 rounded-full bg-white/25">{menuData?.sections?.length || 0} items</span>
                 </div>
               </div>
               <div className="absolute right-4 top-4 flex items-center gap-2">
@@ -823,78 +810,22 @@ export default function MenuView({ post, onBack, showAI }) {
       </div>
 
       <div className="space-y-8">
-        {filteredMenu.length === 0 && (
-          <div className="text-gray-500 text-center py-8">
-            {triedFilter === 'tried' && 'No items tried yet. Rate some items to see them here!'}
-            {triedFilter === 'not-tried' && 'You\'ve tried all items! 🎉'}
-            {triedFilter === 'all' && (loading ? 'Loading menu items...' : 'No menu available for this restaurant.')}
-          </div>
-        )}
-
-        {Object.entries(groupedMenu).map(([category, items]) => (
-          <div key={category}>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold tracking-tight text-gray-900">{category}</h3>
-              <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">{items.length} items</span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {items.map((item, idx) => {
-                const itemName = getItemName(item) || 'Untitled'
-                const itemDescription = item?.description || item?.desc || item?.details || ''
-                const itemPrice = item?.price ?? item?.price_level ?? item?.priceLevel
-                const itemImage = item?.image
-                const itemForActions = typeof item === 'object' && item !== null ? (item?.name ? item : { ...item, name: itemName }) : { name: itemName }
-                return (
-                <div key={item.id || itemName || idx} className="bg-white rounded-2xl p-4 shadow-sm border border-amber-50/60 hover:shadow-md transition h-full flex flex-col">
-                  <div className="flex items-start gap-3 mb-3">
-                    {itemImage && <img src={itemImage} alt="" className="w-12 h-12 object-cover rounded" />}
-                    <div className="flex-1">
-                      <div className="font-semibold leading-tight text-gray-900">{itemName}</div>
-                      {itemPrice && <div className="text-xs text-amber-600 font-semibold">{getPriceDisplay(itemPrice)}</div>}
-                      {itemDescription && (
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{itemDescription}</p>
-                      )}
-                      {!itemDescription && (
-                        <p className="text-xs text-gray-500 mt-1 italic">{generateDishSummary(itemName, post.restaurant || post.name)}</p>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => toggleSaveItem(itemForActions)}
-                      className={`p-2 rounded-full ${isItemSaved(item) ? 'bg-green-500' : 'bg-red-500'} text-white shadow-sm`}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                      </svg>
-                    </button>
-                  </div>
-
-                  <div className="mt-auto pt-3 border-t border-dashed border-amber-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {(() => {
-                        const display = getDisplayItemRating(itemForActions)
-                        return (
-                          <div className="text-sm text-gray-700">
-                            <span className="text-gray-500 mr-1">Dish Score</span>
-                            <span className="font-semibold">{display.rating}</span>
-                          </div>
-                        )
-                      })()}
-                    </div>
-                    <button
-                      onClick={() => {
-                        setRatingItem(itemForActions);
-                        setShowItemRating(true);
-                      }}
-                      className="text-xs px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                      Rate
-                    </button>
-                  </div>
+        {menuData?.sections?.length > 0 ? (
+          menuData.sections.map(section => (
+            <div key={section.name}>
+              <h2>{section.name}</h2>
+              {section.items.map(item => (
+                <div key={item.name} className="bg-white rounded-2xl p-4 shadow-sm border border-amber-50/60 hover:shadow-md transition h-full flex flex-col">
+                  <p>{item.name}</p>
+                  <p>{item.description}</p>
+                  <p>{item.price}</p>
                 </div>
-              )})}
+              ))}
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div className="text-gray-500 text-center py-8">Could not find menu</div>
+        )}
       </div>
 
       {showAddItem && (

@@ -1,16 +1,15 @@
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
 
-// Stub imports (implementations to be provided)
-const googlePlaces = require('../src/providers/googlePlaces');
-const normalizeRestaurant = require('../src/normalize/restaurantNormalize');
-const upsertRestaurant = require('../src/db/upsertRestaurant');
-const upsertMenu = require('../src/db/upsertMenu');
-const findMenuLink = require('../src/utils/findMenuLink');
-const supabase = require('../src/db/supabase');
+import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
 
-const generateGeoGrid = require('../src/utils/generateGeoGrid');
+import googlePlaces from '../src/providers/googlePlaces.js';
+import normalizeRestaurant from '../src/normalize/restaurantNormalize.js';
+import upsertRestaurant from '../src/db/upsertRestaurant.js';
+import upsertMenu from '../src/db/upsertMenu.js';
+import findMenuLink from '../src/utils/findMenuLink.js';
+import supabase from '../src/db/supabase.js';
+import generateGeoGrid from '../src/utils/generateGeoGrid.js';
 
 // Configurable for any city
 const CITY = 'Charleston';

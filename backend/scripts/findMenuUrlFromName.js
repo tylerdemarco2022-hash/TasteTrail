@@ -22,6 +22,8 @@ function normalizeInput(str) {
 
 export async function findMenuUrlFromName({ name, city, state, debug = false }) {
   let final = null;
+  // RUN_ID logging
+  console.log("[RUN_ID]", name, Date.now());
   try {
     name = normalizeInput(name);
     city = normalizeInput(city);
@@ -151,20 +153,49 @@ export async function findMenuUrlFromName({ name, city, state, debug = false }) 
     // Call menuUrlGuesser on the selected baseUrl (location page or homepage)
     let menuResult = null;
     try {
-      // If baseUrl is not the homepage, extract domain from URL
       let menuDomain = domainResult.domain;
       let menuBaseUrl = baseUrl;
       if (baseUrl && baseUrl !== `https://${domainResult.domain}`) {
-        // Use the location page as the new base for menu discovery
         const urlObj = new URL(baseUrl);
         menuDomain = urlObj.hostname;
-        // Pass the full location page URL to menuUrlGuesser if supported, else fallback to domain
         menuResult = await guessMenuUrl(menuDomain, { useHeadless: true, debug, baseUrl });
       } else {
         menuResult = await guessMenuUrl(menuDomain, { useHeadless: true, debug });
       }
     } catch (e) {
       menuResult = { found: false, url: null, confidence: 0, method: 'error', error: e.message };
+    }
+    // PLATFORM ROUTER: always run before any strategy
+    let htmlLength = null;
+    let html = null;
+    if (menuResult && menuResult.url) {
+      try {
+        const res = await axios.get(menuResult.url, { timeout: 8000, responseType: 'text', validateStatus: s => true });
+        html = res.data;
+        htmlLength = html.length;
+      } catch (e) {
+        htmlLength = null;
+      }
+    }
+    console.log("[PLATFORM_ROUTER_INPUT]", { url: menuResult?.url, htmlLength });
+    let platformResult = { platform: null };
+    try {
+      // Lazy import to avoid circular
+      const { detectPlatform } = await import('../../adapters/detectPlatform.js');
+      platformResult = detectPlatform({ html: html || '', url: menuResult?.url || '' });
+    } catch (e) {
+      platformResult = { platform: null, error: e.message };
+    }
+    console.log("[PLATFORM_ROUTER_RESULT]", platformResult);
+    // ROUTING TO ADAPTER
+    console.log("[ROUTING_TO_ADAPTER]", platformResult.platform);
+    // Propagate platform/confidence
+    if (menuResult) {
+      menuResult.platform = platformResult.platform;
+      // Only propagate confidence if extraction happened
+      if (menuResult.found && menuResult.confidence == null) {
+        menuResult.confidence = platformResult.confidence || 80;
+      }
     }
     if (debug || !menuResult.found) {
       if (debug) console.log('[MenuGuesser]', JSON.stringify(menuResult, null, 2));
@@ -179,18 +210,83 @@ export async function findMenuUrlFromName({ name, city, state, debug = false }) 
         menuResult.url.includes("grubhub")
       )
     ) {
+      // Abort immediately on aggregator
       return { found: false, reason: "third-party-aggregator", url: menuResult.url };
     }
-    final = {
-      found: menuResult.found,
-      domain: domainResult.domain,
-      url: menuResult.url,
-      confidence: menuResult.confidence,
-      method: menuResult.method,
-      menuResult,
-      domainResult
-    };
-    return final;
+    // URL validation logic
+    let validatedUrl = null;
+    let urlRejectedReason = null;
+    if (menuResult.url) {
+      try {
+        const urlToCheck = menuResult.url;
+        let res;
+        try {
+          res = await axios.head(urlToCheck, { timeout: 8000, validateStatus: s => true });
+        } catch (headErr) {
+          res = await axios.get(urlToCheck, { timeout: 8000, responseType: 'text', validateStatus: s => true });
+        }
+        const status = res.status;
+        let html = res.data || '';
+        if (status >= 400) {
+          urlRejectedReason = `HTTP_STATUS_${status}`;
+        } else {
+          if (!html && res.headers && res.headers['content-type'] && res.headers['content-type'].includes('text/html')) {
+            html = await axios.get(urlToCheck, { timeout: 8000, responseType: 'text', validateStatus: s => true }).then(r => r.data).catch(() => '');
+          }
+          const textLength = html.length;
+          const errorSignals = [
+            'WordPress › Error',
+            'critical error',
+            'Enable JavaScript',
+            'Access denied',
+            'Cloudflare'
+          ];
+          if (errorSignals.some(sig => html.includes(sig))) {
+            urlRejectedReason = 'ERROR_PAGE_SIGNAL';
+          } else if (status !== 200) {
+            urlRejectedReason = `HTTP_STATUS_${status}`;
+          } else if (textLength <= 1000) {
+            urlRejectedReason = 'TEXT_LENGTH_TOO_SHORT';
+          } else {
+            const priceMatches = (html.match(/\$\s?\d{1,3}(?:\.\d{2})?/g) || []).length;
+            if (priceMatches < 3 && !urlToCheck.endsWith('.pdf')) {
+              urlRejectedReason = 'INSUFFICIENT_PRICE_PATTERNS';
+            } else {
+              validatedUrl = urlToCheck;
+            }
+          }
+        }
+      } catch (validateErr) {
+        urlRejectedReason = `VALIDATION_ERROR: ${validateErr.message}`;
+      }
+    }
+    if (!validatedUrl) {
+      if (debug) console.log(`[URL_REJECTED_REASON] ${menuResult.url} | ${urlRejectedReason}`);
+      final = {
+        found: false,
+        domain: domainResult.domain,
+        url: menuResult.url,
+        confidence: menuResult.confidence,
+        method: menuResult.method,
+        menuResult,
+        domainResult,
+        urlRejectedReason
+      };
+      // Fallback: continue search for alternative menu links (not implemented here, but placeholder)
+      return final;
+    } else {
+      if (debug) console.log(`[URL_ACCEPTED] ${validatedUrl}`);
+      final = {
+        found: true,
+        domain: domainResult.domain,
+        url: validatedUrl,
+        confidence: menuResult.confidence,
+        method: menuResult.method,
+        menuResult,
+        domainResult
+      };
+      return final;
+    }
   } catch (err) {
     final = { found: false, error: err.message, stack: err.stack };
     if (debug) console.error(JSON.stringify(final, null, 2));

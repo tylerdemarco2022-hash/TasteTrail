@@ -1,16 +1,43 @@
 {
-  "found": true,
+  "found": false,
   "domain": "almikestavern.com",
-  "url": "https://almikestavern.com/lunch-%26-dinner-menus/",
-  "confidence": 100,
+  "url": "https://onlineorder.focuspos.com",
+  "confidence": 90,
   "method": "static",
   "menuResult": {
     "found": true,
-    "url": "https://almikestavern.com/lunch-%26-dinner-menus/",
-    "confidence": 100,
-    "parent": "https://almikestavern.com/",
-    "detectionType": "price",
-    "method": "static"
+    "url": "https://onlineorder.focuspos.com",
+    "confidence": 90,
+    "method": "static",
+    "posPlatform": "onlineorder.focuspos.com",
+    "innerTextLength": 0,
+    "xhrMenuItems": [
+      {
+        "url": "https://js.authorize.net/v1/AcceptCore.js"
+      },
+      {
+        "url": "https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true"
+      },
+      {
+        "url": "https://pay.google.com/gp/p/ui/pay"
+      },
+      {
+        "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0"
+      },
+      {
+        "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0"
+      },
+      {
+        "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0"
+      },
+      {
+        "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0"
+      },
+      {
+        "url": "https://play.google.com/log?format=json&hasfast=true&authuser=0"
+      }
+    ],
+    "possibleMenuApis": []
   },
   "domainResult": {
     "found": true,
@@ -29,5 +56,6 @@
       "url": "https://maps.google.com/?cid=10102146616259411955",
       "website": "http://www.almikestavern.com/"
     }
-  }
+  },
+  "urlRejectedReason": "INSUFFICIENT_PRICE_PATTERNS"
 }

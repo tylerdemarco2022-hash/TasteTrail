@@ -1,0 +1,18 @@
+[
+  {
+    "domain": "exampledomain1.com",
+    "medianPrice": 7.50,
+    "duplicateRate": 0.12,
+    "avgItemWordLength": 3.8,
+    "baseModifierRatio": 2.1,
+    "sectionEntropy": 0.42
+  },
+  {
+    "domain": "exampledomain2.com",
+    "medianPrice": 4.25,
+    "duplicateRate": 0.15,
+    "avgItemWordLength": 2.9,
+    "baseModifierRatio": 2.7,
+    "sectionEntropy": 0.37
+  }
+]

@@ -2,17 +2,17 @@
 // Direct test for The Olde Mecklenburg Brewery
 
 const path = require('path');
-import { findMenuUrlFromName } from '../agents/findMenuUrlFromName.js';
+const { findMenuUrlFromName } = require('../agents/findMenuUrlFromName.js');
 const domainFinder = require(path.resolve(__dirname, '../../services/domainFinder.js'));
 const menuScraper = require(path.resolve(__dirname, '../../menu-ingestion/services/menuScraper.js'));
 
-const name = 'The Olde Mecklenburg Brewery';
-const city = 'Charlotte';
-const state = 'NC';
+const args = process.argv.slice(2);
+const name = args[0] || 'Fig Tree';
+const city = args[1] || 'Charlotte';
+const state = args[2] || 'NC';
 
-// Use ES module import for findMenuUrlFromName
+// Pure CommonJS async wrapper
 (async () => {
-  // 3. Run domainFinder directly
   try {
     const domainResult = await domainFinder.findDomain({ name, city, state });
     console.log('DomainFinder result:');
@@ -22,7 +22,6 @@ const state = 'NC';
     console.log('DomainFinder error:', err.message || err);
   }
 
-  // 4. Run findMenuUrlFromName
   try {
     const menuResult = await findMenuUrlFromName({
       name,
@@ -32,12 +31,12 @@ const state = 'NC';
     });
     console.log('findMenuUrlFromName result:');
     console.log(menuResult);
-    // 5. If found, call menu scraper
     if (menuResult && menuResult.found && menuResult.url) {
       try {
-        const items = await menuScraper.scrapeMenu(url);
+        const items = await menuScraper.scrapeMenu(menuResult.url);
         const count = Array.isArray(items) ? items.length : 0;
         console.log('  Menu items extracted:', count);
+        console.log(JSON.stringify(items, null, 2));
       } catch (err) {
         console.log('  Menu scraper error:', err.message || err);
       }

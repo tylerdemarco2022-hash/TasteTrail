@@ -1,47 +1,26 @@
-// backend/scripts/singleRestaurantTest.mjs
-import path from 'path';
-import { findMenuUrlFromName } from './findMenuUrlFromName.js';
-import { findDomain } from '../../services/domainFinder.js';
-import { scrapeMenu } from '../../menu-ingestion/services/menuScraper.js';
+import menuScraperAgent from '../../agents/menuScraperAgent.js';
+import * as agentModule from '../../agents/menuScraperAgent.js';
 
+console.log("AGENT_MODULE_OBJECT:", agentModule);
+console.log("AGENT_MODULE_KEYS:", Object.keys(agentModule));
+console.log("DEFAULT_EXPORT_VALUE:", agentModule.default);
+console.log("TYPE_OF_DEFAULT:", typeof agentModule.default);
 
-// Example input (replace as needed)
-const name = 'The Cowfish Sushi Burger Bar';
-const city = 'Charlotte';
-const state = 'NC';
+console.log("=== DIRECT IMPORT TEST ===");
+console.log("Agent type:", typeof menuScraperAgent);
 
-
-(async () => {
-  // 1. Log input parameters
-  console.log("INPUT:", name, city, state);
-
-  // 2. Run domainFinder directly and log exact result
-  let domainResult;
+async function main() {
   try {
-    domainResult = await findDomain({ name, city, state });
-    console.log("DOMAIN RESULT:", domainResult);
-  } catch (err) {
-    console.log('DomainFinder error:', err.message || err);
-    domainResult = null;
-  }
-
-  // 4. Run findMenuUrlFromName
-  try {
-    // No fallback domain, no global/cached values, no previous result reuse
-    const menuResult = await findMenuUrlFromName({
-      name,
-      city,
-      state,
-      debug: true
+    console.log("Calling agent...");
+    await menuScraperAgent({
+      name: "Culinary Dropout",
+      website: "https://www.culinarydropout.com/locations-menus/",
+      menuUrl: "https://www.culinarydropout.com/locations-menus/"
     });
-    console.log('findMenuUrlFromName result:');
-    console.log(menuResult);
-    // 5. If found, call menu scraper (optional, not run by default)
-    // if (menuResult && menuResult.found && menuResult.url) {
-    //   const scrapeResult = await scrapeMenu(menuResult.url);
-    //   console.log('scrapeMenu result:', scrapeResult);
-    // }
+    console.log("Agent finished.");
   } catch (err) {
-    console.log('findMenuUrlFromName error:', err.message || err);
+    console.error("AGENT ERROR:", err);
   }
-})();
+}
+
+main();

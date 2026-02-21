@@ -1,7 +1,5 @@
-// generateGeoGrid.js
-// Generates a grid of lat/lng points covering a circle of given radius around a center point.
-// Uses simple equirectangular approximation (good enough for city-scale grids)
 
+// Generates a grid of lat/lng points covering a circle of given radius around a center point.
 const EARTH_RADIUS_M = 6371000;
 
 function metersToLat(m) {
@@ -44,4 +42,4 @@ function generateGeoGrid(centerLat, centerLng, radiusMeters, stepMeters) {
   return points;
 }
 
-module.exports = generateGeoGrid;
+export default generateGeoGrid;

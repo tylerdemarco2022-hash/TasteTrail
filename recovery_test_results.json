@@ -1,0 +1,56 @@
+[
+  {
+    "domain": "bonefishgrill.com",
+    "recoveryApplied": true,
+    "apiInterceptUsed": false,
+    "totalSections": 4,
+    "totalItems": 38,
+    "priceDensity": 0.79,
+    "confidence": 0.72
+  },
+  {
+    "domain": "maggianos.com",
+    "recoveryApplied": true,
+    "apiInterceptUsed": false,
+    "totalSections": 5,
+    "totalItems": 41,
+    "priceDensity": 0.81,
+    "confidence": 0.74
+  },
+  {
+    "domain": "tgifridays.com",
+    "recoveryApplied": true,
+    "apiInterceptUsed": false,
+    "totalSections": 3,
+    "totalItems": 29,
+    "priceDensity": 0.76,
+    "confidence": 0.68
+  },
+  {
+    "domain": "bobevans.com",
+    "recoveryApplied": true,
+    "apiInterceptUsed": false,
+    "totalSections": 4,
+    "totalItems": 33,
+    "priceDensity": 0.77,
+    "confidence": 0.71
+  },
+  {
+    "domain": "rubytuesday.com",
+    "recoveryApplied": true,
+    "apiInterceptUsed": false,
+    "totalSections": 3,
+    "totalItems": 27,
+    "priceDensity": 0.74,
+    "confidence": 0.67
+  },
+  {
+    "domain": "whataburger.com",
+    "recoveryApplied": true,
+    "apiInterceptUsed": false,
+    "totalSections": 2,
+    "totalItems": 22,
+    "priceDensity": 0.72,
+    "confidence": 0.65
+  }
+]

@@ -1,37 +1,6 @@
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load .env from project root (one level up)
-dotenv.config({
-  path: path.resolve(__dirname, '../.env')
-});
-
-console.log('ENV FILE PATH:', path.resolve(__dirname, '../.env'));
-console.log('SUPABASE_URL:', process.env.SUPABASE_URL);
-console.log('SUPABASE_KEY PREVIEW: ',
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-    ? process.env.SUPABASE_SERVICE_ROLE_KEY.slice(0, 8)
-    : 'undefined'
-);
-
-console.log('GOOGLE_API_KEY:',
-  process.env.GOOGLE_API_KEY
-    ? process.env.GOOGLE_API_KEY.slice(0, 6)
-    : 'undefined'
-);
-
-console.log('GOOGLE_CSE_ID:',
-  process.env.GOOGLE_CSE_ID
-    ? process.env.GOOGLE_CSE_ID.slice(0, 6)
-    : 'undefined'
-);
-
 console.log("🔥 OFFICIAL TASTETRAILS BACKEND STARTED");
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 import { supabase } from '../backend/supabase.js';
 import express from 'express';
 import cors from 'cors';
@@ -39,11 +8,12 @@ import menuRoutes from '../backend/server/routes/menu.js';
 import nearbyRoutes from '../backend/server/routes/nearby.js';
 import followRequestsRoutes from '../backend/server/routes/followRequests.js';
 import authRoutes from './routes/auth.js';
-import scrapeMenuRoutes from './routes/scrapeMenu.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
+import path from 'path';
+import dotenv from 'dotenv';
 
 // Load environment variables from .env file
-// dotenv.config({ path: './.env' });
+dotenv.config();
 
 console.log("BACKEND ENTRY FILE EXECUTING");
 process.on('exit', code => console.error('[EXIT EVENT]', code));
@@ -85,29 +55,6 @@ try {
   console.warn('Could not load OPENAI_API_KEY from root .env:', e && e.message);
 }
 
-console.log("SUPABASE URL:", process.env.SUPABASE_URL);
-console.log(
-  "SUPABASE_SERVICE_ROLE_KEY:",
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-    ? process.env.SUPABASE_SERVICE_ROLE_KEY.slice(0, 6) + "..." +
-      process.env.SUPABASE_SERVICE_ROLE_KEY.slice(-4)
-    : "MISSING"
-);
-console.log("SERVICE KEY EXISTS:", !!process.env.SUPABASE_SERVICE_ROLE_KEY);
-console.log("ENV CHECK END");
-
-console.log('GOOGLE_API_KEY:',
-  process.env.GOOGLE_API_KEY
-    ? process.env.GOOGLE_API_KEY.slice(0,6)
-    : 'undefined'
-);
-
-console.log('GOOGLE_CSE_ID:',
-  process.env.GOOGLE_CSE_ID
-    ? process.env.GOOGLE_CSE_ID.slice(0,6)
-    : 'undefined'
-);
-
 process.on('exit', code => console.error('[EXIT EVENT]', code));
 process.on('beforeExit', code => console.error('[BEFORE EXIT]', code));
 process.on('uncaughtException', err => console.error('[UNCAUGHT]', err));
@@ -141,7 +88,6 @@ app.use((req, res, next) => {
 app.use('/api', menuRoutes);
 app.use('/api', nearbyRoutes);
 app.use('/api', followRequestsRoutes);
-app.use('/api/scrape-menu', scrapeMenuRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 
@@ -163,6 +109,8 @@ setInterval(() => {
 }, 10000);
 
 // Static file serving (for taste-trails/src/public or similar)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const staticDir = path.join(__dirname, '../src/public');
 app.use('/static', express.static(staticDir));
 
@@ -225,16 +173,37 @@ app.get('/api/hello', (req, res) => {
 
 // Example Supabase test endpoint
 app.get('/api/supabase-test', async (req, res) => {
+  if (!supabase) {
+    return res.status(500).json({ error: 'Supabase client not initialized. Check SUPABASE_URL and SUPABASE_SERVICE_KEY or SUPABASE_KEY.' });
+  }
+  // DNS/HTTPS connectivity check
+  const url = SUPABASE_URL;
+  if (!url) {
+    return res.status(500).json({ error: 'SUPABASE_URL missing.' });
+  }
   try {
-    const { data, error } = await supabase.from('users').select('*').limit(1);
-    if (error) {
-      console.error("Supabase test query error:", error.message);
-      return res.status(500).json({ error: error.message });
-    }
-    res.json({ message: "Supabase connection is working", data });
+    const hostname = url.replace(/^https?:\/\//, '').split('/')[0];
+    await new Promise((resolve, reject) => {
+      dns.lookup(hostname, err => {
+        if (err) reject(new Error('DNS lookup failed for ' + hostname));
+        else resolve();
+      });
+    });
+    await new Promise((resolve, reject) => {
+      https.get(url, resp => {
+        if (resp.statusCode >= 200 && resp.statusCode < 400) resolve();
+        else reject(new Error('HTTPS request failed with status ' + resp.statusCode));
+      }).on('error', err => reject(new Error('HTTPS request error: ' + err.message)));
+    });
+  } catch (connErr) {
+    return res.status(500).json({ error: 'Supabase connectivity check failed: ' + connErr.message });
+  }
+  try {
+    const { data, error } = await supabase.from('restaurants').select('*').limit(1);
+    if (error) return res.status(500).json({ error: 'Supabase auth/API error: ' + error.message });
+    res.json({ data });
   } catch (err) {
-    console.error("Unexpected error in Supabase test endpoint:", err.message);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Supabase fetch failed: ' + (err.message || 'Unknown error') });
   }
 });
 
@@ -483,80 +452,10 @@ app.get('/api/restaurants/:name', async (req, res) => {
 });
 
 
-// Trending feed endpoint
-app.get('/feed/trending', async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from('dishes')
-      .select(`id,name,restaurant_id,rating_bayesian,rating_count,emoji_tags,momentum_score,restaurants(name)`)
-      .gt('momentum_score', 0)
-      .order('momentum_score', { ascending: false })
-      .limit(50);
-
-    if (error) {
-      return res.status(500).json({ error: error.message });
-    }
-
-    const result = data.map(row => ({
-      dish_id: row.id,
-      dish_name: row.name,
-      restaurant_name: row.restaurants?.name || null,
-      rating_bayesian: row.rating_bayesian,
-      rating_count: row.rating_count,
-      emoji_tags: row.emoji_tags,
-      momentum_score: row.momentum_score
-    }));
-
-    res.json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message || 'Unknown error' });
-  }
-});
-
-
-app.get('/api/search', async (req, res) => {
-  const { q } = req.query;
-
-  console.log("SEARCH ROUTE HIT");
-
-  console.log("Query parameter q:", q);
-
-  try {
-    const { data, error } = await supabase
-      .from('users')
-      .select('id, username, avatar_url')
-      .ilike('username', `%${q}%`)
-      .limit(20);
-
-    if (error) {
-      console.error("Supabase query error:", error.message);
-      return res.status(500).json({ error: error.message });
-    }
-
-    console.log("Supabase query result:", data);
-    res.json(data);
-  } catch (err) {
-    console.error("Unexpected error in /api/search:", err.message);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.get("/", (req, res) => {
-  res.json({ status: "TasteTrails backend running" });
-});
-
 const PORT = process.env.PORT || 8081;
-
-console.log("Attempting to start server...");
-
+const HOST = '0.0.0.0';
+console.log(`Server is attempting to start on port: ${PORT}`);
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(`TasteTrails backend server running on http://${HOST}:${PORT} (all interfaces)`);
 });
-
-console.log('Server setup complete. Attempting to start listening on port:', PORT);
-
-// Log an error if environment variables are not loaded
-if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  console.error('Error: Environment variables SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY are not loaded.');
-  process.exit(1);
-}
