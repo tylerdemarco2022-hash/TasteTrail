@@ -1,16 +1,21 @@
 {
-  "Bao & Co": [],
-  "Saffron Spoon": [
+  "Bao & Co": [
     {
-      "url": "https://www.saffron-spoon.com/menu",
+      "url": "https://www.baoco.com",
       "type": "website"
-    },
+    }
+  ],
+  "Saffron Spoon": [
     {
       "url": "https://www.saffron-spoon.com",
       "type": "website"
     }
   ],
   "Green Fork": [
+    {
+      "url": "https://green-fork.com",
+      "type": "website"
+    },
     {
       "url": "https://www.green-fork.com",
       "type": "website"
@@ -42,10 +47,6 @@
   "Angeline's": [
     {
       "url": "https://angelines.com",
-      "type": "website"
-    },
-    {
-      "url": "https://www.angelines.com",
       "type": "website"
     }
   ],
@@ -83,18 +84,23 @@
   ],
   "Jekyll & Hyde Taphouse Grill": [],
   "La Belle Helene": [],
-  "Mama Ricotta's": [],
+  "Mama Ricotta's": [
+    {
+      "url": "https://www.mamaricottas.com",
+      "type": "website"
+    }
+  ],
   "Poppyseed Kitchen": [
+    {
+      "url": "https://www.poppyseedkitchen.com/menu",
+      "type": "website"
+    },
     {
       "url": "https://www.poppyseedkitchen.com",
       "type": "website"
     }
   ],
   "Postino": [
-    {
-      "url": "https://www.postino.com/menu",
-      "type": "website"
-    },
     {
       "url": "https://www.postino.com",
       "type": "website"
@@ -123,6 +129,10 @@
   ],
   "Supper Land": [
     {
+      "url": "https://supperland.com/menu",
+      "type": "website"
+    },
+    {
       "url": "https://www.supperland.com/menu",
       "type": "website"
     },
@@ -146,18 +156,6 @@
   "Whitaker's": [
     {
       "url": "https://whitakers.com",
-      "type": "website"
-    }
-  ],
-  "Captain Steve's Family Seafood Restaurant": [
-    {
-      "url": "https://captstevesseafood.com/",
-      "type": "website"
-    }
-  ],
-  "Captain Steves Family Seafood Restaurant": [
-    {
-      "url": "https://captstevesseafood.com/",
       "type": "website"
     }
   ]

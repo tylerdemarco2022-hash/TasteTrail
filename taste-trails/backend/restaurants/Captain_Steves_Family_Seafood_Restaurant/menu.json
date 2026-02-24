@@ -354,7 +354,7 @@
     "category": "SIDES"
   },
   {
-    "name": "Loaded (cheese & bacon) +",
+    "name": "Loaded (cheese & bacon)",
     "description": "",
     "price": "$1",
     "category": "SIDES"
@@ -475,12 +475,6 @@
   },
   {
     "name": "Grilled Chicken Sandwich",
-    "description": "",
-    "price": "$11",
-    "category": "SALADS"
-  },
-  {
-    "name": "8 oz. Cheeseburger",
     "description": "",
     "price": "$11",
     "category": "SALADS"
@@ -636,7 +630,7 @@
     "category": "PASTAS"
   },
   {
-    "name": "Greek Style additional +",
+    "name": "Greek Style additional",
     "description": "",
     "price": "$2",
     "category": "PASTAS"

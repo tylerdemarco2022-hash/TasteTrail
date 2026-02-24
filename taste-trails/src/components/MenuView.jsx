@@ -168,6 +168,7 @@ export default function MenuView({ post, onBack, showAI }) {
   const [showItemRating, setShowItemRating] = useState(false)
   const [ratingItem, setRatingItem] = useState(null)
   const [activeCategoryTab, setActiveCategoryTab] = useState('all')
+  const [activeFilter, setActiveFilter] = useState(null) // Quick filter state
   const didAutoGenerateMenu = useRef(false)
   const sectionRefs = useRef({})
 
@@ -747,6 +748,52 @@ export default function MenuView({ post, onBack, showAI }) {
     return 'Other'
   }
 
+  // Helper function to check if item matches filter criteria
+  const itemMatchesFilter = React.useCallback((item, filter) => {
+    if (!filter) return true
+    
+    const name = String(item?.name || item?.dish_name || item?.dish || '').toLowerCase()
+    const description = String(item?.description || '').toLowerCase()
+    const tags = Array.isArray(item?.tags) ? item.tags : []
+    const price = parseFloat(item?.price || 0)
+    
+    switch (filter) {
+      case 'TOP_RATED':
+        // Has rating data (either bayesian or local)
+        return (item?.rating_bayesian && item?.rating_count > 0) || item?.rating
+        
+      case 'MOST_ORDERED':
+        // Has order count data
+        return item?.order_count && item.order_count > 0
+        
+      case 'HEALTHY':
+        // Check tags or keywords in name/description
+        return tags.includes('healthy') || 
+               /\b(salad|grilled|steamed|fresh|organic|quinoa|kale|avocado)\b/i.test(name + ' ' + description)
+        
+      case 'UNDER_10':
+        return price > 0 && price <= 10
+        
+      case 'VEGETARIAN':
+        // Check is_vegetarian flag or tags or keywords
+        return item?.is_vegetarian === true || 
+               tags.includes('vegetarian') || 
+               /\b(vegetarian|veggie)\b/i.test(name + ' ' + description)
+        
+      case 'SPICY':
+        // Check tags or keywords
+        return tags.includes('spicy') || 
+               /\b(spicy|hot|chili|jalape[ñn]o|sriracha|curry)\b/i.test(name + ' ' + description) ||
+               /🌶/.test(name + ' ' + description)
+        
+      case 'NEW':
+        return item?.is_new === true
+        
+      default:
+        return true
+    }
+  }, [])
+
   const categorySections = React.useMemo(() => {
     const groups = new Map()
     for (const section of displaySections) {
@@ -754,6 +801,9 @@ export default function MenuView({ post, onBack, showAI }) {
       const sectionItems = Array.isArray(section?.items) ? section.items : []
       for (const item of sectionItems) {
         if (!item) continue
+        // Apply filter
+        if (!itemMatchesFilter(item, activeFilter)) continue
+        
         const meta = getMenuCategoryMeta(item, sectionName)
         if (!groups.has(meta.key)) {
           groups.set(meta.key, {
@@ -776,9 +826,22 @@ export default function MenuView({ post, onBack, showAI }) {
 
     return [...knownSections, ...unknownSections].map((section) => ({
       ...section,
-      items: [...section.items].sort((a, b) => getMenuItemSortName(a).localeCompare(getMenuItemSortName(b)))
+      items: [...section.items].sort((a, b) => {
+        // If filter is TOP_RATED or MOST_ORDERED, sort by that metric
+        if (activeFilter === 'TOP_RATED') {
+          const ratingA = parseFloat(a?.rating_bayesian || a?.rating || 0)
+          const ratingB = parseFloat(b?.rating_bayesian || b?.rating || 0)
+          if (ratingB !== ratingA) return ratingB - ratingA
+        }
+        if (activeFilter === 'MOST_ORDERED') {
+          const orderA = parseInt(a?.order_count || 0)
+          const orderB = parseInt(b?.order_count || 0)
+          if (orderB !== orderA) return orderB - orderA
+        }
+        return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
+      })
     }))
-  }, [displaySections])
+  }, [displaySections, activeFilter, itemMatchesFilter])
 
   const categoryTabs = React.useMemo(() => {
     const allCount = categorySections.reduce((sum, section) => sum + section.items.length, 0)
@@ -1062,6 +1125,214 @@ export default function MenuView({ post, onBack, showAI }) {
 
       <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
         Dietary filters are algorithmically generated and may not reflect kitchen cross-contamination. Always confirm with the restaurant.
+      </div>
+
+      {/* Quick Filter Chips - Sticky */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 20, background: 'linear-gradient(to bottom, white 85%, transparent)', paddingTop: 8, paddingBottom: 12, marginBottom: 16 }}>
+        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'TOP_RATED' ? null : 'TOP_RATED')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'TOP_RATED' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'TOP_RATED' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'TOP_RATED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            ⭐ Top Rated
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'MOST_ORDERED' ? null : 'MOST_ORDERED')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'MOST_ORDERED' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'MOST_ORDERED' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'MOST_ORDERED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🔥 Most Ordered
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'HEALTHY' ? null : 'HEALTHY')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'HEALTHY' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'HEALTHY' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'HEALTHY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🥗 Healthy
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'UNDER_10' ? null : 'UNDER_10')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'UNDER_10' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'UNDER_10' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'UNDER_10' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'UNDER_10') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'UNDER_10') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            💲 Under $10
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'VEGETARIAN' ? null : 'VEGETARIAN')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'VEGETARIAN' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'VEGETARIAN' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'VEGETARIAN' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🧀 Vegetarian
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'SPICY' ? null : 'SPICY')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'SPICY' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'SPICY' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'SPICY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🌶 Spicy
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'NEW' ? null : 'NEW')}
+            style={{
+              border: 'none',
+              padding: '8px 14px',
+              borderRadius: 20,
+              background: activeFilter === 'NEW' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'NEW' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'NEW' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🆕 New
+          </button>
+
+          {activeFilter && (
+            <button
+              onClick={() => setActiveFilter(null)}
+              style={{
+                border: '1px solid #d1d5db',
+                padding: '8px 14px',
+                borderRadius: 20,
+                background: 'white',
+                color: '#6b7280',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                fontSize: 14,
+                fontWeight: 600,
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#f9fafb'
+                e.target.style.borderColor = '#9ca3af'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'white'
+                e.target.style.borderColor = '#d1d5db'
+              }}
+            >
+              ✕ Clear
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="mb-6 overflow-x-auto">
