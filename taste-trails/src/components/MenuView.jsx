@@ -93,7 +93,7 @@ const MENU_TAB_RULES = [
   { key: 'sandwiches', label: 'Sandwiches', regex: /(sandwich|burger|panini|wrap)/i },
   { key: 'entrees', label: 'Entrees', regex: /(entree|main|secondi|chicken|steak|salmon|mahi|short ribs|scampi)/i },
   { key: 'desserts', label: 'Desserts', regex: /(dessert|cake|gelato|ice cream|brownie|tiramisu|sweet)/i },
-  { key: 'drinks', label: 'Drinks', regex: /(drink|beverage|cocktail|wine|beer|coffee|tea|soda|juice|mocktail)/i },
+  { key: 'drinks', label: 'Drinks', regex: /(drink|beverage|cocktail|wine|beer|mocktail|bar|spirits|liquor|happy hour|martini|margarita|whiskey|bourbon|vodka|gin|rum|tequila|sake|cider|draft)/i },
   { key: 'sides', label: 'Sides', regex: /(side|fries|chips)/i }
 ]
 
@@ -153,6 +153,25 @@ export default function MenuView({ post, onBack, showAI }) {
   const [newImage, setNewImage] = useState(null)
   const [newPrice, setNewPrice] = useState(2)
   const [savedItemsState, setSavedItemsState] = useState([])
+  const profileId = React.useMemo(() => {
+    try {
+      const raw = localStorage.getItem('user_profile')
+      if (raw) {
+        const parsed = JSON.parse(raw)
+        if (parsed?.id) return String(parsed.id)
+      }
+    } catch (e) {}
+    return localStorage.getItem('currentProfileId') || 'guest'
+  }, [])
+  const flagStorageKey = React.useMemo(() => `menu-item-flags:${profileId}`, [profileId])
+  const [flaggedItems, setFlaggedItems] = useState(() => {
+    try {
+      const raw = localStorage.getItem(flagStorageKey)
+      return raw ? JSON.parse(raw) : {}
+    } catch {
+      return {}
+    }
+  })
   
   // Dish summary modal state
   const [showSummary, setShowSummary] = useState(false)
@@ -176,6 +195,16 @@ export default function MenuView({ post, onBack, showAI }) {
 
   const [menuData, setMenuData] = useState(null); // New: menuData state for backend menu response
 
+  // Load dietary preferences on mount
+  const [dietaryPreferences, setDietaryPreferences] = useState(() => {
+    try {
+      const prefs = localStorage.getItem('dietary_preferences')
+      return prefs ? JSON.parse(prefs) : []
+    } catch {
+      return []
+    }
+  })
+
   if (!post) return null
 
   const restaurantName = post.restaurant || post.name || ''
@@ -184,6 +213,109 @@ export default function MenuView({ post, onBack, showAI }) {
     if (isUuidLike(post?.id)) return post.id
     return null
   }, [post?.restaurant_id, post?.id])
+
+  const persistFlaggedItems = (updater) => {
+    setFlaggedItems((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater
+      try {
+        localStorage.setItem(flagStorageKey, JSON.stringify(next))
+      } catch (e) {}
+      return next
+    })
+  }
+
+  const buildFlagKey = (item) => {
+    const baseId = item?.id || item?.name || 'unknown'
+    const restId = restaurantId || post?.id || 'unknown'
+    return `${restId}::${String(baseId).toLowerCase()}`
+  }
+
+  const isItemFlagged = (item) => Boolean(flaggedItems?.[buildFlagKey(item)])
+
+  const saveLocalMenuFlag = (payload) => {
+    try {
+      const raw = localStorage.getItem('menu-item-flag-queue')
+      const existing = raw ? JSON.parse(raw) : []
+      const next = [payload, ...(Array.isArray(existing) ? existing : [])]
+      localStorage.setItem('menu-item-flag-queue', JSON.stringify(next))
+    } catch (e) {}
+  }
+
+  const handleFlagMenuItem = async (item) => {
+    const reason = window.prompt('What seems wrong with this item? (e.g., not food, wrong name, missing price)')
+    if (!reason) return
+
+    const flagKey = buildFlagKey(item)
+    persistFlaggedItems((prev) => ({
+      ...prev,
+      [flagKey]: {
+        flagged_at: Date.now(),
+        reason: reason.trim()
+      }
+    }))
+
+    const payload = {
+      menu_item_id: item?.id || null,
+      restaurant_id: restaurantId,
+      restaurant_name: restaurantName,
+      item_name: item?.name || item?.dish_name || item?.dish || 'Unknown item',
+      reason: reason.trim(),
+      details: item?.description || null
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/menu-item-flags`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      })
+      if (!res.ok) {
+        saveLocalMenuFlag(payload)
+      }
+    } catch (e) {
+      saveLocalMenuFlag(payload)
+    }
+  }
+
+  const saveLocalReviewReport = (payload) => {
+    try {
+      const raw = localStorage.getItem('review-report-queue')
+      const existing = raw ? JSON.parse(raw) : []
+      const next = [payload, ...(Array.isArray(existing) ? existing : [])]
+      localStorage.setItem('review-report-queue', JSON.stringify(next))
+    } catch (e) {}
+  }
+
+  const handleReportReview = async (dish, review) => {
+    const reason = window.prompt('Why are you reporting this review?')
+    if (!reason) return
+
+    const payload = {
+      menu_item_id: dish?.id || null,
+      restaurant_id: restaurantId,
+      restaurant_name: restaurantName,
+      dish_name: dish?.name || null,
+      rating_value: Number(review?.rating) || null,
+      comment: review?.comment || null,
+      reason: reason.trim(),
+      details: review?.timestamp ? `reviewed_at:${review.timestamp}` : null
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/review-reports`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      })
+      if (!res.ok) {
+        saveLocalReviewReport(payload)
+      }
+    } catch (e) {
+      saveLocalReviewReport(payload)
+    }
+  }
 
   // Load dish ratings from localStorage on mount
   React.useEffect(() => {
@@ -826,8 +958,28 @@ export default function MenuView({ post, onBack, showAI }) {
     return Array.isArray(item?.tags) && item.tags.length > 0 ? item.tags : inferDietTags(item)
   }, [])
 
+  // Check if an item matches user's dietary preferences
+  const matchesDietaryPreferences = React.useCallback((item) => {
+    // If user selected "none" or no preferences, show all items
+    if (!dietaryPreferences || dietaryPreferences.length === 0 || dietaryPreferences.includes('none')) {
+      return true
+    }
+
+    const tags = getTags(item)
+    
+    // If user selected vegetarian or vegan
+    if (dietaryPreferences.includes('vegetarian') || dietaryPreferences.includes('vegan')) {
+      return tags.includes('vegetarian')
+    }
+
+    return true
+  }, [dietaryPreferences, getTags])
+
   // Helper function to check if item matches filter criteria
   const itemMatchesFilter = React.useCallback((item, filter) => {
+    // First check if item matches dietary preferences
+    if (!matchesDietaryPreferences(item)) return false
+    
     if (!filter) return true
     
     const tags = getTags(item)
@@ -861,7 +1013,7 @@ export default function MenuView({ post, onBack, showAI }) {
       default:
         return true
     }
-  }, [getTags])
+  }, [getTags, matchesDietaryPreferences])
 
   const categorySections = React.useMemo(() => {
     const groups = new Map()
@@ -1217,6 +1369,23 @@ export default function MenuView({ post, onBack, showAI }) {
     }
   }, [post.menu_status]);
 
+  // Listen for dietary preference changes from Settings
+  React.useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'dietary_preferences') {
+        try {
+          const updated = e.newValue ? JSON.parse(e.newValue) : []
+          setDietaryPreferences(updated)
+        } catch {
+          setDietaryPreferences([])
+        }
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
+
   if (showItemRating && ratingItem) {
     return (
       <ItemRating
@@ -1272,15 +1441,21 @@ export default function MenuView({ post, onBack, showAI }) {
         Dietary filters are algorithmically generated and may not reflect kitchen cross-contamination. Always confirm with the restaurant.
       </div>
 
-      {/* Quick Filter Chips - Sticky */}
+      {/* Quick Filter Chips - Mobile Optimized */}
       <div style={{ position: 'sticky', top: 0, zIndex: 20, background: 'linear-gradient(to bottom, white 85%, transparent)', paddingTop: 8, paddingBottom: 12, marginBottom: 16 }}>
-        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
+        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin', WebkitOverflowScrolling: 'touch' }}>
           <button
             onClick={() => setActiveFilter(activeFilter === 'TOP_RATED' ? null : 'TOP_RATED')}
+            aria-label="Filter by top rated items"
+            aria-pressed={activeFilter === 'TOP_RATED'}
             style={{
               border: 'none',
-              padding: '8px 14px',
+              padding: '12px 16px',
               borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: activeFilter === 'TOP_RATED' ? '#f59e0b' : '#f3f3f3',
               color: activeFilter === 'TOP_RATED' ? 'white' : '#374151',
               cursor: 'pointer',
@@ -1288,12 +1463,20 @@ export default function MenuView({ post, onBack, showAI }) {
               fontSize: 14,
               fontWeight: 600,
               transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'TOP_RATED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+              boxShadow: activeFilter === 'TOP_RATED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
             }}
             onMouseEnter={(e) => {
               if (activeFilter !== 'TOP_RATED') e.target.style.background = '#e0e0e0'
             }}
             onMouseLeave={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
               if (activeFilter !== 'TOP_RATED') e.target.style.background = '#f3f3f3'
             }}
           >
@@ -1302,10 +1485,16 @@ export default function MenuView({ post, onBack, showAI }) {
 
           <button
             onClick={() => setActiveFilter(activeFilter === 'MOST_ORDERED' ? null : 'MOST_ORDERED')}
+            aria-label="Filter by most ordered items"
+            aria-pressed={activeFilter === 'MOST_ORDERED'}
             style={{
               border: 'none',
-              padding: '8px 14px',
+              padding: '12px 16px',
               borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: activeFilter === 'MOST_ORDERED' ? '#f59e0b' : '#f3f3f3',
               color: activeFilter === 'MOST_ORDERED' ? 'white' : '#374151',
               cursor: 'pointer',
@@ -1313,12 +1502,20 @@ export default function MenuView({ post, onBack, showAI }) {
               fontSize: 14,
               fontWeight: 600,
               transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'MOST_ORDERED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+              boxShadow: activeFilter === 'MOST_ORDERED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
             }}
             onMouseEnter={(e) => {
               if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#e0e0e0'
             }}
             onMouseLeave={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
               if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#f3f3f3'
             }}
           >
@@ -1327,10 +1524,16 @@ export default function MenuView({ post, onBack, showAI }) {
 
           <button
             onClick={() => setActiveFilter(activeFilter === 'HEALTHY' ? null : 'HEALTHY')}
+            aria-label="Filter by healthy items"
+            aria-pressed={activeFilter === 'HEALTHY'}
             style={{
               border: 'none',
-              padding: '8px 14px',
+              padding: '12px 16px',
               borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: activeFilter === 'HEALTHY' ? '#f59e0b' : '#f3f3f3',
               color: activeFilter === 'HEALTHY' ? 'white' : '#374151',
               cursor: 'pointer',
@@ -1338,12 +1541,20 @@ export default function MenuView({ post, onBack, showAI }) {
               fontSize: 14,
               fontWeight: 600,
               transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'HEALTHY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+              boxShadow: activeFilter === 'HEALTHY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
             }}
             onMouseEnter={(e) => {
               if (activeFilter !== 'HEALTHY') e.target.style.background = '#e0e0e0'
             }}
             onMouseLeave={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
               if (activeFilter !== 'HEALTHY') e.target.style.background = '#f3f3f3'
             }}
           >
@@ -1352,10 +1563,16 @@ export default function MenuView({ post, onBack, showAI }) {
 
           <button
             onClick={() => setActiveFilter(activeFilter === 'VEGETARIAN' ? null : 'VEGETARIAN')}
+            aria-label="Filter by vegetarian items"
+            aria-pressed={activeFilter === 'VEGETARIAN'}
             style={{
               border: 'none',
-              padding: '8px 14px',
+              padding: '12px 16px',
               borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: activeFilter === 'VEGETARIAN' ? '#f59e0b' : '#f3f3f3',
               color: activeFilter === 'VEGETARIAN' ? 'white' : '#374151',
               cursor: 'pointer',
@@ -1363,12 +1580,20 @@ export default function MenuView({ post, onBack, showAI }) {
               fontSize: 14,
               fontWeight: 600,
               transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'VEGETARIAN' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+              boxShadow: activeFilter === 'VEGETARIAN' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
             }}
             onMouseEnter={(e) => {
               if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#e0e0e0'
             }}
             onMouseLeave={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
               if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#f3f3f3'
             }}
           >
@@ -1377,10 +1602,16 @@ export default function MenuView({ post, onBack, showAI }) {
 
           <button
             onClick={() => setActiveFilter(activeFilter === 'SPICY' ? null : 'SPICY')}
+            aria-label="Filter by spicy items"
+            aria-pressed={activeFilter === 'SPICY'}
             style={{
               border: 'none',
-              padding: '8px 14px',
+              padding: '12px 16px',
               borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: activeFilter === 'SPICY' ? '#f59e0b' : '#f3f3f3',
               color: activeFilter === 'SPICY' ? 'white' : '#374151',
               cursor: 'pointer',
@@ -1388,12 +1619,20 @@ export default function MenuView({ post, onBack, showAI }) {
               fontSize: 14,
               fontWeight: 600,
               transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'SPICY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+              boxShadow: activeFilter === 'SPICY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
             }}
             onMouseEnter={(e) => {
               if (activeFilter !== 'SPICY') e.target.style.background = '#e0e0e0'
             }}
             onMouseLeave={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
               if (activeFilter !== 'SPICY') e.target.style.background = '#f3f3f3'
             }}
           >
@@ -1402,10 +1641,16 @@ export default function MenuView({ post, onBack, showAI }) {
 
           <button
             onClick={() => setActiveFilter(activeFilter === 'NEW' ? null : 'NEW')}
+            aria-label="Filter by new items"
+            aria-pressed={activeFilter === 'NEW'}
             style={{
               border: 'none',
-              padding: '8px 14px',
+              padding: '12px 16px',
               borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: activeFilter === 'NEW' ? '#f59e0b' : '#f3f3f3',
               color: activeFilter === 'NEW' ? 'white' : '#374151',
               cursor: 'pointer',
@@ -1413,12 +1658,20 @@ export default function MenuView({ post, onBack, showAI }) {
               fontSize: 14,
               fontWeight: 600,
               transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'NEW' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
+              boxShadow: activeFilter === 'NEW' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
             }}
             onMouseEnter={(e) => {
               if (activeFilter !== 'NEW') e.target.style.background = '#e0e0e0'
             }}
             onMouseLeave={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
               if (activeFilter !== 'NEW') e.target.style.background = '#f3f3f3'
             }}
           >
@@ -1428,23 +1681,38 @@ export default function MenuView({ post, onBack, showAI }) {
           {activeFilter && (
             <button
               onClick={() => setActiveFilter(null)}
+              aria-label="Clear all filters"
               style={{
                 border: '1px solid #d1d5db',
-                padding: '8px 14px',
+                padding: '12px 16px',
                 borderRadius: 20,
+                minHeight: 44,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 background: 'white',
                 color: '#6b7280',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 fontSize: 14,
                 fontWeight: 600,
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none'
               }}
               onMouseEnter={(e) => {
                 e.target.style.background = '#f9fafb'
                 e.target.style.borderColor = '#9ca3af'
               }}
               onMouseLeave={(e) => {
+                e.target.style.background = 'white'
+                e.target.style.borderColor = '#d1d5db'
+              }}
+              onTouchStart={(e) => {
+                e.target.style.background = '#f9fafb'
+                e.target.style.borderColor = '#9ca3af'
+              }}
+              onTouchEnd={(e) => {
                 e.target.style.background = 'white'
                 e.target.style.borderColor = '#d1d5db'
               }}
@@ -1523,13 +1791,15 @@ export default function MenuView({ post, onBack, showAI }) {
               </div>
 
               {/* Items list */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
                 {section.items.map(item => (
                   <MenuCard
                     key={item.id || item.name}
                     item={item}
                     isSaved={isItemSaved(item)}
                     onSave={toggleSaveItem}
+                    onFlag={handleFlagMenuItem}
+                    isFlagged={isItemFlagged(item)}
                     onRate={(it) => {
                       setRatingItem(it)
                       setShowItemRating(true)
@@ -1616,6 +1886,36 @@ export default function MenuView({ post, onBack, showAI }) {
               <h4 className="text-sm font-semibold text-gray-700 mb-2">📖 About this dish</h4>
               <p className="text-gray-600 leading-relaxed">{dishDescription}</p>
             </div>
+
+            {Array.isArray(summaryDish?.all_reviews) && summaryDish.all_reviews.length > 0 && (
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold text-gray-700 mb-2">Recent reviews</h4>
+                <div className="space-y-2 max-h-40 overflow-y-auto">
+                  {summaryDish.all_reviews
+                    .slice(-5)
+                    .reverse()
+                    .map((review, idx) => (
+                      <div key={`${summaryDish.name || 'dish'}-${idx}`} className="border border-gray-100 rounded-lg p-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-gray-700">
+                            Rating {Number(review?.rating || 0).toFixed(1)}/10
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleReportReview(summaryDish, review)}
+                            className="text-xs text-red-500 hover:text-red-600"
+                          >
+                            Report
+                          </button>
+                        </div>
+                        {review?.comment && (
+                          <p className="text-xs text-gray-600 mt-1">{review.comment}</p>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
 
             <div className="flex justify-end gap-2">
               <button 

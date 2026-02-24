@@ -1,6 +1,6 @@
 [
   {
-    "name": "GLUTEN FREE BREAD +",
+    "name": "GLUTEN FREE BREAD",
     "description": "",
     "price": "$2",
     "category": "Menu"
@@ -24,12 +24,6 @@
     "category": "Menu"
   },
   {
-    "name": "crostini",
-    "description": "",
-    "price": "$17",
-    "category": "Menu"
-  },
-  {
     "name": "garlic yogurt & whipped feta",
     "description": "",
     "price": "$3",
@@ -37,12 +31,6 @@
   },
   {
     "name": "ingredients. ask us!",
-    "description": "",
-    "price": "$13.25",
-    "category": "Menu"
-  },
-  {
-    "name": "romesco",
     "description": "",
     "price": "$13.25",
     "category": "Menu"
@@ -69,18 +57,6 @@
     "name": "spritz, focaccia",
     "description": "",
     "price": "$16.95",
-    "category": "Menu"
-  },
-  {
-    "name": "CHICKEN",
-    "description": "",
-    "price": "$6",
-    "category": "Menu"
-  },
-  {
-    "name": "STEAK",
-    "description": "",
-    "price": "$8",
     "category": "Menu"
   },
   {
@@ -148,42 +124,6 @@
     "description": "",
     "price": "$8.50",
     "category": "Menu"
-  },
-  {
-    "name": "SHRIMP",
-    "description": "",
-    "price": "$9",
-    "category": "SOUPS & SALAD"
-  },
-  {
-    "name": "SALMON",
-    "description": "",
-    "price": "$10",
-    "category": "SOUPS & SALAD"
-  },
-  {
-    "name": "CUP",
-    "description": "",
-    "price": "$5",
-    "category": "SOUPS & SALAD"
-  },
-  {
-    "name": "BOWL",
-    "description": "",
-    "price": "$8",
-    "category": "SOUPS & SALAD"
-  },
-  {
-    "name": "vinaigrette",
-    "description": "",
-    "price": "$17",
-    "category": "SOUPS & SALAD"
-  },
-  {
-    "name": "dressing",
-    "description": "",
-    "price": "$14.75",
-    "category": "SOUPS & SALAD"
   },
   {
     "name": "garlic dressing",

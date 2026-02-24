@@ -1,132 +1,128 @@
 [
   {
-    "category": "Hors D'oeuvres",
     "name": "French Onion Soup",
-    "description": "Baguette, Gruyère"
+    "description": "Baguette, Gruyère",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "Cheese Plate",
-    "description": "Chef's daily selection, accompaniments, pain blanc"
+    "description": "Chef's daily selection, accompaniments, pain blanc",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "Deviled Eggs",
-    "description": "Caviar"
+    "description": "Caviar",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "PEI Mussels",
-    "description": "Saffron, Dijon, baguette"
+    "description": "Saffron, Dijon, baguette",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "Tomato Bisque",
-    "description": "Cantal grilled cheese"
+    "description": "Cantal grilled cheese",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "Arugula Salad",
-    "description": "Marinated beets, chèvre, pickled fennel, champagne vinaigrette"
+    "description": "Marinated beets, chèvre, pickled fennel, champagne vinaigrette",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "Wedge Salad",
-    "description": "Cherry tomatoes, crispy shallots, seasoned lardons, pepita, blue cheese, balsamic reduction"
+    "description": "Cherry tomatoes, crispy shallots, seasoned lardons, pepita, blue cheese, balsamic reduction",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Hors D'oeuvres",
     "name": "Fall Harvest Salad",
-    "description": "Butternut squash purée, golden raisins, Gruyère, apple cider vinaigrette"
+    "description": "Butternut squash purée, golden raisins, Gruyère, apple cider vinaigrette",
+    "price": "",
+    "category": "Hors D'oeuvres"
   },
   {
-    "category": "Chilled Seafood",
-    "name": "Grand Plateau",
-    "description": "1 dozen oysters, 1/2 lb chilled shrimp, crab Louie"
-  },
-  {
-    "category": "Chilled Seafood",
     "name": "Daily Selection Oysters",
-    "description": "1/2 dozen or 1 dozen with mignonette, cocktail sauce"
+    "description": "1/2 dozen or 1 dozen with mignonette, cocktail sauce",
+    "price": "",
+    "category": "Chilled Seafood"
   },
   {
-    "category": "Chilled Seafood",
     "name": "Chilled Shrimp Cocktail",
-    "description": "Cocktail sauce, bagnoratte"
+    "description": "Cocktail sauce, bagnoratte",
+    "price": "",
+    "category": "Chilled Seafood"
   },
   {
-    "category": "Chilled Seafood",
     "name": "Crab Louie",
-    "description": "Dressed lump crab, avocado, haricot verts, radish, lemon oil"
+    "description": "Dressed lump crab, avocado, haricot verts, radish, lemon oil",
+    "price": "",
+    "category": "Chilled Seafood"
   },
   {
-    "category": "Entrées",
     "name": "LBH Rotisserie Chicken",
-    "description": "Pommes purée, spinach, natural jus"
+    "description": "Pommes purée, spinach, natural jus",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Duck À L'Orange",
-    "description": "Marble potatoes, haricot verts, sauce bigarade"
+    "description": "Marble potatoes, haricot verts, sauce bigarade",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Mushroom Risotto",
-    "description": "Truffle butter, crème fraîche, parmesan"
+    "description": "Truffle butter, crème fraîche, parmesan",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
-    "name": "Bouillabaisse",
-    "description": "Provençal seafood stew, potato, fennel, saffron-tomato broth, baguette"
-  },
-  {
-    "category": "Entrées",
-    "name": "Steak Frites",
-    "description": "NY Strip, béarnaise sauce"
-  },
-  {
-    "category": "Entrées",
-    "name": "Crispy Chicken Paillard",
-    "description": "Marble potatoes, apple, arugula, lemon-caper aioli"
-  },
-  {
-    "category": "Entrées",
     "name": "Seared Salmon",
-    "description": "Browned butter, sautéed kale, sauce vierge"
+    "description": "Browned butter, sautéed kale, sauce vierge",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
-    "name": "Le Steak Burger",
-    "description": "Caramelized onions, Cantal fondue, garlic aioli, French fries"
-  },
-  {
-    "category": "Entrées",
     "name": "Crispy Duck Confit",
-    "description": "Melted leeks, mustard, thyme, Banyuls jus"
+    "description": "Melted leeks, mustard, thyme, Banyuls jus",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Beef Bourguignon",
-    "description": "Braised short ribs, carrots, pearl onions, mushrooms, marble potatoes"
+    "description": "Braised short ribs, carrots, pearl onions, mushrooms, marble potatoes",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Sides",
     "name": "Whipped Potatoes",
-    "description": "Creamy potato purée"
+    "description": "Creamy potato purée",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Sides",
     "name": "French Fries",
-    "description": "Hand-cut fries"
+    "description": "Hand-cut fries",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Sides",
     "name": "Sautéed Haricot Verts",
-    "description": "Green beans with butter and garlic"
+    "description": "Green beans with butter and garlic",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Sides",
     "name": "Garlic Sautéed Spinach",
-    "description": "Fresh spinach with garlic"
+    "description": "Fresh spinach with garlic",
+    "price": "",
+    "category": "Sides"
   }
 ]

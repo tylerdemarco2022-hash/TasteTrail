@@ -1,7 +1,446 @@
 [
   {
-    "name": "MON - THUR: 11:30am - 10pmFRI - SAT: 11:30am - 11pmOYSTER HAPPY HOUR( House Oysters)MON - FRI: 2pm - 6pm",
+    "name": "Corn Fritters",
     "description": "",
-    "category": "DINING ROOM HOURS"
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Oysters Noda",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Tempura Shrimp",
+    "description": "",
+    "price": "$11.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Maine Mussels",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Squid Chow Chow",
+    "description": "",
+    "price": "$11.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Fish Taco",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Duck Taco",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Fried Oyster Taco",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Clam Chowder",
+    "description": "",
+    "price": "$9.00",
+    "category": "Menu"
+  },
+  {
+    "name": "House Salad",
+    "description": "",
+    "price": "$8.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Roasted Duck Salad",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Caesar Salad*",
+    "description": "",
+    "price": "$8.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Apple Endive Salad",
+    "description": "",
+    "price": "$11.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Po Boy - Shrimp",
+    "description": "",
+    "price": "$13.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Catfish Reuben",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Lobster Roll",
+    "description": "",
+    "price": "$22.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Veggie Burger",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Sea Level Burger*",
+    "description": "",
+    "price": "$14.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Fried Springer Mountain Chicken Sandwich",
+    "description": "",
+    "price": "$13.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Boneless Beef Short Rib",
+    "description": "",
+    "price": "$27.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Pan Roasted Airline Springer Mountain Chicken Breast",
+    "description": "",
+    "price": "$19.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Cast Iron Apple Buckle",
+    "description": "",
+    "price": "$8.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Key Lime Ice Cream Sandwich",
+    "description": "",
+    "price": "$8.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Flourless Chocolate Brownie",
+    "description": "",
+    "price": "$7.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Dessert Shooters",
+    "description": "",
+    "price": "$3.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Sea Level NC Paella",
+    "description": "",
+    "price": "$25.00",
+    "category": "Menu"
+  },
+  {
+    "name": "NC Amberjack",
+    "description": "",
+    "price": "$28.00",
+    "category": "Menu"
+  },
+  {
+    "name": "NC Shrimp & Grits",
+    "description": "",
+    "price": "$20.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Grilled Salmon*",
+    "description": "",
+    "price": "$25.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Fried NC Catfish",
+    "description": "",
+    "price": "$21.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Holy Smoke",
+    "description": "",
+    "price": "$13.00",
+    "category": "Menu"
+  },
+  {
+    "name": "French Pear Martini",
+    "description": "",
+    "price": "$13.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Tier Tower - Hearst Tower",
+    "description": "Lobster Tail, Cold Cooked Mussels, Clams, Shrimp Cocktail, Black Sturgeon Caviar, Oysters - cocktail sauce, horseradish, mignonette",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Oyster Jammer",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "High Roller",
+    "description": "",
+    "price": "$16.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Mock O' Rita",
+    "description": "",
+    "price": "$6.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Kitten Whiskers",
+    "description": "",
+    "price": "$6.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Meow Mule",
+    "description": "",
+    "price": "$11.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Pink Grapefruit Pisco Sour",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Tiki Time",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Melting NY Sour",
+    "description": "",
+    "price": "$14.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Smoked Old Fashioned",
+    "description": "",
+    "price": "$13.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Negroni Blanc",
+    "description": "",
+    "price": "$13.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Ghost Pepper Pommarita",
+    "description": "",
+    "price": "$12.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Spring G&T",
+    "description": "",
+    "price": "$14.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Blushing Bubbles",
+    "description": "",
+    "price": "$9.00",
+    "category": "Menu"
+  },
+  {
+    "name": "House Cut Fries",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Braised Greens",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Side Salad",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Parmesan Potato Cake",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Grilled Bread",
+    "description": "",
+    "price": "$3.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Roasted Root Vegetable",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Vegetable of the Day",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Burgers & Sandwich served with house cut fries or slaw. Substitute other side",
+    "description": "",
+    "price": "$2",
+    "category": "Menu"
+  },
+  {
+    "name": "Tier Tower",
+    "description": "",
+    "price": "$5",
+    "category": "Menu"
+  },
+  {
+    "name": "Cathead Vodka - House Infused",
+    "description": "",
+    "price": "$7.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Bloody Maria Hornitos Black Barrel",
+    "description": "",
+    "price": "$8.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Bells Lager",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Mother Earth Weeping Willow Wit",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "OMB Copper",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Noda Jam Session - Pale",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Wicked Weed Pernicious - IPA",
+    "description": "",
+    "price": "$6.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Flying Dog Nitro Oyster Stout",
+    "description": "",
+    "price": "$6.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Bud Light",
+    "description": "",
+    "price": "$4.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Miller Lite",
+    "description": "",
+    "price": "$4.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Mich Ultra",
+    "description": "",
+    "price": "$4.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Noda Hop Drop and Roll",
+    "description": "",
+    "price": "$6.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Dogfish Head Seaquench",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Anderson Valley Seasonal Gose",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Founders All Day IPA",
+    "description": "",
+    "price": "$5.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Glutenberg IPA",
+    "description": "",
+    "price": "$7.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Bold Rock Cider",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Bold Rock IPA Cider",
+    "description": "",
+    "price": "$5.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Noda Coco Loco",
+    "description": "",
+    "price": "$6.50",
+    "category": "Menu"
   }
 ]

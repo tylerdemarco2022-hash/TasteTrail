@@ -90,7 +90,7 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
   }, [])
 
   return (
-    <header className="px-4 py-4 bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 shadow-lg">
+    <header className="safe-area-top safe-area-horizontal px-4 py-4 bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 shadow-lg">
       <div className="max-w-3xl mx-auto flex items-center justify-between">
         <button 
           onClick={() => {

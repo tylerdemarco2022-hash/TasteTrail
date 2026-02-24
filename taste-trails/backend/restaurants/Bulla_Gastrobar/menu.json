@@ -30,12 +30,6 @@
     "category": "Sandwiches"
   },
   {
-    "name": "MEATBALLS$8",
-    "description": "",
-    "price": "",
-    "category": "Sandwiches"
-  },
-  {
     "name": "CHICKEN TENDERS$8",
     "description": "",
     "price": "",
@@ -43,12 +37,6 @@
   },
   {
     "name": "SALMON CARPACCIO$10",
-    "description": "",
-    "price": "",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "GRILLED STEAK$15",
     "description": "",
     "price": "",
     "category": "Sandwiches"
@@ -66,36 +54,6 @@
     "category": "Sandwiches"
   },
   {
-    "name": "PINTXOS$8",
-    "description": "",
-    "price": "$5",
-    "category": "Appetizers"
-  },
-  {
-    "name": "SAUSAGE$7",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
-    "name": "MANCHEGO$7",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
-    "name": "COPPA$7",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
-    "name": "IDIAZABAL$7",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
     "name": "WHITE SANGRIA$35",
     "description": "",
     "price": "",
@@ -103,12 +61,6 @@
   },
   {
     "name": "ARROZ CALDOSO$26",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
-    "name": "CHEESES$14",
     "description": "",
     "price": "",
     "category": "Appetizers"
@@ -126,19 +78,7 @@
     "category": "Appetizers"
   },
   {
-    "name": "VALLEY",
-    "description": "",
-    "price": "$14",
-    "category": "Appetizers"
-  },
-  {
     "name": "BLUEBERRY RICOTTA PANCAKES$10",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
-    "name": "STEAK EGGS$24",
     "description": "",
     "price": "",
     "category": "Appetizers"
@@ -246,12 +186,6 @@
     "category": "Appetizers"
   },
   {
-    "name": "MAHON$7",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
     "name": "RED SANGRIA$30",
     "description": "",
     "price": "",
@@ -259,12 +193,6 @@
   },
   {
     "name": "MURCIA AL VINO$7",
-    "description": "",
-    "price": "",
-    "category": "Appetizers"
-  },
-  {
-    "name": "TETILLA$7",
     "description": "",
     "price": "",
     "category": "Appetizers"
@@ -354,12 +282,6 @@
     "category": "Beverage"
   },
   {
-    "name": "BORJA",
-    "description": "",
-    "price": "$18",
-    "category": "Beverage"
-  },
-  {
     "name": "CHICKEN CROQUETTES$9",
     "description": "",
     "price": "$5",
@@ -385,12 +307,6 @@
   },
   {
     "name": "CAMPO DE BORJA",
-    "description": "",
-    "price": "$18",
-    "category": "Appetizers"
-  },
-  {
-    "name": "CALIFORNIA",
     "description": "",
     "price": "$18",
     "category": "Appetizers"
@@ -432,12 +348,6 @@
     "category": "Drinks"
   },
   {
-    "name": "WATERMELON SALAD$12",
-    "description": "",
-    "price": "",
-    "category": "Salads"
-  },
-  {
     "name": "GRILLED SHRIMP SALAD$14",
     "description": "",
     "price": "",
@@ -457,12 +367,6 @@
   },
   {
     "name": "CHICKEN WAFFLES$14",
-    "description": "",
-    "price": "",
-    "category": "Salads"
-  },
-  {
-    "name": "CHICKEN$13",
     "description": "",
     "price": "",
     "category": "Salads"
@@ -507,48 +411,6 @@
     "name": "'BULLA ' BURGER$16",
     "description": "",
     "price": "",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "SOMONTANO",
-    "description": "",
-    "price": "$18",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "BIERZO",
-    "description": "",
-    "price": "$17",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "RUEDA",
-    "description": "",
-    "price": "$14",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "BIERZO",
-    "description": "",
-    "price": "$15",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "JUMILLA",
-    "description": "",
-    "price": "$18",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "RIOJA",
-    "description": "",
-    "price": "$15",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "Course",
-    "description": "",
-    "price": "$2",
     "category": "Sandwiches"
   },
   {
@@ -606,18 +468,6 @@
     "category": "Sandwiches"
   },
   {
-    "name": "PENEDÈS",
-    "description": "",
-    "price": "$16",
-    "category": "Sandwiches"
-  },
-  {
-    "name": "PENEDÈS",
-    "description": "",
-    "price": "$15",
-    "category": "Sandwiches"
-  },
-  {
     "name": "TAITTINGER, BRUT, REIMS, N.V.$94",
     "description": "",
     "price": "",
@@ -642,12 +492,6 @@
     "category": "PIZZA"
   },
   {
-    "name": "FRENCH",
-    "description": "",
-    "price": "$75",
-    "category": "PIZZA"
-  },
-  {
     "name": "RÍAS BAIXAS",
     "description": "",
     "price": "$16",
@@ -660,21 +504,9 @@
     "category": "PIZZA"
   },
   {
-    "name": "RUEDA",
-    "description": "",
-    "price": "$17",
-    "category": "PIZZA"
-  },
-  {
     "name": "PAÍS VASCO",
     "description": "",
     "price": "$19",
-    "category": "PIZZA"
-  },
-  {
-    "name": "RUEDA",
-    "description": "",
-    "price": "$16",
     "category": "PIZZA"
   },
   {
@@ -696,21 +528,9 @@
     "category": "PIZZA"
   },
   {
-    "name": "COAST",
-    "description": "",
-    "price": "$18",
-    "category": "PIZZA"
-  },
-  {
     "name": "ESTRELLA DAMM, LAGER, SPAIN$5",
     "description": "",
     "price": "",
-    "category": "PIZZA"
-  },
-  {
-    "name": "RIOJA",
-    "description": "",
-    "price": "$12",
     "category": "PIZZA"
   },
   {
@@ -750,33 +570,9 @@
     "category": "PIZZA"
   },
   {
-    "name": "NAVARRA",
-    "description": "",
-    "price": "$16",
-    "category": "PIZZA"
-  },
-  {
-    "name": "RIOJA",
-    "description": "",
-    "price": "$13",
-    "category": "PIZZA"
-  },
-  {
-    "name": "RIOJA",
-    "description": "",
-    "price": "$10",
-    "category": "PIZZA"
-  },
-  {
     "name": "RESERVA, PENEDÈS",
     "description": "",
     "price": "$12",
-    "category": "PIZZA"
-  },
-  {
-    "name": "DUERO",
-    "description": "",
-    "price": "$18",
     "category": "PIZZA"
   },
   {
@@ -801,18 +597,6 @@
     "name": "PORRERA, PRIORAT",
     "description": "",
     "price": "$16",
-    "category": "PIZZA"
-  },
-  {
-    "name": "CHORIZO$7",
-    "description": "",
-    "price": "",
-    "category": "PIZZA"
-  },
-  {
-    "name": "SHRIMP$6",
-    "description": "",
-    "price": "",
     "category": "PIZZA"
   },
   {

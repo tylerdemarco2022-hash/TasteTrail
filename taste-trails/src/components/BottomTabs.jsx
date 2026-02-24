@@ -10,7 +10,7 @@ export default function BottomTabs({ active, setActive, onTabClick }){
   ]
 
   return (
-    <nav className="fixed bottom-6 left-0 right-0 flex justify-center z-50 px-4">
+    <nav className="fixed bottom-0 left-0 right-0 flex justify-center z-50 px-4 safe-area-bottom safe-area-horizontal pb-4">
       <div className="glass rounded-2xl shadow-2xl px-4 py-3 flex gap-2">
         {tabs.map((t) => {
           const Icon = t.icon

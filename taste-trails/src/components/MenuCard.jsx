@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { useState, useEffect, memo } from "react";
+import { Star, Flag } from "lucide-react";
 
 // ── Dietary tag inference ─────────────────────────────────────────────────────
 function inferDietaryTags(name = "", description = "") {
@@ -53,11 +53,14 @@ function StarRow({ rating }) {
 }
 
 // ── Main export ───────────────────────────────────────────────────────────────
-export default function MenuCard({
+// Memoize to prevent unnecessary re-renders when parent updates
+export default memo(function MenuCard({
   item,
   isSaved = false,
   onSave,
   onRate,
+  onFlag,
+  isFlagged = false,
   onShowSummary,
   ratingDisplay,
   // Legacy restaurant-card props (Home.jsx)
@@ -136,6 +139,7 @@ export default function MenuCard({
   const emoji       = itemEmoji(name);
   const rating      = ratingDisplay?.rating ? Number(ratingDisplay.rating) : null;
   const ratingCount = ratingDisplay?.count || 0;
+  const flagged = Boolean(isFlagged);
 
   return (
     <div
@@ -277,6 +281,38 @@ export default function MenuCard({
           </div>
         )}
 
+        {onFlag && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onFlag(item);
+            }}
+            style={{
+              position: "absolute",
+              top: 4,
+              right: 4,
+              width: 22,
+              height: 22,
+              borderRadius: "50%",
+              background: flagged ? "rgba(248,113,113,0.95)" : "rgba(255,255,255,0.9)",
+              border: flagged ? "1px solid rgba(248,113,113,0.7)" : "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              padding: 0,
+              boxShadow: "0 1px 4px rgba(0,0,0,0.15)",
+              transition: "transform 0.15s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.12)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            aria-label={flagged ? "Flagged" : "Flag item"}
+            title={flagged ? "Flagged" : "Flag as incorrect"}
+          >
+            <Flag size={12} color={flagged ? "#fff" : "#ef4444"} />
+          </button>
+        )}
+
         {/* Heart button */}
         <button
           onClick={(e) => {
@@ -324,4 +360,4 @@ export default function MenuCard({
       </div>
     </div>
   );
-}
+})

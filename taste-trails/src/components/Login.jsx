@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { LogIn, User, Lock, Mail, AlertCircle } from 'lucide-react'
+import { API_BASE_URL } from '../config/api'
 
 export default function Login({ onLogin, onSwitchToSignup }) {
   const [email, setEmail] = useState('')
@@ -21,6 +22,10 @@ export default function Login({ onLogin, onSwitchToSignup }) {
     } finally {
       setLoading(false)
     }
+  }
+
+  function handleGoogleLogin() {
+    window.location.href = `${API_BASE_URL}/auth/google`
   }
 
   return (
@@ -113,6 +118,15 @@ export default function Login({ onLogin, onSwitchToSignup }) {
                   Log In
                 </>
               )}
+            </button>
+
+            {/* Google Login */}
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full py-3 border-2 border-gray-200 rounded-lg font-semibold text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-all"
+            >
+              Continue with Google
             </button>
           </form>
 

@@ -66,12 +66,6 @@
     "category": "Pizzas"
   },
   {
-    "name": "Margherita",
-    "description": "fresh mozzarella. basil. parmesan. sauce.",
-    "price": "$14",
-    "category": "Pizzas"
-  },
-  {
     "name": "“Our” Pepperoni",
     "description": "artisan pepperoni. pepperoni sauce. fresh mozz. ricotta. basil.",
     "price": "$15",
@@ -219,12 +213,6 @@
     "name": "Chianti Braised Beef Short Ribs",
     "description": "marsala glazed mushrooms. polenta. broccolini. beef sauce.",
     "price": "$29",
-    "category": "Entrees"
-  },
-  {
-    "name": "*Grilled Cold Water Salmon",
-    "description": "tomatoes. spinach. artichoke. squash. lemon butter.",
-    "price": "$25",
     "category": "Entrees"
   },
   {

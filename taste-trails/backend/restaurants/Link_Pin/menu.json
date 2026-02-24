@@ -1,7 +1,344 @@
 [
   {
-    "name": "add shrimp - add salmon - $15 add chicken - $6",
+    "name": "IMPOSSIBLE BURGER$15",
     "description": "",
-    "category": "Soups & Salads"
+    "price": "",
+    "category": "Pasta"
+  },
+  {
+    "name": "LOBSTER ROLL$35",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "VEUVE CLICQUOT$140",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "CRISPY OYSTERS$18",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "BRANDY CRUSTA$16",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "GRANDDAD'S DEVILED EGGS$7",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "BRECA ROSÉ$25",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "BORGO MAGREDO PROSECCO$60",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "BELGIAN WAFFLE$3",
+    "description": "",
+    "price": "$5",
+    "category": "Drinks"
+  },
+  {
+    "name": "NASHVILLE HOT CHICKEN$14",
+    "description": "",
+    "price": "",
+    "category": "Drinks"
+  },
+  {
+    "name": "PORK GYOZA DUMPLINGS$10",
+    "description": "",
+    "price": "",
+    "category": "Entree"
+  },
+  {
+    "name": "SIDE OF HAND-CUT FRIES$5",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "CUCUMBER BASIL COLLINS$15",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "VIEUX CARRÉ$15",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "MULTIGRAIN TOAST$3",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "A TO Z ROSE$30",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "MEZCAL NEGRONI$15",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "CHOPPED KALE SALAD$10",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "POTATO HASH$5",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "FIG MANHATTAN$15",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "WASHINGTON MULE$15",
+    "description": "",
+    "price": "",
+    "category": "Small Plates"
+  },
+  {
+    "name": "HAND-CUT FRIES$5",
+    "description": "",
+    "price": "",
+    "category": "Sides"
+  },
+  {
+    "name": "RED SANGRIA$13",
+    "description": "",
+    "price": "",
+    "category": "Sides"
+  },
+  {
+    "name": "CANDIED JALAPEÑO BACON$10",
+    "description": "",
+    "price": "",
+    "category": "Sides"
+  },
+  {
+    "name": "CHEDDAR GRITS$3",
+    "description": "",
+    "price": "",
+    "category": "Sides"
+  },
+  {
+    "name": "AVOCADO TOAST$10",
+    "description": "",
+    "price": "",
+    "category": "Sides"
+  },
+  {
+    "name": "CHICKEN SALAD SANDWICH$12",
+    "description": "",
+    "price": "$5",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "NUESKE'S BACON TWO STRIPS$4",
+    "description": "",
+    "price": "",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "JALAPENO BACON TWO STRIPS$4",
+    "description": "",
+    "price": "",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "GENERAL TSO'S CAULIFLOWER$12",
+    "description": "",
+    "price": "",
+    "category": "Starters"
+  },
+  {
+    "name": "ARUGULA MIXED BERRIES SALAD$10",
+    "description": "",
+    "price": "",
+    "category": "Beverages"
+  },
+  {
+    "name": "DOM PERIGNON$330",
+    "description": "",
+    "price": "",
+    "category": "SALAD"
+  },
+  {
+    "name": "CHICKEN WAFFLES$18",
+    "description": "",
+    "price": "$5",
+    "category": "SALAD"
+  },
+  {
+    "name": "AHI TUNA POKE$18",
+    "description": "",
+    "price": "",
+    "category": "Appetizer"
+  },
+  {
+    "name": "HUMMUS TRIO$10",
+    "description": "",
+    "price": "",
+    "category": "Appetizer"
+  },
+  {
+    "name": "SAUTEED MUSHROOMS$5",
+    "description": "",
+    "price": "$5",
+    "category": "Appetizer"
+  },
+  {
+    "name": "GREEN BEANS$3",
+    "description": "",
+    "price": "$5",
+    "category": "Appetizer"
+  },
+  {
+    "name": "BREAD PUDDING$10",
+    "description": "",
+    "price": "",
+    "category": "Dessert"
+  },
+  {
+    "name": "FRUIT MEDLEY$5",
+    "description": "",
+    "price": "$5",
+    "category": "Dessert"
+  },
+  {
+    "name": "ALOHA SPIRIT$14",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "AUTUMN APPLE SOUR$13",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "ICED STICKY$12",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "LEMONGRASS CAIPIRINHA$14",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "LINK PIN BLOODY MARY$10",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "LINK PIN COSMO$14",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "LINK PIN MARGARITA$13",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "LYCHEE GIN GOSE$13",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "MOSCOW MULE$12",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "PEAR AND CILANTRO MARGARITA$13",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "SEE YOU NEXT FALL$12",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "THREE-WAY WHITE SANGRIA$13",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "BRUSSELS SPROUTS$12",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "Monday 04:00 -23",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "Tuesday 04:00 -23",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "Wednesday 04:00 -23",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "Friday 16:00 -24",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
+  },
+  {
+    "name": "Sunday 10:00 -23",
+    "description": "",
+    "price": "",
+    "category": "SOUP"
   }
 ]

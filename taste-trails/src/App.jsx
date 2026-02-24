@@ -1,28 +1,37 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useEffect, useMemo, useState, lazy, Suspense } from 'react'
 import { useAuth } from './context/AuthContext'
 import Header from './components/Header'
 import BottomTabs from './components/BottomTabs'
 import Feed from './components/Feed'
-import CommunityFeed from './components/CommunityFeed'
-import Groups from './components/Groups'
-import Profile from './components/Profile'
-import MenuView from './components/MenuView'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import Notifications from './components/Notifications'
-import Settings from './components/Settings'
-import UserSearch from './components/UserSearch'
-import UserProfile from './components/UserProfile'
+import useSwipe from './hooks/useSwipe'
+// Lazy load non-critical components for better initial load time
+const CommunityFeed = lazy(() => import('./components/CommunityFeed'))
+const Groups = lazy(() => import('./components/Groups'))
+const Profile = lazy(() => import('./components/Profile'))
+const MenuView = lazy(() => import('./components/MenuView'))
+const Login = lazy(() => import('./components/Login'))
+const Signup = lazy(() => import('./components/Signup'))
+const Notifications = lazy(() => import('./components/Notifications'))
+const Settings = lazy(() => import('./components/Settings'))
+const UserSearch = lazy(() => import('./components/UserSearch'))
+const UserProfile = lazy(() => import('./components/UserProfile'))
+const AdminPanel = lazy(() => import('./components/AdminPanel'))
 import Onboarding from './components/Onboarding'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
 import { HashRouter as Router, Routes, Route, useParams, useLocation, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
-import AdminPanel from './components/AdminPanel';
 import {
   applyThemeToDocument,
   getActiveProfileId,
   loadUserScopedValue
 } from './utils/accountStorage'
+
+// Loading fallback for lazy components
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="glass rounded-2xl px-6 py-4 shadow-lg text-gray-700">Loading…</div>
+  </div>
+)
 
 const COMMUNITY_POSTS_KEY = 'community-posts'
 const CURRENT_USER = 'You'
@@ -51,6 +60,9 @@ function App() {
   const [showSearch, setShowSearch] = useState(false)
   const [showAdmin, setShowAdmin] = useState(false)
   const [communityPosts, setCommunityPosts] = useState(() => loadCommunityPosts())
+  const [isNewSignup, setIsNewSignup] = useState(() => {
+    return localStorage.getItem('is_new_signup') === 'true'
+  })
   const [onboardingCompleted, setOnboardingCompleted] = useState(() => {
     return localStorage.getItem('onboarding_completed') === 'true'
   })
@@ -162,18 +174,20 @@ function App() {
 
   if (!isAuthenticated) {
     return authView === 'signup' ? (
-      <Signup onSignup={signup} onSwitchToLogin={() => setAuthView('login')} />
+      <Signup onSignup={signup} onLogin={login} onSwitchToLogin={() => setAuthView('login')} />
     ) : (
       <Login onLogin={login} onSwitchToSignup={() => setAuthView('signup')} />
     )
   }
 
-  // Show onboarding if not completed
+  // Show onboarding for all users who haven't completed it
   if (!onboardingCompleted) {
     return (
       <Onboarding
         onComplete={() => {
           setOnboardingCompleted(true)
+          setIsNewSignup(false)
+          localStorage.removeItem('is_new_signup')
           console.log('✅ Onboarding completed!')
         }}
       />
@@ -252,6 +266,26 @@ function App() {
       setActiveTab(tabFromPath(location.pathname))
     }, [location.pathname])
 
+    // Swipe gesture handling for tab navigation
+    const tabs = ['restaurants', 'feed', 'groups', 'profile']
+    const currentTabIndex = tabs.indexOf(activeTab)
+
+    const handleSwipeLeft = () => {
+      const nextIndex = (currentTabIndex + 1) % tabs.length
+      const nextTab = tabs[nextIndex]
+      setActiveTab(nextTab)
+      navigate(pathFromTab(nextTab))
+    }
+
+    const handleSwipeRight = () => {
+      const prevIndex = (currentTabIndex - 1 + tabs.length) % tabs.length
+      const prevTab = tabs[prevIndex]
+      setActiveTab(prevTab)
+      navigate(pathFromTab(prevTab))
+    }
+
+    useSwipe(handleSwipeLeft, handleSwipeRight)
+
     const openMenu = (post) => {
       console.log('openMenu called with post:', post);
       if (!post) return;
@@ -276,7 +310,7 @@ function App() {
 
     return (
       <LocationContext.Provider value={{ location, setLocation }}>
-        <div className="app-shell">
+        <div className="app-shell safe-area-all">
           <Header
             title="TasteTrails"
             onNotificationsClick={() => setShowNotifications(true)}
@@ -288,11 +322,11 @@ function App() {
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Feed onOpen={openMenu} />} />
-              <Route path="/community" element={<CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} />} />
-              <Route path="/groups" element={<Groups />} />
-              <Route path="/profile" element={<Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} />} />
-              <Route path="/profile/:userId" element={<UserProfileRoute />} />
-              <Route path="/menu" element={<MenuView post={menuPost} onBack={closeMenu} showAI />} />
+              <Route path="/community" element={<Suspense fallback={<LoadingFallback />}><CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} /></Suspense>} />
+              <Route path="/groups" element={<Suspense fallback={<LoadingFallback />}><Groups /></Suspense>} />
+              <Route path="/profile" element={<Suspense fallback={<LoadingFallback />}><Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} /></Suspense>} />
+              <Route path="/profile/:userId" element={<Suspense fallback={<LoadingFallback />}><UserProfileRoute /></Suspense>} />
+              <Route path="/menu" element={<Suspense fallback={<LoadingFallback />}><MenuView post={menuPost} onBack={closeMenu} showAI /></Suspense>} />
             </Routes>
           </main>
 
@@ -316,7 +350,9 @@ function App() {
                     Close
                   </button>
                 </div>
-                <Notifications />
+                <Suspense fallback={<LoadingFallback />}>
+                  <Notifications />
+                </Suspense>
               </div>
             </div>
           )}
@@ -324,7 +360,9 @@ function App() {
           {showSettings && (
             <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
               <div className="absolute inset-0 overflow-y-auto">
-                <Settings onClose={() => setShowSettings(false)} />
+                <Suspense fallback={<LoadingFallback />}>
+                  <Settings onClose={() => setShowSettings(false)} />
+                </Suspense>
               </div>
             </div>
           )}
@@ -341,13 +379,19 @@ function App() {
                       Close
                     </button>
                   </div>
-                  <UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} />
+                  </Suspense>
                 </div>
               </div>
             </div>
           )}
 
-          {showAdmin && <AdminPanel onClose={() => setShowAdmin(false)} />}
+          {showAdmin && (
+            <Suspense fallback={<LoadingFallback />}>
+              <AdminPanel onClose={() => setShowAdmin(false)} />
+            </Suspense>
+          )}
         </div>
       </LocationContext.Provider>
     )

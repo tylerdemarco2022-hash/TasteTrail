@@ -224,6 +224,9 @@ export default function AdminPanel({ onClose }) {
   const [algoConfig, setAlgoConfig] = useState(getAlgoConfig())
   const [monoConfig, setMonoConfig] = useState(getMonoConfig())
   const [moderation, setModeration] = useState(getModerationData())
+  const [menuItemFlags, setMenuItemFlags] = useState([])
+  const [reviewReports, setReviewReports] = useState([])
+  const [moderationLoading, setModerationLoading] = useState(false)
   const [apiHealth, setApiHealth] = useState(null) // null=checking, true=ok, false=down
   const [searchQ, setSearchQ] = useState('')
   const [editingRestaurant, setEditingRestaurant] = useState(null)
@@ -238,6 +241,7 @@ export default function AdminPanel({ onClose }) {
     setCachedRestaurants(getCachedRestaurants())
     setCommunityPosts(getCommunityPosts())
     checkApiHealth()
+    fetchModerationQueue()
   }, [])
 
   const showToast = useCallback((msg, type = 'success') => {
@@ -251,6 +255,43 @@ export default function AdminPanel({ onClose }) {
       const res = await fetch(`${API_BASE}/api/health`, { signal: AbortSignal.timeout(3000) })
       setApiHealth(res.ok)
     } catch { setApiHealth(false) }
+  }
+
+  async function fetchModerationQueue() {
+    setModerationLoading(true)
+    try {
+      const [flagsRes, reportsRes] = await Promise.all([
+        fetch(`${API_BASE}/api/admin/menu-item-flags`, { credentials: 'include' }),
+        fetch(`${API_BASE}/api/admin/review-reports`, { credentials: 'include' })
+      ])
+
+      if (flagsRes.ok) {
+        const flagsJson = await flagsRes.json()
+        setMenuItemFlags(Array.isArray(flagsJson?.flags) ? flagsJson.flags : [])
+      } else {
+        const queued = JSON.parse(localStorage.getItem('menu-item-flag-queue') || '[]')
+        setMenuItemFlags(Array.isArray(queued) ? queued : [])
+      }
+
+      if (reportsRes.ok) {
+        const reportsJson = await reportsRes.json()
+        setReviewReports(Array.isArray(reportsJson?.reports) ? reportsJson.reports : [])
+      } else {
+        const queued = JSON.parse(localStorage.getItem('review-report-queue') || '[]')
+        setReviewReports(Array.isArray(queued) ? queued : [])
+      }
+    } catch (e) {
+      try {
+        const queuedFlags = JSON.parse(localStorage.getItem('menu-item-flag-queue') || '[]')
+        setMenuItemFlags(Array.isArray(queuedFlags) ? queuedFlags : [])
+      } catch {}
+      try {
+        const queuedReports = JSON.parse(localStorage.getItem('review-report-queue') || '[]')
+        setReviewReports(Array.isArray(queuedReports) ? queuedReports : [])
+      } catch {}
+    } finally {
+      setModerationLoading(false)
+    }
   }
 
   const saveAlgo = (cfg) => {
@@ -832,20 +873,47 @@ export default function AdminPanel({ onClose }) {
      SECTION: MODERATION
   ══════════════════════════════════════════════════════ */
   const ModerationSection = () => {
-    const [newFlag, setNewFlag] = useState({ restaurant:'', dish:'', reason:'', user:'' })
+    const flags = Array.isArray(menuItemFlags) ? menuItemFlags : []
+    const reports = Array.isArray(reviewReports) ? reviewReports : []
 
-    const addFlag = () => {
-      if (!newFlag.dish) return
-      const updated = { ...moderation, flagged: [{ ...newFlag, id: Date.now(), timestamp: new Date().toISOString() }, ...moderation.flagged] }
-      saveMod(updated)
-      setNewFlag({ restaurant:'', dish:'', reason:'', user:'' })
-      showToast('Review flagged')
+    const updateFlagStatus = async (flagId, status) => {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/menu-item-flags/${flagId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ status })
+        })
+        if (res.ok) {
+          const updated = await res.json()
+          setMenuItemFlags((prev) => prev.map((f) => (String(f.id) === String(flagId) ? updated : f)))
+          showToast('Menu flag updated')
+          return
+        }
+      } catch (e) {}
+
+      setMenuItemFlags((prev) => prev.map((f) => (String(f.id) === String(flagId) ? { ...f, status } : f)))
+      showToast('Menu flag updated (local)')
     }
 
-    const resolveFlag = (id) => {
-      const updated = { ...moderation, flagged: moderation.flagged.filter(f => f.id !== id) }
-      saveMod(updated)
-      showToast('Flag resolved')
+    const updateReportStatus = async (reportId, status) => {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/review-reports/${reportId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ status })
+        })
+        if (res.ok) {
+          const updated = await res.json()
+          setReviewReports((prev) => prev.map((r) => (String(r.id) === String(reportId) ? updated : r)))
+          showToast('Review report updated')
+          return
+        }
+      } catch (e) {}
+
+      setReviewReports((prev) => prev.map((r) => (String(r.id) === String(reportId) ? { ...r, status } : r)))
+      showToast('Review report updated (local)')
     }
 
     return (
@@ -853,54 +921,95 @@ export default function AdminPanel({ onClose }) {
         <SectionHeader title="Moderation" sub="Manage flagged content and user reports" />
 
         <div style={{ display:'flex', gap: 12, marginBottom: 20 }}>
-          <StatCard label="Flagged Reviews" value={moderation.flagged.length} icon={Flag} color={C.rose} />
-          <StatCard label="Warned Users" value={moderation.warned.length} icon={AlertTriangle} color={C.amber} />
+          <StatCard label="Menu Flags" value={flags.length} icon={Flag} color={C.rose} />
+          <StatCard label="Review Reports" value={reports.length} icon={MessageSquare} color={C.amber} />
           <StatCard label="Banned Users" value={moderation.banned.length} icon={ShieldOff} color={C.rose} />
         </div>
 
-        {/* Flag queue */}
-        <div style={{ background: C.surface, border:`1px solid ${C.border}`, borderRadius: 12, padding: 20, marginBottom: 16 }}>
-          <div className="admin-syne" style={{ fontSize: 13, fontWeight: 700, color: C.text2, letterSpacing:'.06em', textTransform:'uppercase', marginBottom: 14 }}>Flag a Review Manually</div>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap: 10, marginBottom: 10 }}>
-            <input className="admin-input" placeholder="Restaurant" value={newFlag.restaurant} onChange={e => setNewFlag(p=>({...p, restaurant:e.target.value}))} />
-            <input className="admin-input" placeholder="Dish name" value={newFlag.dish} onChange={e => setNewFlag(p=>({...p, dish:e.target.value}))} />
-            <input className="admin-input" placeholder="Reason" value={newFlag.reason} onChange={e => setNewFlag(p=>({...p, reason:e.target.value}))} />
-          </div>
-          <button className="admin-btn-amber" style={{ padding:'8px 16px', borderRadius: 8, fontSize: 12 }} onClick={addFlag}>
-            <Flag size={12} style={{ display:'inline', marginRight: 6 }} />Add Flag
+        <div style={{ display:'flex', justifyContent:'flex-end', marginBottom: 12 }}>
+          <button
+            className="admin-btn-ghost"
+            style={{ padding:'6px 12px', borderRadius: 8, fontSize: 12 }}
+            onClick={fetchModerationQueue}
+            disabled={moderationLoading}
+          >
+            {moderationLoading ? 'Refreshing…' : 'Refresh Queue'}
           </button>
+        </div>
+
+        <div style={{ background: C.surface, border:`1px solid ${C.border}`, borderRadius: 12, overflow:'hidden', marginBottom: 16 }}>
+          <div style={{ padding:'14px 20px', borderBottom:`1px solid ${C.border}` }}>
+            <div className="admin-syne" style={{ fontSize: 13, fontWeight: 700, color: C.text2, letterSpacing:'.06em', textTransform:'uppercase' }}>Menu Item Flags</div>
+          </div>
+          {flags.length === 0 ? (
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>
+              <CheckCircle size={32} color={C.emerald} style={{ display:'block', margin:'0 auto 10px' }} />
+              <div style={{ fontSize: 13 }}>No flagged menu items</div>
+            </div>
+          ) : (
+            <table style={{ width:'100%', borderCollapse:'collapse' }} className="admin-table">
+              <thead style={{ background: C.surface2 }}>
+                <tr>
+                  <th style={{ textAlign:'left' }}>Item</th>
+                  <th style={{ textAlign:'left' }}>Restaurant</th>
+                  <th style={{ textAlign:'left' }}>Reason</th>
+                  <th style={{ textAlign:'center' }}>Status</th>
+                  <th style={{ textAlign:'right' }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {flags.map((f) => (
+                  <tr key={f.id || `${f.restaurant_name}-${f.item_name}` }>
+                    <td style={{ fontWeight: 600, color: C.text }}>{f.item_name || f.item || f.dish}</td>
+                    <td style={{ color: C.text2 }}>{f.restaurant_name || f.restaurant || '—'}</td>
+                    <td><Badge color={C.rose}>{f.reason || 'Reported'}</Badge></td>
+                    <td style={{ textAlign:'center', fontSize: 11, color: C.text3 }}>{f.status || 'open'}</td>
+                    <td style={{ textAlign:'right' }}>
+                      <button className="admin-btn-ghost" style={{ padding:'5px 8px', borderRadius: 6, fontSize: 11, marginRight: 6 }} onClick={() => updateFlagStatus(f.id, 'resolved')}>
+                        Resolve
+                      </button>
+                      <button className="admin-btn-ghost" style={{ padding:'5px 8px', borderRadius: 6, fontSize: 11 }} onClick={() => updateFlagStatus(f.id, 'dismissed')}>
+                        Dismiss
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <div style={{ background: C.surface, border:`1px solid ${C.border}`, borderRadius: 12, overflow:'hidden' }}>
           <div style={{ padding:'14px 20px', borderBottom:`1px solid ${C.border}` }}>
-            <div className="admin-syne" style={{ fontSize: 13, fontWeight: 700, color: C.text2, letterSpacing:'.06em', textTransform:'uppercase' }}>Flagged Queue</div>
+            <div className="admin-syne" style={{ fontSize: 13, fontWeight: 700, color: C.text2, letterSpacing:'.06em', textTransform:'uppercase' }}>Review Reports</div>
           </div>
-          {moderation.flagged.length === 0 ? (
+          {reports.length === 0 ? (
             <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>
               <CheckCircle size={32} color={C.emerald} style={{ display:'block', margin:'0 auto 10px' }} />
-              <div style={{ fontSize: 13 }}>All clear — no flagged content</div>
+              <div style={{ fontSize: 13 }}>No review reports</div>
             </div>
           ) : (
             <table style={{ width:'100%', borderCollapse:'collapse' }} className="admin-table">
               <thead style={{ background: C.surface2 }}>
                 <tr>
                   <th style={{ textAlign:'left' }}>Dish</th>
-                  <th style={{ textAlign:'left' }}>Restaurant</th>
                   <th style={{ textAlign:'left' }}>Reason</th>
-                  <th style={{ textAlign:'center' }}>Date</th>
+                  <th style={{ textAlign:'center' }}>Status</th>
                   <th style={{ textAlign:'right' }}>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {moderation.flagged.map((f,i) => (
-                  <tr key={i}>
-                    <td style={{ fontWeight: 600, color: C.text }}>{f.dish}</td>
-                    <td style={{ color: C.text2 }}>{f.restaurant}</td>
-                    <td><Badge color={C.rose}>{f.reason || 'Reported'}</Badge></td>
-                    <td style={{ textAlign:'center', fontSize: 11, color: C.text3 }}>{f.timestamp ? new Date(f.timestamp).toLocaleDateString() : '—'}</td>
+                {reports.map((r) => (
+                  <tr key={r.id || `${r.dish_name}-${r.created_at}` }>
+                    <td style={{ fontWeight: 600, color: C.text }}>{r.dish_name || 'Review'}</td>
+                    <td><Badge color={C.amber}>{r.reason || 'Reported'}</Badge></td>
+                    <td style={{ textAlign:'center', fontSize: 11, color: C.text3 }}>{r.status || 'open'}</td>
                     <td style={{ textAlign:'right' }}>
-                      <button className="admin-btn-ghost" style={{ padding:'5px 10px', borderRadius: 6, fontSize: 11 }} onClick={() => resolveFlag(f.id)}>
+                      <button className="admin-btn-ghost" style={{ padding:'5px 8px', borderRadius: 6, fontSize: 11, marginRight: 6 }} onClick={() => updateReportStatus(r.id, 'resolved')}>
                         Resolve
+                      </button>
+                      <button className="admin-btn-ghost" style={{ padding:'5px 8px', borderRadius: 6, fontSize: 11 }} onClick={() => updateReportStatus(r.id, 'dismissed')}>
+                        Dismiss
                       </button>
                     </td>
                   </tr>

@@ -1,5 +1,6 @@
 ﻿import React, { useState, useRef, useEffect } from 'react'
 import StarRating from './StarRating'
+import { filterProfanity } from '../utils/profanityFilter'
 
 const GROUPS_STORAGE_KEY = 'taste-trails-groups'
 const CURRENT_USER = 'You'
@@ -119,16 +120,18 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
   }
 
   const handleSubmit = () => {
-    if (!comment.trim()) {
+    const trimmed = comment.trim()
+    if (!trimmed) {
       alert('Please add a comment about this dish')
       return
     }
+    const cleanedComment = filterProfanity(trimmed)
     const selectedGroups = Array.isArray(postTo.groups) ? postTo.groups : []
     const reviewData = {
       dishName: item.name,
       restaurant: restaurant,
       rating: rating,
-      comment: comment.trim(),
+      comment: cleanedComment,
       photo: photo,
       timestamp: Date.now(),
       date: new Date().toLocaleDateString(),
@@ -137,6 +140,9 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
         profile: true,
         groups: selectedGroups
       }
+    }
+    if (cleanedComment !== trimmed) {
+      alert('Profanity was removed from your comment.')
     }
     onSubmit(reviewData)
   }
@@ -341,6 +347,9 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
           />
           <div className="text-xs text-gray-500 mt-2">
             {comment.length} characters
+          </div>
+          <div className="text-xs text-gray-400 mt-1">
+            Profanity is filtered automatically.
           </div>
         </div>
 

@@ -99,11 +99,10 @@ const UserProfile = ({ user, onBack, onFollowToggle, isFollowing }) => {
   // Fetch "My Rated Dishes" for own profile
   useEffect(() => {
     if (!currentUserProfile || !authUser || currentUserProfile.id !== user?.id) return;
-    if (!token) return;
     setRatingsLoading(true);
     setRatingsError('');
     fetch(`${API_BASE_URL}/users/me/ratings`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch ratings');
@@ -117,7 +116,7 @@ const UserProfile = ({ user, onBack, onFollowToggle, isFollowing }) => {
         setRatingsError(e.message || 'Failed to load ratings');
         setRatingsLoading(false);
       });
-  }, [currentUserProfile, authUser, user?.id, token]);
+  }, [currentUserProfile, authUser, user?.id]);
 
   // Handle follow/request to follow action
   const handleFollowAction = async () => {
@@ -130,13 +129,12 @@ const UserProfile = ({ user, onBack, onFollowToggle, isFollowing }) => {
     // Send follow request for private accounts
     setRequestingFollow(true)
     try {
-      const token = localStorage.getItem('access_token')
       const response = await fetch(`${API_BASE_URL}/api/users/${user.id}/follow`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'include'
       })
 
       if (response.ok) {

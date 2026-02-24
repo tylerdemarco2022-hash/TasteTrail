@@ -1,11 +1,5 @@
 [
   {
-    "name": "Culinary Dropout",
-    "description": "Culinary Dropout, our little gastro pub &quot;rebel child&quot; breaks all the rules with its uniform-free staff and relaxed, soulful ambiance. You&#x27;ll find amped-up pub-type appetizers, salads, sandwiches and entrees, along with a unique Antipasti Menu showcasing delicious and hard-to-find meats, cheeses and vegetables. Rustic wood flooring and worn, overstuffed leather benches compliment deep purple and green chandeliers and patterned velvet chairs. Melt into the comfortable setting at the Scottsdale Waterfront and enjoy our outdoor patio and live music performed a few nights each week on our mini stage. Culinary Dropout is also a day-drinking and late-night destination with two-thirds of the menu dedicated to beer, wine and some pretty interesting cocktails",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Aperol Spritz (Bubbles)",
     "description": "",
     "price": "$13.00",
@@ -21,12 +15,6 @@
     "name": "Giddy Up Espresso Martini",
     "description": "",
     "price": "$16.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Carajillo",
-    "description": "",
-    "price": "$15.00",
     "category": "Menu"
   },
   {
@@ -78,12 +66,6 @@
     "category": "Menu"
   },
   {
-    "name": "Fried Chicken & Buttermilk Biscuit*",
-    "description": "",
-    "price": "$18.00",
-    "category": "Menu"
-  },
-  {
     "name": "Banana Bread French Toast",
     "description": "",
     "price": "$14.00",
@@ -111,12 +93,6 @@
     "name": "Hot Wings",
     "description": "",
     "price": "$18.50",
-    "category": "Menu"
-  },
-  {
-    "name": "Crispy Popcorn Shrimp",
-    "description": "",
-    "price": "$18.00",
     "category": "Menu"
   },
   {
@@ -234,12 +210,6 @@
     "category": "Menu"
   },
   {
-    "name": "Tijuana Spa Water",
-    "description": "",
-    "price": "$14.50",
-    "category": "Menu"
-  },
-  {
     "name": "Abandoned Cadillac",
     "description": "",
     "price": "$17.00",
@@ -312,18 +282,6 @@
     "category": "Menu"
   },
   {
-    "name": "Sicilian Lemonade Stand",
-    "description": "puréed strawberry, fever-tree sparkling lemonade",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Society Crush",
-    "description": "ruby red grapefruit, citrus oleo, toasted cinnamon, seltzer water",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "The Hass",
     "description": "creamy avocado, coconut, fresh pressed lime, ginger agave, naranja agria",
     "price": "",
@@ -384,12 +342,6 @@
     "category": "Menu"
   },
   {
-    "name": "Crispy Chicken Katsu",
-    "description": "japanese milk bread, spicy miso aioli, napa slaw, hoisin",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Ma...The Meatloaf!?!",
     "description": "broccolini, smashed potato, gravy",
     "price": "",
@@ -398,12 +350,6 @@
   {
     "name": "Mongolian Short Rib*",
     "description": "charred scallion, bok choy, soft egg, crispy onion, yuzu sticky rice, thai chili",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Steak Frites*",
-    "description": "prime skirt steak, black truffle butter, french fries",
     "price": "",
     "category": "Menu"
   },
@@ -438,12 +384,6 @@
     "category": "Menu"
   },
   {
-    "name": "East of Manhattan",
-    "description": "5 spirit blend, 23 spice soda, fresh lemon",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Maui Wowie",
     "description": "white rum, guava, pineapple, mango",
     "price": "",
@@ -456,20 +396,8 @@
     "category": "Menu"
   },
   {
-    "name": "El Bee Si",
-    "description": "5 spirit blend, cranberry cocktail, citrus soda",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Perfect Margarita",
     "description": "blanco tequila, three citrus sour, orange cordial",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Daiquiri",
-    "description": "white rum, lime, cane sugar",
     "price": "",
     "category": "Menu"
   },
@@ -498,20 +426,8 @@
     "category": "Menu"
   },
   {
-    "name": "Korean Style Skirt Steak*",
-    "description": "forbidden rice, zucchini, mushroom, ginger chili sauce",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Pasta Bolognese",
     "description": "tagliatelle, italian meat sauce, parmesan, basil",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Cheeseburger",
-    "description": "meat, cheese, bun",
     "price": "",
     "category": "Menu"
   },
@@ -525,54 +441,6 @@
     "name": "Cheesy Eggs & Hashbrowns",
     "description": "with fruit",
     "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$62.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$50.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$58.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$46.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$42.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$105.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$54.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Serves",
-    "description": "5",
-    "price": "$57.00",
     "category": "Menu"
   },
   {
@@ -678,13 +546,7 @@
     "category": "Menu"
   },
   {
-    "name": "Episode",
-    "description": "",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "pretzel roll, swiss, coleslaw,",
+    "name": "pretzel roll, swiss, coleslaw",
     "description": "",
     "price": "$100",
     "category": "Menu"
@@ -693,12 +555,6 @@
     "name": "rittenhouse rye",
     "description": "",
     "price": "$100",
-    "category": "Menu"
-  },
-  {
-    "name": "IT'S",
-    "description": "",
-    "price": "$3",
     "category": "Menu"
   },
   {

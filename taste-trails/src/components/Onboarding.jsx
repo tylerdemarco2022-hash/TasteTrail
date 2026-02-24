@@ -42,6 +42,8 @@ export default function Onboarding({ onComplete }) {
   const completeOnboarding = () => {
     localStorage.setItem('onboarding_completed', 'true')
     localStorage.setItem('onboarding_completed_date', new Date().toISOString())
+    localStorage.removeItem('is_new_signup') // Clear new signup flag
+    console.log('✅ Onboarding completed! Stored dietary preferences:', Array.from(selectedDiets))
     onComplete?.()
   }
 

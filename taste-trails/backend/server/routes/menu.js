@@ -2,6 +2,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { supabase as supabaseClient } from '../../supabase.js';
 import { classifyDietaryFlags } from '../../utils/dietaryClassifier.js';
+import { filterProfanity, hasProfanity } from '../../utils/profanityFilter.js';
 const router = express.Router();
 const supabase = supabaseClient;
 
@@ -188,6 +189,10 @@ router.post('/menu-items/:menuItemId/rate', getUser, ratingLimiter, async (req, 
   const userRating = Number(rating);
   if (!userRating || userRating < 1 || userRating > 5) return res.status(400).json({ error: 'Rating 1-5 required' });
 
+  const rawComment = typeof comment === 'string' ? comment.trim() : '';
+  const sanitizedComment = rawComment ? filterProfanity(rawComment) : null;
+  const commentHadProfanity = rawComment ? hasProfanity(rawComment) : false;
+
   const { data: existingRows, error: existingError } = await supabase
     .from('dish_ratings')
     .select('id')
@@ -204,7 +209,7 @@ router.post('/menu-items/:menuItemId/rate', getUser, ratingLimiter, async (req, 
     user_id: req.user.id,
     restaurant_id,
     rating: userRating,
-    comment
+    comment: sanitizedComment
   }, { onConflict: ['menu_item_id', 'user_id'] }).select().single();
   if (error) return res.status(400).json({ error: error.message });
 
@@ -396,7 +401,10 @@ router.post('/menu-items/:menuItemId/rate', getUser, ratingLimiter, async (req, 
 
   if (userUpdateError) return res.status(400).json({ error: userUpdateError.message });
 
-  res.json(data);
+  res.json({
+    ...data,
+    profanity_filtered: commentHadProfanity
+  });
 });
 
 // 4. GET /restaurants/:restaurantId/best-dish
@@ -423,7 +431,9 @@ router.post('/ratings', async (req, res) => {
   try {
     console.log('Incoming rating body:', req.body);
 
-    const { menu_item_id, rating, user_id } = req.body;
+    const { menu_item_id, rating, user_id, comment } = req.body;
+    const rawComment = typeof comment === 'string' ? comment.trim() : '';
+    const sanitizedComment = rawComment ? filterProfanity(rawComment) : null;
 
     const result = await supabase
       .from('ratings')
@@ -431,7 +441,8 @@ router.post('/ratings', async (req, res) => {
         {
           menu_item_id,
           rating,
-          user_id
+          user_id,
+          comment: sanitizedComment
         }
       ])
       .select();

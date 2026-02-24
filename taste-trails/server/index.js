@@ -4,11 +4,14 @@ import fs from 'fs';
 import { supabase } from '../backend/supabase.js';
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import * as Sentry from '@sentry/node';
 import menuRoutes from '../backend/server/routes/menu.js';
 import nearbyRoutes from '../backend/server/routes/nearby.js';
 import followRequestsRoutes from '../backend/server/routes/followRequests.js';
 import authRoutes from './routes/auth.js';
 import userPrefsRoutes from './routes/userPrefs.js';
+import moderationRoutes from './routes/moderation.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
 import { discoverRestaurantURL } from '../backend/services/urlDiscovery.js';
 import { scrapeMenu as scrapeMenuAgent } from '../backend/scraper/menuScraperAgent.js';
@@ -24,16 +27,64 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
+const SENTRY_DSN = process.env.SENTRY_DSN;
+const SENTRY_ENABLED = process.env.NODE_ENV === 'production' && !!SENTRY_DSN;
+
+function redactSensitive(value) {
+  if (value === null || value === undefined) return value;
+  if (Array.isArray(value)) return value.map(redactSensitive);
+  if (typeof value === 'object') {
+    const result = {};
+    for (const [key, val] of Object.entries(value)) {
+      const lowerKey = key.toLowerCase();
+      if (lowerKey.includes('token') || lowerKey.includes('password') || lowerKey.includes('authorization')) {
+        result[key] = '[REDACTED]';
+      } else {
+        result[key] = redactSensitive(val);
+      }
+    }
+    return result;
+  }
+  return value;
+}
+
+if (SENTRY_ENABLED) {
+  Sentry.init({
+    dsn: SENTRY_DSN,
+    tracesSampleRate: 0.2,
+    beforeSend(event) {
+      if (event.request) {
+        event.request.cookies = undefined;
+        if (event.request.headers) {
+          delete event.request.headers.authorization;
+          delete event.request.headers.cookie;
+          delete event.request.headers['set-cookie'];
+        }
+        if (event.request.data) {
+          event.request.data = redactSensitive(event.request.data);
+        }
+      }
+      return event;
+    }
+  });
+}
+
 console.log("BACKEND ENTRY FILE EXECUTING");
 process.on('exit', code => console.error('[EXIT EVENT]', code));
 process.on('beforeExit', code => console.error('[BEFORE EXIT]', code));
 process.on('uncaughtException', err => {
   console.error('[UNCAUGHT EXCEPTION]', err);
   if (err && err.stack) console.error(err.stack);
+  if (SENTRY_ENABLED) {
+    Sentry.captureException(err);
+  }
 });
 process.on('unhandledRejection', err => {
   console.error('[UNHANDLED REJECTION]', err);
   if (err && err.stack) console.error(err.stack);
+  if (SENTRY_ENABLED) {
+    Sentry.captureException(err);
+  }
 });
 process.on('SIGTERM', () => {
   console.error('[SIGTERM] Received, shutting down.');
@@ -74,6 +125,10 @@ process.on('unhandledRejection', err => console.error('[UNHANDLED]', err));
 
 
 const app = express();
+app.set('trust proxy', 1);
+if (SENTRY_ENABLED) {
+  app.use(Sentry.Handlers.requestHandler());
+}
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || `http://localhost:5174`;
 app.use(cors({
   origin: function(origin, cb) {
@@ -89,6 +144,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use((req, res, next) => {
   console.log("INCOMING REQUEST:", req.method, req.path);
   next();
@@ -97,6 +153,7 @@ app.use((req, res, next) => {
 app.use('/api', menuRoutes);
 app.use('/api', nearbyRoutes);
 app.use('/api', followRequestsRoutes);
+app.use('/api', moderationRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 app.use("/api", userPrefsRoutes);
@@ -1204,6 +1261,10 @@ app.get('/api/restaurants/:name', async (req, res) => {
   }
 });
 
+
+if (SENTRY_ENABLED) {
+  app.use(Sentry.Handlers.errorHandler());
+}
 
 const PORT = process.env.PORT || 8081;
 const HOST = '0.0.0.0';

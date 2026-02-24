@@ -1,177 +1,182 @@
 [
   {
-    "category": "Appetizers & Starters",
     "name": "Crab Dip",
-    "description": "Jumbo lump crab, cream cheese, Old Bay seasoning, served with crackers"
+    "description": "Jumbo lump crab, cream cheese, Old Bay seasoning, served with crackers",
+    "price": "",
+    "category": "Appetizers & Starters"
   },
   {
-    "category": "Appetizers & Starters",
     "name": "Shrimp and Grits Cups",
-    "description": "Crispy shrimp, creamy grits, andouille sausage gravy"
+    "description": "Crispy shrimp, creamy grits, andouille sausage gravy",
+    "price": "",
+    "category": "Appetizers & Starters"
   },
   {
-    "category": "Appetizers & Starters",
     "name": "Baked Clams",
-    "description": "littleneck clams, butter, garlic, breadcrumbs"
+    "description": "littleneck clams, butter, garlic, breadcrumbs",
+    "price": "",
+    "category": "Appetizers & Starters"
   },
   {
-    "category": "Appetizers & Starters",
     "name": "Calamari Fritti",
-    "description": "Tender calamari, marinara sauce, lemon"
+    "description": "Tender calamari, marinara sauce, lemon",
+    "price": "",
+    "category": "Appetizers & Starters"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Bruschetta",
-    "description": "Toasted bread, fresh tomatoes, basil, garlic, olive oil"
-  },
-  {
-    "category": "Appetizers & Starters",
-    "name": "Mussels Steamed",
-    "description": "White wine, garlic, fresh herbs, crusty bread"
-  },
-  {
-    "category": "Appetizers & Starters",
     "name": "Lobster Quesadilla",
-    "description": "Maine lobster, cheese, peppers, served with salsa and sour cream"
+    "description": "Maine lobster, cheese, peppers, served with salsa and sour cream",
+    "price": "",
+    "category": "Appetizers & Starters"
   },
   {
-    "category": "Appetizers & Starters",
     "name": "Tempura Vegetables",
-    "description": "Seasonal vegetables in light batter, sweet chili sauce"
+    "description": "Seasonal vegetables in light batter, sweet chili sauce",
+    "price": "",
+    "category": "Appetizers & Starters"
   },
   {
-    "category": "Soups & Salads",
     "name": "She-Crab Soup",
-    "description": "Fresh crab, sherry cream, roe garnish"
+    "description": "Fresh crab, sherry cream, roe garnish",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Soups & Salads",
     "name": "Lobster Bisque",
-    "description": "Maine lobster, cream, sherry, cognac"
+    "description": "Maine lobster, cream, sherry, cognac",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Soups & Salads",
     "name": "Tomato Basil Soup",
-    "description": "Fresh tomatoes, basil, cream, grilled cheese croutons"
+    "description": "Fresh tomatoes, basil, cream, grilled cheese croutons",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Soups & Salads",
     "name": "Caesar Salad",
-    "description": "Romaine, Parmesan, house-made croutons, anchovy caesar dressing"
+    "description": "Romaine, Parmesan, house-made croutons, anchovy caesar dressing",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Soups & Salads",
     "name": "Wedge Salad",
-    "description": "Iceberg lettuce, blue cheese crumbles, crispy bacon, tomatoes"
+    "description": "Iceberg lettuce, blue cheese crumbles, crispy bacon, tomatoes",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Soups & Salads",
     "name": "Mixed Green Salad",
-    "description": "Seasonal greens, beets, goat cheese, candied walnuts, vinaigrette"
+    "description": "Seasonal greens, beets, goat cheese, candied walnuts, vinaigrette",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Soups & Salads",
     "name": "Grilled Shrimp Salad",
-    "description": "Chargrilled shrimp, mixed greens, avocado, tomatoes, lime vinaigrette"
+    "description": "Chargrilled shrimp, mixed greens, avocado, tomatoes, lime vinaigrette",
+    "price": "",
+    "category": "Soups & Salads"
   },
   {
-    "category": "Entrées",
-    "name": "Pan-Seared Diver Scallops",
-    "description": "Buttered asparagus, risotto, brown butter sauce"
-  },
-  {
-    "category": "Entrées",
     "name": "Grilled Atlantic Salmon",
-    "description": "Roasted potatoes, seasonal vegetables, lemon beurre blanc"
+    "description": "Roasted potatoes, seasonal vegetables, lemon beurre blanc",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Lobster Tail",
-    "description": "Broiled or grilled, served with drawn butter, roasted potatoes"
+    "description": "Broiled or grilled, served with drawn butter, roasted potatoes",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Filet Mignon",
-    "description": "Center-cut beef, roasted garlic potatoes, seasonal vegetables, red wine reduction"
+    "description": "Center-cut beef, roasted garlic potatoes, seasonal vegetables, red wine reduction",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
-    "name": "Ribeye Steak",
-    "description": "16 oz bone-in, hand-cut fries, compound butter"
-  },
-  {
-    "category": "Entrées",
     "name": "Duck Breast",
-    "description": "Cherry gastrique, cauliflower purée, crispy potatoes"
+    "description": "Cherry gastrique, cauliflower purée, crispy potatoes",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Herb-Roasted Chicken",
-    "description": "Lemon jus, seasonal vegetables, mashed potatoes"
+    "description": "Lemon jus, seasonal vegetables, mashed potatoes",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Surf and Turf",
-    "description": "Filet mignon and lobster tail, roasted vegetables, béarnaise"
+    "description": "Filet mignon and lobster tail, roasted vegetables, béarnaise",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Seafood Pasta",
-    "description": "Shrimp, scallops, clams, mussels, white wine sauce, linguine"
+    "description": "Shrimp, scallops, clams, mussels, white wine sauce, linguine",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Entrées",
     "name": "Braised Short Ribs",
-    "description": "Falls off the bone, seasonal vegetables, creamy polenta"
+    "description": "Falls off the bone, seasonal vegetables, creamy polenta",
+    "price": "",
+    "category": "Entrées"
   },
   {
-    "category": "Sides",
     "name": "Mashed Potatoes",
-    "description": "Creamy butter and cream"
+    "description": "Creamy butter and cream",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Sides",
     "name": "Roasted Asparagus",
-    "description": "Garlic and parmesan"
+    "description": "Garlic and parmesan",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Sides",
     "name": "Hand-Cut Fries",
-    "description": "Sea salt seasoning"
+    "description": "Sea salt seasoning",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Sides",
     "name": "Seasonal Vegetables",
-    "description": "Fresh market selection"
+    "description": "Fresh market selection",
+    "price": "",
+    "category": "Sides"
   },
   {
-    "category": "Desserts",
     "name": "Chocolate Lava Cake",
-    "description": "Warm flourless chocolate cake, vanilla ice cream, raspberry coulis"
+    "description": "Warm flourless chocolate cake, vanilla ice cream, raspberry coulis",
+    "price": "",
+    "category": "Desserts"
   },
   {
-    "category": "Desserts",
     "name": "Crème Brûlée",
-    "description": "Vanilla bean custard, caramelized sugar"
+    "description": "Vanilla bean custard, caramelized sugar",
+    "price": "",
+    "category": "Desserts"
   },
   {
-    "category": "Desserts",
     "name": "New York Cheesecake",
-    "description": "Graham cracker crust, berry compote"
+    "description": "Graham cracker crust, berry compote",
+    "price": "",
+    "category": "Desserts"
   },
   {
-    "category": "Desserts",
-    "name": "Tiramisu",
-    "description": "Layers of espresso-soaked ladyfingers, mascarpone cream"
-  },
-  {
-    "category": "Desserts",
     "name": "Panna Cotta",
-    "description": "Silky Italian custard, seasonal berries"
+    "description": "Silky Italian custard, seasonal berries",
+    "price": "",
+    "category": "Desserts"
   },
   {
-    "category": "Desserts",
     "name": "Bread Pudding",
-    "description": "Bourbon sauce, vanilla ice cream"
+    "description": "Bourbon sauce, vanilla ice cream",
+    "price": "",
+    "category": "Desserts"
   }
 ]

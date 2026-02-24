@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UserPlus, User, Lock, Mail, AlertCircle, CheckCircle } from 'lucide-react'
 
-export default function Signup({ onSignup, onSwitchToLogin }) {
+export default function Signup({ onSignup, onSwitchToLogin, onLogin }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -29,9 +29,15 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
       const result = await onSignup(email, password, name)
       
       if (result?.success) {
-        // Account created successfully - redirect to login
-        alert('Account created successfully! Please log in with your credentials.')
-        onSwitchToLogin()
+        // Account created successfully - auto-login so user goes straight to onboarding
+        console.log('✅ Signup successful, auto-logging in...')
+        const loginResult = await onLogin(email, password)
+        if (!loginResult?.success) {
+          // Fallback: tell user to login manually
+          alert('Account created! Please log in with your credentials.')
+          onSwitchToLogin()
+        }
+        // If login was successful, app will handle the rest (show onboarding)
       } else {
         setError(result?.error || 'Signup failed')
       }

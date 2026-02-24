@@ -96,12 +96,6 @@
     "category": "Salads"
   },
   {
-    "name": "Hamburger",
-    "description": "",
-    "price": "$12",
-    "category": "Sandwiches"
-  },
-  {
     "name": "Chicken Sandwich",
     "description": "",
     "price": "$15",
@@ -216,12 +210,6 @@
     "category": "Pasta"
   },
   {
-    "name": "Redfish",
-    "description": "",
-    "price": "$28",
-    "category": "Pasta"
-  },
-  {
     "name": "Southern Fish Fillet",
     "description": "",
     "price": "$19",
@@ -294,33 +282,15 @@
     "category": "Pasta"
   },
   {
-    "name": "Hamburger Steak",
-    "description": "",
-    "price": "$23",
-    "category": "Pasta"
-  },
-  {
     "name": "Filet Mignon",
     "description": "",
     "price": "$45",
     "category": "Pasta"
   },
   {
-    "name": "Ribeye",
-    "description": "",
-    "price": "$39",
-    "category": "Pasta"
-  },
-  {
     "name": "Brownie A La Mode",
     "description": "",
     "price": "$10",
-    "category": "Desserts"
-  },
-  {
-    "name": "Cheesecake",
-    "description": "",
-    "price": "$12",
     "category": "Desserts"
   },
   {

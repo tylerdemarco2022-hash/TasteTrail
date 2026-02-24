@@ -87,6 +87,104 @@ const isBlockedRestaurant = (name = '') => {
 const filterBlockedRestaurants = (list = []) =>
   list.filter((r) => !isBlockedRestaurant(r?.name || r?.restaurant || ''))
 
+const filterRestaurantsByDietaryPreferences = (list = [], preferences) => {
+  const filtered = list.filter((r) => restaurantMatchesDietaryPreferences(r, preferences))
+  
+  // Debug logging
+  if (preferences && preferences.length > 0 && preferences[0] !== 'none') {
+    console.log('📋 Dietary Preferences:', preferences)
+    console.log('✅ Showing restaurants:', filtered.map(r => r.name || r.restaurant))
+    console.log('❌ Hidden restaurants:', list.filter(r => !restaurantMatchesDietaryPreferences(r, preferences)).map(r => r.name || r.restaurant))
+  }
+  
+  return filtered
+}
+
+const filterAllRestaurants = (list = [], preferences) => {
+  let filtered = filterBlockedRestaurants(list)
+  filtered = filterRestaurantsByDietaryPreferences(filtered, preferences)
+  return filtered
+}
+
+const restaurantMatchesDietaryPreferences = (restaurant, preferences) => {
+  // If no preferences or "none" selected, show all restaurants
+  if (!preferences || preferences.length === 0 || preferences.includes('none')) {
+    return true
+  }
+
+  const text = `${restaurant.name || ''} ${restaurant.cuisine || ''} ${restaurant.description || ''}`.toLowerCase()
+  const name = (restaurant.name || '').toLowerCase()
+
+  // Expanded keyword lists for better accuracy
+  const vegetarianKeywords = [
+    'vegetarian', 'vegan', 'salad', 'bowl', 'pasta', 'pizza', 'mexican', 'asian', 
+    'thai', 'indian', 'mediterranean', 'italian', 'cafe', 'kitchen', 'grill', 
+    'bar', 'taphouse', 'cuisine', 'greek', 'bistro', 'house', 'postino'
+  ]
+  
+  const veganKeywords = [
+    'vegan', 'plant-based', 'plant based', 'vegetarian', 'salad', 'bowl'
+  ]
+  
+  const ketoKeywords = [
+    'steak', 'steakhouse', 'burger', 'bbq', 'grilled', 'seafood', 'meat', 'keto',
+    'smokehouse', 'grill', 'firegrill', 'grille', 'fish', 'sea level', 'captain'
+  ]
+  
+  const healthyKeywords = [
+    'healthy', 'fresh', 'organic', 'salad', 'bowl', 'grain', 'wellness',
+    'kitchen', 'cafe', 'botanical', 'verde'
+  ]
+  
+  const halalKeywords = ['halal', 'middle eastern', 'mediterranean', 'persian', 'turkish']
+  const kosherKeywords = ['kosher', 'jewish']
+
+  // Check against each preference
+  for (const pref of preferences) {
+    let hasMatch = false
+    
+    if (pref === 'vegetarian') {
+      // Hide pure meat/seafood only restaurants for vegetarian
+      const meatOnlyKeywords = ['steakhouse', 'smokehouse', 'bbq joint', 'seafood']
+      const isMeatOnly = meatOnlyKeywords.some(keyword => text.includes(keyword))
+      hasMatch = vegetarianKeywords.some(keyword => text.includes(keyword)) && !isMeatOnly
+    } 
+    else if (pref === 'vegan') {
+      // Vegan is stricter - only certain restaurants
+      hasMatch = veganKeywords.some(keyword => text.includes(keyword))
+    } 
+    else if (pref === 'keto') {
+      // Keto focused on meat, seafood, grilled options
+      hasMatch = ketoKeywords.some(keyword => text.includes(keyword))
+    } 
+    else if (pref === 'dairy_free') {
+      // Most restaurants can accommodate - exclude very dairy-heavy like pizza/pasta focused only
+      const dairyHeavy = ['pizza', 'pizzeria'].some(kw => text.includes(kw))
+      hasMatch = !dairyHeavy || text.includes('asian') || text.includes('mexican') || text.includes('grilled')
+    }
+    else if (pref === 'gluten_free') {
+      // Most restaurants can accommodate gluten-free
+      hasMatch = true
+    } 
+    else if (pref === 'halal') {
+      // Specific halal restaurants or Mediterranean/Middle Eastern
+      hasMatch = halalKeywords.some(keyword => text.includes(keyword))
+    } 
+    else if (pref === 'kosher') {
+      // Specific kosher restaurants
+      hasMatch = kosherKeywords.some(keyword => text.includes(keyword))
+    }
+
+    // If this preference doesn't match, hide the restaurant
+    if (!hasMatch) {
+      return false
+    }
+  }
+
+  return true
+}
+
+
 export default function Feed({ onOpen }) {
   const [pos, setPos] = useState({ lat: 35.2271, lon: -80.8431 })
   const [nearby, setNearby] = useState([])
@@ -96,6 +194,14 @@ export default function Feed({ onOpen }) {
   const [searchingLocation, setSearchingLocation] = useState(false)
   const [opening, setOpening] = useState(false)
   const [topPicks, setTopPicks] = useState([])
+  const [dietaryPreferences, setDietaryPreferences] = useState(() => {
+    try {
+      const prefs = localStorage.getItem('dietary_preferences')
+      return prefs ? JSON.parse(prefs) : []
+    } catch {
+      return []
+    }
+  })
 
   // Calculate top picks based on user ratings
   const calculateTopPicks = () => {
@@ -156,6 +262,12 @@ export default function Feed({ onOpen }) {
     if (existing) return existing
     const nameToken = encodeURIComponent(r.name || 'restaurant')
     return `https://source.unsplash.com/600x400/?restaurant,food,${nameToken}&sig=${idx}`
+  }
+
+  // Generate responsive image srcset for Unsplash images
+  const generateImageSrcSet = (baseUrl) => {
+    if (!baseUrl.includes('unsplash.com')) return ''
+    return `${baseUrl.replace(/(\?|&)w=\d+/, '')}?w=300&auto=format&fit=crop&q=80 300w, ${baseUrl.replace(/(\?|&)w=\d+/, '')}?w=600&auto=format&fit=crop&q=80 600w, ${baseUrl.replace(/(\?|&)w=\d+/, '')}?w=900&auto=format&fit=crop&q=80 900w`
   }
 
   async function openWithMenu(r) {
@@ -226,6 +338,23 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pos])
+
+  // Listen for dietary preference changes from Settings
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'dietary_preferences') {
+        try {
+          const updated = e.newValue ? JSON.parse(e.newValue) : []
+          setDietaryPreferences(updated)
+        } catch {
+          setDietaryPreferences([])
+        }
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   async function searchLocation(address) {
     if (!address.trim()) return
@@ -335,7 +464,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       })
 
       withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
+      const filtered = filterAllRestaurants(withDist, dietaryPreferences)
       setNearby(filtered)
 
       // Cache results
@@ -354,7 +483,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
         return ({ ...r, distance, avgRating, waitTime })
       })
       withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
+      const filtered = filterAllRestaurants(withDist, dietaryPreferences)
       setNearby(filtered)
     }
   }
@@ -372,9 +501,9 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       return ({ ...r, distance, avgRating, waitTime })
     })
     withDist.sort((a, b) => a.distance - b.distance)
-    const filtered = filterBlockedRestaurants(withDist)
+    const filtered = filterAllRestaurants(withDist, dietaryPreferences)
     setNearby(filtered)
-  }, [pos])
+  }, [pos, dietaryPreferences])
 
   // Load OSM restaurants for Charlotte (cached)
   async function fetchCharlotte() {
@@ -404,7 +533,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
         }
       })
       // store and set
-      const filtered = filterBlockedRestaurants(items)
+      const filtered = filterAllRestaurants(items, dietaryPreferences)
       localStorage.setItem('osm-charlotte', JSON.stringify(filtered))
       setNearby(filtered)
     } catch (e) {
@@ -481,7 +610,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       })
 
       withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
+      const filtered = filterAllRestaurants(withDist, dietaryPreferences)
       setNearby(filtered)
 
       // Cache results
@@ -559,7 +688,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
               <p className="text-xs text-gray-600">Based on highly-rated items</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {topPicks.map((r, idx) => (
               <div 
                 key={r.id || `${r.name}-${idx}`} 
@@ -567,8 +696,9 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
                 onClick={() => openWithMenu(r)}
               >
                 <img
-                  src={resolveImage(r, idx)}
+                  src={`${resolveImage(r, idx)}${resolveImage(r, idx).includes('?') ? '&' : '?'}w=400&auto=format&fit=crop&q=80`}
                   alt={r.name}
+                  loading="lazy"
                   className="w-full h-24 object-cover"
                   onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80' }}
                 />
@@ -608,6 +738,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
                 <img 
                   src={resolveImage(r, idx)} 
                   alt={r.name}
+                  loading="lazy"
                   className="w-full h-24 object-cover"
                   onError={(e) => {e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800'}}
                 />
@@ -650,6 +781,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
               <img 
                 src={aiPick.image_url || aiPick.image} 
                 alt={aiPick.name}
+                loading="lazy"
                 className="w-full h-48 object-cover rounded-lg mb-3"
                 onError={(e) => {e.target.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800'}}
               />
@@ -690,14 +822,15 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
 
       {!pos && <div className="glass rounded-2xl p-8 text-center shadow-lg"><div className="text-4xl mb-3">📍</div><div className="text-gray-600 font-medium">Determining location…</div></div>}
       {pos && (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {nearby.map((r, idx) => (
             <div key={r.id || `${r.name}-${idx}`} className="card-hover glass rounded-2xl shadow-lg overflow-hidden flex flex-col">
               <div className="relative">
                 <img
-                  src={resolveImage(r, idx)}
+                  src={`${resolveImage(r, idx)}${resolveImage(r, idx).includes('?') ? '&' : '?'}w=600&auto=format&fit=crop&q=80`}
                   alt={r.name}
-                  className="w-full h-36 object-cover"
+                  loading="lazy"
+                  className="w-full h-24 sm:h-36 object-cover"
                   onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80' }}
                 />
                 {r.avgRating != null && (

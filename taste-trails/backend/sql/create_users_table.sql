@@ -2,6 +2,9 @@
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email TEXT NOT NULL UNIQUE,
+  google_id text UNIQUE,
+  auth_provider text DEFAULT 'local' NOT NULL,
+  avatar_url text,
   name TEXT,
   role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin')),
   credibility_score float DEFAULT 1.0 NOT NULL,
@@ -39,3 +42,4 @@ CREATE POLICY "Admin can update any user" ON users
 
 -- Create index for role lookups
 CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
+CREATE INDEX IF NOT EXISTS idx_users_google_id ON users(google_id);
