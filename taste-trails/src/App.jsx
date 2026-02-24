@@ -13,9 +13,11 @@ import Notifications from './components/Notifications'
 import Settings from './components/Settings'
 import UserSearch from './components/UserSearch'
 import UserProfile from './components/UserProfile'
+import Onboarding from './components/Onboarding'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
 import { HashRouter as Router, Routes, Route, useParams, useLocation, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
+import AdminPanel from './components/AdminPanel';
 import {
   applyThemeToDocument,
   getActiveProfileId,
@@ -47,7 +49,11 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [showAdmin, setShowAdmin] = useState(false)
   const [communityPosts, setCommunityPosts] = useState(() => loadCommunityPosts())
+  const [onboardingCompleted, setOnboardingCompleted] = useState(() => {
+    return localStorage.getItem('onboarding_completed') === 'true'
+  })
   // Default to Charlotte coordinates to avoid using the user's device location
   const [location, setLocation] = useState({ latitude: 35.2271, longitude: -80.8431 })
 
@@ -162,6 +168,18 @@ function App() {
     )
   }
 
+  // Show onboarding if not completed
+  if (!onboardingCompleted) {
+    return (
+      <Onboarding
+        onComplete={() => {
+          setOnboardingCompleted(true)
+          console.log('✅ Onboarding completed!')
+        }}
+      />
+    )
+  }
+
   const handleOpenProfile = (user) => {
     if (!user?.id) return
     try {
@@ -264,6 +282,7 @@ function App() {
             onNotificationsClick={() => setShowNotifications(true)}
             onSearchClick={() => setShowSearch(true)}
             onSettingsClick={() => setShowSettings(true)}
+            onAdminClick={() => setShowAdmin(true)}
           />
 
           <main className="flex-1">
@@ -327,6 +346,8 @@ function App() {
               </div>
             </div>
           )}
+
+          {showAdmin && <AdminPanel onClose={() => setShowAdmin(false)} />}
         </div>
       </LocationContext.Provider>
     )

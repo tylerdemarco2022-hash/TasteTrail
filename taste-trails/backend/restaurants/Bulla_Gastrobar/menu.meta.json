@@ -1,0 +1,36 @@
+{
+  "source_url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/114791897/bulla-gastrobar-atlanta-menu.pdf",
+  "url_confidence": 0.96,
+  "url_discovery_method": "duckduckgo",
+  "scrape_confidence": 0.96,
+  "min_scrape_confidence": 0.8,
+  "menu_completeness_score": 0.82,
+  "menu_completeness_report": {
+    "version": "menu_completeness_v1",
+    "score": 0.82,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.05,
+      "description_coverage_score": 0,
+      "category_score": 0.12,
+      "naming_score": 0.08,
+      "scrape_score": 0.13,
+      "url_score": 0.1,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 142,
+      "priced_item_count": 62,
+      "described_item_count": 0,
+      "category_count": 11,
+      "multiword_name_count": 109,
+      "suspicious_name_count": 0,
+      "modifier_like_name_count": 0,
+      "short_name_count": 0
+    }
+  },
+  "min_menu_completeness": 0.65,
+  "min_menu_items": 12,
+  "updated_at": "2026-02-24T16:52:20.591Z"
+}

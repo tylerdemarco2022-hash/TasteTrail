@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Send, Heart, Search, LogOut, User, Settings } from 'lucide-react'
+import { Send, Heart, Search, LogOut, User, Settings, Shield } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { API_BASE_URL } from '../config/api'
 
 const CURRENT_USER = 'You'
 
-export default function Header({ title, onNotificationsClick, onSearchClick, onSettingsClick }) {
+export default function Header({ title, onNotificationsClick, onSearchClick, onSettingsClick, onAdminClick }) {
   const { profile, logout } = useAuth()
   const [notificationCount, setNotificationCount] = useState(0)
   const [showProfileMenu, setShowProfileMenu] = useState(false)
@@ -153,6 +153,18 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
                       </span>
                     )}
                   </div>
+                  {onAdminClick && (
+                    <button
+                      onClick={() => {
+                        onAdminClick()
+                        setShowProfileMenu(false)
+                      }}
+                      className="w-full px-4 py-3 text-left text-sm font-medium text-amber-700 hover:bg-amber-50 flex items-center gap-3 transition-all"
+                    >
+                      <Shield className="w-5 h-5 text-amber-600" />
+                      Admin Panel
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       onSettingsClick()

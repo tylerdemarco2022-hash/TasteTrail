@@ -1,4 +1,5 @@
 import menu131Main from './menus/131_Main_Dinner_Menu.json'
+import menuChilis from './menus/Chilis_Menu.json'
 import menuAngelines from './menus/Angelines_Dinner_Menu.json'
 import menuCulinaryDropout from './menus/Culinary_Dropout_Menu.json'
 import menuDeansSteakhouse from './menus/Dean_s_Steakhouse_Menu.json'
@@ -29,5 +30,7 @@ export const menuData = {
   'Sixty Vines': menuSixtyVines,
   'Stir Charlotte': menuStirCharlotte,
   'Supper Land': menuSupperLand,
-  'The Crunkleton': menuTheCrunkleton
+  'The Crunkleton': menuTheCrunkleton,
+  "Chili's": menuChilis,
+  'Chilis': menuChilis
 }

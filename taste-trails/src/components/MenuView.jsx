@@ -6,6 +6,7 @@ import Reviews from './Reviews'
 import ItemRating from './ItemRating'
 import { API_BASE } from "../config";
 import { inferDietTags } from '../utils/dietTags';
+import { menuData as localMenuData } from '../menuData';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
@@ -367,10 +368,37 @@ export default function MenuView({ post, onBack, showAI }) {
         }
       }
 
+      // Fallback to local static menu data if backend returned nothing
+      if (normalized.sections.length === 0 && restaurantName) {
+        const localKey = Object.keys(localMenuData).find(
+          k => k.toLowerCase() === restaurantName.toLowerCase()
+        )
+        if (localKey && Array.isArray(localMenuData[localKey])) {
+          const localSections = toSectionsFromFlatItems(localMenuData[localKey])
+          if (localSections.length > 0) {
+            console.log(`Using local menu fallback for "${restaurantName}" (${localKey})`)
+            normalized = { name: restaurantName, sections: localSections }
+          }
+        }
+      }
+
       console.log("Normalized fetched menu:", normalized);
       setMenuData(normalized);
     } catch (e) {
       console.error("Menu fetch error:", e.message);
+      // Try local menu fallback before showing error
+      const localKey = Object.keys(localMenuData).find(
+        k => k.toLowerCase() === restaurantName.toLowerCase()
+      )
+      if (localKey && Array.isArray(localMenuData[localKey])) {
+        const localSections = toSectionsFromFlatItems(localMenuData[localKey])
+        if (localSections.length > 0) {
+          console.log(`Using local menu fallback for "${restaurantName}" after error`)
+          setMenuData({ name: restaurantName, sections: localSections })
+          setMenuLoading(false)
+          return
+        }
+      }
       alert(toFetchErrorMessage(e));
       setMenuData({ name: restaurantName || '', sections: [] });
     }
@@ -806,14 +834,10 @@ export default function MenuView({ post, onBack, showAI }) {
     
     switch (filter) {
       case 'TOP_RATED':
-        // Has rating data (check avg_rating or rating fields)
-        const avgRating = Number(item?.avg_rating ?? item?.rating_bayesian ?? item?.rating ?? 0)
-        return avgRating > 0
-        
+        return true // Show all items, sorted by rating (real or fake fallback)
+
       case 'MOST_ORDERED':
-        // Use rating_count as proxy for "most ordered" (most rated)
-        const ratingCount = Number(item?.rating_count ?? item?.ratings_count ?? 0)
-        return ratingCount > 0
+        return true // Show all items, sorted by review count (real or fake fallback)
         
       case 'HEALTHY':
         return tags.includes('healthy')
@@ -874,21 +898,29 @@ export default function MenuView({ post, onBack, showAI }) {
       items: [...section.items].sort((a, b) => {
         // If filter is TOP_RATED or MOST_ORDERED, sort by that metric
         if (activeFilter === 'TOP_RATED') {
-          const ar = Number(a?.avg_rating ?? a?.rating_bayesian ?? a?.rating ?? 0)
-          const br = Number(b?.avg_rating ?? b?.rating_bayesian ?? b?.rating ?? 0)
+          const fakeA = getFakeItemRating(a?.name)
+          const fakeB = getFakeItemRating(b?.name)
+          // Use real rating if available, otherwise fall back to fake rating
+          const ar = Number(a?.avg_rating ?? a?.rating_bayesian ?? a?.rating ?? 0) || Number(fakeA.rating)
+          const br = Number(b?.avg_rating ?? b?.rating_bayesian ?? b?.rating ?? 0) || Number(fakeB.rating)
           if (br !== ar) return br - ar
           // Tie-breaker: more ratings wins
-          const ac = Number(a?.rating_count ?? a?.ratings_count ?? 0)
-          const bc = Number(b?.rating_count ?? b?.ratings_count ?? 0)
+          const ac = Number(a?.rating_count ?? a?.ratings_count ?? 0) || fakeA.count
+          const bc = Number(b?.rating_count ?? b?.ratings_count ?? 0) || fakeB.count
           return bc - ac
         }
         if (activeFilter === 'MOST_ORDERED') {
-          const ac = Number(a?.rating_count ?? a?.ratings_count ?? 0)
-          const bc = Number(b?.rating_count ?? b?.ratings_count ?? 0)
+          const aName = a?.name || ''
+          const bName = b?.name || ''
+          const fakeA = getFakeItemRating(aName)
+          const fakeB = getFakeItemRating(bName)
+          // Sort by actual review count from localStorage, fall back to fake count
+          const ac = (dishRatings[aName]?.reviews?.length ?? dishRatings[aName]?.count ?? 0) || fakeA.count
+          const bc = (dishRatings[bName]?.reviews?.length ?? dishRatings[bName]?.count ?? 0) || fakeB.count
           if (bc !== ac) return bc - ac
           // Tie-breaker: higher avg rating
-          const ar = Number(a?.avg_rating ?? a?.rating_bayesian ?? a?.rating ?? 0)
-          const br = Number(b?.avg_rating ?? b?.rating_bayesian ?? b?.rating ?? 0)
+          const ar = Number(a?.avg_rating ?? a?.rating_bayesian ?? a?.rating ?? 0) || Number(fakeA.rating)
+          const br = Number(b?.avg_rating ?? b?.rating_bayesian ?? b?.rating ?? 0) || Number(fakeB.rating)
           return br - ar
         }
         if (activeFilter === 'NEW') {
@@ -900,7 +932,7 @@ export default function MenuView({ post, onBack, showAI }) {
         return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
       })
     }))
-  }, [displaySections, activeFilter, itemMatchesFilter])
+  }, [displaySections, activeFilter, itemMatchesFilter, dishRatings])
 
   const categoryTabs = React.useMemo(() => {
     const allCount = categorySections.reduce((sum, section) => sum + section.items.length, 0)
