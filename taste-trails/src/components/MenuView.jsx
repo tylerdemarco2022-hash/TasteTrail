@@ -5,6 +5,7 @@ import { posts, restaurants as allRestaurants } from '../data'
 import Reviews from './Reviews'
 import ItemRating from './ItemRating'
 import { API_BASE } from "../config";
+import { inferDietTags } from '../utils/dietTags';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
@@ -748,51 +749,51 @@ export default function MenuView({ post, onBack, showAI }) {
     return 'Other'
   }
 
+  // Helper to get tags (prefer item.tags, fallback to inferred)
+  const getTags = React.useCallback((item) => {
+    return Array.isArray(item?.tags) && item.tags.length > 0 ? item.tags : inferDietTags(item)
+  }, [])
+
   // Helper function to check if item matches filter criteria
   const itemMatchesFilter = React.useCallback((item, filter) => {
     if (!filter) return true
     
-    const name = String(item?.name || item?.dish_name || item?.dish || '').toLowerCase()
-    const description = String(item?.description || '').toLowerCase()
-    const tags = Array.isArray(item?.tags) ? item.tags : []
-    const price = parseFloat(item?.price || 0)
+    const tags = getTags(item)
     
     switch (filter) {
       case 'TOP_RATED':
-        // Has rating data (either bayesian or local)
-        return (item?.rating_bayesian && item?.rating_count > 0) || item?.rating
+        // Has rating data (check avg_rating or rating fields)
+        const avgRating = Number(item?.avg_rating ?? item?.rating_bayesian ?? item?.rating ?? 0)
+        return avgRating > 0
         
       case 'MOST_ORDERED':
-        // Has order count data
-        return item?.order_count && item.order_count > 0
+        // Use rating_count as proxy for "most ordered" (most rated)
+        const ratingCount = Number(item?.rating_count ?? item?.ratings_count ?? 0)
+        return ratingCount > 0
         
       case 'HEALTHY':
-        // Check tags or keywords in name/description
-        return tags.includes('healthy') || 
-               /\b(salad|grilled|steamed|fresh|organic|quinoa|kale|avocado)\b/i.test(name + ' ' + description)
-        
-      case 'UNDER_10':
-        return price > 0 && price <= 10
+        return tags.includes('healthy')
         
       case 'VEGETARIAN':
-        // Check is_vegetarian flag or tags or keywords
-        return item?.is_vegetarian === true || 
-               tags.includes('vegetarian') || 
-               /\b(vegetarian|veggie)\b/i.test(name + ' ' + description)
+        return tags.includes('vegetarian')
         
       case 'SPICY':
-        // Check tags or keywords
-        return tags.includes('spicy') || 
-               /\b(spicy|hot|chili|jalape[ñn]o|sriracha|curry)\b/i.test(name + ' ' + description) ||
-               /🌶/.test(name + ' ' + description)
+        return tags.includes('spicy')
         
-      case 'NEW':
-        return item?.is_new === true
+      case 'NEW': {
+        // If is_new flag exists, use it; otherwise check created_at (last 14 days)
+        if (item?.is_new === true) return true
+        if (item?.created_at) {
+          const cutoff = Date.now() - (14 * 24 * 60 * 60 * 1000)
+          return new Date(item.created_at).getTime() >= cutoff
+        }
+        return false
+      }
         
       default:
         return true
     }
-  }, [])
+  }, [getTags])
 
   const categorySections = React.useMemo(() => {
     const groups = new Map()
@@ -829,14 +830,28 @@ export default function MenuView({ post, onBack, showAI }) {
       items: [...section.items].sort((a, b) => {
         // If filter is TOP_RATED or MOST_ORDERED, sort by that metric
         if (activeFilter === 'TOP_RATED') {
-          const ratingA = parseFloat(a?.rating_bayesian || a?.rating || 0)
-          const ratingB = parseFloat(b?.rating_bayesian || b?.rating || 0)
-          if (ratingB !== ratingA) return ratingB - ratingA
+          const ar = Number(a?.avg_rating ?? a?.rating_bayesian ?? a?.rating ?? 0)
+          const br = Number(b?.avg_rating ?? b?.rating_bayesian ?? b?.rating ?? 0)
+          if (br !== ar) return br - ar
+          // Tie-breaker: more ratings wins
+          const ac = Number(a?.rating_count ?? a?.ratings_count ?? 0)
+          const bc = Number(b?.rating_count ?? b?.ratings_count ?? 0)
+          return bc - ac
         }
         if (activeFilter === 'MOST_ORDERED') {
-          const orderA = parseInt(a?.order_count || 0)
-          const orderB = parseInt(b?.order_count || 0)
-          if (orderB !== orderA) return orderB - orderA
+          const ac = Number(a?.rating_count ?? a?.ratings_count ?? 0)
+          const bc = Number(b?.rating_count ?? b?.ratings_count ?? 0)
+          if (bc !== ac) return bc - ac
+          // Tie-breaker: higher avg rating
+          const ar = Number(a?.avg_rating ?? a?.rating_bayesian ?? a?.rating ?? 0)
+          const br = Number(b?.avg_rating ?? b?.rating_bayesian ?? b?.rating ?? 0)
+          return br - ar
+        }
+        if (activeFilter === 'NEW') {
+          // Sort newest first
+          const aTime = a?.created_at ? new Date(a.created_at).getTime() : 0
+          const bTime = b?.created_at ? new Date(b.created_at).getTime() : 0
+          if (bTime !== aTime) return bTime - aTime
         }
         return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
       })
@@ -886,6 +901,7 @@ export default function MenuView({ post, onBack, showAI }) {
     const newRatings = [...(existing.ratings || []), reviewData.rating]
     const newCount = newRatings.length
     const newSum = newRatings.reduce((a, b) => a + b, 0)
+    const newAverage = newSum / newCount
     
     // Add review details
     const newReviews = [...(existing.reviews || []), reviewData]
@@ -896,13 +912,57 @@ export default function MenuView({ post, onBack, showAI }) {
         ratings: newRatings,
         count: newCount,
         sum: newSum,
-        average: newSum / newCount,
+        average: newAverage,
         reviews: newReviews
       }
     }
     
     setDishRatings(updated)
     localStorage.setItem(`dishRatings-${restaurantKey}`, JSON.stringify(updated))
+
+    // OPTIMISTIC UPDATE: Update menu items in state immediately
+    const updateMenuItem = (item) => {
+      const itemName = item?.name || item?.dish_name || item?.dish || ''
+      if (itemName.toLowerCase() !== reviewData.dishName.toLowerCase()) return item
+
+      const oldAvg = Number(item?.avg_rating ?? item?.rating_bayesian ?? item?.rating ?? 0)
+      const oldCount = Number(item?.rating_count ?? item?.ratings_count ?? 0)
+      const hadMyRating = item?.my_rating != null
+      const newItemCount = hadMyRating ? oldCount : oldCount + 1
+      const newItemAvg = hadMyRating
+        ? oldAvg
+        : ((oldAvg * oldCount) + Number(reviewData.rating)) / Math.max(newItemCount, 1)
+
+      return {
+        ...item,
+        my_rating: Number(reviewData.rating),
+        avg_rating: Number.isFinite(newItemAvg) ? Number(newItemAvg.toFixed(1)) : oldAvg,
+        rating: Number.isFinite(newItemAvg) ? Number(newItemAvg.toFixed(1)) : oldAvg,
+        rating_count: newItemCount,
+        ratings_count: newItemCount
+      }
+    }
+
+    // Update all menu sources
+    if (Array.isArray(fetchedMenu)) {
+      setFetchedMenu(prev => prev.map(updateMenuItem))
+    }
+    if (Array.isArray(aiMenu)) {
+      setAiMenu(prev => prev.map(updateMenuItem))
+    }
+    if (Array.isArray(post.menu)) {
+      post.menu = post.menu.map(updateMenuItem)
+    }
+    // Update menuData sections if present
+    if (menuData?.sections) {
+      setMenuData(prev => ({
+        ...prev,
+        sections: prev.sections.map(section => ({
+          ...section,
+          items: section.items.map(updateMenuItem)
+        }))
+      }))
+    }
 
     // Persist to "My Ratings" for profile tab
     try {
@@ -1203,31 +1263,6 @@ export default function MenuView({ post, onBack, showAI }) {
             }}
           >
             🥗 Healthy
-          </button>
-
-          <button
-            onClick={() => setActiveFilter(activeFilter === 'UNDER_10' ? null : 'UNDER_10')}
-            style={{
-              border: 'none',
-              padding: '8px 14px',
-              borderRadius: 20,
-              background: activeFilter === 'UNDER_10' ? '#f59e0b' : '#f3f3f3',
-              color: activeFilter === 'UNDER_10' ? 'white' : '#374151',
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
-              fontSize: 14,
-              fontWeight: 600,
-              transition: 'all 0.2s ease',
-              boxShadow: activeFilter === 'UNDER_10' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none'
-            }}
-            onMouseEnter={(e) => {
-              if (activeFilter !== 'UNDER_10') e.target.style.background = '#e0e0e0'
-            }}
-            onMouseLeave={(e) => {
-              if (activeFilter !== 'UNDER_10') e.target.style.background = '#f3f3f3'
-            }}
-          >
-            💲 Under $10
           </button>
 
           <button
