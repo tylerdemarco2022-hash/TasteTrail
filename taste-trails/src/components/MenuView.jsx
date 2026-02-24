@@ -189,12 +189,56 @@ export default function MenuView({ post, onBack, showAI }) {
     const saved = localStorage.getItem(`dishRatings-${post.restaurant || post.name}`)
     if (saved) {
       try {
-        setDishRatings(JSON.parse(saved))
+        const loaded = JSON.parse(saved)
+        setDishRatings(loaded)
+        const dishCount = Object.keys(loaded).length
+        const totalReviews = Object.values(loaded).reduce((sum, dish) => sum + (dish.count || 0), 0)
+        console.log(`📖 Loaded ${totalReviews} reviews for ${dishCount} dishes from localStorage`)
       } catch (e) {
         console.warn('Failed to load dish ratings:', e)
       }
     }
   }, [post.restaurant, post.name])
+
+  // Hydrate menu items with stored review data whenever dishRatings changes
+  React.useEffect(() => {
+    if (!dishRatings || Object.keys(dishRatings).length === 0) return
+
+    const hydrateItemWithReviews = (item) => {
+      const itemName = item?.name || item?.dish_name || item?.dish || ''
+      const dishData = dishRatings[itemName]
+      
+      if (!dishData || !dishData.count) return item
+
+      // Update item with complete review data from localStorage
+      return {
+        ...item,
+        avg_rating: Number(dishData.average.toFixed(1)),
+        rating: Number(dishData.average.toFixed(1)),
+        rating_bayesian: Number(dishData.average.toFixed(1)),
+        rating_count: dishData.count,
+        ratings_count: dishData.count,
+        all_reviews: dishData.reviews
+      }
+    }
+
+    // Hydrate all menu sources
+    if (Array.isArray(fetchedMenu) && fetchedMenu.length > 0) {
+      setFetchedMenu(prev => prev.map(hydrateItemWithReviews))
+    }
+    if (Array.isArray(aiMenu) && aiMenu.length > 0) {
+      setAiMenu(prev => prev.map(hydrateItemWithReviews))
+    }
+    if (menuData?.sections) {
+      setMenuData(prev => ({
+        ...prev,
+        sections: prev.sections.map(section => ({
+          ...section,
+          items: section.items.map(hydrateItemWithReviews)
+        }))
+      }))
+    }
+  }, [dishRatings]) // Re-run when dishRatings changes (on load or after rating)
 
   React.useEffect(() => {
     // Always try to fetch full menu from backend when menu view opens
@@ -903,8 +947,14 @@ export default function MenuView({ post, onBack, showAI }) {
     const newSum = newRatings.reduce((a, b) => a + b, 0)
     const newAverage = newSum / newCount
     
-    // Add review details
-    const newReviews = [...(existing.reviews || []), reviewData]
+    // Add review details (store complete review with timestamp, user, comment, photo)
+    const newReviews = [...(existing.reviews || []), {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+      photo: reviewData.photo,
+      timestamp: Date.now(),
+      dishName: reviewData.dishName
+    }]
     
     const updated = {
       ...dishRatings,
@@ -917,29 +967,32 @@ export default function MenuView({ post, onBack, showAI }) {
       }
     }
     
+    console.log(`✅ Stored review #${newCount} for "${reviewData.dishName}": ${reviewData.rating}/10. New avg: ${newAverage.toFixed(1)}`)
+    console.log(`📊 All reviews for "${reviewData.dishName}":`, newReviews)
+    
     setDishRatings(updated)
     localStorage.setItem(`dishRatings-${restaurantKey}`, JSON.stringify(updated))
 
-    // OPTIMISTIC UPDATE: Update menu items in state immediately
+    // OPTIMISTIC UPDATE: Update menu items in state immediately using COMPLETE review data
     const updateMenuItem = (item) => {
       const itemName = item?.name || item?.dish_name || item?.dish || ''
       if (itemName.toLowerCase() !== reviewData.dishName.toLowerCase()) return item
 
-      const oldAvg = Number(item?.avg_rating ?? item?.rating_bayesian ?? item?.rating ?? 0)
-      const oldCount = Number(item?.rating_count ?? item?.ratings_count ?? 0)
-      const hadMyRating = item?.my_rating != null
-      const newItemCount = hadMyRating ? oldCount : oldCount + 1
-      const newItemAvg = hadMyRating
-        ? oldAvg
-        : ((oldAvg * oldCount) + Number(reviewData.rating)) / Math.max(newItemCount, 1)
+      // Use the COMPLETE calculated average from ALL stored reviews
+      const dishData = updated[reviewData.dishName]
+      const trueAverage = dishData.average
+      const trueCount = dishData.count
 
       return {
         ...item,
         my_rating: Number(reviewData.rating),
-        avg_rating: Number.isFinite(newItemAvg) ? Number(newItemAvg.toFixed(1)) : oldAvg,
-        rating: Number.isFinite(newItemAvg) ? Number(newItemAvg.toFixed(1)) : oldAvg,
-        rating_count: newItemCount,
-        ratings_count: newItemCount
+        avg_rating: Number(trueAverage.toFixed(1)),
+        rating: Number(trueAverage.toFixed(1)),
+        rating_bayesian: Number(trueAverage.toFixed(1)),
+        rating_count: trueCount,
+        ratings_count: trueCount,
+        // Store all reviews with the item for transparency
+        all_reviews: dishData.reviews
       }
     }
 
