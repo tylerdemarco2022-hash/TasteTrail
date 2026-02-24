@@ -372,50 +372,51 @@ function extractMenuLinks(html, baseUrl) {
 }
 
 async function searchDuckDuckGo(query) {
-  const url = `https://duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
-  const html = await fetchText(url);
-  if (!html) return [];
-  const results = [];
-  const linkRegex = /<a[^>]+class="result__a"[^>]+href="([^"]+)"/gi;
-  let match;
-  while ((match = linkRegex.exec(html)) !== null) {
-    results.push(match[1]);
-  }
-  return uniqueUrls(results);
+  return { external_search_disabled: true };
+  // DuckDuckGo scraping disabled.
+  // const url = `https://duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+  // const html = await fetchText(url);
+  // if (!html) return [];
+  // const results = [];
+  // const linkRegex = /<a[^>]+class="result__a"[^>]+href="([^"]+)"/gi;
+  // let match;
+  // while ((match = linkRegex.exec(html)) !== null) {
+  //   results.push(match[1]);
+  // }
+  // return uniqueUrls(results);
 }
 
 async function openaiSuggestUrls(restaurantName, location) {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) return [];
-
-  const prompt = `Find official menu URLs for the restaurant "${restaurantName}" in ${location}. Include platform URLs if the official site is unclear (SinglePlatform, Popmenu, ToastTab, Clover, ChowNow, Square, Menufy, BentoBox). Return a JSON array of URLs only.`;
-
-  try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: OPENAI_MODEL,
-        messages: [
-          { role: 'system', content: 'You are a web research assistant.' },
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.2
-      })
-    });
-
-    const data = await res.json();
-    const text = data?.choices?.[0]?.message?.content || '';
-    const match = text.match(/\[[\s\S]*\]/);
-    if (!match) return [];
-    const urls = JSON.parse(match[0]);
-    return Array.isArray(urls) ? uniqueUrls(urls) : [];
-  } catch (err) {
-    return [];
-  }
+  return { ai_disabled: true };
+  // OpenAI disabled.
+  // const apiKey = process.env.OPENAI_API_KEY;
+  // if (!apiKey) return [];
+  // const prompt = `Find official menu URLs for the restaurant "${restaurantName}" in ${location}. Include platform URLs if the official site is unclear (SinglePlatform, Popmenu, ToastTab, Clover, ChowNow, Square, Menufy, BentoBox). Return a JSON array of URLs only.`;
+  // try {
+  //   const res = await fetch('https://api.openai.com/v1/chat/completions', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${apiKey}`
+  //     },
+  //     body: JSON.stringify({
+  //       model: OPENAI_MODEL,
+  //       messages: [
+  //         { role: 'system', content: 'You are a web research assistant.' },
+  //         { role: 'user', content: prompt }
+  //       ],
+  //       temperature: 0.2
+  //     })
+  //   });
+  //   const data = await res.json();
+  //   const text = data?.choices?.[0]?.message?.content || '';
+  //   const match = text.match(/\[[\s\S]*\]/);
+  //   if (!match) return [];
+  //   const urls = JSON.parse(match[0]);
+  //   return Array.isArray(urls) ? uniqueUrls(urls) : [];
+  // } catch (err) {
+  //   return [];
+  // }
 }
 
 async function findMenuUrls(restaurantName, location) {
@@ -423,7 +424,11 @@ async function findMenuUrls(restaurantName, location) {
 
   // OpenAI suggestions
   const openaiUrls = await openaiSuggestUrls(restaurantName, location);
-  urls.push(...openaiUrls);
+  if (Array.isArray(openaiUrls)) {
+    urls.push(...openaiUrls);
+  } else if (openaiUrls && openaiUrls.ai_disabled) {
+    console.log('OpenAI suggestions disabled')
+  }
 
   // Platform patterns
   urls.push(...buildPlatformUrls(restaurantName, location));
@@ -444,7 +449,11 @@ async function findMenuUrls(restaurantName, location) {
   ];
   for (const q of queries) {
     const results = await searchDuckDuckGo(q);
-    urls.push(...results);
+    if (Array.isArray(results)) {
+      urls.push(...results);
+    } else if (results && results.external_search_disabled) {
+      console.log('DuckDuckGo search disabled')
+    }
   }
 
   return filterCandidateUrls(uniqueUrls(urls), restaurantName);

@@ -25,18 +25,21 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
     }
 
     setLoading(true)
-
-    const result = await onSignup(email, password, name)
-    
-    if (result.success) {
-      // Account created successfully - redirect to login
-      alert('Account created successfully! Please log in with your credentials.')
-      onSwitchToLogin()
-    } else {
-      setError(result.error || 'Signup failed')
+    try {
+      const result = await onSignup(email, password, name)
+      
+      if (result?.success) {
+        // Account created successfully - redirect to login
+        alert('Account created successfully! Please log in with your credentials.')
+        onSwitchToLogin()
+      } else {
+        setError(result?.error || 'Signup failed')
+      }
+    } catch (e) {
+      setError(e?.message || 'Signup failed')
+    } finally {
+      setLoading(false)
     }
-    
-    setLoading(false)
   }
 
   return (

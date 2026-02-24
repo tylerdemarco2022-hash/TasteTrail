@@ -1,3 +1,21 @@
+// === IMPORTS (must be at top) ===
+import axios from 'axios';
+import logger from '../services/logger.js';
+import * as pdfParseModule from 'pdf-parse';
+import { PDFParse } from 'pdf-parse';
+import { Buffer } from 'buffer';
+import * as cheerioModule from 'cheerio';
+const cheerio = cheerioModule;
+import { detectPlatform } from '../adapters/detectPlatform.js';
+import toastAdapter from '../adapters/toastAdapter.js';
+import focusPosAdapter from '../adapters/focusPosAdapter.js';
+import bentoBoxAdapter from '../adapters/bentoBoxAdapter.js';
+import staticHtmlAdapter from '../adapters/staticHtmlAdapter.js';
+
+// Puppeteer will be dynamically imported in menuScraperAgent function
+
+// ===  ADAPTERS AND HELPER FUNCTIONS ===
+
 // GraphQL Menu Adapter
 async function graphqlMenuAdapter({ graphqlEndpoint, query, variables, headers }) {
   try {
@@ -64,15 +82,8 @@ function isEligibleRestaurantDomain(domain, homepageHtml) {
   }
   return { eligible: true };
 }
-import axios from 'axios';
-import logger from '../services/logger.js';
-import * as pdfParseModule from 'pdf-parse';
-import { PDFParse } from 'pdf-parse';
-import { Buffer } from 'buffer';
 
-// Puppeteer will be dynamically imported below
-
-const PDF_CONTENT_TYPES = ['application/pdf'];
+// =========================================================
 
 async function fetchUrlHead(url) {
   try {
@@ -513,6 +524,26 @@ async function extractPdfMenu(url, restaurantName) {
 }
 
 async function menuScraperAgent(restaurant) {
+  // === INITIALIZE PUPPETEER FIRST (before any usage) ===
+  let puppeteer;
+  let puppeteerModule;
+  try {
+    puppeteerModule = await import('puppeteer');
+    // Try .default, then direct module
+    if (puppeteerModule && typeof puppeteerModule.default === 'function' && typeof puppeteerModule.default.launch === 'function') {
+      puppeteer = puppeteerModule.default;
+    } else if (puppeteerModule && typeof puppeteerModule.launch === 'function') {
+      puppeteer = puppeteerModule;
+    } else if (puppeteerModule && typeof puppeteerModule.default === 'object' && typeof puppeteerModule.default.launch === 'function') {
+      puppeteer = puppeteerModule.default;
+    } else {
+      puppeteer = undefined;
+    }
+  } catch (err) {
+    console.error("[PUPPETEER_INIT_ERROR]", err.message);
+    puppeteer = undefined;
+  }
+
                                                       // Network Interception Mode
                                                       async function networkInterceptionMode(page) {
                                                         let apiInterceptUsed = false;
@@ -989,7 +1020,7 @@ async function menuScraperAgent(restaurant) {
         };
       }
 
-      // --- Fallback text-block parser for WordPress visual-builder menus ---
+      // --- STRENGTHENED GENERIC FALLBACK TEXT PARSER ---
       async function runTextBlockParser(page) {
         // Step 1: Extract and preprocess lines
         let text = await page.evaluate(() => {
@@ -999,7 +1030,6 @@ async function menuScraperAgent(restaurant) {
           if (fusion && fusion.innerText) return fusion.innerText;
           return "";
         });
-        // Debug logging for text extraction
         console.log("TEXT_BLOCK_INNER_TEXT_LENGTH", text.length);
         console.log("TEXT_BLOCK_INNER_TEXT_PREVIEW", text.slice(0, 2000));
 
@@ -1007,139 +1037,153 @@ async function menuScraperAgent(restaurant) {
           .map(l => l.trim().replace(/\s+/g, " "))
           .filter(l => l.length > 0);
 
-        // Step 2: Price regex
+        // Step 2: Price detection patterns
         const priceRegex = /\$?\d{1,3}(\.\d{1,2})?$/;
+        const pricePatternInline = /\$\d+(\.\d{2})?/;
+        const allCapsPattern = /^[A-Z\s]+$/;
 
-        // Step 3-5: Section and item detection
+        // Step 3-5: Enhanced section and item detection
         let sections = [];
         let currentSection = null;
         let currentItem = null;
+        
         for (let i = 0; i < lines.length; i++) {
           const line = lines[i];
           const nextLine = lines[i + 1] || "";
 
-          // Section header: short, not price, next line is price
+          // HEADING DETECTION: ALL CAPS lines under 40 chars = potential section header
           if (
+            allCapsPattern.test(line) &&
+            line.length < 40 &&
+            line.length > 3
+          ) {
+            // Save previous section if it has items
+            if (currentSection && currentSection.items && currentSection.items.length > 0) {
+              // Already in sections
+            }
+            currentSection = { name: line, items: [] };
+            sections.push(currentSection);
+            console.log(`[HEADING_DETECTED] ${line}`);
+            continue;
+          }
+
+          // Section header fallback: short, not price, next line is price
+          if (
+            !allCapsPattern.test(line) &&
             line.length < 40 &&
             !priceRegex.test(line) &&
             priceRegex.test(nextLine)
           ) {
-            currentSection = { section: line, items: [] };
+            if (currentSection && currentSection.items && currentSection.items.length > 0) {
+              // Already in sections
+            }
+            currentSection = { name: line, items: [] };
             sections.push(currentSection);
             continue;
           }
 
           // If no section yet, create default
           if (!currentSection) {
-            currentSection = { section: "Uncategorized", items: [] };
+            currentSection = { name: "Menu", items: [] };
             sections.push(currentSection);
           }
 
-          // Item detection: line ends with price
-          if (priceRegex.test(line)) {
-            // Extract price
-            const priceMatch = line.match(priceRegex);
+          // ITEM DETECTION: Line with price pattern
+          if (priceRegex.test(line) || pricePatternInline.test(line)) {
+            const priceMatch = line.match(priceRegex) || line.match(pricePatternInline);
             const price = priceMatch ? priceMatch[0] : null;
-            let name = line.replace(priceRegex, "").trim();
+            let name = line.replace(priceRegex, "").replace(pricePatternInline, "").trim();
             let description = "";
 
-            // Check next line for description
+            // Attach next non-price line as description (if under 120 chars)
             if (
               nextLine &&
               !priceRegex.test(nextLine) &&
-              nextLine.length < 80
+              !allCapsPattern.test(nextLine) &&
+              nextLine.length < 120
             ) {
               description = nextLine;
             }
 
-            currentSection.items.push({
-              name,
-              price,
-              description
-            });
+            if (name && name.length > 0) {
+              currentSection.items.push({
+                name,
+                price,
+                description
+              });
+              console.log(`[ITEM_DETECTED] ${name} | ${price}`);
+            }
             continue;
           }
         }
 
-        // Log first 3 items for inspection
-        let first3Items = [];
-        for (const s of sections) {
-          for (const item of s.items) {
-            if (first3Items.length < 3) first3Items.push(item);
-          }
-        }
-        console.log("TEXT_BLOCK_FIRST_3_ITEMS", JSON.stringify(first3Items, null, 2));
-        return sections;
+        // Remove empty sections before returning (only push if items.length > 0)
+        let validSections = sections.filter(s => s && s.items && s.items.length > 0);
+        console.log(`[TEXT_PARSER_RESULT] ${validSections.length} sections, ${validSections.reduce((t, s) => t + s.items.length, 0)} items`);
+        
+        return validSections;
       }
 
+    // GUARD menu_sections INITIALIZATION (top-level, once only)
     let out = {
       restaurant: restaurant?.name || null,
       menu_sections: []
     };
-      let browser = null;
-      let page = null;
-      let html = "";
-      let hostingPlatform = "unknown";
-      let menuPlatform = "unknown";
-      let extractionStrategy = "unknown";
-      let headers = {};
-      let scripts = [];
-      let currentUrl = "";
-      let scriptMatches = [];
-      let iframeMatches = [];
-      let anchorMatches = [];
-      let itemsPerSection = [];
-      let totalItems = 0;
-      let totalSections = 0;
-      sections = [];
-      fallbackTriggered = false;
-      fallbackSections = [];
-      first3Items = [];
-      sample_alignment = null;
+    
+    // Ensure menu_sections never undefined
+    if (!out.menu_sections) {
+      out.menu_sections = [];
+    }
+    
+    // === DECLARE ALL SHARED VARIABLES AT FUNCTION LEVEL ===
+    let browser = null;
+    let page = null;
+    let html = "";
+    let hostingPlatform = "unknown";
+    let menuPlatform = "unknown";
+    let extractionStrategy = "unknown";
+    let headers = {};
+    let scripts = [];
+    let currentUrl = "";
+    let scriptMatches = [];
+    let iframeMatches = [];
+    let anchorMatches = [];
+    let itemsPerSection = [];
+    let totalItems = 0;
+    let totalSections = 0;
+    let sections = [];
+    let fallbackTriggered = false;
+    let fallbackSections = [];
+    let first3Items = [];
+    let sample_alignment = null;
+    let adapterResult = null;
+    let twoHopUsed = true;
+    let originalUrl = "";
+    let detectedEndpoints = [];
+    let apiDetected = false;
+    let autoRoutedAdapter = null;
 
-      let puppeteer;
-      let puppeteerModule = await import('puppeteer');
-      // Try .default, then direct module
-      if (puppeteerModule && typeof puppeteerModule.default === 'function' && typeof puppeteerModule.default.launch === 'function') {
-        puppeteer = puppeteerModule.default;
-      } else if (puppeteerModule && typeof puppeteerModule.launch === 'function') {
-        puppeteer = puppeteerModule;
-      } else if (puppeteerModule && typeof puppeteerModule.default === 'object' && typeof puppeteerModule.default.launch === 'function') {
-        puppeteer = puppeteerModule.default;
-      } else {
-        puppeteer = undefined;
-      }
-      const puppeteerDiagnostics = {
-        PUPPETEER_MODULE_TYPE: typeof puppeteerModule,
-        PUPPETEER_MODULE_DEFAULT_TYPE: typeof puppeteerModule?.default,
-        PUPPETEER_MODULE_KEYS: Object.keys(puppeteerModule || {}),
-        PUPPETEER_TYPE: typeof puppeteer,
-        HAS_LAUNCH: typeof puppeteer?.launch
-      };
-      console.log("PUPPETEER_DIAGNOSTICS", JSON.stringify(puppeteerDiagnostics, null, 2));
+      // Initialize browser and page from puppeteer
       if (!puppeteer || typeof puppeteer.launch !== 'function') {
-        console.log("BROWSER_LAUNCH_ERROR", "Puppeteer launch function not found");
+        console.log("[ERROR] Puppeteer not initialized properly");
         return {
-          launchError: true,
-          message: 'Puppeteer launch function not found'
+          error: true,
+          message: 'Puppeteer initialization failed'
         };
       }
-      try {
-        browser = await puppeteer.launch({
-          headless: "new",
-          args: ["--no-sandbox", "--disable-setuid-sandbox"]
-        });
-      } catch (err) {
-        console.log("BROWSER_LAUNCH_ERROR", err?.stack || err);
-        return {
-          launchError: true,
-          message: err.message
-        };
-      }
-
+      browser = await puppeteer.launch({
+        headless: "new",
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
+      });
       page = await browser.newPage();
-      await page.goto(restaurant.menuUrl || restaurant.website, { waitUntil: "networkidle2" });
+
+      console.log("[STAGE] Before goto");
+      await page.goto(restaurant.menuUrl || restaurant.website, { 
+        waitUntil: "domcontentloaded",
+        timeout: 20000
+      });
       currentUrl = page.url();
+      console.log("[STAGE] After goto");
       console.log("NAVIGATED_TO_URL:", currentUrl);
 
       // --- Wait-for-Text-Length-Stability and menu-like keyword ---
@@ -1419,12 +1463,17 @@ async function menuScraperAgent(restaurant) {
   }
 
   // --- MENU PLATFORM DETECTION (for routing) ---
+  // Call detectPlatform helper (returns { platform, confidence, signals })
   let platformResult = detectPlatform({ html, headers, scripts, url: currentUrl });
-  menuPlatform = platformResult.platform || 'unknown';
-  if (menuPlatform === 'wordpress' || menuPlatform === 'wix' || menuPlatform === 'squarespace') {
-    // These are only hosting platforms, not menu platforms
-    menuPlatform = 'custom-html';
+  let detectedPlatform = platformResult?.platform || null;
+  
+  // Map hosting platforms to generic fallback
+  if (detectedPlatform === 'wordpress' || detectedPlatform === 'wix' || detectedPlatform === 'squarespace') {
+    detectedPlatform = 'custom-html';
   }
+  
+  // Always ensure platform is never null - fallback to generic
+  menuPlatform = detectedPlatform || 'generic';
   extractionStrategy = menuPlatform;
   console.log('[PLATFORM_DETECTION]', {
     url: currentUrl,
@@ -1437,9 +1486,15 @@ async function menuScraperAgent(restaurant) {
   });
 
   // --- ENFORCE REAL TWO-HOP ---
-  let twoHopUsed = false;
+  console.log("[STAGE] Before two-hop");
+  twoHopUsed = false;
   let twoHopResult = null;
-  let originalUrl = currentUrl;
+  originalUrl = currentUrl;
+  
+  // Hard timeout for two-hop logic: max 5 seconds
+  const twoHopTimeout = 5000;
+  const twoHopStartTime = Date.now();
+  
   if (menuPlatform === 'custom-html' || menuPlatform === 'unknown') {
     const $ = cheerio.load(html);
     const allLinks = $('a').map((i, el) => ({
@@ -1461,12 +1516,17 @@ async function menuScraperAgent(restaurant) {
       selectedLink
     });
     if (selectedLink && selectedLink.href) {
-      twoHopUsed = true;
-      let hopUrl = selectedLink.href;
-      if (!/^https?:\/\//.test(hopUrl)) {
-        hopUrl = new URL(hopUrl, currentUrl).href;
-      }
-      try {
+      // Check timeout before attempting hop
+      const twoHopElapsed = Date.now() - twoHopStartTime;
+      if (twoHopElapsed > twoHopTimeout) {
+        console.warn(`[TWO_HOP_TIMEOUT] Exceeded ${twoHopTimeout}ms, skipping two-hop navigation`);
+      } else {
+        twoHopUsed = true;
+        let hopUrl = selectedLink.href;
+        if (!/^https?:\/\//.test(hopUrl)) {
+          hopUrl = new URL(hopUrl, currentUrl).href;
+        }
+        try {
         const res = await axios.get(hopUrl, { timeout: 20000 });
         html = res.data;
         headers = res.headers || {};
@@ -1482,10 +1542,15 @@ async function menuScraperAgent(restaurant) {
         anchorMatches = $hop('a').map((i, el) => $hop(el).attr('href')).get().filter(Boolean);
         // Re-run menu platform detection after hop
         platformResult = detectPlatform({ html, headers, scripts, url: currentUrl });
-        menuPlatform = platformResult.platform || 'unknown';
-        if (menuPlatform === 'wordpress' || menuPlatform === 'wix' || menuPlatform === 'squarespace') {
-          menuPlatform = 'custom-html';
+        detectedPlatform = platformResult?.platform || null;
+        
+        // Map hosting platforms to generic fallback
+        if (detectedPlatform === 'wordpress' || detectedPlatform === 'wix' || detectedPlatform === 'squarespace') {
+          detectedPlatform = 'custom-html';
         }
+        
+        // Always ensure platform is never null
+        menuPlatform = detectedPlatform || 'generic';
         extractionStrategy = menuPlatform;
         console.log('[PLATFORM_DETECTION]', {
           url: currentUrl,
@@ -1500,8 +1565,9 @@ async function menuScraperAgent(restaurant) {
           finalUrl: currentUrl,
           reDetectedPlatform: menuPlatform
         });
-      } catch (err) {
-        logger.warn(`[TWO_HOP_NAVIGATION_FAILED] ${err.message}`);
+        } catch (err) {
+          logger.warn(`[TWO_HOP_NAVIGATION_FAILED] ${err.message}`);
+        }
       }
     }
     // Only assign method = two-hop-structured if URL changed
@@ -1513,9 +1579,9 @@ async function menuScraperAgent(restaurant) {
       twoHopUsed = false;
     }
   }
+  console.log("[STAGE] After two-hop");
 
   // Route to adapter (do not modify extraction logic)
-  let adapterResult;
   let adapter = null;
   // GraphQL Menu API Detection Layer
   let graphqlDetected = false;
@@ -1538,9 +1604,7 @@ async function menuScraperAgent(restaurant) {
     adapter = async (args) => graphqlMenuAdapter({ graphqlEndpoint, query: graphqlQuery, variables: graphqlVariables, headers: graphqlHeaders });
   } else {
     // Generic REST Menu API Detection Layer
-    let apiDetected = false;
-    let detectedEndpoints = [];
-    let autoRoutedAdapter = null;
+    detectedEndpoints = [];
     const candidateEndpoints = [
       '/api/menu/categories',
       '/api/menu/items'
@@ -1572,23 +1636,29 @@ async function menuScraperAgent(restaurant) {
       switch (menuPlatform) {
         case 'toast':
           adapter = toastAdapter;
+          extractionStrategy = 'toast-pos';
           break;
         case 'focuspos':
           adapter = focusPosAdapter;
+          extractionStrategy = 'focuspos-pos';
           break;
         case 'bentobox':
           adapter = bentoBoxAdapter;
+          extractionStrategy = 'bentobox-pos';
           break;
         case 'pdf':
           adapter = adapter;
+          extractionStrategy = 'pdf-menu';
           break;
         case 'static':
           adapter = staticHtmlAdapter;
+          extractionStrategy = 'static-html';
           break;
         case 'custom-html':
         case 'unknown':
         default:
           adapter = staticHtmlAdapter;
+          extractionStrategy = 'static-html-fallback';
           break;
       }
     }
@@ -1596,12 +1666,7 @@ async function menuScraperAgent(restaurant) {
     pipelineStageReport.apiDetected = apiDetected;
     pipelineStageReport.adapterUsed = autoRoutedAdapter || (adapter && adapter.name) || null;
   }
-  pipelineStageReport.siteType = menuPlatform;
-  pipelineStageReport.apiDetected = apiDetected;
-  pipelineStageReport.adapterUsed = autoRoutedAdapter || (adapter && adapter.name) || null;
-  pipelineStageReport.siteType = menuPlatform;
-  pipelineStageReport.apiDetected = apiDetected;
-  pipelineStageReport.adapterUsed = autoRoutedAdapter || (adapter && adapter.name) || null;
+  
   if (!adapter) {
     console.log("EARLY_RETURN_TRIGGERED");
     console.log("[ADAPTER_ERROR]", { platform: menuPlatform });
@@ -1651,14 +1716,14 @@ async function menuScraperAgent(restaurant) {
   }
 
   // --- REBUILT CONFIDENCE FORMULA ---
-  let items = 0;
+  let adapterItems = 0;
   sections = 0;
   if (Array.isArray(adapterResult.sections)) {
     sections = adapterResult.sections.length;
-    items = adapterResult.sections.reduce((acc, sec) => acc + (Array.isArray(sec.items) ? sec.items.length : 0), 0);
+    adapterItems = adapterResult.sections.reduce((acc, sec) => acc + (Array.isArray(sec.items) ? sec.items.length : 0), 0);
   }
   let priceDensity = 0;
-  if (items > 0 && html) {
+  if (adapterItems > 0 && html) {
     const priceRegex = /(?:\$\s*)?(\d{1,3}(?:\.\d{2})?|\d{1,3}\.|\.\d{2})/g;
     const spanPriceRegex = /<span[^>]*class=["'][^"']*(price|menu-item-price|item-price)[^"']*["'][^>]*>([^<]+)<\/span>/gi;
     let priceMatches = 0;
@@ -1669,28 +1734,28 @@ async function menuScraperAgent(restaurant) {
     while ((match = spanPriceRegex.exec(html)) !== null) {
       priceMatches++;
     }
-    priceDensity = priceMatches / items;
+    priceDensity = priceMatches / adapterItems;
   }
   let structuredSignals = 0;
   if (sections > 0) structuredSignals += 1;
-  if (items > 10) structuredSignals += 1;
+  if (adapterItems > 10) structuredSignals += 1;
   if (priceDensity > 0.2) structuredSignals += 1;
   let finalConfidence = 0;
-  if (items === 0) {
+  if (adapterItems === 0) {
     finalConfidence = 0;
-  } else if (items > 10 && priceDensity > 0.2 && structuredSignals >= 2) {
+  } else if (adapterItems > 10 && priceDensity > 0.2 && structuredSignals >= 2) {
     finalConfidence = Math.min(100, 60 + (structuredSignals - 2) * 20);
-  } else if (items > 5 && priceDensity > 0.15 && structuredSignals >= 2) {
+  } else if (adapterItems > 5 && priceDensity > 0.15 && structuredSignals >= 2) {
     finalConfidence = 40;
   } else {
     finalConfidence = 10;
   }
   if (finalConfidence > 100) finalConfidence = 100;
-  if (!(items > 10 && priceDensity > 0.2 && structuredSignals >= 2) && finalConfidence > 60) {
+  if (!(adapterItems > 10 && priceDensity > 0.2 && structuredSignals >= 2) && finalConfidence > 60) {
     finalConfidence = 60;
   }
   pipelineStageReport.totalSections = sections;
-  pipelineStageReport.totalItems = items;
+  pipelineStageReport.totalItems = adapterItems;
   pipelineStageReport.priceDensity = priceDensity;
   pipelineStageReport.confidence = finalConfidence;
   pipelineStageReport.twoHopUsed = typeof twoHopUsed !== 'undefined' ? twoHopUsed : false;
@@ -1714,6 +1779,7 @@ async function menuScraperAgent(restaurant) {
     fallbackSections = [];
       if (out.menu_sections.length === 0 || finalConfidence < 0.3) {
         fallbackTriggered = true;
+        extractionStrategy = 'fallback-modern-layout';
         console.log(`[STRATEGY_PIVOT]: Primary failed (Score: ${finalConfidence}), switching to ModernLayoutStrategy.`);
         const modernStrategy = new ModernLayoutStrategy(page);
         fallbackSections = await modernStrategy.extractMenuSections();
@@ -1756,7 +1822,7 @@ async function menuScraperAgent(restaurant) {
         summaryObject.sample_alignment = sample_alignment;
       }
   let reason = adapterResult.reason || null;
-  if (items === 0 && !reason) {
+  if (adapterItems === 0 && !reason) {
     reason = "No structured menu data detected after platform routing";
   }
 
@@ -1795,13 +1861,13 @@ async function menuScraperAgent(restaurant) {
     }
   }
   let parsingWarnings = [];
-  if (items === 0) parsingWarnings.push("No menu items extracted");
+  if (adapterItems === 0) parsingWarnings.push("No menu items extracted");
   if (sections === 0) parsingWarnings.push("No menu sections detected");
   if (priceDensity < 0.15) parsingWarnings.push("Low price density");
   if (finalConfidence < 40) parsingWarnings.push("Low confidence score");
   const summaryObject = {
     totalSections: sections,
-    totalItems: items,
+    totalItems: adapterItems,
     itemsPerSection,
     first3Items,
     priceDensity,
@@ -1811,6 +1877,32 @@ async function menuScraperAgent(restaurant) {
   }
   console.log("MENU_EXTRACTION_SUMMARY", JSON.stringify(summaryObject, null, 2));
   try { if (browser) await browser.close(); } catch (e) {}
+  
+  // === ADD DEBUG METRICS LOGGING ===
+  console.log("[SCRAPE_DEBUG] Sections: " + sections);
+  
+  const totalItemsFromSections = adapterResult?.sections?.reduce((sum, s) => sum + (s?.items?.length || 0), 0) || 0;
+  console.log("[SCRAPE_DEBUG] Total Items: " + totalItemsFromSections);
+  
+  console.log("[SCRAPE_DEBUG] Platform: " + menuPlatform);
+  console.log("[SCRAPE_DEBUG] Strategy: " + extractionStrategy);
+  console.log("[SCRAPE_DEBUG] Confidence: " + finalConfidence);
+  
+  // === HARD POST-EXTRACTION VALIDATION ===
+  totalItems = adapterItems || 0;
+  
+  if (!Array.isArray(adapterResult?.sections)) {
+    console.error("[SCRAPE_FATAL] sections is not an array after extraction");
+  }
+  
+  if (totalItems === 0) {
+    console.warn("[SCRAPE_WARNING] Extraction produced 0 items - confidence:", finalConfidence);
+  }
+  
+  console.log("[SCRAPE_RESULT] Sections:", sections);
+  console.log("[SCRAPE_RESULT] Total Items:", totalItems);
+  console.log("[SCRAPE_RESULT] Strategy:", extractionStrategy);
+  
   // Canonical result
   return buildRestaurantResult({
     name: restaurant.name,

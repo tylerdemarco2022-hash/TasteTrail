@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Lock } from "lucide-react";
+import { API_BASE_URL } from "../config/api";
 
 export default function DiscoverPeople() {
   const [query, setQuery] = useState("");
@@ -21,7 +22,7 @@ export default function DiscoverPeople() {
       const token = localStorage.getItem("sb-access-token") || localStorage.getItem("access_token");
       
       // Use unified search endpoint
-      const res = await fetch(`http://localhost:8081/api/search?q=${encodeURIComponent(q)}`, {
+      const res = await fetch(`${API_BASE_URL}/api/search?q=${encodeURIComponent(q)}`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
       
@@ -72,7 +73,7 @@ export default function DiscoverPeople() {
     setLoadingProfile(true);
     try {
       const token = localStorage.getItem("sb-access-token");
-      const res = await fetch(`http://localhost:8081/api/users/${userId}/profile`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${userId}/profile`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
       const data = await res.json();
@@ -113,7 +114,7 @@ export default function DiscoverPeople() {
             return;
           }
 
-          const res = await fetch(`http://localhost:8081/api/users/${selectedUser}/follow`, {
+          const res = await fetch(`${API_BASE_URL}/api/users/${selectedUser}/follow`, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`
@@ -142,7 +143,7 @@ export default function DiscoverPeople() {
     
         try {
           const token = localStorage.getItem("sb-access-token");
-          const res = await fetch(`http://localhost:8081/api/users/${selectedUser}/follow`, {
+          const res = await fetch(`${API_BASE_URL}/api/users/${selectedUser}/follow`, {
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${token}`
@@ -171,7 +172,7 @@ export default function DiscoverPeople() {
     
         try {
           const token = localStorage.getItem("sb-access-token");
-          const res = await fetch(`http://localhost:8081/api/users/${selectedUser}/follow-request`, {
+          const res = await fetch(`${API_BASE_URL}/api/users/${selectedUser}/follow-request`, {
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${token}`
@@ -247,7 +248,7 @@ export default function DiscoverPeople() {
         alert("Please log in to send a request");
         return;
       }
-      const res = await fetch(`http://localhost:8081/api/users/${userId}/follow`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${userId}/follow`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });

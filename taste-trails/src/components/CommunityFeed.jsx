@@ -1,6 +1,7 @@
 import React from 'react'
 import PostCard from './PostCard'
 import { currentUser } from '../data'
+import { getActiveProfileId, getPrivateProfileForUser, loadUserScopedValue } from '../utils/accountStorage'
 
 const CURRENT_USER = 'You'
 const STORAGE_KEY = 'taste-trails-groups'
@@ -16,6 +17,11 @@ function loadGroups() {
 }
 
 export default function CommunityFeed({ posts = [], onAddComment, onUserClick, onRestaurantClick }) {
+  const activeProfileId = getActiveProfileId()
+  const scopedFollowing = loadUserScopedValue('taste-trails-following', currentUser.following || [], activeProfileId)
+  const following = Array.isArray(scopedFollowing) ? scopedFollowing : []
+  const followingSet = new Set(following.map((id) => String(id)))
+
   // Get groups user is a member of
   const groups = loadGroups()
   const myGroupIds = groups
@@ -26,9 +32,14 @@ export default function CommunityFeed({ posts = [], onAddComment, onUserClick, o
   // 1. Posts from people user follows
   // 2. Posts from groups user is a member of
   const filteredPosts = posts.filter(post => {
-    const isFromFollowedUser = post.userId && currentUser.following.includes(post.userId)
+    const postUserId = post.userId || post.user_id
+    const normalizedPostUserId = String(postUserId || '')
+    const isMyOwnPost = normalizedPostUserId === String(activeProfileId) || normalizedPostUserId === String(currentUser.id)
+    const isFromFollowedUser = normalizedPostUserId && followingSet.has(normalizedPostUserId)
+    const authorPrivate = getPrivateProfileForUser(postUserId) === true
+    if (authorPrivate && !isMyOwnPost && !isFromFollowedUser) return false
+
     const isFromMyGroup = post.groupId && myGroupIds.includes(Number(post.groupId))
-    const isMyOwnPost = post.userId === currentUser.id
     return isFromFollowedUser || isFromMyGroup || isMyOwnPost
   })
 

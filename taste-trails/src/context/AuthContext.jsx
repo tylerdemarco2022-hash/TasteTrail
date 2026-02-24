@@ -62,17 +62,30 @@ export function AuthProvider({ children }) {
   }
 
   async function login(email, password) {
+    const controller = new AbortController()
+    const timeoutMs = 15000
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        signal: controller.signal
       });
+
       const text = await response.text();
-      const data = JSON.parse(text);
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Login failed");
+      let data
+      try {
+        data = JSON.parse(text)
+      } catch (e) {
+        throw new Error('Server returned an invalid response')
       }
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || data.error || "Login failed");
+      }
+
       // Store token and user/profile in localStorage and state
       if (data.token) {
         localStorage.setItem('access_token', data.token);
@@ -87,11 +100,16 @@ export function AuthProvider({ children }) {
       }
       return { success: true };
     } catch (error) {
-      // Handle network errors
-      if (error.message === 'Failed to fetch' || error.message.includes('fetch')) {
-        return { success: false, error: 'Cannot connect to server. Make sure the backend is running on http://localhost:8081' }
+      if (error?.name === 'AbortError') {
+        return { success: false, error: `Login request timed out after ${Math.round(timeoutMs / 1000)}s. Check backend connection at ${API_BASE_URL}.` }
       }
-      return { success: false, error: error.message }
+      // Handle network errors
+      if (error?.message === 'Failed to fetch' || String(error?.message || '').includes('fetch')) {
+        return { success: false, error: `Cannot connect to server. Make sure backend is running on ${API_BASE_URL}` }
+      }
+      return { success: false, error: error?.message || 'Login failed' }
+    } finally {
+      clearTimeout(timeoutId)
     }
   }
 
@@ -130,7 +148,7 @@ export function AuthProvider({ children }) {
     } catch (error) {
       // Handle network errors
       if (error.message === 'Failed to fetch' || error.message.includes('fetch')) {
-        return { success: false, error: 'Cannot connect to server. Make sure the backend is running on http://localhost:8081' }
+        return { success: false, error: `Cannot connect to server. Make sure backend is running on ${API_BASE_URL}` }
       }
       return { success: false, error: error.message }
     }

@@ -1,9 +1,146 @@
 import React, { useState, useEffect, useRef } from 'react'
 import StarRating from './StarRating'
+import MenuCard from './MenuCard'
 import { posts, restaurants as allRestaurants } from '../data'
 import Reviews from './Reviews'
 import ItemRating from './ItemRating'
 import { API_BASE } from "../config";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+
+function isUuidLike(value) {
+  return typeof value === 'string' && UUID_RE.test(value)
+}
+
+function toSectionsFromCategories(categories) {
+  if (!Array.isArray(categories)) return []
+  return categories
+    .map((cat) => ({
+      name: cat?.name || cat?.category || 'Menu',
+      items: Array.isArray(cat?.items) ? cat.items : []
+    }))
+    .filter((section) => section.items.length > 0)
+}
+
+function toSectionsFromFlatItems(items) {
+  if (!Array.isArray(items) || items.length === 0) return []
+  const groups = new Map()
+  for (const rawItem of items) {
+    if (!rawItem) continue
+    const category = rawItem.category || rawItem.section || 'Menu'
+    if (!groups.has(category)) groups.set(category, [])
+    groups.get(category).push(rawItem)
+  }
+  return Array.from(groups.entries()).map(([name, groupedItems]) => ({
+    name,
+    items: groupedItems
+  }))
+}
+
+function normalizeMenuPayload(payload) {
+  if (!payload || typeof payload !== 'object') {
+    return { name: '', sections: [] }
+  }
+
+  const directSections = Array.isArray(payload.sections) ? payload.sections : []
+  if (directSections.length > 0) {
+    return {
+      name: payload.name || payload.restaurant || '',
+      sections: toSectionsFromCategories(directSections)
+    }
+  }
+
+  if (Array.isArray(payload.categories) && payload.categories.length > 0) {
+    return {
+      name: payload.name || payload.restaurant || '',
+      sections: toSectionsFromCategories(payload.categories)
+    }
+  }
+
+  if (Array.isArray(payload.menu) && payload.menu.length > 0) {
+    return {
+      name: payload.name || payload.restaurant || '',
+      sections: toSectionsFromFlatItems(payload.menu)
+    }
+  }
+
+  return {
+    name: payload.name || payload.restaurant || '',
+    sections: []
+  }
+}
+
+function countSectionItems(sections) {
+  if (!Array.isArray(sections)) return 0
+  return sections.reduce((sum, section) => sum + (Array.isArray(section?.items) ? section.items.length : 0), 0)
+}
+
+function toFetchErrorMessage(error) {
+  const text = String(error?.message || error || '')
+  if (/failed to fetch|networkerror|load failed/i.test(text)) {
+    return `Cannot reach backend at ${API_BASE}. Start the backend with: npm run server`
+  }
+  return `Menu fetch error: ${text || 'Unknown error'}`
+}
+
+const MENU_TAB_RULES = [
+  { key: 'appetizers', label: 'Appetizers', regex: /(appetizer|starter|small plate|shareable|antipasti|antipasto)/i },
+  { key: 'soups_salads', label: 'Soups & Salads', regex: /(soup|salad)/i },
+  { key: 'pizzas', label: 'Pizzas', regex: /(pizza|flatbread)/i },
+  { key: 'pastas', label: 'Pastas', regex: /(pasta|ravioli|spaghetti|penne|fettuccine|linguine|gnocchi|lasagna|risotto)/i },
+  { key: 'sandwiches', label: 'Sandwiches', regex: /(sandwich|burger|panini|wrap)/i },
+  { key: 'entrees', label: 'Entrees', regex: /(entree|main|secondi|chicken|steak|salmon|mahi|short ribs|scampi)/i },
+  { key: 'desserts', label: 'Desserts', regex: /(dessert|cake|gelato|ice cream|brownie|tiramisu|sweet)/i },
+  { key: 'drinks', label: 'Drinks', regex: /(drink|beverage|cocktail|wine|beer|coffee|tea|soda|juice|mocktail)/i },
+  { key: 'sides', label: 'Sides', regex: /(side|fries|chips)/i }
+]
+
+const MENU_TAB_ORDER = [
+  'entrees',
+  'soups_salads',
+  'appetizers',
+  'pizzas',
+  'pastas',
+  'sandwiches',
+  'desserts',
+  'drinks',
+  'sides',
+  'menu'
+]
+
+const COMMUNITY_POSTS_KEY = 'community-posts'
+
+function getCurrentFeedUser() {
+  try {
+    const rawProfile = localStorage.getItem('user_profile')
+    const profile = rawProfile ? JSON.parse(rawProfile) : null
+    const id = String(profile?.id || 'user1')
+    const name = String(profile?.name || 'You')
+    const avatarRaw = localStorage.getItem(`taste-trails-avatar:${id}`)
+    const avatar = avatarRaw ? JSON.parse(avatarRaw) : 'https://i.pravatar.cc/64?img=1'
+    return { id, name, avatar: avatar || 'https://i.pravatar.cc/64?img=1' }
+  } catch {
+    return { id: 'user1', name: 'You', avatar: 'https://i.pravatar.cc/64?img=1' }
+  }
+}
+
+function getMenuItemSortName(item = {}) {
+  return String(item?.name || item?.dish_name || item?.dish || item?.title || '').trim().toLowerCase()
+}
+
+function getMenuCategoryMeta(item = {}, sectionName = '') {
+  const sectionText = String(sectionName || '').toLowerCase()
+  const categoryText = String(item?.category || '').toLowerCase()
+  const nameText = String(item?.name || item?.dish_name || item?.dish || item?.title || '').toLowerCase()
+  const haystack = `${sectionText} ${categoryText} ${nameText}`
+
+  for (const rule of MENU_TAB_RULES) {
+    if (rule.regex.test(haystack)) {
+      return { key: rule.key, label: rule.label }
+    }
+  }
+  return { key: 'menu', label: 'Menu' }
+}
 
 export default function MenuView({ post, onBack, showAI }) {
   const [aiMenu, setAiMenu] = useState(null)
@@ -30,13 +167,20 @@ export default function MenuView({ post, onBack, showAI }) {
   const [userDishRating, setUserDishRating] = useState(5) // User's rating input (1-10)
   const [showItemRating, setShowItemRating] = useState(false)
   const [ratingItem, setRatingItem] = useState(null)
-  const [triedFilter, setTriedFilter] = useState('all') // 'all', 'tried', 'not-tried'
+  const [activeCategoryTab, setActiveCategoryTab] = useState('all')
   const didAutoGenerateMenu = useRef(false)
+  const sectionRefs = useRef({})
 
   const [menuData, setMenuData] = useState(null); // New: menuData state for backend menu response
-  const API_BASE = import.meta.env.VITE_API_BASE || ''
 
   if (!post) return null
+
+  const restaurantName = post.restaurant || post.name || ''
+  const restaurantId = React.useMemo(() => {
+    if (isUuidLike(post?.restaurant_id)) return post.restaurant_id
+    if (isUuidLike(post?.id)) return post.id
+    return null
+  }, [post?.restaurant_id, post?.id])
 
   // Load dish ratings from localStorage on mount
   React.useEffect(() => {
@@ -51,12 +195,12 @@ export default function MenuView({ post, onBack, showAI }) {
   }, [post.restaurant, post.name])
 
   React.useEffect(() => {
-    // Always try to fetch full menu from backend if post.id is available
-    if (post.id) {
-      fetchMenuFromBackend(post.id);
+    // Always try to fetch full menu from backend when menu view opens
+    if (restaurantId || restaurantName) {
+      fetchMenuFromBackend({ restaurantId, restaurantName });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post.restaurant_id])
+  }, [restaurantId, restaurantName])
   async function triggerMenuScrape() {
     console.log('🔄 Triggering menu scrape for:', post.restaurant || post.name)
     setMenuLoading(true)
@@ -130,19 +274,59 @@ export default function MenuView({ post, onBack, showAI }) {
     setMenuLoading(false)
   }
 
-  async function fetchMenuFromBackend(restaurantId) {
+  async function fetchMenuFromBackend({ restaurantId, restaurantName }) {
     setMenuLoading(true);
     try {
-      console.log("Menu button clicked, fetching for restaurant:", restaurantId);
-      const url = `${API_BASE}/api/restaurants/${restaurantId}/full-menu`;
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log("Fetched menu:", data);
-      setMenuData(data);
+      let data = null;
+      let normalized = { name: restaurantName || '', sections: [] };
+
+      if (restaurantId) {
+        console.log("Menu fetch by ID:", restaurantId);
+        const idUrl = `${API_BASE}/api/restaurants/${restaurantId}/full-menu`;
+        const idRes = await fetch(idUrl);
+        if (idRes.ok) {
+          data = await idRes.json();
+          normalized = normalizeMenuPayload(data);
+        } else {
+          console.warn("ID menu fetch failed:", idRes.status);
+        }
+      }
+
+      if (normalized.sections.length === 0 && restaurantName) {
+        console.log("Menu fetch by name fallback:", restaurantName);
+        const nameUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}`;
+        const nameRes = await fetch(nameUrl);
+        if (nameRes.ok) {
+          data = await nameRes.json();
+          normalized = normalizeMenuPayload(data);
+        } else {
+          console.warn("Name menu fetch failed:", nameRes.status);
+        }
+      }
+
+      const currentCount = countSectionItems(normalized.sections);
+      if (restaurantName && currentCount < 8) {
+        console.log("Menu appears incomplete, refreshing source scrape for:", restaurantName);
+        const refreshUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}?refresh=1`;
+        const refreshRes = await fetch(refreshUrl);
+        if (refreshRes.ok) {
+          const refreshedData = await refreshRes.json();
+          const refreshed = normalizeMenuPayload(refreshedData);
+          const refreshedCount = countSectionItems(refreshed.sections);
+          if (refreshedCount > currentCount) {
+            normalized = refreshed;
+          }
+        } else {
+          console.warn("Refresh scrape failed:", refreshRes.status);
+        }
+      }
+
+      console.log("Normalized fetched menu:", normalized);
+      setMenuData(normalized);
     } catch (e) {
       console.error("Menu fetch error:", e.message);
-      alert("Menu fetch error: " + e.message);
-      setMenuData(null);
+      alert(toFetchErrorMessage(e));
+      setMenuData({ name: restaurantName || '', sections: [] });
     }
     setMenuLoading(false);
   }
@@ -164,15 +348,8 @@ export default function MenuView({ post, onBack, showAI }) {
       return
     }
 
-    // fallback: simulate AI generating a small menu based on name
-    await new Promise((r) => setTimeout(r, 700))
-    const nameForGen = post.restaurant || post.name || 'This Place'
-    const generated = [
-      { name: `${nameForGen} Signature Dish`, rating: 4.2 },
-      { name: 'House Special', rating: 4.0 },
-      { name: 'Side Salad', rating: 3.8 }
-    ]
-    setAiMenu(generated)
+    // Do not generate placeholder menu items; show explicit "Could not find menu" instead.
+    setAiMenu([])
     setLoading(false)
   }
 
@@ -202,6 +379,21 @@ export default function MenuView({ post, onBack, showAI }) {
   const effectiveMenu = React.useMemo(() => {
     return normalizeMenuItems(displayMenu)
   }, [displayMenu])
+
+  const fallbackSections = React.useMemo(() => {
+    return toSectionsFromFlatItems(effectiveMenu)
+  }, [effectiveMenu])
+
+  const displaySections = React.useMemo(() => {
+    if (Array.isArray(menuData?.sections) && menuData.sections.length > 0) {
+      return menuData.sections
+    }
+    return fallbackSections
+  }, [menuData, fallbackSections])
+
+  const displayItemCount = React.useMemo(() => {
+    return countSectionItems(displaySections)
+  }, [displaySections])
   
   React.useEffect(() => {
     console.log('MenuView state - Fetched:', fetchedMenu?.length || 0, 'AI:', aiMenu?.length || 0, 'Post:', post.menu?.length || 0, 'Display:', effectiveMenu.length, 'MenuLoading:', menuLoading)
@@ -415,7 +607,7 @@ export default function MenuView({ post, onBack, showAI }) {
       }
 
       // Refetch menu data after successful rating submission
-      await fetchMenuFromBackend(post.restaurant || post.name);
+      await fetchMenuFromBackend({ restaurantId, restaurantName });
 
       setShowItemRating(false);
       setRatingItem(null);
@@ -555,36 +747,59 @@ export default function MenuView({ post, onBack, showAI }) {
     return 'Other'
   }
 
-  const getItemName = (item) => {
-    if (typeof item === 'string') return item
-    return item?.name || item?.dish_name || item?.dish || item?.title || ''
-  }
-
-  const hasUserTried = (itemName) => {
-    const data = dishRatings[itemName]
-    return data && data.count > 0
-  }
-
-  const filteredMenu = React.useMemo(() => {
-    if (triedFilter === 'all') return effectiveMenu
-    if (triedFilter === 'tried') {
-      return effectiveMenu.filter(item => hasUserTried(getItemName(item)))
+  const categorySections = React.useMemo(() => {
+    const groups = new Map()
+    for (const section of displaySections) {
+      const sectionName = section?.name || section?.category || 'Menu'
+      const sectionItems = Array.isArray(section?.items) ? section.items : []
+      for (const item of sectionItems) {
+        if (!item) continue
+        const meta = getMenuCategoryMeta(item, sectionName)
+        if (!groups.has(meta.key)) {
+          groups.set(meta.key, {
+            key: meta.key,
+            name: meta.label,
+            items: []
+          })
+        }
+        groups.get(meta.key).items.push(item)
+      }
     }
-    if (triedFilter === 'not-tried') {
-      return effectiveMenu.filter(item => !hasUserTried(getItemName(item)))
-    }
-    return effectiveMenu
-  }, [effectiveMenu, triedFilter, dishRatings])
 
-  const groupedMenu = React.useMemo(() => {
-    const groups = {}
-    filteredMenu.forEach((item) => {
-      const cat = getCategory(getItemName(item))
-      if (!groups[cat]) groups[cat] = []
-      groups[cat].push(item)
-    })
-    return groups
-  }, [filteredMenu])
+    const knownSections = MENU_TAB_ORDER
+      .filter((key) => groups.has(key))
+      .map((key) => groups.get(key))
+
+    const unknownSections = Array.from(groups.values())
+      .filter((section) => !MENU_TAB_ORDER.includes(section.key))
+      .sort((a, b) => a.name.localeCompare(b.name))
+
+    return [...knownSections, ...unknownSections].map((section) => ({
+      ...section,
+      items: [...section.items].sort((a, b) => getMenuItemSortName(a).localeCompare(getMenuItemSortName(b)))
+    }))
+  }, [displaySections])
+
+  const categoryTabs = React.useMemo(() => {
+    const allCount = categorySections.reduce((sum, section) => sum + section.items.length, 0)
+    return [
+      { key: 'all', label: 'All Items', count: allCount },
+      ...categorySections.map((section) => ({
+        key: section.key,
+        label: section.name,
+        count: section.items.length
+      }))
+    ]
+  }, [categorySections])
+
+  // Always show all sections; tabs scroll to the relevant section (DoorDash-style)
+  const visibleCategorySections = React.useMemo(() => categorySections, [categorySections])
+
+  React.useEffect(() => {
+    if (activeCategoryTab === 'all') return
+    const exists = categoryTabs.some((tab) => tab.key === activeCategoryTab)
+    if (!exists) setActiveCategoryTab('all')
+  }, [activeCategoryTab, categoryTabs])
 
   const heroImage = post.image || post.image_url || post.imageUrl || post.photo || (post.photos && post.photos[0]) || post.cover || ''
   const heroStyle = heroImage
@@ -628,7 +843,11 @@ export default function MenuView({ post, onBack, showAI }) {
 
     // Persist to "My Ratings" for profile tab
     try {
-      const stored = JSON.parse(localStorage.getItem('my-rated-items') || '[]')
+      const rawProfile = localStorage.getItem('user_profile')
+      const currentProfile = rawProfile ? JSON.parse(rawProfile) : null
+      const currentProfileId = String(currentProfile?.id || 'guest')
+      const ratedItemsKey = `my-rated-items:${currentProfileId}`
+      const stored = JSON.parse(localStorage.getItem(ratedItemsKey) || '[]')
       const entryId = `${restaurantKey}-${reviewData.dishName}`
       const existingIdx = stored.findIndex((r) => r.entryId === entryId)
       const newEntry = {
@@ -645,10 +864,63 @@ export default function MenuView({ post, onBack, showAI }) {
       } else {
         stored.unshift(newEntry)
       }
-      localStorage.setItem('my-rated-items', JSON.stringify(stored))
+      localStorage.setItem(ratedItemsKey, JSON.stringify(stored))
       window.dispatchEvent(new Event('ratingSaved'))
     } catch (e) {
       console.warn('Failed to persist rated item:', e)
+    }
+
+    // Post the rating to community feed so it appears under the Feed tab.
+    try {
+      const shouldPostToFeed = reviewData?.postTo?.feed !== false
+      if (shouldPostToFeed) {
+        const rawPosts = localStorage.getItem(COMMUNITY_POSTS_KEY)
+        const parsedPosts = rawPosts ? JSON.parse(rawPosts) : []
+        const existingPosts = Array.isArray(parsedPosts) ? parsedPosts : []
+
+        const rawGroups = localStorage.getItem('taste-trails-groups')
+        const parsedGroups = rawGroups ? JSON.parse(rawGroups) : []
+        const groups = Array.isArray(parsedGroups) ? parsedGroups : []
+
+        const legacyGroupId = reviewData?.postTo?.group
+        const selectedGroupIdsRaw = Array.isArray(reviewData?.postTo?.groups)
+          ? reviewData.postTo.groups
+          : (legacyGroupId ? [legacyGroupId] : [])
+        const selectedGroupIds = Array.from(
+          new Set(selectedGroupIdsRaw.filter((id) => id !== null && id !== undefined && id !== ''))
+        )
+        const groupNameById = new Map(groups.map((group) => [String(group?.id), group?.name || null]))
+        const feedSelfUser = getCurrentFeedUser()
+
+        const baseTime = Date.now()
+        const makeFeedPost = (groupId, index) => ({
+          id: baseTime + index,
+          userId: feedSelfUser.id,
+          user_id: feedSelfUser.id,
+          user: { name: feedSelfUser.name, avatar: feedSelfUser.avatar },
+          restaurant: restaurantKey,
+          restaurant_id: restaurantId || post.restaurant_id || null,
+          dish: reviewData.dishName || ratingItem?.name || '',
+          image: reviewData.photo || ratingItem?.image || post.image || '',
+          caption: reviewData.comment || `Rated ${reviewData.dishName}`,
+          rating: Number(reviewData.rating) || 0,
+          comments: [],
+          commentCount: 0,
+          timestamp: new Date(baseTime + index).toISOString(),
+          groupId: groupId || null,
+          groupName: groupId ? (groupNameById.get(String(groupId)) || null) : null
+        })
+
+        const postsToAdd = [makeFeedPost(null, 0)]
+        selectedGroupIds.forEach((groupId, idx) => {
+          postsToAdd.push(makeFeedPost(groupId, idx + 1))
+        })
+
+        localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify([...postsToAdd, ...existingPosts]))
+        window.dispatchEvent(new Event('postsUpdated'))
+      }
+    } catch (e) {
+      console.warn('Failed to post rating to community feed:', e)
     }
 
     // Close rating page
@@ -778,7 +1050,7 @@ export default function MenuView({ post, onBack, showAI }) {
                       Loading menu…
                     </span>
                   )}
-                  <span className="px-2 py-1 rounded-full bg-white/25">{menuData?.sections?.length || 0} items</span>
+                  <span className="px-2 py-1 rounded-full bg-white/25">{displayItemCount} items</span>
                 </div>
               </div>
               <div className="absolute right-4 top-4 flex items-center gap-2">
@@ -788,39 +1060,94 @@ export default function MenuView({ post, onBack, showAI }) {
             </div>
           </div>
 
-      {/* Filter Dropdown */}
-      <div className="mb-6 flex items-center justify-between">
-        <h3 className="text-xl font-bold text-gray-900">Menu Items</h3>
-        <div className="relative">
-          <select
-            value={triedFilter}
-            onChange={(e) => setTriedFilter(e.target.value)}
-            className="px-4 py-2 pr-10 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none cursor-pointer font-medium text-gray-700"
-          >
-            <option value="all">All Items ({effectiveMenu.length})</option>
-            <option value="tried">Tried ({effectiveMenu.filter(i => hasUserTried(getItemName(i))).length})</option>
-            <option value="not-tried">Not Tried Yet ({effectiveMenu.filter(i => !hasUserTried(getItemName(i))).length})</option>
-          </select>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
+      <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        Dietary filters are algorithmically generated and may not reflect kitchen cross-contamination. Always confirm with the restaurant.
+      </div>
+
+      <div className="mb-6 overflow-x-auto">
+        <div className="flex gap-2 min-w-max pb-1">
+          {categoryTabs.map((tab) => {
+            const isActive = activeCategoryTab === tab.key
+            return (
+              <button
+                key={tab.key}
+                type="button"
+                onClick={() => {
+                  setActiveCategoryTab(tab.key)
+                  if (tab.key !== 'all' && sectionRefs.current[tab.key]) {
+                    sectionRefs.current[tab.key].scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                }}
+                className={`px-3 py-2 rounded-full border text-sm font-semibold transition ${
+                  isActive
+                    ? 'bg-amber-500 text-white border-amber-500 shadow'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-amber-50'
+                }`}
+              >
+                {tab.label} ({tab.count})
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      <div className="space-y-8">
-        {menuData?.sections?.length > 0 ? (
-          menuData.sections.map(section => (
-            <div key={section.name}>
-              <h2>{section.name}</h2>
-              {section.items.map(item => (
-                <div key={item.name} className="bg-white rounded-2xl p-4 shadow-sm border border-amber-50/60 hover:shadow-md transition h-full flex flex-col">
-                  <p>{item.name}</p>
-                  <p>{item.description}</p>
-                  <p>{item.price}</p>
-                </div>
-              ))}
+      <div className="space-y-10">
+        {visibleCategorySections.length > 0 ? (
+          visibleCategorySections.map(section => (
+            <div
+              key={section.key}
+              ref={el => { if (el) sectionRefs.current[section.key] = el }}
+            >
+              {/* Sticky section header */}
+              <div
+                className="sticky top-0 z-10"
+                style={{
+                  background: 'linear-gradient(to bottom, rgba(255,251,235,0.97) 85%, transparent)',
+                  paddingTop: 14,
+                  paddingBottom: 10,
+                  marginLeft: -2,
+                  marginRight: -2,
+                  paddingLeft: 2,
+                  paddingRight: 2,
+                }}
+              >
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: 21,
+                    fontWeight: 700,
+                    color: '#111827',
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  {section.name}
+                </h2>
+                <div
+                  style={{
+                    height: 1,
+                    marginTop: 8,
+                    background: 'linear-gradient(to right, #f59e0b55, transparent)',
+                  }}
+                />
+              </div>
+
+              {/* Items list */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                {section.items.map(item => (
+                  <MenuCard
+                    key={item.id || item.name}
+                    item={item}
+                    isSaved={isItemSaved(item)}
+                    onSave={toggleSaveItem}
+                    onRate={(it) => {
+                      setRatingItem(it)
+                      setShowItemRating(true)
+                    }}
+                    onShowSummary={handleShowSummary}
+                    ratingDisplay={getDisplayItemRating(item)}
+                  />
+                ))}
+              </div>
             </div>
           ))
         ) : (

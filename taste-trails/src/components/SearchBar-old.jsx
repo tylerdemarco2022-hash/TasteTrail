@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { restaurants as localRestaurants } from '../data'
+import { API_BASE_URL } from '../config/api'
 
 export default function SearchBar({ onSelect }) {
   const [query, setQuery] = useState('')
@@ -20,7 +21,7 @@ export default function SearchBar({ onSelect }) {
     setResults(fuzzy)
 
     try {
-      const res = await fetch(`http://localhost:8081/api/yelp/search?term=${encodeURIComponent(q)}&location=Charlotte`)
+      const res = await fetch(`${API_BASE_URL}/api/yelp/search?term=${encodeURIComponent(q)}&location=Charlotte`)
       if (!res.ok) throw new Error('Search failed')
       const data = await res.json()
       

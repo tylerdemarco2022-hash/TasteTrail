@@ -11,14 +11,16 @@ export default function Login({ onLogin, onSwitchToSignup }) {
     e.preventDefault()
     setError('')
     setLoading(true)
-
-    const result = await onLogin(email, password)
-    
-    if (!result.success) {
-      setError(result.error || 'Login failed')
+    try {
+      const result = await onLogin(email, password)
+      if (!result?.success) {
+        setError(result?.error || 'Login failed')
+      }
+    } catch (e) {
+      setError(e?.message || 'Login failed')
+    } finally {
+      setLoading(false)
     }
-    
-    setLoading(false)
   }
 
   return (

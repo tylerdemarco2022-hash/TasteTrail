@@ -1,0 +1,66 @@
+{
+  "source_url": "https://places.singleplatform.com/north-italia/menu",
+  "url_confidence": 0.8,
+  "url_discovery_method": "guess",
+  "scrape_confidence": 0.8,
+  "scrape_confidence_report": {
+    "version": "menu_scraper_confidence_v1",
+    "score": 0.8,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.11,
+      "description_coverage_score": 0.05,
+      "naming_quality_score": 0.06,
+      "category_diversity_score": 0.02,
+      "source_diversity_score": 0.12,
+      "navigation_score": 0.06,
+      "pdf_signal_score": 0,
+      "discovery_score": 0.04,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 281,
+      "priced_item_count": 137,
+      "described_item_count": 144,
+      "multiword_name_count": 199,
+      "category_count": 1,
+      "visited_url_count": 3,
+      "menuish_visited_url_count": 3,
+      "raw_json_item_count": 446,
+      "raw_dom_item_count": 274,
+      "raw_pdf_item_count": 0,
+      "discovered_menu_link_count": 4
+    }
+  },
+  "menu_completeness_score": 0.72,
+  "menu_completeness_report": {
+    "version": "menu_completeness_v1",
+    "score": 0.72,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.07,
+      "description_coverage_score": 0.03,
+      "category_score": 0.02,
+      "naming_score": 0.07,
+      "scrape_score": 0.11,
+      "url_score": 0.08,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 211,
+      "priced_item_count": 129,
+      "described_item_count": 80,
+      "category_count": 1,
+      "multiword_name_count": 140,
+      "suspicious_name_count": 0,
+      "modifier_like_name_count": 0,
+      "short_name_count": 0
+    }
+  },
+  "min_scrape_confidence": 0.8,
+  "min_menu_completeness": 0.65,
+  "min_menu_items": 12,
+  "updated_at": "2026-02-23T22:52:02.562Z"
+}

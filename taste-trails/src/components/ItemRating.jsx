@@ -1,5 +1,8 @@
-import React, { useState, useRef } from 'react'
+﻿import React, { useState, useRef, useEffect } from 'react'
 import StarRating from './StarRating'
+
+const GROUPS_STORAGE_KEY = 'taste-trails-groups'
+const CURRENT_USER = 'You'
 
 export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
   const placeholderImages = [
@@ -36,8 +39,33 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
   const videoRef = useRef(null)
   const [showCamera, setShowCamera] = useState(false)
   const [stream, setStream] = useState(null)
-  // Post options are now always visible above the comment box
-  const [postTo, setPostTo] = useState({ feed: false, group: null, profile: true })
+  const [myGroups, setMyGroups] = useState([])
+  const [showGroupPicker, setShowGroupPicker] = useState(false)
+  // Feed + profile are always enabled. Groups are optional multi-select.
+  const [postTo, setPostTo] = useState({ feed: true, profile: true, groups: [] })
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(GROUPS_STORAGE_KEY)
+      const parsed = raw ? JSON.parse(raw) : []
+      const list = Array.isArray(parsed) ? parsed : []
+      const mine = list.filter((group) => Array.isArray(group?.members) && group.members.includes(CURRENT_USER))
+      setMyGroups(mine)
+    } catch (e) {
+      setMyGroups([])
+    }
+  }, [])
+
+  const toggleGroupSelection = (groupId) => {
+    setPostTo((prev) => {
+      const selected = Array.isArray(prev.groups) ? prev.groups : []
+      const exists = selected.some((id) => String(id) === String(groupId))
+      const nextGroups = exists
+        ? selected.filter((id) => String(id) !== String(groupId))
+        : [...selected, groupId]
+      return { ...prev, groups: nextGroups }
+    })
+  }
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files?.[0]
@@ -95,6 +123,7 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
       alert('Please add a comment about this dish')
       return
     }
+    const selectedGroups = Array.isArray(postTo.groups) ? postTo.groups : []
     const reviewData = {
       dishName: item.name,
       restaurant: restaurant,
@@ -103,7 +132,11 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
       photo: photo,
       timestamp: Date.now(),
       date: new Date().toLocaleDateString(),
-      postTo: postTo
+      postTo: {
+        feed: true,
+        profile: true,
+        groups: selectedGroups
+      }
     }
     onSubmit(reviewData)
   }
@@ -124,7 +157,7 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
                 onClick={handleCancel}
                 className="text-white/90 hover:text-white flex items-center gap-2"
               >
-                ← Back
+                â† Back
               </button>
               <h2 className="text-lg font-bold">Rate Item</h2>
               <div className="w-16"></div>
@@ -146,13 +179,13 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
                 onClick={startCamera}
                 className="w-full px-4 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 flex items-center justify-center gap-2"
               >
-                📷 Take Photo
+                ðŸ“· Take Photo
               </button>
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 flex items-center justify-center gap-2"
               >
-                📁 Upload from Gallery
+                ðŸ“ Upload from Gallery
               </button>
               <input
                 ref={fileInputRef}
@@ -177,7 +210,7 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
                   onClick={capturePhoto}
                   className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600"
                 >
-                  📸 Capture
+                  ðŸ“¸ Capture
                 </button>
                 <button
                   onClick={stopCamera}
@@ -233,63 +266,66 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
         </div>
 
 
-        {/* Post Options (always visible) */}
+        {/* Post Options */}
         <div className="bg-white rounded-xl shadow-sm p-4 mb-4">
-          <h3 className="text-sm font-semibold text-gray-700 mb-3">Where do you want to post?</h3>
+          <h3 className="text-sm font-semibold text-gray-700 mb-3">Posting</h3>
           <div className="space-y-3">
-            {/* Feed Option */}
-            <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-orange-400 hover:bg-orange-50 transition-all">
-              <input
-                type="checkbox"
-                checked={postTo.feed}
-                onChange={(e) => setPostTo({ ...postTo, feed: e.target.checked })}
-                className="w-5 h-5 text-orange-500 rounded focus:ring-2 focus:ring-orange-500"
-              />
+            <div className="flex items-center justify-between p-4 border-2 border-gray-200 rounded-xl bg-gray-50">
               <div className="flex-1">
-                <div className="font-semibold text-gray-900">Community Feed</div>
-                <div className="text-xs text-gray-500">Share with your followers</div>
+                <div className="font-semibold text-gray-900">Always posting to</div>
+                <div className="text-xs text-gray-500 mt-1">Community Feed and My Profile are always included.</div>
               </div>
-              <span className="text-2xl">🌍</span>
-            </label>
+              <span className="text-sm font-semibold text-green-700 bg-green-100 px-3 py-1 rounded-full">Enabled</span>
+            </div>
 
-            {/* Group Option */}
-            <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all">
-              <input
-                type="checkbox"
-                checked={postTo.group !== null}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    // Get first group or null
-                    const groups = JSON.parse(localStorage.getItem('taste-trails-groups') || '[]')
-                    const myGroups = groups.filter(g => (g.members || []).includes('You'))
-                    setPostTo({ ...postTo, group: myGroups.length > 0 ? myGroups[0].id : null })
-                  } else {
-                    setPostTo({ ...postTo, group: null })
-                  }
-                }}
-                className="w-5 h-5 text-purple-500 rounded focus:ring-2 focus:ring-purple-500"
-              />
-              <div className="flex-1">
-                <div className="font-semibold text-gray-900">Group</div>
-                <div className="text-xs text-gray-500">Share with your groups</div>
-              </div>
-              <span className="text-2xl">👥</span>
-            </label>
+            <div className="border-2 border-gray-200 rounded-xl overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setShowGroupPicker((prev) => !prev)}
+                className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-all"
+              >
+                <div>
+                  <div className="font-semibold text-gray-900">Groups</div>
+                  <div className="text-xs text-gray-500">
+                    {postTo.groups.length > 0
+                      ? `${postTo.groups.length} selected`
+                      : 'Select groups to also share this rating'}
+                  </div>
+                </div>
+                <span className="text-sm text-gray-600 font-semibold">
+                  {showGroupPicker ? 'Hide' : 'Choose'}
+                </span>
+              </button>
 
-            {/* Profile Option */}
-            <label className="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all">
-              <input
-                type="checkbox"
-                checked={postTo.profile}
-                onChange={(e) => setPostTo({ ...postTo, profile: e.target.checked })}
-                className="w-5 h-5 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
-              />
-              <div className="flex-1">
-                <div className="font-semibold text-gray-900">My Profile</div>
-                <div className="text-xs text-gray-500">Save to your ratings</div>
-              </div>
-              <span className="text-2xl">👤</span>
-            </label>
+              {showGroupPicker && (
+                <div className="border-t border-gray-200 p-3 space-y-2 bg-white">
+                  {myGroups.length === 0 ? (
+                    <div className="text-xs text-gray-500 px-1 py-2">You are not in any groups yet.</div>
+                  ) : (
+                    myGroups.map((group) => {
+                      const checked = postTo.groups.some((id) => String(id) === String(group.id))
+                      return (
+                        <label
+                          key={group.id}
+                          className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => toggleGroupSelection(group.id)}
+                            className="w-4 h-4 text-orange-500 rounded focus:ring-2 focus:ring-orange-500"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-semibold text-gray-900 truncate">{group.name}</div>
+                            <div className="text-xs text-gray-500">{(group.members || []).length} members</div>
+                          </div>
+                        </label>
+                      )
+                    })
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -323,3 +359,4 @@ export default function ItemRating({ item, restaurant, onBack, onSubmit }) {
     </div>
   )
 }
+

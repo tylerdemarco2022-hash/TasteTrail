@@ -1,107 +1,1658 @@
 [
   {
-    "category": "Food",
-    "name": "THE BOARDS",
-    "description": null
+    "name": "170-330 cal",
+    "description": "",
+    "price": "$17.75",
+    "category": "Menu"
   },
   {
-    "category": "Food",
-    "name": "SOUP + SALAD",
-    "description": null
+    "name": "GLUTEN FREE BREAD +100 cal +",
+    "description": "",
+    "price": "$2",
+    "category": "Menu"
   },
   {
-    "category": "Food",
-    "name": "PLATES & PANINIS",
-    "description": null
+    "name": "crisp breads 1350 cal",
+    "description": "",
+    "price": "$17.95",
+    "category": "Menu"
   },
   {
-    "category": "Food",
-    "name": "DESSERTS",
-    "description": null
+    "name": "crisp breads 1380 cal",
+    "description": "",
+    "price": "$18.95",
+    "category": "Menu"
   },
   {
-    "category": "Food",
-    "name": "KIDS' OPTIONS",
-    "description": null
+    "name": "pickles, cornichons 1410 cal",
+    "description": "",
+    "price": "$17.95",
+    "category": "Menu"
   },
   {
-    "category": "Beverage",
-    "name": "SIPS",
-    "description": null
+    "name": "crostini 960 cal",
+    "description": "",
+    "price": "$17",
+    "category": "Menu"
   },
   {
-    "name": "Pan Con Tomate",
-    "category": "Appetizers",
-    "description": "Toasted bread with tomato and olive oil"
+    "name": "1250 cal",
+    "description": "",
+    "price": "$15",
+    "category": "Menu"
   },
   {
-    "name": "Jamon Serrano",
-    "category": "Appetizers",
-    "description": "Spanish cured ham"
+    "name": "garlic yogurt & whipped feta 980 cal +",
+    "description": "",
+    "price": "$3",
+    "category": "Menu"
   },
   {
-    "name": "Manchego Cheese",
-    "category": "Appetizers",
-    "description": "Spanish sheep cheese"
+    "name": "ingredients. ask us! 590 cal",
+    "description": "",
+    "price": "$13.25",
+    "category": "Menu"
   },
   {
-    "name": "Croquetas",
-    "category": "Appetizers",
-    "description": "Fried croquettes with ham or mushroom"
+    "name": "1140 cal",
+    "description": "",
+    "price": "$15.25",
+    "category": "Menu"
   },
   {
-    "name": "Patatas Bravas",
-    "category": "Small Plates",
-    "description": "Fried potatoes with spicy aioli"
+    "name": "romesco 390 cal",
+    "description": "",
+    "price": "$13.25",
+    "category": "Menu"
   },
   {
-    "name": "Gambas al Ajillo",
-    "category": "Small Plates",
-    "description": "Shrimp in garlic and olive oil"
+    "name": "olive oil 570 cal",
+    "description": "",
+    "price": "$15.50",
+    "category": "Menu"
   },
   {
-    "name": "Tortilla Española",
-    "category": "Small Plates",
-    "description": "Spanish potato omelet"
+    "name": "cheese, chives 930 cal",
+    "description": "",
+    "price": "$15.50",
+    "category": "Menu"
   },
   {
-    "name": "Albondigas",
-    "category": "Small Plates",
-    "description": "Meatballs in tomato sauce"
+    "name": "580 cal",
+    "description": "",
+    "price": "$13.75",
+    "category": "Menu"
   },
   {
-    "name": "Boquerones en Vinagre",
-    "category": "Small Plates",
-    "description": "Marinated anchovies"
+    "name": "seeds, chive 580 cal",
+    "description": "",
+    "price": "$9.95",
+    "category": "Menu"
   },
   {
-    "name": "Paella de Marisco",
-    "category": "Entrees",
-    "description": "Seafood paella with saffron rice"
+    "name": "spritz, focaccia 380 cal",
+    "description": "",
+    "price": "$16.95",
+    "category": "Menu"
   },
   {
-    "name": "Rabo Encendido",
-    "category": "Entrees",
-    "description": "Oxtail in red wine reduction"
+    "name": "180 cal 7.9",
+    "description": "",
+    "price": "$5",
+    "category": "Menu"
   },
   {
-    "name": "Pez Espada",
-    "category": "Entrees",
-    "description": "Black scabbardfish with vegetables"
+    "name": "+ CHICKEN 202 cal",
+    "description": "",
+    "price": "$6",
+    "category": "Menu"
   },
   {
-    "name": "Flan",
-    "category": "Desserts",
-    "description": "Spanish custard dessert"
+    "name": "+ STEAK 230 cal",
+    "description": "",
+    "price": "$8",
+    "category": "Menu"
   },
   {
-    "name": "Churros",
-    "category": "Desserts",
-    "description": "Fried pastry with chocolate"
+    "name": "ANY HALF PANINI",
+    "description": "HALF SALAD SOUP 265-1215 cal",
+    "price": "$16.75",
+    "category": "Menu"
   },
   {
-    "name": "Helado",
-    "category": "Desserts",
-    "description": "Spanish ice cream"
+    "name": "sauce, petite salad 1250 cal 17.5",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "grains, romesco 750-870 cal 17.5",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "dried tomato aioli 810 cal",
+    "description": "",
+    "price": "$15.50",
+    "category": "Menu"
+  },
+  {
+    "name": "pickle, dijonnaise 480 cal",
+    "description": "",
+    "price": "$15.75",
+    "category": "Menu"
+  },
+  {
+    "name": "olive oil 960 cal",
+    "description": "",
+    "price": "$15.25",
+    "category": "Menu"
+  },
+  {
+    "name": "chili, feta cheese 450 cal",
+    "description": "",
+    "price": "$15.50",
+    "category": "Menu"
+  },
+  {
+    "name": "570 cal",
+    "description": "",
+    "price": "$15.75",
+    "category": "Menu"
+  },
+  {
+    "name": "au jus 1160 cal 17.5",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "olive oil 460 cal",
+    "description": "",
+    "price": "$16",
+    "category": "Menu"
+  },
+  {
+    "name": "780 cal",
+    "description": "",
+    "price": "$7",
+    "category": "Menu"
+  },
+  {
+    "name": "dipping sauces 730 cal",
+    "description": "",
+    "price": "$9.50",
+    "category": "Menu"
+  },
+  {
+    "name": "830 cal",
+    "description": "",
+    "price": "$8",
+    "category": "Menu"
+  },
+  {
+    "name": "vanilla bean ice cream 710 cal",
+    "description": "",
+    "price": "$8.50",
+    "category": "Menu"
+  },
+  {
+    "name": "+ SHRIMP 202 cal",
+    "description": "",
+    "price": "$9",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "+ SALMON 230 cal",
+    "description": "",
+    "price": "$10",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "CUP 45-470 cal",
+    "description": "",
+    "price": "$5",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "BOWL 100-930 cal",
+    "description": "",
+    "price": "$8",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "vinaigrette 1060 cal",
+    "description": "",
+    "price": "$17",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "680 cal",
+    "description": "",
+    "price": "$15.50",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "dressing 680 cal",
+    "description": "",
+    "price": "$14.75",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "520 cal",
+    "description": "",
+    "price": "$14",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "garlic dressing 470 cal",
+    "description": "",
+    "price": "$14.25",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "sub soup 45-470 cal +2 gluten free bread +",
+    "description": "",
+    "price": "$2.50",
+    "category": "SOUPS & SALAD"
+  },
+  {
+    "name": "🇦🇫 Afghanistan (‫افغانستان‬‎) +",
+    "description": "",
+    "price": "$93",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇱 Albania (Shqipëri) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇩🇿 Algeria (‫الجزائر‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇸 American Samoa +",
+    "description": "4",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇩 Andorra +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇴 Angola +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇮 Anguilla +",
+    "description": "4",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇬 Antigua and Barbuda +",
+    "description": "8",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇷 Argentina +",
+    "description": "",
+    "price": "$54",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇲 Armenia (Հայաստան) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇼 Aruba +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇺 Australia +",
+    "description": "",
+    "price": "$61",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇹 Austria (Österreich) +",
+    "description": "",
+    "price": "$43",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇿 Azerbaijan (Azərbaycan) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇸 Bahamas +",
+    "description": "2",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇭 Bahrain (‫البحرين‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇩 Bangladesh (বাংলাদেশ) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇧 Barbados +",
+    "description": "6",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇾 Belarus (Беларусь) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇪 Belgium (België) +",
+    "description": "",
+    "price": "$32",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇿 Belize +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇯 Benin (Bénin) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇲 Bermuda +",
+    "description": "1",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇹 Bhutan (འབྲུག) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇴 Bolivia +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇦 Bosnia and Herzegovina (Босна и Херцеговина) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇼 Botswana +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇷 Brazil (Brasil) +",
+    "description": "",
+    "price": "$55",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇴 British Indian Ocean Territory +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇬 British Virgin Islands +",
+    "description": "4",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇳 Brunei +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇬 Bulgaria (България) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇫 Burkina Faso +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇮 Burundi (Uburundi) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇭 Cambodia (កម្ពុជា) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇲 Cameroon (Cameroun) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇦 Canada +",
+    "description": "",
+    "price": "$1",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇶 Caribbean Netherlands +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇾 Cayman Islands +",
+    "description": "5",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇫 Central African Republic (République centrafricaine) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇩 Chad (Tchad) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇱 Chile +",
+    "description": "",
+    "price": "$56",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇳 China (中国) +",
+    "description": "",
+    "price": "$86",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇴 Colombia +",
+    "description": "",
+    "price": "$57",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇲 Comoros (‫جزر القمر‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇩 Congo (DRC) (Jamhuri ya Kidemokrasia ya Kongo) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇬 Congo (Republic) (Congo-Brazzaville) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇰 Cook Islands +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇷 Costa Rica +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇮 Côte d’Ivoire +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇭🇷 Croatia (Hrvatska) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇺 Cuba +",
+    "description": "",
+    "price": "$53",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇼 Curaçao +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇾 Cyprus (Κύπρος) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇿 Czech Republic (Česká republika) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇩🇰 Denmark (Danmark) +",
+    "description": "",
+    "price": "$45",
+    "category": "Menu"
+  },
+  {
+    "name": "🇩🇯 Djibouti +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇩🇲 Dominica +",
+    "description": "7",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇩🇴 Dominican Republic (República Dominicana) +",
+    "description": "",
+    "price": "$1",
+    "category": "Menu"
+  },
+  {
+    "name": "🇪🇨 Ecuador +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇪🇬 Egypt (‫مصر‬‎) +",
+    "description": "",
+    "price": "$20",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇻 El Salvador +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇶 Equatorial Guinea (Guinea Ecuatorial) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇪🇷 Eritrea +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇪🇪 Estonia (Eesti) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇪🇹 Ethiopia +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇫🇰 Falkland Islands (Islas Malvinas) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇫🇴 Faroe Islands (Føroyar) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇫🇯 Fiji +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇫🇮 Finland (Suomi) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇫🇷 France +",
+    "description": "",
+    "price": "$33",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇫 French Guiana (Guyane française) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇫 French Polynesia (Polynésie française) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇦 Gabon +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇲 Gambia +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇪 Georgia (საქართველო) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇩🇪 Germany (Deutschland) +",
+    "description": "",
+    "price": "$49",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇭 Ghana (Gaana) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇮 Gibraltar +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇷 Greece (Ελλάδα) +",
+    "description": "",
+    "price": "$30",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇱 Greenland (Kalaallit Nunaat) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇩 Grenada +",
+    "description": "3",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇵 Guadeloupe +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇺 Guam +",
+    "description": "1",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇹 Guatemala +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇳 Guinea (Guinée) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇼 Guinea-Bissau (Guiné Bissau) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇾 Guyana +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇭🇹 Haiti +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇭🇳 Honduras +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇭🇰 Hong Kong (香港) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇭🇺 Hungary (Magyarország) +",
+    "description": "",
+    "price": "$36",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇸 Iceland (Ísland) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇳 India (भारत) +",
+    "description": "",
+    "price": "$91",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇩 Indonesia +",
+    "description": "",
+    "price": "$62",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇷 Iran (‫ایران‬‎) +",
+    "description": "",
+    "price": "$98",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇶 Iraq (‫العراق‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇪 Ireland +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇱 Israel (‫ישראל‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇮🇹 Italy (Italia) +",
+    "description": "",
+    "price": "$39",
+    "category": "Menu"
+  },
+  {
+    "name": "🇯🇲 Jamaica +",
+    "description": "6",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇯🇵 Japan (日本) +",
+    "description": "",
+    "price": "$81",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇿 Kazakhstan (Казахстан) +",
+    "description": "",
+    "price": "$7",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇪 Kenya +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇮 Kiribati +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇽🇰 Kosovo +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇼 Kuwait (‫الكويت‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇬 Kyrgyzstan (Кыргызстан) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇦 Laos (ລາວ) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇻 Latvia (Latvija) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇧 Lebanon (‫لبنان‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇸 Lesotho +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇷 Liberia +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇾 Libya (‫ليبيا‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇮 Liechtenstein +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇹 Lithuania (Lietuva) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇺 Luxembourg +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇴 Macau (澳門) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇰 Macedonia (FYROM) (Македонија) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇬 Madagascar (Madagasikara) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇼 Malawi +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇾 Malaysia +",
+    "description": "",
+    "price": "$60",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇻 Maldives +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇱 Mali +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇹 Malta +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇭 Marshall Islands +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇶 Martinique +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇷 Mauritania (‫موريتانيا‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇺 Mauritius (Moris) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇽 Mexico (México) +",
+    "description": "",
+    "price": "$52",
+    "category": "Menu"
+  },
+  {
+    "name": "🇫🇲 Micronesia +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇩 Moldova (Republica Moldova) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇨 Monaco +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇳 Mongolia (Монгол) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇪 Montenegro (Crna Gora) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇸 Montserrat +",
+    "description": "4",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇦 Morocco (‫المغرب‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇿 Mozambique (Moçambique) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇲 Myanmar (Burma) (မြန်မာ) +",
+    "description": "",
+    "price": "$95",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇦 Namibia (Namibië) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇷 Nauru +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇵 Nepal (नेपाल) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇱 Netherlands (Nederland) +",
+    "description": "",
+    "price": "$31",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇨 New Caledonia (Nouvelle-Calédonie) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇿 New Zealand +",
+    "description": "",
+    "price": "$64",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇮 Nicaragua +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇪 Niger (Nijar) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇬 Nigeria +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇺 Niue +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇫 Norfolk Island +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇵 North Korea (조선 민주주의 인민 공화국) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇵 Northern Mariana Islands +",
+    "description": "0",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇳🇴 Norway (Norge) +",
+    "description": "",
+    "price": "$47",
+    "category": "Menu"
+  },
+  {
+    "name": "🇴🇲 Oman (‫عُمان‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇰 Pakistan (‫پاکستان‬‎) +",
+    "description": "",
+    "price": "$92",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇼 Palau +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇸 Palestine (‫فلسطين‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇦 Panama (Panamá) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇬 Papua New Guinea +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇾 Paraguay +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇪 Peru (Perú) +",
+    "description": "",
+    "price": "$51",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇭 Philippines +",
+    "description": "",
+    "price": "$63",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇱 Poland (Polska) +",
+    "description": "",
+    "price": "$48",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇹 Portugal +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇷 Puerto Rico +",
+    "description": "",
+    "price": "$1",
+    "category": "Menu"
+  },
+  {
+    "name": "🇶🇦 Qatar (‫قطر‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇷🇪 Réunion (La Réunion) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇷🇴 Romania (România) +",
+    "description": "",
+    "price": "$40",
+    "category": "Menu"
+  },
+  {
+    "name": "🇷🇺 Russia (Россия) +",
+    "description": "",
+    "price": "$7",
+    "category": "Menu"
+  },
+  {
+    "name": "🇷🇼 Rwanda +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇧🇱 Saint Barthélemy (Saint-Barthélemy) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇭 Saint Helena +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇳 Saint Kitts and Nevis +",
+    "description": "9",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇨 Saint Lucia +",
+    "description": "8",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇲🇫 Saint Martin (Saint-Martin (partie française)) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇵🇲 Saint Pierre and Miquelon (Saint-Pierre-et-Miquelon) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇨 Saint Vincent and the Grenadines +",
+    "description": "4",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇼🇸 Samoa +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇲 San Marino +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇹 São Tomé and Príncipe (São Tomé e Príncipe) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇦 Saudi Arabia (‫المملكة العربية السعودية‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇳 Senegal (Sénégal) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇷🇸 Serbia (Србија) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇨 Seychelles +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇱 Sierra Leone +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇬 Singapore +",
+    "description": "",
+    "price": "$65",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇽 Sint Maarten +",
+    "description": "1",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇰 Slovakia (Slovensko) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇮 Slovenia (Slovenija) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇧 Solomon Islands +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇴 Somalia (Soomaaliya) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇿🇦 South Africa +",
+    "description": "",
+    "price": "$27",
+    "category": "Menu"
+  },
+  {
+    "name": "🇰🇷 South Korea (대한민국) +",
+    "description": "",
+    "price": "$82",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇸 South Sudan (‫جنوب السودان‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇪🇸 Spain (España) +",
+    "description": "",
+    "price": "$34",
+    "category": "Menu"
+  },
+  {
+    "name": "🇱🇰 Sri Lanka (ශ්‍රී ලංකාව) +",
+    "description": "",
+    "price": "$94",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇩 Sudan (‫السودان‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇷 Suriname +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇿 Swaziland +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇪 Sweden (Sverige) +",
+    "description": "",
+    "price": "$46",
+    "category": "Menu"
+  },
+  {
+    "name": "🇨🇭 Switzerland (Schweiz) +",
+    "description": "",
+    "price": "$41",
+    "category": "Menu"
+  },
+  {
+    "name": "🇸🇾 Syria (‫سوريا‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇼 Taiwan (台灣) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇯 Tajikistan +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇿 Tanzania +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇭 Thailand (ไทย) +",
+    "description": "",
+    "price": "$66",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇱 Timor-Leste +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇬 Togo +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇰 Tokelau +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇴 Tonga +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇹 Trinidad and Tobago +",
+    "description": "8",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇳 Tunisia (‫تونس‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇷 Turkey (Türkiye) +",
+    "description": "",
+    "price": "$90",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇲 Turkmenistan +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇨 Turks and Caicos Islands +",
+    "description": "9",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇹🇻 Tuvalu +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇮 U.S. Virgin Islands +",
+    "description": "0",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇺🇬 Uganda +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇺🇦 Ukraine (Україна) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇦🇪 United Arab Emirates (‫الإمارات العربية المتحدة‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇬🇧 United Kingdom +",
+    "description": "",
+    "price": "$44",
+    "category": "Menu"
+  },
+  {
+    "name": "🇺🇸 United States +",
+    "description": "",
+    "price": "$1",
+    "category": "Menu"
+  },
+  {
+    "name": "🇺🇾 Uruguay +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇺🇿 Uzbekistan (Oʻzbekiston) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇺 Vanuatu +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇦 Vatican City (Città del Vaticano) +",
+    "description": "",
+    "price": "$39",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇪 Venezuela +",
+    "description": "",
+    "price": "$58",
+    "category": "Menu"
+  },
+  {
+    "name": "🇻🇳 Vietnam (Việt Nam) +",
+    "description": "",
+    "price": "$84",
+    "category": "Menu"
+  },
+  {
+    "name": "🇼🇫 Wallis and Futuna +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇾🇪 Yemen (‫اليمن‬‎) +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇿🇲 Zambia +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "🇿🇼 Zimbabwe +",
+    "description": "",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "I CERTIFY THAT I AM AT LEAST",
+    "description": "",
+    "price": "$21",
+    "category": "Menu"
   }
 ]

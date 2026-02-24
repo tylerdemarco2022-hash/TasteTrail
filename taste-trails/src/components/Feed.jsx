@@ -87,50 +87,6 @@ const isBlockedRestaurant = (name = '') => {
 const filterBlockedRestaurants = (list = []) =>
   list.filter((r) => !isBlockedRestaurant(r?.name || r?.restaurant || ''))
 
-function MapOverview({ points, user, onSelect, locationInput, setLocationInput, searchLocation, searchingLocation }) {
-  const hasUser = Number.isFinite(user?.lat) && Number.isFinite(user?.lon)
-  const center = hasUser
-    ? `${user.lat},${user.lon}`
-    : '35.2271,-80.8431'
-
-  const mapSrc = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=restaurants+near+${center}&zoom=13`
-
-  return (
-    <div className="rounded-xl overflow-hidden shadow-md">
-      <div className="h-48 w-full relative">
-        <iframe
-          key={center}
-          title="Nearby Restaurants"
-          src={mapSrc}
-          className="w-full h-full border-0"
-          loading="lazy"
-          allowFullScreen
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-        {/* Location search overlay */}
-        <div className="absolute top-2 left-2 right-2 flex gap-2">
-          <input
-            type="text"
-            value={locationInput}
-            onChange={(e) => setLocationInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && searchLocation(locationInput)}
-            placeholder="Change location..."
-            className="flex-1 px-3 py-2 text-sm bg-white/90 backdrop-blur-sm border-0 rounded-lg shadow-lg focus:ring-2 focus:ring-amber-400 focus:outline-none"
-            disabled={searchingLocation}
-          />
-          <button
-            onClick={() => searchLocation(locationInput)}
-            disabled={searchingLocation || !locationInput.trim()}
-            className="px-4 py-2 text-sm bg-amber-500 text-white rounded-lg font-medium hover:bg-amber-600 disabled:bg-gray-400 disabled:cursor-not-allowed shadow-lg transition-colors"
-          >
-            {searchingLocation ? '⏳' : '🔍'}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function Feed({ onOpen }) {
   const [pos, setPos] = useState({ lat: 35.2271, lon: -80.8431 })
   const [nearby, setNearby] = useState([])

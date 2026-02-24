@@ -1,0 +1,66 @@
+{
+  "source_url": "https://www.postino.com/menu",
+  "url_confidence": 1,
+  "url_discovery_method": "manual",
+  "scrape_confidence": 1,
+  "scrape_confidence_report": {
+    "version": "menu_scraper_confidence_v1",
+    "score": 1,
+    "tier": "high",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.22,
+      "description_coverage_score": 0,
+      "naming_quality_score": 0.08,
+      "category_diversity_score": 0.04,
+      "source_diversity_score": 0.12,
+      "navigation_score": 0.04,
+      "pdf_signal_score": 0.12,
+      "discovery_score": 0.04,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 276,
+      "priced_item_count": 276,
+      "described_item_count": 1,
+      "multiword_name_count": 276,
+      "category_count": 2,
+      "visited_url_count": 9,
+      "menuish_visited_url_count": 6,
+      "raw_json_item_count": 12,
+      "raw_dom_item_count": 233,
+      "raw_pdf_item_count": 129,
+      "discovered_menu_link_count": 36
+    }
+  },
+  "menu_completeness_score": 0.76,
+  "menu_completeness_report": {
+    "version": "menu_completeness_v1",
+    "score": 0.76,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.04,
+      "description_coverage_score": 0,
+      "category_score": 0.04,
+      "naming_score": 0.1,
+      "scrape_score": 0.14,
+      "url_score": 0.1,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 276,
+      "priced_item_count": 92,
+      "described_item_count": 1,
+      "category_count": 2,
+      "multiword_name_count": 276,
+      "suspicious_name_count": 0,
+      "modifier_like_name_count": 0,
+      "short_name_count": 0
+    }
+  },
+  "min_scrape_confidence": 0.8,
+  "min_menu_completeness": 0.65,
+  "min_menu_items": 12,
+  "updated_at": "2026-02-23T22:56:14.640Z"
+}

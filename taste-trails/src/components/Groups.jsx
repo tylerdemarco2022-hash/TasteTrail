@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { posts as allPosts, restaurants as dataRestaurants } from '../data'
 import MenuView from './MenuView'
 import AddPost from './AddPost'
@@ -72,18 +72,36 @@ export default function Groups() {
   const [challengeReward, setChallengeReward] = useState('')
   const [inviteName, setInviteName] = useState('')
   const [groupPosts, setGroupPosts] = useState([])
-  // Load posts for groups user is a member of
+  // Show restaurant posts without rendering group membership cards.
   useEffect(() => {
-    try {
-      const posts = JSON.parse(localStorage.getItem('community-posts') || '[]')
-      const myGroups = groups.filter(g => (g.members || []).includes(CURRENT_USER))
-      const myGroupIds = myGroups.map(g => g.id)
-      const filtered = posts.filter(p => p.groupId && myGroupIds.includes(Number(p.groupId)))
-      setGroupPosts(filtered)
-    } catch (e) {
-      setGroupPosts([])
+    const refreshRestaurantPosts = () => {
+      try {
+        const storedRaw = localStorage.getItem('community-posts')
+        const storedPosts = storedRaw ? JSON.parse(storedRaw) : []
+        const persisted = Array.isArray(storedPosts) ? storedPosts : []
+        const fallback = Array.isArray(allPosts) ? allPosts : []
+        const source = persisted.length > 0 ? persisted : fallback
+        const filtered = source
+          .filter((post) => post && post.restaurant)
+          .sort((a, b) => {
+            const aTime = new Date(a?.timestamp || 0).getTime() || 0
+            const bTime = new Date(b?.timestamp || 0).getTime() || 0
+            return bTime - aTime
+          })
+        setGroupPosts(filtered)
+      } catch (e) {
+        setGroupPosts(Array.isArray(allPosts) ? allPosts.filter((post) => post && post.restaurant) : [])
+      }
     }
-  }, [groups])
+
+    refreshRestaurantPosts()
+    window.addEventListener('postsUpdated', refreshRestaurantPosts)
+    window.addEventListener('postsCleared', refreshRestaurantPosts)
+    return () => {
+      window.removeEventListener('postsUpdated', refreshRestaurantPosts)
+      window.removeEventListener('postsCleared', refreshRestaurantPosts)
+    }
+  }, [])
 
   useEffect(() => {
     const g = loadGroups()
@@ -109,7 +127,7 @@ export default function Groups() {
         groupId: groupId,
         name: 'First Bite',
         description: 'Try your first restaurant with the group',
-        reward: '🍽️ First Bite',
+        reward: 'ðŸ½ï¸ First Bite',
         createdBy: 'Auto',
         completedBy: []
       },
@@ -118,7 +136,7 @@ export default function Groups() {
         groupId: groupId,
         name: 'Food Explorer',
         description: 'Visit 3 different restaurants',
-        reward: '🗺️ Explorer',
+        reward: 'ðŸ—ºï¸ Explorer',
         createdBy: 'Auto',
         completedBy: []
       },
@@ -127,7 +145,7 @@ export default function Groups() {
         groupId: groupId,
         name: 'Taste Master',
         description: 'Rate 5 different dishes',
-        reward: '⭐ Taste Master',
+        reward: 'â­ Taste Master',
         createdBy: 'Auto',
         completedBy: []
       },
@@ -136,7 +154,7 @@ export default function Groups() {
         groupId: groupId,
         name: 'Social Foodie',
         description: 'Share a meal with all group members',
-        reward: '👥 Social Butterfly',
+        reward: 'ðŸ‘¥ Social Butterfly',
         createdBy: 'Auto',
         completedBy: []
       },
@@ -145,7 +163,7 @@ export default function Groups() {
         groupId: groupId,
         name: 'Weekend Warrior',
         description: 'Try a new restaurant on the weekend',
-        reward: '🎉 Weekend Warrior',
+        reward: 'ðŸŽ‰ Weekend Warrior',
         createdBy: 'Auto',
         completedBy: []
       }
@@ -251,7 +269,7 @@ export default function Groups() {
       groupId: selectedGroup.id,
       name: challengeName,
       description: challengeDesc,
-      reward: challengeReward || '🏆 Champion Badge',
+      reward: challengeReward || 'ðŸ† Champion Badge',
       createdBy: CURRENT_USER,
       completedBy: []
     }
@@ -300,7 +318,7 @@ export default function Groups() {
             group: group.name,
             groupId: group.id,
             challengeId: challengeId,
-            name: `🌟 Group ${challenge.reward}`,
+            name: `ðŸŒŸ Group ${challenge.reward}`,
             earnedAt: new Date().toISOString()
           }
           const updatedBadges = [groupBadge, ...newBadges]
@@ -327,6 +345,13 @@ export default function Groups() {
     return challenges.filter(c => c.groupId === groupId)
   }
 
+  const getPostGroupLabel = (post) => {
+    if (post?.groupName) return post.groupName
+    if (!post?.groupId) return 'Community'
+    const match = groups.find((g) => String(g.id) === String(post.groupId))
+    return match?.name || `Group ${post.groupId}`
+  }
+
   return (
     <div className="max-w-3xl mx-auto p-4 pb-24">
       <div className="glass rounded-2xl p-6 mb-6 shadow-lg">
@@ -349,7 +374,7 @@ export default function Groups() {
           </button>
         </div>
       </div>
-      {!selectedGroup && (
+      {false && !selectedGroup && (
         <div className="grid gap-4">
           {groups.map((g) => (
             <div key={g.id} className="card-hover glass rounded-2xl p-6 shadow-lg flex items-center justify-between">
@@ -357,20 +382,20 @@ export default function Groups() {
                 <div className="font-bold text-lg cursor-pointer hover:text-orange-600 transition-colors" onClick={() => setSelectedGroup(g)}>{g.name}</div>
                 <div className="text-sm text-gray-600 mt-1">{g.desc}</div>
                 <div className="flex items-center gap-3 mt-3">
-                  <span className="text-xs text-gray-500 font-medium">👥 {(g.members || []).length} members</span>
+                  <span className="text-xs text-gray-500 font-medium">ðŸ‘¥ {(g.members || []).length} members</span>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                     ((g.joinPolicy||'request')==='open') 
                       ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white shadow-md' 
                       : 'bg-gradient-to-r from-gray-400 to-gray-500 text-white shadow-md'
                   }`}>
-                    {((g.joinPolicy||'request')==='open') ? '🌐 Public' : '🔒 Private'}
+                    {((g.joinPolicy||'request')==='open') ? 'ðŸŒ Public' : 'ðŸ”’ Private'}
                   </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 {!(g.members||[]).includes(CURRENT_USER) && (g.invites||[]).includes(CURRENT_USER) ? (
                   <button onClick={() => toggleJoin(g.id)} className="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold">
-                    ✓ Accept Invite
+                    âœ“ Accept Invite
                   </button>
                 ) : (
                   <button onClick={() => toggleJoin(g.id)} className={`px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold ${
@@ -380,7 +405,7 @@ export default function Groups() {
                         ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                         : 'bg-gradient-to-r from-orange-500 to-red-600 text-white'
                   )}`}>
-                    {(g.members || []).includes(CURRENT_USER) ? 'Leave' : (((g.pendingRequests||[]).includes(CURRENT_USER) && ((g.joinPolicy||'request')!=='open')) ? '⏳ Requested' : 'Join')}
+                    {(g.members || []).includes(CURRENT_USER) ? 'Leave' : (((g.pendingRequests||[]).includes(CURRENT_USER) && ((g.joinPolicy||'request')!=='open')) ? 'â³ Requested' : 'Join')}
                   </button>
                 )}
                 <button onClick={() => setSelectedGroup(g)} className="px-5 py-2.5 glass hover:bg-white/50 rounded-xl shadow-md hover:shadow-lg transition-all font-semibold text-gray-700">
@@ -392,7 +417,7 @@ export default function Groups() {
         </div>
       )}
 
-      {selectedGroup && (
+      {false && selectedGroup && (
         <div>
           <div className="glass rounded-2xl p-6 mb-6 shadow-lg">
             <div className="flex items-center justify-between">
@@ -401,9 +426,9 @@ export default function Groups() {
                 <div className="text-sm text-gray-600 mt-1">{selectedGroup.desc}</div>
                 <div className="flex items-center gap-2 mt-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${((selectedGroup.joinPolicy||'request')==='open') ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white' : 'bg-gradient-to-r from-gray-400 to-gray-500 text-white'} shadow-md`}>
-                    {((selectedGroup.joinPolicy||'request')==='open') ? '🌐 Public Group' : '🔒 Private Group'}
+                    {((selectedGroup.joinPolicy||'request')==='open') ? 'ðŸŒ Public Group' : 'ðŸ”’ Private Group'}
                   </span>
-                  <span className="text-xs text-gray-600 font-medium">👥 {(selectedGroup.members || []).length} members</span>
+                  <span className="text-xs text-gray-600 font-medium">ðŸ‘¥ {(selectedGroup.members || []).length} members</span>
                   {getGroupBadges(selectedGroup.id).length > 0 && (
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-semibold text-gray-700">Group Badges:</span>
@@ -416,11 +441,11 @@ export default function Groups() {
               </div>
               <div className="flex items-center gap-3">
                 <button onClick={() => setSelectedGroup(null)} className="px-5 py-2.5 glass hover:bg-white/50 rounded-xl shadow-md hover:shadow-lg transition-all font-semibold text-gray-700">
-                  ← Back
+                  â† Back
                 </button>
                 {!(selectedGroup.members||[]).includes(CURRENT_USER) && (selectedGroup.invites||[]).includes(CURRENT_USER) && (
                   <button onClick={() => toggleJoin(selectedGroup.id)} className="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold">
-                    ✓ Accept Invite
+                    âœ“ Accept Invite
                   </button>
                 )}
                 <button onClick={() => toggleJoin(selectedGroup.id)} className={`px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold ${
@@ -430,7 +455,7 @@ export default function Groups() {
                       ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                       : 'bg-gradient-to-r from-orange-500 to-red-600 text-white'
                 )}`}>
-                  {(selectedGroup.members||[]).includes(CURRENT_USER) ? 'Leave' : (((selectedGroup.pendingRequests||[]).includes(CURRENT_USER) && ((selectedGroup.joinPolicy||'request')!=='open')) ? '⏳ Requested' : 'Join')}
+                  {(selectedGroup.members||[]).includes(CURRENT_USER) ? 'Leave' : (((selectedGroup.pendingRequests||[]).includes(CURRENT_USER) && ((selectedGroup.joinPolicy||'request')!=='open')) ? 'â³ Requested' : 'Join')}
                 </button>
                 {(selectedGroup.members||[]).includes(CURRENT_USER) && (
                   <button onClick={() => setShowAddPost(true)} className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold">
@@ -451,7 +476,7 @@ export default function Groups() {
                   : 'glass hover:bg-white/50 text-gray-700'
               }`}
             >
-              🍴 Restaurants
+              ðŸ´ Restaurants
             </button>
             <button 
               onClick={() => setShowChallenges(true)} 
@@ -461,24 +486,24 @@ export default function Groups() {
                   : 'glass hover:bg-white/50 text-gray-700'
               }`}
             >
-              🏆 Challenges
+              ðŸ† Challenges
             </button>
           </div>
 
           {!showChallenges && (
             <div>
-              <div className="text-sm font-semibold text-gray-700 mb-4">🍴 Restaurants tried by members:</div>
+              <div className="text-sm font-semibold text-gray-700 mb-4">ðŸ´ Restaurants tried by members:</div>
               <div className="grid gap-4">
                 {/** derive unique restaurants from posts associated with this group; gate by membership for private groups */}
                 {(((selectedGroup.joinPolicy||'request')==='request') && !(selectedGroup.members||[]).includes(CURRENT_USER)) ? (
                   (selectedGroup.pendingRequests||[]).includes(CURRENT_USER) ? (
                     <div className="glass rounded-2xl p-8 text-center">
-                      <div className="text-5xl mb-3">⏳</div>
-                      <div className="text-gray-600 font-medium">Waiting for group leader to accept your request…</div>
+                      <div className="text-5xl mb-3">â³</div>
+                      <div className="text-gray-600 font-medium">Waiting for group leader to accept your requestâ€¦</div>
                     </div>
                   ) : (
                     <div className="glass rounded-2xl p-8 text-center">
-                      <div className="text-5xl mb-3">🔒</div>
+                      <div className="text-5xl mb-3">ðŸ”’</div>
                       <div className="text-gray-600 font-medium">Join the group to view posts.</div>
                     </div>
                   )
@@ -507,7 +532,7 @@ export default function Groups() {
           {showChallenges && (
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="text-sm font-semibold text-gray-700">🏆 Group Challenges:</div>
+                <div className="text-sm font-semibold text-gray-700">ðŸ† Group Challenges:</div>
                 {isLeader(selectedGroup) && (
                   <button 
                     onClick={() => setShowCreateChallenge(true)} 
@@ -519,7 +544,7 @@ export default function Groups() {
               </div>
               {isLeader(selectedGroup) && (
                 <div className="glass rounded-2xl p-5 shadow-lg mb-4">
-                  <div className="font-bold text-lg mb-4 bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">💼 Membership</div>
+                  <div className="font-bold text-lg mb-4 bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">ðŸ’¼ Membership</div>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-sm font-semibold text-gray-700">Privacy:</span>
                     <select
@@ -543,8 +568,8 @@ export default function Groups() {
                       }}
                       className="flex-1 border-2 border-gray-200 p-3 rounded-xl font-medium text-gray-700 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all"
                     >
-                      <option value="open">🌐 Public (Anyone can join)</option>
-                      <option value="request">🔒 Private (Request to join)</option>
+                      <option value="open">ðŸŒ Public (Anyone can join)</option>
+                      <option value="request">ðŸ”’ Private (Request to join)</option>
                     </select>
                   </div>
                   <div className="flex items-center gap-3 mb-4">
@@ -561,12 +586,12 @@ export default function Groups() {
                       }}
                       className="px-5 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold"
                     >
-                      ✉ Invite
+                      âœ‰ Invite
                     </button>
                   </div>
-                  <div className="text-sm font-semibold text-gray-700 mb-3">📥 Pending requests:</div>
+                  <div className="text-sm font-semibold text-gray-700 mb-3">ðŸ“¥ Pending requests:</div>
                   {!(selectedGroup.pendingRequests||[]).length && (
-                    <div className="text-sm text-gray-500 bg-gray-50 p-4 rounded-xl text-center">✓ No pending requests</div>
+                    <div className="text-sm text-gray-500 bg-gray-50 p-4 rounded-xl text-center">âœ“ No pending requests</div>
                   )}
                   <div className="space-y-3">
                     {(selectedGroup.pendingRequests||[]).map((u) => (
@@ -582,10 +607,10 @@ export default function Groups() {
                         </div>
                         <div className="flex items-center gap-2">
                           <button onClick={() => approveRequest(selectedGroup.id, u)} className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all text-sm font-semibold">
-                            ✓ Accept
+                            âœ“ Accept
                           </button>
                           <button onClick={() => declineRequest(selectedGroup.id, u)} className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl shadow-md transition-all text-sm font-semibold">
-                            ✕ Decline
+                            âœ• Decline
                           </button>
                         </div>
                       </div>
@@ -596,7 +621,7 @@ export default function Groups() {
               <div className="grid gap-4">
                 {getGroupChallenges(selectedGroup.id).length === 0 && (
                   <div className="glass rounded-2xl p-8 text-center">
-                    <div className="text-5xl mb-3">🏆</div>
+                    <div className="text-5xl mb-3">ðŸ†</div>
                     <div className="text-gray-600 font-medium">
                       {isLeader(selectedGroup) ? 'Create a challenge to get started!' : 'Ask your group leader to create challenges!'}
                     </div>
@@ -613,7 +638,7 @@ export default function Groups() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
                             <h4 className="font-bold text-lg text-gray-900">{challenge.name}</h4>
-                            {isCompleted && <span className="text-2xl">✓</span>}
+                            {isCompleted && <span className="text-2xl">âœ“</span>}
                           </div>
                           <div className="text-sm text-gray-600 mb-3">{challenge.description}</div>
                           <div className="flex items-center gap-2 mb-3">
@@ -625,7 +650,7 @@ export default function Groups() {
                             <div className="bg-gradient-to-r from-green-400 to-emerald-600 h-2.5 rounded-full transition-all" style={{width: `${progressPercent}%`}}></div>
                           </div>
                           <div className="text-xs text-gray-500 font-medium">
-                            🎯 {completionCount}/{totalMembers} members completed
+                            ðŸŽ¯ {completionCount}/{totalMembers} members completed
                           </div>
                         </div>
                         {!isCompleted && (selectedGroup.members || []).includes(CURRENT_USER) && (
@@ -633,7 +658,7 @@ export default function Groups() {
                             onClick={() => completeChallenge(challenge.id)}
                             className="px-5 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold"
                           >
-                            ✓ Complete
+                            âœ“ Complete
                           </button>
                         )}
                       </div>
@@ -670,7 +695,7 @@ export default function Groups() {
       {showCreateChallenge && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
           <div className="glass rounded-3xl p-6 w-full max-w-md shadow-2xl border border-white/30 animate-slideUp">
-            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-red-700 bg-clip-text text-transparent">🏆 Create Challenge</h3>
+            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-red-700 bg-clip-text text-transparent">ðŸ† Create Challenge</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Challenge Name</label>
@@ -697,7 +722,7 @@ export default function Groups() {
                   value={challengeReward} 
                   onChange={(e) => setChallengeReward(e.target.value)} 
                   className="w-full border-2 border-gray-200 p-3 rounded-xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all" 
-                  placeholder="e.g., 🍕 Pizza Master"
+                  placeholder="e.g., ðŸ• Pizza Master"
                 />
               </div>
             </div>
@@ -715,7 +740,7 @@ export default function Groups() {
       {showCreate && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
           <div className="glass rounded-3xl p-6 w-full max-w-md shadow-2xl border border-white/30 animate-slideUp">
-            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">👥 Create Group</h3>
+            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">ðŸ‘¥ Create Group</h3>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Group Name</label>
@@ -728,11 +753,11 @@ export default function Groups() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Privacy</label>
                 <select value={joinPolicy} onChange={(e) => setJoinPolicy(e.target.value)} className="w-full border-2 border-gray-200 p-3 rounded-xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all font-medium">
-                  <option value="open">🌐 Public (Anyone can join)</option>
-                  <option value="request">🔒 Private (Request to join)</option>
+                  <option value="open">ðŸŒ Public (Anyone can join)</option>
+                  <option value="request">ðŸ”’ Private (Request to join)</option>
                 </select>
               </div>
-              <div className="text-xs text-gray-500">👥 Members on creation: 1 (You)</div>
+              <div className="text-xs text-gray-500">ðŸ‘¥ Members on creation: 1 (You)</div>
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setShowCreate(false)} className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-semibold transition-all">
@@ -754,39 +779,47 @@ export default function Groups() {
       )}
 
 
-      {/* Group Posts Section */}
+      {/* Restaurant Posts Section */}
       <div className="mt-10">
-        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Your Group Posts</h2>
-        {groups.filter(g => (g.members || []).includes(CURRENT_USER)).map(group => (
-          <div key={group.id} className="mb-8">
-            <h3 className="text-lg font-bold mb-2 text-orange-700">{group.name}</h3>
-            {groupPosts.filter(p => Number(p.groupId) === group.id).length === 0 ? (
-              <div className="text-gray-400 text-sm mb-4">No posts in this group yet.</div>
-            ) : (
-              <div className="space-y-4">
-                {groupPosts.filter(p => Number(p.groupId) === group.id).map(post => (
-                  <div key={post.id} className="glass rounded-xl p-4 shadow-md cursor-pointer hover:shadow-lg transition-all" onClick={() => setSelectedPost(post)}>
-                    <div className="flex items-center gap-3 mb-2">
-                      <img src={post.user.avatar} alt="avatar" className="w-10 h-10 rounded-full object-cover border-2 border-white shadow" />
-                      <div>
-                        <div className="font-semibold text-gray-900">{post.user.name}</div>
-                        <div className="text-xs text-gray-500">{new Date(post.timestamp || Date.now()).toLocaleString()}</div>
-                      </div>
-                    </div>
-                    <div className="font-bold text-orange-700 text-lg mb-1">{post.restaurant}</div>
-                    <div className="text-sm text-gray-700 mb-2">{post.caption}</div>
-                    {post.image && <img src={post.image} alt="dish" className="w-full h-40 object-cover rounded-xl mb-2" />}
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <span>⭐ {post.rating}</span>
-                      {post.dish && <span>🍽️ {post.dish}</span>}
+        <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Restaurant Posts</h2>
+        {groupPosts.length === 0 ? (
+          <div className="text-gray-400 text-sm mb-4">No restaurant posts yet.</div>
+        ) : (
+          <div className="space-y-4">
+            {groupPosts.map((post) => {
+              const groupLabel = getPostGroupLabel(post)
+              return (
+                <div
+                  key={post.id || `${post.restaurant}-${post.dish}-${post.timestamp || 'post'}`}
+                  className="glass rounded-xl p-4 shadow-md cursor-pointer hover:shadow-lg transition-all"
+                  onClick={() => setSelectedPost(post)}
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <img
+                      src={post.user?.avatar || 'https://i.pravatar.cc/64?img=1'}
+                      alt="avatar"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
+                    />
+                    <div>
+                      <div className="font-semibold text-gray-900">{post.user?.name || 'You'}</div>
+                      <div className="text-xs text-gray-500">{new Date(post.timestamp || Date.now()).toLocaleString()}</div>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                  <div className="font-bold text-orange-700 text-lg mb-1">{post.restaurant}</div>
+                  <div className="text-xs text-gray-600 mb-2">Posted for: <span className="font-semibold text-gray-700">{groupLabel}</span></div>
+                  <div className="text-sm text-gray-700 mb-2">{post.caption}</div>
+                  {post.image && <img src={post.image} alt="dish" className="w-full h-40 object-cover rounded-xl mb-2" />}
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    {typeof post.rating === 'number' && <span>Rating: {post.rating.toFixed(1)}</span>}
+                    {post.dish && <span>Dish: {post.dish}</span>}
+                  </div>
+                </div>
+              )
+            })}
           </div>
-        ))}
+        )}
       </div>
     </div>
   )
 }
+

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MessageCircle, Trophy, MessageSquare, UserPlus, Check, X } from 'lucide-react'
+import { API_BASE_URL } from '../config/api'
 
 const CURRENT_USER = 'You'
 
@@ -24,7 +25,7 @@ export default function Notifications() {
         return
       }
 
-      const response = await fetch('http://localhost:8081/api/follow-requests/incoming', {
+      const response = await fetch(`${API_BASE_URL}/api/follow-requests/incoming`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -93,7 +94,7 @@ export default function Notifications() {
     try {
       const token = localStorage.getItem('token')
       const endpoint = action === 'approved' ? 'accept' : 'decline'
-      const response = await fetch(`http://localhost:8081/api/follow-requests/${requestId}/${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}/api/follow-requests/${requestId}/${endpoint}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`

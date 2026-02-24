@@ -8,7 +8,16 @@ import menuRoutes from '../backend/server/routes/menu.js';
 import nearbyRoutes from '../backend/server/routes/nearby.js';
 import followRequestsRoutes from '../backend/server/routes/followRequests.js';
 import authRoutes from './routes/auth.js';
+import userPrefsRoutes from './routes/userPrefs.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
+import { discoverRestaurantURL } from '../backend/services/urlDiscovery.js';
+import { scrapeMenu as scrapeMenuAgent } from '../backend/scraper/menuScraperAgent.js';
+import {
+  buildMenuCompletenessReport,
+  passesMenuCompleteness,
+  sanitizeMenuItems as sanitizeMenuItemsShared,
+  flattenScrapedMenuItems as flattenScrapedMenuItemsShared
+} from '../backend/services/menuQuality.js';
 import path from 'path';
 import dotenv from 'dotenv';
 
@@ -35,25 +44,25 @@ process.on('SIGINT', () => {
   process.exit(1);
 });
 
-// If OPENAI_API_KEY is not set in this server's .env, try loading from workspace root .env
-try {
-  const hasKey = !!process.env.OPENAI_API_KEY && !String(process.env.OPENAI_API_KEY).includes('your-openai');
-  if (!hasKey) {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const rootEnv = path.join(__dirname, '../../.env');
-    if (fs.existsSync(rootEnv)) {
-      const envText = fs.readFileSync(rootEnv, 'utf8');
-      const m = envText.match(/OPENAI_API_KEY\s*=\s*(.+)/);
-      if (m && m[1]) {
-        process.env.OPENAI_API_KEY = m[1].trim().replace(/^\s*\"|\"\s*$/g, '').replace(/^\'|\'$/g, '');
-        console.log('Loaded OPENAI_API_KEY from workspace root .env');
-      }
-    }
-  }
-} catch (e) {
-  console.warn('Could not load OPENAI_API_KEY from root .env:', e && e.message);
-}
+// OpenAI disabled: do not load or use OPENAI_API_KEY.
+// try {
+//   const hasKey = !!process.env.OPENAI_API_KEY && !String(process.env.OPENAI_API_KEY).includes('your-openai');
+//   if (!hasKey) {
+//     const __filename = fileURLToPath(import.meta.url);
+//     const __dirname = path.dirname(__filename);
+//     const rootEnv = path.join(__dirname, '../../.env');
+//     if (fs.existsSync(rootEnv)) {
+//       const envText = fs.readFileSync(rootEnv, 'utf8');
+//       const m = envText.match(/OPENAI_API_KEY\s*=\s*(.+)/);
+//       if (m && m[1]) {
+//         process.env.OPENAI_API_KEY = m[1].trim().replace(/^\s*\"|\"\s*$/g, '').replace(/^\'|\'$/g, '');
+//         console.log('Loaded OPENAI_API_KEY from workspace root .env');
+//       }
+//     }
+//   }
+// } catch (e) {
+//   console.warn('Could not load OPENAI_API_KEY from root .env:', e && e.message);
+// }
 
 process.on('exit', code => console.error('[EXIT EVENT]', code));
 process.on('beforeExit', code => console.error('[BEFORE EXIT]', code));
@@ -90,6 +99,7 @@ app.use('/api', nearbyRoutes);
 app.use('/api', followRequestsRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
+app.use("/api", userPrefsRoutes);
 
 // Health check endpoint (root-level for login connectivity)
 app.get('/health', (req, res) => res.status(200).send('OK'));
@@ -124,8 +134,7 @@ app.get('/api/ping', (req, res) => {
 
 // Debug endpoint to inspect OPENAI key presence (masked)
 app.get('/__debug_openai', (req, res) => {
-  const key = process.env.OPENAI_API_KEY || null;
-  res.json({ hasKey: !!key, keyPreview: key ? (String(key).slice(0, 12) + '...' + String(key).slice(-4)) : null });
+  res.json({ ai_disabled: true });
 });
 
 // Debug endpoint to confirm server entry + resolver availability
@@ -140,16 +149,7 @@ app.get('/__whoami', (req, res) => {
 
 // Debug endpoint to check OpenAI auth using the server's key (no key returned)
 app.get('/__debug_openai_check', async (req, res) => {
-  try {
-    const key = process.env.OPENAI_API_KEY;
-    if (!key) return res.status(400).json({ error: 'No OPENAI key in server process.' });
-    const resp = await fetch('https://api.openai.com/v1/models', { headers: { Authorization: `Bearer ${key}` } });
-    const status = resp.status;
-    const body = await resp.json().catch(() => null);
-    return res.json({ status, sampleModel: body && body.data && body.data[0] && body.data[0].id ? body.data[0].id : null });
-  } catch (e) {
-    return res.status(500).json({ error: e && e.message ? e.message : String(e) });
-  }
+  return res.json({ ai_disabled: true });
 });
 
 // Proxy endpoint to main app's find-menu-items to avoid CORS from the frontend
@@ -375,6 +375,581 @@ app.get('/api/restaurants', async (req, res) => {
   }
 });
 
+function normalizeRestaurantKey(str = '') {
+  return String(str).toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function groupMenuItems(menu) {
+  const categoryMap = {};
+  for (const item of Array.isArray(menu) ? menu : []) {
+    const cat = item?.category || 'Menu';
+    if (!categoryMap[cat]) categoryMap[cat] = [];
+    categoryMap[cat].push({
+      name: item?.name || '',
+      description: item?.description || '',
+      price: item?.price || ''
+    });
+  }
+  return Object.entries(categoryMap).map(([category, items]) => ({ category, items }));
+}
+
+function extractMenuItemsFromHtml(html = '') {
+  if (!html) return [];
+  const withoutScripts = html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ' ')
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, ' ');
+  const text = withoutScripts
+    .replace(/<[^>]+>/g, '\n')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/\r/g, '\n');
+
+  const lines = text
+    .split('\n')
+    .map((line) => line.replace(/\s+/g, ' ').trim())
+    .filter((line) => line.length >= 4 && line.length <= 160);
+
+  const items = [];
+  const seen = new Set();
+  const pricePattern = /\$?\s?(\d{1,3}(?:\.\d{2})?)/;
+
+  for (const line of lines) {
+    const match = line.match(pricePattern);
+    if (!match) continue;
+
+    const beforePrice = line.slice(0, match.index).replace(/[-–—:|.]+$/, '').trim();
+    const name = beforePrice || line.replace(pricePattern, '').trim();
+    const price = `$${match[1]}`;
+    if (!name || name.length < 2 || name.length > 90) continue;
+
+    const key = `${name.toLowerCase()}|${price}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    items.push({ name, price, description: '', category: 'Menu' });
+  }
+
+  if (items.length >= 5) return items.slice(0, 120);
+
+  const regexFallback = /([A-Z][A-Za-z0-9 '&/()-]{2,90})\s*(?:[-–—:.|]+)?\s*\$([0-9]{1,3}(?:\.[0-9]{2})?)/g;
+  let match = null;
+  while ((match = regexFallback.exec(text)) !== null) {
+    const name = (match[1] || '').trim();
+    const price = `$${match[2]}`;
+    if (!name) continue;
+    const key = `${name.toLowerCase()}|${price}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    items.push({ name, price, description: '', category: 'Menu' });
+  }
+
+  return items.slice(0, 120);
+}
+
+const TECH_GARBAGE_NAME_REGEX = /(bundle|worker|entrypoint|webpack|nextgen|nextgendash|videoplayer|wamedia|wasm|filehash|mainwebworker|chunk|sourcemap|source map|javascript|manifest)/i;
+const NOISE_MENU_NAME_REGEX = /(^view\b.*\bmenu\b|^home$|^about$|^contact$|^menu$|^meta\b|privacy policy|terms of service|all rights reserved|\||©)/i;
+const GARBAGE_REACTION_NAMES = new Set([
+  'like', 'love', 'selfie', 'dorothy', 'toto', 'haha', 'yay', 'wow', 'confused', 'support', 'sorry', 'anger', 'flame', 'plane'
+]);
+
+function isLikelyMenuName(name = '') {
+  const clean = String(name || '').replace(/\s+/g, ' ').trim();
+  if (!clean || clean.length < 2 || clean.length > 100) return false;
+  if (TECH_GARBAGE_NAME_REGEX.test(clean)) return false;
+  if (NOISE_MENU_NAME_REGEX.test(clean)) return false;
+  if (GARBAGE_REACTION_NAMES.has(clean.toLowerCase())) return false;
+  if (/,\s*[A-Z]{2}$/.test(clean)) return false;
+  if (/\b\d{5}(?:-\d{4})?\b/.test(clean)) return false;
+  if (!clean.includes(' ') && /[a-z][A-Z]/.test(clean) && clean.length > 14) return false;
+  return true;
+}
+
+function flattenScrapedMenuItems(scraped = {}) {
+  const sections = Array.isArray(scraped?.menu_sections) ? scraped.menu_sections : [];
+  const flattened = [];
+  for (const section of sections) {
+    const sectionName = section?.section || 'Menu';
+    const items = Array.isArray(section?.items) ? section.items : [];
+    for (const raw of items) {
+      if (typeof raw === 'string') {
+        const text = String(raw).replace(/\s+/g, ' ').trim();
+        if (!text) continue;
+        const priceMatch = text.match(/\$?\s?(\d{1,3}(?:\.\d{2})?)/);
+        const name = priceMatch ? text.slice(0, priceMatch.index).trim() : text;
+        const price = priceMatch ? `$${priceMatch[1]}` : '';
+        if (!isLikelyMenuName(name)) continue;
+        flattened.push({ name, price, description: '', category: sectionName });
+      } else if (raw && typeof raw === 'object') {
+        const name = raw.name || raw.title || raw.dish_name || '';
+        const priceText = raw.price || raw.amount || '';
+        const priceMatch = String(priceText).match(/(\d{1,3}(?:\.\d{2})?)/);
+        const price = priceMatch ? `$${priceMatch[1]}` : '';
+        if (!isLikelyMenuName(name)) continue;
+        flattened.push({
+          name: String(name).trim(),
+          price,
+          description: String(raw.description || '').trim(),
+          category: raw.category || sectionName
+        });
+      }
+    }
+  }
+
+  const seen = new Set();
+  return flattened.filter((item) => {
+    const key = `${String(item.name || '').toLowerCase()}|${String(item.price || '').toLowerCase()}`;
+    if (!item.name || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function normalizeMenuItem(raw, fallbackCategory = 'Menu') {
+  if (!raw) return null;
+
+  if (typeof raw === 'string') {
+    const text = String(raw).replace(/\s+/g, ' ').trim();
+    if (!text) return null;
+    const priceMatch = text.match(/\$?\s?(\d{1,3}(?:\.\d{2})?)/);
+    const name = (priceMatch ? text.slice(0, priceMatch.index) : text).trim();
+    const price = priceMatch ? `$${priceMatch[1]}` : '';
+    if (!isLikelyMenuName(name)) return null;
+    return { name, price, description: '', category: fallbackCategory };
+  }
+
+  if (typeof raw !== 'object') return null;
+  const name = String(raw.name || raw.title || raw.dish_name || '').replace(/\s+/g, ' ').trim();
+  if (!isLikelyMenuName(name)) return null;
+  const priceText = String(raw.price || raw.amount || '').trim();
+  const priceMatch = priceText.match(/(\d{1,3}(?:\.\d{2})?)/);
+  const numericPrice = priceMatch ? Number(priceMatch[1]) : null;
+  if (Number.isFinite(numericPrice) && numericPrice > 120) return null;
+  const description = String(raw.description || '').replace(/\s+/g, ' ').trim();
+
+  return {
+    name,
+    price: priceMatch ? `$${priceMatch[1]}` : '',
+    description,
+    category: raw.category || fallbackCategory
+  };
+}
+
+function sanitizeMenuItems(items = [], fallbackCategory = 'Menu') {
+  const source = Array.isArray(items) ? items : [];
+  const seenExact = new Set();
+  const firstIndexByName = new Map();
+  const out = [];
+
+  for (const raw of source) {
+    const normalized = normalizeMenuItem(raw, fallbackCategory);
+    if (!normalized) continue;
+    const nameKey = normalized.name.toLowerCase();
+    const exactKey = `${nameKey}|${normalized.price.toLowerCase()}`;
+    if (seenExact.has(exactKey)) continue;
+
+    const existingIndex = firstIndexByName.get(nameKey);
+    if (existingIndex !== undefined) {
+      const existing = out[existingIndex];
+      const existingHasPrice = !!existing.price;
+      const incomingHasPrice = !!normalized.price;
+
+      // Prefer a priced version over an unpriced duplicate of the same dish name.
+      if (!existingHasPrice && incomingHasPrice) {
+        out[existingIndex] = normalized;
+        seenExact.add(exactKey);
+        continue;
+      }
+      if (existingHasPrice && !incomingHasPrice) {
+        continue;
+      }
+    } else {
+      firstIndexByName.set(nameKey, out.length);
+    }
+
+    seenExact.add(exactKey);
+    out.push(normalized);
+  }
+
+  return out;
+}
+
+function isMenuLikelyCorrupt(rawMenu = [], sanitizedMenu = []) {
+  const rawCount = Array.isArray(rawMenu) ? rawMenu.length : 0;
+  const cleanCount = Array.isArray(sanitizedMenu) ? sanitizedMenu.length : 0;
+  if (rawCount === 0) return false;
+  if (cleanCount === 0) return true;
+
+  const cleanRatio = cleanCount / rawCount;
+  if (rawCount >= 8 && cleanRatio < 0.4) return true;
+
+  const pricedCount = sanitizedMenu.filter((item) => item && item.price).length;
+  if (cleanCount >= 8 && pricedCount === 0) return true;
+  return false;
+}
+
+const DEFAULT_MIN_SCRAPE_CONFIDENCE = 0.8;
+const DEFAULT_MIN_MENU_COMPLETENESS = 0.65;
+const DEFAULT_MIN_MENU_ITEMS = 12;
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function resolveMinScrapeConfidence() {
+  const parsed = Number(process.env.MIN_SCRAPE_CONFIDENCE);
+  if (!Number.isFinite(parsed)) return DEFAULT_MIN_SCRAPE_CONFIDENCE;
+  return clamp(parsed, 0, 1);
+}
+
+function resolveMinMenuCompleteness() {
+  const parsed = Number(process.env.MIN_MENU_COMPLETENESS);
+  if (!Number.isFinite(parsed)) return DEFAULT_MIN_MENU_COMPLETENESS;
+  return clamp(parsed, 0, 1);
+}
+
+function resolveMinMenuItems() {
+  const parsed = Number(process.env.MIN_MENU_ITEMS);
+  if (!Number.isFinite(parsed)) return DEFAULT_MIN_MENU_ITEMS;
+  return Math.max(1, Math.floor(parsed));
+}
+
+function passesScrapeConfidence(score, minScore) {
+  return Number.isFinite(score) && Number(score) >= Number(minScore);
+}
+
+function allowLegacyMenuCache() {
+  return ['1', 'true', 'yes'].includes(String(process.env.ALLOW_LEGACY_MENU_CACHE || '').toLowerCase());
+}
+
+async function discoverAndScrapeMenuByName(restaurantName) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const cachePath = path.join(__dirname, '..', 'menu-urls-found.json');
+  const normalizedName = normalizeRestaurantKey(restaurantName);
+
+  let discoveredUrl = null;
+  let urlConfidence = 0;
+  let urlConfidenceReport = null;
+  let urlDiscoveryMethod = null;
+  const minScrapeConfidence = resolveMinScrapeConfidence();
+  const minMenuCompleteness = resolveMinMenuCompleteness();
+  const minMenuItems = resolveMinMenuItems();
+
+  try {
+    if (fs.existsSync(cachePath)) {
+      const cacheRaw = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+      const cacheCandidates = [restaurantName, normalizedName];
+      for (const key of cacheCandidates) {
+        const entry = cacheRaw[key];
+        if (Array.isArray(entry) && entry[0]?.url) {
+          discoveredUrl = entry[0].url;
+          urlConfidence = 1;
+          urlDiscoveryMethod = 'menu_urls_cache';
+          urlConfidenceReport = {
+            version: 'url_discovery_confidence_v1',
+            method: 'menu_urls_cache',
+            confidence: 1,
+            tier: 'high',
+            reason: 'exact_or_normalized_cache_hit',
+            url: discoveredUrl,
+            final_url: discoveredUrl
+          };
+          break;
+        }
+      }
+
+      if (!discoveredUrl) {
+        for (const [key, value] of Object.entries(cacheRaw)) {
+          if (normalizeRestaurantKey(key) !== normalizedName) continue;
+          if (Array.isArray(value) && value[0]?.url) {
+            discoveredUrl = value[0].url;
+            urlConfidence = 1;
+            urlDiscoveryMethod = 'menu_urls_cache';
+            urlConfidenceReport = {
+              version: 'url_discovery_confidence_v1',
+              method: 'menu_urls_cache',
+              confidence: 1,
+              tier: 'high',
+              reason: 'normalized_cache_hit',
+              url: discoveredUrl,
+              final_url: discoveredUrl
+            };
+            break;
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Failed reading menu-urls cache:', e.message);
+  }
+
+  if (!discoveredUrl) {
+    const discovery = await discoverRestaurantURL(restaurantName);
+    discoveredUrl = discovery?.url || null;
+    urlConfidence = Number(discovery?.confidence || 0);
+    urlConfidenceReport = discovery?.confidence_report || null;
+    urlDiscoveryMethod = discovery?.method || 'unknown';
+  }
+
+  if (!discoveredUrl) {
+    return {
+      source_url: null,
+      items: [],
+      needsOCR: false,
+      url_confidence: urlConfidence,
+      url_confidence_report: urlConfidenceReport,
+      url_discovery_method: urlDiscoveryMethod,
+      scrape_confidence: 0,
+      scrape_confidence_report: null,
+      min_scrape_confidence: minScrapeConfidence,
+      menu_completeness_score: 0,
+      menu_completeness_report: null,
+      min_menu_completeness: minMenuCompleteness,
+      min_menu_items: minMenuItems
+    };
+  }
+
+  try {
+    const scrapeResult = await scrapeMenuAgent(discoveredUrl);
+    const scrapeConfidence = Number(scrapeResult?.confidence || 0);
+    const scrapeConfidenceReport = scrapeResult?.confidence_report || null;
+    const confidentScrape = passesScrapeConfidence(scrapeConfidence, minScrapeConfidence);
+    const scrapedItems = sanitizeMenuItemsShared(flattenScrapedMenuItemsShared(scrapeResult));
+    const scrapedMenuCompleteness = buildMenuCompletenessReport({
+      items: scrapedItems,
+      scrapeConfidence,
+      urlConfidence
+    });
+    const completeScrape = passesMenuCompleteness(
+      scrapedMenuCompleteness,
+      minMenuCompleteness,
+      minMenuItems
+    );
+
+    if (confidentScrape && completeScrape) {
+      return {
+        source_url: discoveredUrl,
+        items: scrapedItems,
+        needsOCR: false,
+        url_confidence: urlConfidence,
+        url_confidence_report: urlConfidenceReport,
+        url_discovery_method: urlDiscoveryMethod,
+        scrape_confidence: scrapeConfidence,
+        scrape_confidence_report: scrapeConfidenceReport,
+        min_scrape_confidence: minScrapeConfidence,
+        menu_completeness_score: Number(scrapedMenuCompleteness?.score || 0),
+        menu_completeness_report: scrapedMenuCompleteness,
+        min_menu_completeness: minMenuCompleteness,
+        min_menu_items: minMenuItems
+      };
+    }
+    if (scrapedItems.length > 0) {
+      // Keep partial dynamic scrape; static HTML extraction may add more below.
+      const response = await fetch(discoveredUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+      });
+      if (response.ok) {
+        const contentType = (response.headers.get('content-type') || '').toLowerCase();
+        if (contentType.includes('application/pdf')) {
+          return {
+            source_url: discoveredUrl,
+            items: scrapedItems,
+            needsOCR: true,
+            url_confidence: urlConfidence,
+            url_confidence_report: urlConfidenceReport,
+            url_discovery_method: urlDiscoveryMethod,
+            scrape_confidence: scrapeConfidence,
+            scrape_confidence_report: scrapeConfidenceReport,
+            min_scrape_confidence: minScrapeConfidence,
+            menu_completeness_score: Number(scrapedMenuCompleteness?.score || 0),
+            menu_completeness_report: scrapedMenuCompleteness,
+            min_menu_completeness: minMenuCompleteness,
+            min_menu_items: minMenuItems
+          };
+        }
+        const html = await response.text();
+        const htmlItems = extractMenuItemsFromHtml(html);
+        const merged = sanitizeMenuItemsShared([...scrapedItems, ...htmlItems]);
+        const mergedCompleteness = buildMenuCompletenessReport({
+          items: merged,
+          scrapeConfidence,
+          urlConfidence
+        });
+        const mergedIsComplete = passesMenuCompleteness(
+          mergedCompleteness,
+          minMenuCompleteness,
+          minMenuItems
+        );
+        if (merged.length > scrapedItems.length && confidentScrape && mergedIsComplete) {
+          return {
+            source_url: discoveredUrl,
+            items: merged,
+            needsOCR: false,
+            url_confidence: urlConfidence,
+            url_confidence_report: urlConfidenceReport,
+            url_discovery_method: urlDiscoveryMethod,
+            scrape_confidence: scrapeConfidence,
+            scrape_confidence_report: scrapeConfidenceReport,
+            min_scrape_confidence: minScrapeConfidence,
+            menu_completeness_score: Number(mergedCompleteness?.score || 0),
+            menu_completeness_report: mergedCompleteness,
+            min_menu_completeness: minMenuCompleteness,
+            min_menu_items: minMenuItems
+          };
+        }
+      }
+      if (confidentScrape && completeScrape) {
+        return {
+          source_url: discoveredUrl,
+          items: scrapedItems,
+          needsOCR: false,
+          url_confidence: urlConfidence,
+          url_confidence_report: urlConfidenceReport,
+          url_discovery_method: urlDiscoveryMethod,
+          scrape_confidence: scrapeConfidence,
+          scrape_confidence_report: scrapeConfidenceReport,
+          min_scrape_confidence: minScrapeConfidence,
+          menu_completeness_score: Number(scrapedMenuCompleteness?.score || 0),
+          menu_completeness_report: scrapedMenuCompleteness,
+          min_menu_completeness: minMenuCompleteness,
+          min_menu_items: minMenuItems
+        };
+      }
+    }
+
+    return {
+      source_url: discoveredUrl,
+      items: [],
+      needsOCR: false,
+      url_confidence: urlConfidence,
+      url_confidence_report: urlConfidenceReport,
+      url_discovery_method: urlDiscoveryMethod,
+      scrape_confidence: scrapeConfidence,
+      scrape_confidence_report: scrapeConfidenceReport,
+      min_scrape_confidence: minScrapeConfidence,
+      menu_completeness_score: Number(scrapedMenuCompleteness?.score || 0),
+      menu_completeness_report: scrapedMenuCompleteness,
+      min_menu_completeness: minMenuCompleteness,
+      min_menu_items: minMenuItems,
+      blocked_by_scrape_confidence: !confidentScrape,
+      blocked_by_menu_completeness: confidentScrape && !completeScrape
+    };
+  } catch (scrapeErr) {
+    console.warn('Dynamic scraper failed:', scrapeErr.message);
+  }
+
+  try {
+    const response = await fetch(discoveredUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    });
+
+    if (!response.ok) {
+      return {
+        source_url: discoveredUrl,
+        items: [],
+        needsOCR: false,
+        url_confidence: urlConfidence,
+        url_confidence_report: urlConfidenceReport,
+        url_discovery_method: urlDiscoveryMethod,
+        scrape_confidence: 0,
+        scrape_confidence_report: null,
+        min_scrape_confidence: minScrapeConfidence,
+        menu_completeness_score: 0,
+        menu_completeness_report: null,
+        min_menu_completeness: minMenuCompleteness,
+        min_menu_items: minMenuItems
+      };
+    }
+
+    const contentType = (response.headers.get('content-type') || '').toLowerCase();
+    if (contentType.includes('application/pdf')) {
+      return {
+        source_url: discoveredUrl,
+        items: [],
+        needsOCR: true,
+        url_confidence: urlConfidence,
+        url_confidence_report: urlConfidenceReport,
+        url_discovery_method: urlDiscoveryMethod,
+        scrape_confidence: 0,
+        scrape_confidence_report: null,
+        min_scrape_confidence: minScrapeConfidence,
+        menu_completeness_score: 0,
+        menu_completeness_report: null,
+        min_menu_completeness: minMenuCompleteness,
+        min_menu_items: minMenuItems
+      };
+    }
+
+    const html = await response.text();
+    const items = extractMenuItemsFromHtml(html);
+    const fallbackItems = sanitizeMenuItemsShared(items);
+    const fallbackScrapeConfidence =
+      items.length >= 35 ? 0.82 :
+      items.length >= 20 ? 0.78 :
+      items.length >= 12 ? 0.7 :
+      items.length >= 8 ? 0.62 : 0.45;
+    const confidentFallback = passesScrapeConfidence(fallbackScrapeConfidence, minScrapeConfidence);
+    const fallbackCompleteness = buildMenuCompletenessReport({
+      items: fallbackItems,
+      scrapeConfidence: fallbackScrapeConfidence,
+      urlConfidence
+    });
+    const completeFallback = passesMenuCompleteness(
+      fallbackCompleteness,
+      minMenuCompleteness,
+      minMenuItems
+    );
+    return {
+      source_url: discoveredUrl,
+      items: confidentFallback && completeFallback ? fallbackItems : [],
+      needsOCR: false,
+      url_confidence: urlConfidence,
+      url_confidence_report: urlConfidenceReport,
+      url_discovery_method: urlDiscoveryMethod,
+      scrape_confidence: fallbackScrapeConfidence,
+      scrape_confidence_report: {
+        version: 'menu_scraper_fallback_confidence_v1',
+        confidence: fallbackScrapeConfidence,
+        tier:
+          fallbackScrapeConfidence >= 0.85 ? 'high' :
+          fallbackScrapeConfidence >= 0.65 ? 'medium' :
+          fallbackScrapeConfidence >= 0.45 ? 'low' : 'very_low',
+        metrics: {
+          item_count: Array.isArray(items) ? items.length : 0,
+          source: 'static_html_fallback'
+        }
+      },
+      min_scrape_confidence: minScrapeConfidence,
+      menu_completeness_score: Number(fallbackCompleteness?.score || 0),
+      menu_completeness_report: fallbackCompleteness,
+      min_menu_completeness: minMenuCompleteness,
+      min_menu_items: minMenuItems,
+      blocked_by_scrape_confidence: !confidentFallback,
+      blocked_by_menu_completeness: confidentFallback && !completeFallback
+    };
+  } catch (err) {
+    console.warn('Discover/scrape fetch failed:', err.message);
+    return {
+      source_url: discoveredUrl,
+      items: [],
+      needsOCR: false,
+      url_confidence: urlConfidence,
+      url_confidence_report: urlConfidenceReport,
+      url_discovery_method: urlDiscoveryMethod,
+      scrape_confidence: 0,
+      scrape_confidence_report: null,
+      min_scrape_confidence: minScrapeConfidence,
+      menu_completeness_score: 0,
+      menu_completeness_report: null,
+      min_menu_completeness: minMenuCompleteness,
+      min_menu_items: minMenuItems
+    };
+  }
+}
+
 // Get specific restaurant info and menu
 app.get('/api/restaurants/:name', async (req, res) => {
   try {
@@ -387,6 +962,7 @@ app.get('/api/restaurants/:name', async (req, res) => {
     // Normalize for matching
     const normalize = (str) => str.toLowerCase().replace(/[\s_'-]+/g, '_');
     const requestedNorm = normalize(requestedName);
+    const forceRefresh = ['1', 'true', 'yes'].includes(String(req.query.refresh || '').toLowerCase());
     
     // Try exact match first
     let actualDir = path.join(restaurantsDir, requestedName.replace(/[\s-]+/g, '_').replace(/['']/g, ''));
@@ -409,41 +985,218 @@ app.get('/api/restaurants/:name', async (req, res) => {
     }
     
     const menuPath = path.join(actualDir, 'menu.json');
-    
-    if (!fs.existsSync(menuPath)) {
-      return res.status(404).json({ error: 'Restaurant not found' });
+    const menuMetaPath = path.join(actualDir, 'menu.meta.json');
+    const hasCachedMenu = fs.existsSync(menuPath);
+    let cachedRawMenu = [];
+    let cachedMenu = [];
+    let cachedMeta = null;
+
+    try {
+      if (fs.existsSync(menuMetaPath)) {
+        cachedMeta = JSON.parse(fs.readFileSync(menuMetaPath, 'utf8'));
+      }
+    } catch (_) {
+      cachedMeta = null;
     }
-    
-    const menu = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
-    
-    // Organize items by category
-    const categoryMap = {};
-    
-    if (Array.isArray(menu)) {
-      menu.forEach(item => {
-        const cat = item.category || 'Other';
-        if (!categoryMap[cat]) {
-          categoryMap[cat] = [];
-        }
-        categoryMap[cat].push({
-          name: item.name,
-          description: item.description || '',
-          price: item.price || ''
+
+    if (hasCachedMenu) {
+      try {
+        cachedRawMenu = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
+        cachedMenu = sanitizeMenuItemsShared(cachedRawMenu);
+      } catch (_) {
+        cachedRawMenu = [];
+        cachedMenu = [];
+      }
+    }
+
+    const cachedCorrupt = isMenuLikelyCorrupt(cachedRawMenu, cachedMenu);
+    const cachedTooSmall = cachedMenu.length > 0 && cachedMenu.length < 6;
+    const minScrapeConfidence = resolveMinScrapeConfidence();
+    const minMenuCompleteness = resolveMinMenuCompleteness();
+    const minMenuItems = resolveMinMenuItems();
+    const legacyCacheAllowed = allowLegacyMenuCache();
+    const cachedScrapeConfidence = Number(cachedMeta?.scrape_confidence);
+    const cachedMissingScrapeConfidence = !Number.isFinite(cachedScrapeConfidence);
+    const cachedBelowScrapeThreshold =
+      (cachedMissingScrapeConfidence && !legacyCacheAllowed) ||
+      (Number.isFinite(cachedScrapeConfidence) && cachedScrapeConfidence < minScrapeConfidence);
+    const cachedMenuCompletenessReport = buildMenuCompletenessReport({
+      items: cachedMenu,
+      scrapeConfidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : null,
+      urlConfidence: Number(cachedMeta?.url_confidence || 0)
+    });
+    const cachedBelowMenuCompleteness = !passesMenuCompleteness(
+      cachedMenuCompletenessReport,
+      minMenuCompleteness,
+      minMenuItems
+    );
+
+    if (forceRefresh || !hasCachedMenu || cachedCorrupt || cachedTooSmall || cachedBelowScrapeThreshold || cachedBelowMenuCompleteness) {
+      const discovered = await discoverAndScrapeMenuByName(requestedName);
+      const discoveredItems = sanitizeMenuItemsShared(discovered.items || []);
+      if (discovered.needsOCR) {
+        return res.status(202).json({
+          name: requestedName,
+          id: requestedNorm,
+          itemCount: 0,
+          categories: [],
+          menu: [],
+          source_url: discovered.source_url,
+          url_confidence: discovered.url_confidence,
+          url_confidence_report: discovered.url_confidence_report,
+          url_discovery_method: discovered.url_discovery_method,
+          scrape_confidence: discovered.scrape_confidence,
+          scrape_confidence_report: discovered.scrape_confidence_report,
+          menu_completeness_score: Number(discovered.menu_completeness_score || 0),
+          menu_completeness_report: discovered.menu_completeness_report || null,
+          min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
+          min_menu_items: Number(discovered.min_menu_items || minMenuItems),
+          needsOCR: true,
+          error: 'Discovered menu is a PDF/image and needs OCR.'
         });
+      }
+
+      if (!discoveredItems.length) {
+        if (discovered.blocked_by_scrape_confidence || discovered.blocked_by_menu_completeness) {
+          const rejectionReason = discovered.blocked_by_menu_completeness
+            ? `menu completeness ${Number(discovered.menu_completeness_score || 0).toFixed(2)} is below minimum ${Number(discovered.min_menu_completeness || minMenuCompleteness).toFixed(2)} (min items ${Number(discovered.min_menu_items || minMenuItems)})`
+            : `confidence ${Number(discovered.scrape_confidence || 0).toFixed(2)} is below minimum ${Number(discovered.min_scrape_confidence || 0.8).toFixed(2)}`;
+          return res.status(422).json({
+            error: `Scraped menu rejected: ${rejectionReason}`,
+            source_url: discovered.source_url || null,
+            url_confidence: discovered.url_confidence || 0,
+            url_confidence_report: discovered.url_confidence_report || null,
+            url_discovery_method: discovered.url_discovery_method || null,
+            scrape_confidence: discovered.scrape_confidence || 0,
+            scrape_confidence_report: discovered.scrape_confidence_report || null,
+            min_scrape_confidence: discovered.min_scrape_confidence || 0.8,
+            menu_completeness_score: Number(discovered.menu_completeness_score || 0),
+            menu_completeness_report: discovered.menu_completeness_report || null,
+            min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
+            min_menu_items: Number(discovered.min_menu_items || minMenuItems),
+            blocked_by_scrape_confidence: Boolean(discovered.blocked_by_scrape_confidence),
+            blocked_by_menu_completeness: Boolean(discovered.blocked_by_menu_completeness)
+          });
+        }
+        if ((cachedBelowScrapeThreshold || cachedBelowMenuCompleteness) && !legacyCacheAllowed) {
+          const confidenceReason =
+            cachedBelowScrapeThreshold
+              ? `confidence ${Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence.toFixed(2) : 'unknown'} is below minimum ${Number(minScrapeConfidence || 0.8).toFixed(2)}`
+              : null;
+          const completenessReason =
+            cachedBelowMenuCompleteness
+              ? `completeness ${Number(cachedMenuCompletenessReport?.score || 0).toFixed(2)} is below minimum ${Number(minMenuCompleteness || 0.65).toFixed(2)}`
+              : null;
+          const rejectionReason = [confidenceReason, completenessReason].filter(Boolean).join(' and ');
+          return res.status(422).json({
+            error: `Cached menu rejected: ${rejectionReason}`,
+            source_url: discovered.source_url || null,
+            url_confidence: discovered.url_confidence || 0,
+            url_confidence_report: discovered.url_confidence_report || null,
+            url_discovery_method: discovered.url_discovery_method || null,
+            scrape_confidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : 0,
+            scrape_confidence_report: discovered.scrape_confidence_report || null,
+            min_scrape_confidence: minScrapeConfidence,
+            menu_completeness_score: Number(cachedMenuCompletenessReport?.score || 0),
+            menu_completeness_report: cachedMenuCompletenessReport,
+            min_menu_completeness: minMenuCompleteness,
+            min_menu_items: minMenuItems,
+            blocked_by_scrape_confidence: Boolean(cachedBelowScrapeThreshold),
+            blocked_by_menu_completeness: Boolean(cachedBelowMenuCompleteness),
+            needs_refresh: true
+          });
+        }
+        if (!hasCachedMenu) {
+          return res.status(404).json({ error: 'Restaurant not found' });
+        }
+      } else {
+        try {
+          fs.mkdirSync(actualDir, { recursive: true });
+          fs.writeFileSync(menuPath, JSON.stringify(discoveredItems, null, 2), 'utf8');
+          const metaPayload = {
+            source_url: discovered.source_url || null,
+            url_confidence: Number(discovered.url_confidence || 0),
+            url_discovery_method: discovered.url_discovery_method || null,
+            scrape_confidence: Number(discovered.scrape_confidence || 0),
+            min_scrape_confidence: Number(discovered.min_scrape_confidence || minScrapeConfidence),
+            menu_completeness_score: Number(discovered.menu_completeness_score || 0),
+            menu_completeness_report: discovered.menu_completeness_report || null,
+            min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
+            min_menu_items: Number(discovered.min_menu_items || minMenuItems),
+            updated_at: new Date().toISOString()
+          };
+          fs.writeFileSync(menuMetaPath, JSON.stringify(metaPayload, null, 2), 'utf8');
+        } catch (writeErr) {
+          console.warn('Unable to cache discovered menu file:', writeErr.message);
+        }
+
+        const categories = groupMenuItems(discoveredItems);
+        return res.json({
+          name: requestedName,
+          id: path.basename(actualDir),
+          itemCount: discoveredItems.length,
+          categories,
+          menu: discoveredItems,
+          source_url: discovered.source_url,
+          url_confidence: discovered.url_confidence,
+          url_confidence_report: discovered.url_confidence_report,
+          url_discovery_method: discovered.url_discovery_method,
+          scrape_confidence: discovered.scrape_confidence,
+          scrape_confidence_report: discovered.scrape_confidence_report,
+          menu_completeness_score: Number(discovered.menu_completeness_score || 0),
+          menu_completeness_report: discovered.menu_completeness_report || null,
+          min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
+          min_menu_items: Number(discovered.min_menu_items || minMenuItems),
+          discovered: true,
+          refreshed: forceRefresh
+        });
+      }
+    }
+
+    let menu = cachedMenu;
+    if (!menu.length && hasCachedMenu) {
+      try {
+        const fallbackRaw = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
+        menu = sanitizeMenuItemsShared(fallbackRaw);
+      } catch (_) {
+        menu = [];
+      }
+    }
+
+    if (!menu.length) {
+      return res.status(404).json({
+        error: 'Menu not found for this restaurant yet. Try refresh=1 after URL discovery finishes.'
       });
     }
-    
-    const categories = Object.entries(categoryMap).map(([category, items]) => ({
-      category,
-      items
-    }));
+
+    // Keep local cache clean by rewriting sanitized data when needed.
+    if (hasCachedMenu && Array.isArray(cachedRawMenu) && menu.length !== cachedRawMenu.length) {
+      try {
+        fs.writeFileSync(menuPath, JSON.stringify(menu, null, 2), 'utf8');
+      } catch (writeErr) {
+        console.warn('Unable to rewrite sanitized cached menu:', writeErr.message);
+      }
+    }
+
+    const categories = groupMenuItems(menu);
+    const finalMenuCompletenessReport = buildMenuCompletenessReport({
+      items: menu,
+      scrapeConfidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : null,
+      urlConfidence: Number(cachedMeta?.url_confidence || 0)
+    });
     
     res.json({
       name: path.basename(actualDir).replace(/_/g, ' '),
       id: path.basename(actualDir),
       itemCount: menu.length,
       categories,
-      menu
+      menu,
+      scrape_confidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : null,
+      min_scrape_confidence: minScrapeConfidence,
+      menu_completeness_score: Number(finalMenuCompletenessReport?.score || 0),
+      menu_completeness_report: finalMenuCompletenessReport,
+      min_menu_completeness: minMenuCompleteness,
+      min_menu_items: minMenuItems
     });
   } catch (err) {
     console.error('/api/restaurants/:name error:', err.message);

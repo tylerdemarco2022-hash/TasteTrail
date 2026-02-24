@@ -7,8 +7,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // Google Custom Search API credentials (add to .env)
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
-const GOOGLE_CSE_ID = process.env.GOOGLE_CSE_ID
+// const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
+// const GOOGLE_CSE_ID = process.env.GOOGLE_CSE_ID
+const GOOGLE_API_KEY = null
+const GOOGLE_CSE_ID = null
 
 // Added GOOGLE_ENABLED flag to disable Google auto-fetch
 const GOOGLE_ENABLED = false;
@@ -21,17 +23,17 @@ async function findRestaurantMenuURL(restaurantName, location = '') {
   
   if (!GOOGLE_ENABLED) {
     console.log("Google auto-fetch disabled");
-    return [];
+    return { external_places_disabled: true };
   }
   
   if (!GOOGLE_API_KEY || !GOOGLE_CSE_ID) {
     console.error("Missing Google API configuration");
-    return [];
+    return { external_places_disabled: true };
   }
   
-  console.log("GOOGLE_API_KEY:", `${GOOGLE_API_KEY.slice(0, 6)}...${GOOGLE_API_KEY.slice(-4)}`)
-  console.log("GOOGLE_CSE_ID:", `${GOOGLE_CSE_ID.slice(0, 6)}...${GOOGLE_CSE_ID.slice(-4)}`)
-  console.log("Google Request URL:", url)
+  // console.log("GOOGLE_API_KEY:", `${GOOGLE_API_KEY.slice(0, 6)}...${GOOGLE_API_KEY.slice(-4)}`)
+  // console.log("GOOGLE_CSE_ID:", `${GOOGLE_CSE_ID.slice(0, 6)}...${GOOGLE_CSE_ID.slice(-4)}`)
+  // console.log("Google Request URL:", url)
   
   try {
     const url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CSE_ID}&q=${encodeURIComponent(searchQuery)}`
@@ -195,6 +197,9 @@ export async function autoFetchMenu(restaurantName, location = '') {
   
   // Step 1: Find menu URL
   const menuURL = await findRestaurantMenuURL(restaurantName, location)
+  if (menuURL && menuURL.external_places_disabled) {
+    return { status: 'EXTERNAL_PLACES_DISABLED', restaurant: restaurantName }
+  }
   
   if (!menuURL) {
     console.log('❌ Could not find menu URL')

@@ -1,6 +1,7 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { supabase as supabaseClient } from '../../supabase.js';
+import { classifyDietaryFlags } from '../../utils/dietaryClassifier.js';
 const router = express.Router();
 const supabase = supabaseClient;
 
@@ -11,6 +12,19 @@ const MAX_TRUST = 1.5;
 const MIN_BOT = 0.0;
 const MAX_BOT = 1.0;
 const MIN_RATINGS_FOR_CRED_UPDATE = 5;
+const DIET_FLAG_PARAM_MAP = Object.freeze({
+  vegan: 'is_vegan',
+  vegetarian: 'is_vegetarian',
+  gluten_free: 'is_gluten_free',
+  dairy_free: 'is_dairy_free',
+  nut_free: 'is_nut_free',
+  shellfish_free: 'is_shellfish_free',
+  egg_free: 'is_egg_free',
+  keto: 'is_keto',
+  paleo: 'is_paleo',
+  halal: 'is_halal',
+  kosher: 'is_kosher'
+});
 const ratingLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 12,
@@ -29,6 +43,10 @@ function ensureSupabase(res) {
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
+}
+
+function normalizeDietParam(value = '') {
+  return String(value || '').trim().toLowerCase().replace(/-/g, '_');
 }
 
 function computeStddev(values) {
@@ -124,16 +142,25 @@ async function getUser(req, res, next) {
 // 1. POST /restaurants/:restaurantId/menu-items
 router.post('/restaurants/:restaurantId/menu-items', getUser, async (req, res) => {
   const { restaurantId } = req.params;
-  const { name, description, price, photo_url, menu_id } = req.body;
+  const { name, description, price, photo_url, menu_id, ingredients } = req.body;
   if (!name) return res.status(400).json({ error: 'Name required' });
+  const dietaryFlags = classifyDietaryFlags({
+    name,
+    description,
+    ingredients
+  });
   const { data, error } = await supabase.from('menu_items').insert({
     restaurant_id: restaurantId,
     name,
     description,
     price,
     photo_url,
-    menu_id
-  }).select('id,restaurant_id,name,description,price,photo_url,menu_id,rating_bayesian,rating_count,emoji_tags').single();
+    menu_id,
+    ...dietaryFlags
+  }).select(
+    'id,restaurant_id,name,description,price,photo_url,menu_id,rating_bayesian,rating_count,emoji_tags,' +
+    'is_vegan,is_vegetarian,is_gluten_free,is_dairy_free,is_nut_free,is_shellfish_free,is_egg_free,is_keto,is_paleo,is_halal,is_kosher,dietary_confidence_score,dietary_manual_override'
+  ).single();
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
 });
@@ -143,7 +170,10 @@ router.get('/restaurants/:restaurantId/menu-items', async (req, res) => {
   const { restaurantId } = req.params;
   const { data, error } = await supabase
     .from('menu_items')
-    .select('id,restaurant_id,name,description,price,photo_url,menu_id,rating_bayesian,rating_count,emoji_tags')
+    .select(
+      'id,restaurant_id,name,description,price,photo_url,menu_id,rating_bayesian,rating_count,emoji_tags,' +
+      'is_vegan,is_vegetarian,is_gluten_free,is_dairy_free,is_nut_free,is_shellfish_free,is_egg_free,is_keto,is_paleo,is_halal,is_kosher,dietary_confidence_score,dietary_manual_override'
+    )
     .eq('restaurant_id', restaurantId);
 
   if (error) return res.status(400).json({ error: error.message });
@@ -426,11 +456,29 @@ export default router;
 router.get('/restaurants/:restaurantId/full-menu', async (req, res) => {
   const { restaurantId } = req.params;
   try {
+    const requestedDiet = normalizeDietParam(req.query?.diet || '');
+    const dietFlagColumn = requestedDiet ? DIET_FLAG_PARAM_MAP[requestedDiet] : null;
+    if (requestedDiet && !dietFlagColumn) {
+      return res.status(400).json({
+        error: 'Invalid diet filter',
+        allowed_diets: Object.keys(DIET_FLAG_PARAM_MAP)
+      });
+    }
+
     // Fetch menu items for the restaurant
-    const { data: items, error } = await supabase
+    let query = supabase
       .from('menu_items')
-      .select('id,name,description,price,category,photo_url')
+      .select(
+        'id,name,description,price,category,photo_url,' +
+        'is_vegan,is_vegetarian,is_gluten_free,is_dairy_free,is_nut_free,is_shellfish_free,is_egg_free,is_keto,is_paleo,is_halal,is_kosher,dietary_confidence_score,dietary_manual_override'
+      )
       .eq('restaurant_id', restaurantId);
+
+    if (dietFlagColumn) {
+      query = query.eq(dietFlagColumn, true);
+    }
+
+    const { data: items, error } = await query;
     if (error) return res.status(400).json({ error: error.message });
     // Group items by category
     const categories = {};
@@ -442,11 +490,24 @@ router.get('/restaurants/:restaurantId/full-menu', async (req, res) => {
         name: item.name,
         description: item.description,
         price: item.price,
-        photo_url: item.photo_url
+        photo_url: item.photo_url,
+        is_vegan: item.is_vegan,
+        is_vegetarian: item.is_vegetarian,
+        is_gluten_free: item.is_gluten_free,
+        is_dairy_free: item.is_dairy_free,
+        is_nut_free: item.is_nut_free,
+        is_shellfish_free: item.is_shellfish_free,
+        is_egg_free: item.is_egg_free,
+        is_keto: item.is_keto,
+        is_paleo: item.is_paleo,
+        is_halal: item.is_halal,
+        is_kosher: item.is_kosher,
+        dietary_confidence_score: item.dietary_confidence_score,
+        dietary_manual_override: item.dietary_manual_override
       });
     });
     const result = Object.entries(categories).map(([category, items]) => ({ category, items }));
-    res.json({ success: true, categories: result });
+    res.json({ success: true, categories: result, applied_diet_filter: requestedDiet || null });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

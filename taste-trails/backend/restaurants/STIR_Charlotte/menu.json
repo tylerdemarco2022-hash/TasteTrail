@@ -1,222 +1,698 @@
 [
   {
-    "category": "Oysters & Raw Bar",
-    "name": "One Dozen House Oysters",
-    "description": "Raw or steamed with cocktail sauce, horseradish, mignonette"
+    "name": "Dozen House Oysters*",
+    "description": "",
+    "price": "$24.00",
+    "category": "Menu"
   },
   {
-    "category": "Oysters & Raw Bar",
-    "name": "Specialty Oysters",
-    "description": "Premium rotating selection, fresh daily, subject to availability"
+    "name": "Specialty Oysters*",
+    "description": "",
+    "price": "$3.00",
+    "category": "Menu"
   },
   {
-    "category": "Oysters & Raw Bar",
+    "name": "Stone Crab Claws",
+    "description": "Chilled and cracked with lemon wedges, drawn butter, and a house mustard sauce. Seasonal with limited availability",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Char-Broiled Oysters",
+    "description": "",
+    "price": "$16.95",
+    "category": "Menu"
+  },
+  {
     "name": "Oysters Rockefeller",
-    "description": "Spinach, shallots, lemon, sambuca, Parmesan cheese"
+    "description": "",
+    "price": "$16.95",
+    "category": "Menu"
   },
   {
-    "category": "Oysters & Raw Bar",
-    "name": "Jumbo Shrimp Cocktail",
-    "description": "Cocktail sauce, mustard sauce, lemon"
+    "name": "Fried Oysters Casino",
+    "description": "",
+    "price": "$16.95",
+    "category": "Menu"
   },
   {
-    "category": "Oysters & Raw Bar",
-    "name": "Cold Bar Platter",
-    "description": "Dozen oysters, steamed shrimp, spicy tuna, crostini, cocktail sauce, horseradish"
+    "name": "Cold Bar Platter*",
+    "description": "",
+    "price": "$49.95",
+    "category": "Menu"
   },
   {
-    "category": "Oysters & Raw Bar",
-    "name": "STIR Seafood Tower",
-    "description": "Rotating seasonal selections, dozen oysters, dozen steamed shrimp, spicy tuna"
+    "name": "Authentic Peruvian Ceviche*",
+    "description": "",
+    "price": "$17.95",
+    "category": "Menu"
   },
   {
-    "category": "Oysters & Raw Bar",
-    "name": "Broiled Oysters",
-    "description": "Lemon, scampi butter, buttered bread crumbs"
+    "name": "Mexican Ceviche*",
+    "description": "",
+    "price": "$15.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
-    "name": "Lobster Crab Cakes",
-    "description": "Lobster, lump crab, caper remoulade, arugula, lemon oil"
+    "name": "Avocado & Mahi Ceviche*",
+    "description": "",
+    "price": "$17.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
-    "name": "Whipped Feta",
-    "description": "Honey, lemon oil, spiced pecans, pink peppercorns, crostini, pita, microgreens"
+    "name": "Ceviche Sampler*",
+    "description": "",
+    "price": "$29.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
-    "name": "Blackened Mahi Tacos",
-    "description": "Charred salsa, pico de gallo, pickled onions, Cotija cheese, cilantro slaw, crema"
+    "name": "Vegan Poke Bowl Entrée",
+    "description": "",
+    "price": "$16.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
-    "name": "Spicy Tuna Bites",
-    "description": "Sushi rice, tobiko roe, cucumbers, furikake, sriracha potato wontons, pineapple sweet chili sauce"
+    "name": "Tuna Poke Bowl Entrée*",
+    "description": "",
+    "price": "$21.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
-    "name": "Cheeseburger Egg Rolls",
-    "description": "House-ground beef, cheddar & American cheese, house pickles, red onion, tomato, thousand island"
+    "name": "Spicy Chicken Samosas",
+    "description": "",
+    "price": "$10.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
-    "name": "Chicken Lettuce Wraps",
-    "description": "Cucumber, carrots, sweet soy jus, water chestnuts, crispy rice sticks, shiitake mushrooms, butter lettuce"
+    "name": "Sautéed Salmon Cakes",
+    "description": "",
+    "price": "$13.95",
+    "category": "Menu"
   },
   {
-    "category": "Appetizers",
     "name": "Parmesan White Truffle Fries",
-    "description": "Hand-cut fries, white truffle oil, Parmesan cheese, ranch"
+    "description": "",
+    "price": "$8.50",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
+    "name": "Tillamook Sliders",
+    "description": "",
+    "price": "$9.95",
+    "category": "Menu"
+  },
+  {
+    "name": "Fish Tacos",
+    "description": "",
+    "price": "$11.95",
+    "category": "Menu"
+  },
+  {
+    "name": "Fried Green Tomatoes",
+    "description": "",
+    "price": "$9.95",
+    "category": "Menu"
+  },
+  {
+    "name": "Hummus & Pimento Trio",
+    "description": "",
+    "price": "$11.95",
+    "category": "Menu"
+  },
+  {
     "name": "Crab Bisque",
-    "description": "Crab, cream, sherry, basil oil, crostini, celery leaves"
+    "description": "",
+    "price": "$7.50",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Seared Tuna Salad",
-    "description": "Carrots, cucumbers, tomatoes, avocado, sriracha potato wontons, kale chips, cilantro miso vinaigrette"
+    "name": "Caesar Wedge",
+    "description": "",
+    "price": "$7.95",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
-    "name": "STIR Chop Salad",
-    "description": "Romaine, iceberg, salami, mozzarella, tomatoes, marinated garbanzo beans, red wine vinaigrette, crostini"
+    "name": "Stir Chop Salad",
+    "description": "",
+    "price": "$12.50",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
+    "name": "Stir Chicken Chop",
+    "description": "",
+    "price": "$14.95",
+    "category": "Menu"
+  },
+  {
+    "name": "Veggie Chop Salad",
+    "description": "",
+    "price": "$12.50",
+    "category": "Menu"
+  },
+  {
     "name": "Iceberg Wedge",
-    "description": "Tomatoes, onions, bacon, blue cheese crumbles, blue cheese dressing"
+    "description": "",
+    "price": "$8.95",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Chicken Chop",
-    "description": "Romaine, iceberg, salami, mozzarella, tomatoes, marinated garbanzo beans, red wine vinaigrette, crostini"
+    "name": "Seared Tuna Salad*",
+    "description": "",
+    "price": "$17.95",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Caesar Salad",
-    "description": "Romaine, crostini, Parmesan cheese, caesar dressing"
+    "name": "Tillamook Cheeseburger*",
+    "description": "",
+    "price": "$14.95",
+    "category": "Menu"
   },
   {
-    "category": "Soups & Salads",
-    "name": "STIR Chopped Seafood",
-    "description": "Chopped shrimp & lobster, romaine, iceberg, tomato, avocado, edamame, radish, citrus vinaigrette, crostini"
+    "name": "Fried Green Tomato Burger*",
+    "description": "",
+    "price": "$14.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Sesame Steak Bowl",
-    "description": "Sesame soy-marinated steak, fried egg, rice cake, miso kale, sriracha potato wontons, edamame, cucumbers, carrots, avocado"
+    "name": "Plant-Based Burger",
+    "description": "",
+    "price": "$13.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Lobster & Shrimp White Cheddar Mac & Cheese",
-    "description": "Cavatappi pasta, asparagus, lemon oil, buttered bread crumbs, micro greens"
+    "name": "Spicy Tuna Burger*",
+    "description": "",
+    "price": "$17.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Chicken Piccata",
-    "description": "White wine, butter, capers, farro, roasted vegetables"
+    "name": "Chicken Picatta",
+    "description": "",
+    "price": "$18.50",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Shrimp & Grits",
-    "description": "Mushrooms, green onions, shrimp stock, white cheddar grits"
+    "name": "Grilled Chicken Caprese",
+    "description": "",
+    "price": "$17.50",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "STIR Steakhouse Burger",
-    "description": "Filet & sirloin fresh ground blend, sharp white cheddar cheese, thousand island, shredded lettuce, house pickles, hand-cut fries"
-  },
-  {
-    "category": "Entrées",
     "name": "Crispy Mahi Bowl",
-    "description": "Housemade pineapple chili sauce, sweet & sour sushi rice, edamame, pineapple, carrots"
+    "description": "",
+    "price": "$19.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "STIR Veggie Burger",
-    "description": "Tillamook smoked cheddar, lettuce, tomato, onion, house pickles, lemon aioli, hand-cut fries"
+    "name": "Filet & House Goat Cheese Ravioli*",
+    "description": "",
+    "price": "$33.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Vegan Poke Bowl",
-    "description": "Citrus soy-marinated beets & sweet potatoes, rice cake, miso kale, sriracha potato wontons, edamame, cucumbers, carrots, avocado"
+    "name": "Center Cut Filet*",
+    "description": "",
+    "price": "$31.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Tillamook Cheeseburger",
-    "description": "Two 5 oz beef patties, Tillamook cheddar, tomato, lettuce, onion, mayo, house pickles, hand-cut fries"
+    "name": "Steak Frites*",
+    "description": "",
+    "price": "$23.95",
+    "category": "Menu"
   },
   {
-    "category": "Entrées",
-    "name": "Tuna Poke Bowl",
-    "description": "Citrus soy-marinated tuna, rice cake, miso kale, sriracha potato wontons, edamame, cucumbers, carrots, avocado, shaved radish, sesame seeds"
+    "name": "Shrimp & Grits",
+    "description": "",
+    "price": "$21.50",
+    "category": "Menu"
   },
   {
-    "category": "Signature Broiler Selections",
-    "name": "Halibut Piccata",
-    "description": "White wine, butter, capers, farro, roasted vegetables"
+    "name": "Roasted Vegetables & Farro",
+    "description": "",
+    "price": "$14.95",
+    "category": "Menu"
   },
   {
-    "category": "Signature Broiler Selections",
-    "name": "Seared Tuna",
-    "description": "Furikake crusted tuna, pineapple fried rice, asparagus, soy glaze, arugula salad, sriracha potato wontons"
+    "name": "Grilled Salmon*",
+    "description": "",
+    "price": "$21.95",
+    "category": "Menu"
   },
   {
-    "category": "Signature Broiler Selections",
-    "name": "Shrimp Scampi",
-    "description": "Jumbo shrimp, lemon garlic butter, asparagus, farro, roasted vegetables, lemon oil, buttered bread crumbs, arugula salad"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "18 oz Bone In Ribeye",
-    "description": "Hand-cut fries, housemade steak sauce"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "Salmon",
-    "description": "Citrus dill sauce, pickled red onions, farro, roasted vegetables"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "Steak Frites",
-    "description": "Marinated hand-cut sirloin, hand-cut fries, housemade steak sauce"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "Dover Sole Meuniere",
-    "description": "Lemon, butter, parsley, broccolini, cherry tomatoes"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "Center Cut Filet",
-    "description": "Grilled broccolini, crispy diced potatoes, mushrooms, scampi butter, Bordelaise sauce"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "Chicken Caprese",
-    "description": "Tomatoes, fresh mozzarella, basil, balsamic reduction, beurre blanc, farro, roasted vegetables"
-  },
-  {
-    "category": "Signature Broiler Selections",
-    "name": "Filet & House Goat Cheese Ravioli",
-    "description": "Center cut filet, housemade goat cheese ravioli, pecan pesto, roasted root vegetables"
-  },
-  {
-    "category": "House Made Desserts",
     "name": "Matcha Green Tea Cheesecake",
-    "description": "Saltine cracker crust, whipped cream, strawberries, blackberries, blueberries, lemon syrup"
+    "description": "",
+    "price": "$7.95",
+    "category": "Menu"
   },
   {
-    "category": "House Made Desserts",
-    "name": "Four-Layer Chocolate Cake",
-    "description": "Caramel, fresh whipped cream, strawberries"
+    "name": "Chocolate Espresso Flourless Cake",
+    "description": "",
+    "price": "$7.95",
+    "category": "Menu"
   },
   {
-    "category": "House Made Desserts",
-    "name": "Creme Brulee with Fresh Berries",
-    "description": "Vanilla creme brulee, strawberries, blackberries, blueberries, lemon syrup, whipped cream, fresh mint"
+    "name": "House Oysters*",
+    "description": "raw or steamed - cocktail, horseradish, mignonette",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Fried Green Tomato Burger",
+    "description": "pimento cheese, fried green tomato, lettuce, onion, mayo, house-cut fries",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "BLT & Egg Sandwich*",
+    "description": "bacon, lettuce, tomato, mayonnaise, fried egg, house-cut fries",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Grilled Chicken Sandwich",
+    "description": "grilled pineapple marinated chicken, tomato, iceberg lettuce, peppercorn mayo, swiss american cheese",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Chicken Salad Sandwich",
+    "description": "house-made chicken salad, sourdough, lettuce, tomato",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Stir Hoagie",
+    "description": "baguette, salami, ham, mozzarella cheese, cherry peppers, red onion, sliced tomatoes, shredded iceberg, red wine vinaigrette",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Chicken & Waffles",
+    "description": "house-made malted waffle, chicken strips, whipped butter, syrup, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Classic Waffles",
+    "description": "house-made malted waffles, 2 eggs any way, whipped butter, syrup, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Breakfast Chicken Piccata",
+    "description": "white wine, eggs, spinach, beurre blanc sauce, capers, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Shrimp & Crab Benedict*",
+    "description": "crab meat, crispy fried shrimp, poached eggs, english muffins, hollandaise, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Baja Omelette",
+    "description": "peppers, onions, cheese blend, pico, avocado, crema, charred salsa, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Ham Omelette",
+    "description": "ham, green peppers, mushrooms, onions, cheddar cheese, pepper jack cheese, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Charleston Omelette",
+    "description": "bacon, green onions, cheese blend, grits, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Avocado Toast*",
+    "description": "tomato, avocado, arugula, lemon oil, fried egg, sourdough, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Biscuits & Gravy Breakfast*",
+    "description": "buttermilk biscuits, sausage gravy, sausage, two eggs any style, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Egg Benedict*",
+    "description": "ham, poached eggs, english muffins, hollandaise sauce, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Knife & Fork Sandwich*",
+    "description": "La Farm sourdough, ham, bacon, fried egg, cheddar, hollandaise, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Stir it Up Frittata",
+    "description": "asparagus, spinach, onions, peppers, parmesan, stewed tomatoes, crab meat, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Breakfast Burger*",
+    "description": "tillamook cheddar, lettuce, tomato, onion, fried egg, bacon, mayo, pickles, house-cut fries",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Country Breakfast*",
+    "description": "three eggs any style, breakfast potatoes, biscuit, choice of bacon or sausage",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Filet Benedict*",
+    "description": "petite filet, poached eggs, english muffins, hollandaise, tomatoes, breakfast potatoes",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Mimosa",
+    "description": "orange juice, champagne",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Agua Fresca Mimosa",
+    "description": "your choice of agua fresca, champagne",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Bloody Mary",
+    "description": "house-made bloody mary mix, Pickers vodka",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "The Haystack",
+    "description": "Four Roses Bourbon, Courvoisier VS, Yellow Chartreuse, house-made spiced orange syrup, cardamom bitters, fresh lemon juice",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Whiskey to the River",
+    "description": "Dickel #8 Sour Mash, apple brandy, Luxardo Liqueur, cardamom bitters, absinthe wash",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Wassail",
+    "description": "Four Roses Bourbon, house-made hot spiced cider",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "The Old Fashioned Cocktail",
+    "description": "Bourbon, Marasca Cherries, Orange Wedge. We do this classic cocktail in the post-prohibition style using bourbon, fresh orange & cherries",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Slackjawed Jezebel",
+    "description": "Bourbon, Lemon Curd, House-Made Ginger Syrup, Fresh Lemon Juice, Sugar Cane Syrup. The Jezebel takes bourbon, homemade lemon curd, house-made ginger syrup & fresh squeezed lemon juice to leave you slackjawed by its flavor",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Jack Sour",
+    "description": "Rye Whiskey, House Merlot, Fresh Lemon Juice, Sugar Cane Syrup. The first whiskey sour was made in 1872. We based our version off the classic using house-made ingriedents & rye whiskey",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "The Aviation Cocktail",
+    "description": "London Dry Gin, Maraschino Liqueur, Fresh Lemon Juice, Violette Liqueur, Sugar Cane Syrup. This 1917 cocktail has become one of the more popular classics in bars where drinks are done right. Its tartness is clean and quenching while the sweetness is dry & refreshing",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Hemingway Daiquiri",
+    "description": "Aged Rum, Maraschino Liqueur, Fresh Grapefruit Juice, Fresh Lime Juice, Sugar Cane Syrup. Let's all thank Ernest for his love of alcohol! Without him we wouldn't have this delicious concoction",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Flower Power",
+    "description": "Vodka, House-Made Hibiscus Syrup, Fresh Lime Juice, Fresh Orange Juice, Orange and Lime Essential Oils. Vodka mixed with our sweet & aromatic, housemade hibiscus syrup, fresh lime and orange juices, & immune system boosting essential oils that add a rich, smooth texture to the cocktail",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Stir 75",
+    "description": "Broker's Dry Gin, La Marca Prosecco, Aperitivo Select, Fresh Lemon Juice, Sugar Cane Syrup. A refreshing spin on the classic \"French 75\" cocktail. We've paired London dry gin with fresh lemon juice, sugar, & a hint of Italian aperitif liqueur. Topped with Prosecco for a modern twist",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Sbagliato Negroni",
+    "description": "Campari, Carpano Antica Sweet Vermouth, La Marca Prosecco. Invented in 1919 & named for Count Camillo Negron. It took a secret handshake to order it and was a sign to bartenders that you knew what you liked",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Whiskey Bramble",
+    "description": "Bourbon, Cherry Amarascata, Fresh Lemon Juice, Orange Blossom Water, Sugar Cane Syrup. Tartness from cherry marries well with the sweetness of bourbon to create a delicious whiskey drink. We add some fresh squeezed lemon juice along with a few drops of orange blossom flower water for a sagacious libation",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Viva La Astral",
+    "description": "Tequila Reposado, Fresh Grapefruit and Fresh Lemon Juice, Jalapeño Pepper, Cucumber, Ginger Syrup, Sugar Cane Syrup. Tequila, grapefruit juice, lemon juice, and sugar mixed with jalapeño pepper, cucumber, & hous-made ginger syrup",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Austin Mule",
+    "description": "Tito's Vodka, House-Made Ginger Syrup, Fresh Lime Juice, Sugar Cane Syrup. We use our house-made ginger beer & Tito's to make a great classic cocktail",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Elderflower Sour",
+    "description": "Vodka, St. Germain Elderflower, Monin Lime, House-Made Ginger Syrup, Cucumber. The subtle sweetness of a flower coupled with vodka & the crisp dry sweetness of cucumber makes this drink a favorite. We add a bit of sour from preserved lime syrup & fresh ginger to give it a quenching result",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "1948 Margarita",
+    "description": "Tequila Reposado, Gran Gala, FreshLime Juice, Sugar Cane Syrup. A classic brought back from 1948 from the original Margarita Sames recipe. Served on rocks or shaved ice",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Strawberry Moon Sangria",
+    "description": "House Cabernet, Strawberry, Fresh Lemon Juice, Italian Cherry Syrup, Rose Petal Water, Vodka. Nicknamed by Native Americans, the full moon near the summer solstice was a signal to pick strawberries at the peak of their ripeness. We used their advice and made a cocktail with them",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Ginger Lemon Drop",
+    "description": "Vodka, Ginger Liqueur, Lemoncello",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Rye Manhattan",
+    "description": "Rye Whiskey, Italian Vermouth, Regan's' Orange Bitters",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Vieux Carre",
+    "description": "Rye Whiskey, Cognac, Benedictine, Italian Vermouth, Peychaud's Bitters",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "Iced Tea",
+    "description": "sweet & unsweet",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "House-Made Agua Frescas",
+    "description": "Lemon Cucumber, Strawberry Basil, Cantaloupe Mint",
+    "price": "",
+    "category": "Menu"
+  },
+  {
+    "name": "½ lb",
+    "description": "",
+    "price": "$24.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$8.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$31.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$9.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$35.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$9.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$98.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$11.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$43.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$8.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$33.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$9.25",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$36.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$9.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$37.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$10.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$39.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Gls",
+    "description": "",
+    "price": "$10.50",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$41.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$110.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$75.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$85.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$55.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$68.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$90.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$62.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Btl",
+    "description": "",
+    "price": "$100.00",
+    "category": "Menu"
+  },
+  {
+    "name": "Weekdays",
+    "description": "",
+    "price": "$4",
+    "category": "Menu"
   }
 ]

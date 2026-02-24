@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Send, Heart, Search, LogOut, User, Settings } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { API_BASE_URL } from '../config/api'
 
 const CURRENT_USER = 'You'
 
@@ -48,7 +49,7 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
             try {
               const token = localStorage.getItem('access_token')
               if (token) {
-                const response = await fetch('http://localhost:8081/api/follow-requests', {
+                const response = await fetch(`${API_BASE_URL}/api/follow-requests`, {
                   headers: {
                     'Authorization': `Bearer ${token}`
                   }

@@ -1,102 +1,782 @@
 [
   {
-    "name": "VideoPlayerNextgendashWorkerEntrypointBundle",
+    "name": "Flowering Onion",
     "description": "",
+    "price": "$7",
     "category": "Menu"
   },
   {
-    "name": "VideoPlayerNextgendashWorkerWithDebugEntrypointBundle",
+    "name": "She Crab Soup",
     "description": "",
+    "price": "$9",
     "category": "Menu"
   },
   {
-    "name": "VideoPlayerNextgendashWorkerV2EntrypointWorkerBundle",
+    "name": "Clam Chowder",
     "description": "",
+    "price": "$8",
     "category": "Menu"
   },
   {
-    "name": "WAMediaWasmWorkerBundle",
+    "name": "Oyster Stew",
     "description": "",
+    "price": "$8",
     "category": "Menu"
   },
   {
-    "name": "FileHashWorkerBundle",
+    "name": "Shrimp Cocktail",
     "description": "",
+    "price": "$9",
     "category": "Menu"
   },
   {
-    "name": "MAWMainWebWorkerV2Bundle",
+    "name": "Potato Skins",
     "description": "",
+    "price": "$8",
     "category": "Menu"
   },
   {
-    "name": "like",
+    "name": "House",
     "description": "",
+    "price": "$5",
     "category": "Menu"
   },
   {
-    "name": "love",
+    "name": "Shrimp",
     "description": "",
+    "price": "$12",
     "category": "Menu"
   },
   {
-    "name": "selfie",
+    "name": "Grilled Chicken",
     "description": "",
+    "price": "$12",
     "category": "Menu"
   },
   {
-    "name": "dorothy",
+    "name": "Chef",
     "description": "",
+    "price": "$12",
     "category": "Menu"
   },
   {
-    "name": "toto",
+    "name": "Greek",
     "description": "",
+    "price": "$12",
     "category": "Menu"
   },
   {
-    "name": "haha",
+    "name": "Java Jeff’s Grilled Shrimp",
     "description": "",
+    "price": "$12",
     "category": "Menu"
   },
   {
-    "name": "yay",
+    "name": "Grilled Chicken Sandwich",
     "description": "",
-    "category": "Menu"
+    "price": "$10",
+    "category": "SALADS"
   },
   {
-    "name": "wow",
+    "name": "Big Beef & Cheese Sub",
     "description": "",
-    "category": "Menu"
+    "price": "$11",
+    "category": "SALADS"
   },
   {
-    "name": "confused",
+    "name": "Grilled Chicken Sub",
     "description": "",
-    "category": "Menu"
+    "price": "$11",
+    "category": "SALADS"
   },
   {
-    "name": "support",
+    "name": "All American Sub",
     "description": "",
-    "category": "Menu"
+    "price": "$11",
+    "category": "SALADS"
   },
   {
-    "name": "sorry",
+    "name": "Bar-B-Que Sandwich",
     "description": "",
-    "category": "Menu"
+    "price": "$10",
+    "category": "SALADS"
   },
   {
-    "name": "anger",
+    "name": "Chicken Pita",
     "description": "",
-    "category": "Menu"
+    "price": "$10",
+    "category": "SALADS"
   },
   {
-    "name": "flame",
+    "name": "Gyro On Pita",
     "description": "",
-    "category": "Menu"
+    "price": "$10",
+    "category": "SALADS"
   },
   {
-    "name": "plane",
+    "name": "Sliced Turkey Sandwich",
     "description": "",
-    "category": "Menu"
+    "price": "$10",
+    "category": "SALADS"
+  },
+  {
+    "name": "Patty Melt Sandwich",
+    "description": "",
+    "price": "$10",
+    "category": "SALADS"
+  },
+  {
+    "name": "The Club Sandwich",
+    "description": "",
+    "price": "$12",
+    "category": "SALADS"
+  },
+  {
+    "name": "B.L.T. Sandwich",
+    "description": "",
+    "price": "$10",
+    "category": "SALADS"
+  },
+  {
+    "name": "Fish Sandwich",
+    "description": "",
+    "price": "$10",
+    "category": "SALADS"
+  },
+  {
+    "name": "1/2 lb. Cheeseburger*",
+    "description": "",
+    "price": "$10",
+    "category": "SALADS"
+  },
+  {
+    "name": "Soft Drinks (free refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Iced Tea (free refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Homemade Lemonade (free refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Coffee (free refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Hot Chocolate (no refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Hot Tea (no refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Milk (no refills)",
+    "description": "",
+    "price": "$3",
+    "category": "SALADS"
+  },
+  {
+    "name": "Potato Salad",
+    "description": "",
+    "price": "$3",
+    "category": "SIDES"
+  },
+  {
+    "name": "French Fries",
+    "description": "",
+    "price": "$4",
+    "category": "SIDES"
+  },
+  {
+    "name": "Onion Rings",
+    "description": "",
+    "price": "$6",
+    "category": "SIDES"
+  },
+  {
+    "name": "Cole Slaw",
+    "description": "",
+    "price": "$1.50",
+    "category": "SIDES"
+  },
+  {
+    "name": "Hush Puppies",
+    "description": "",
+    "price": "$3",
+    "category": "SIDES"
+  },
+  {
+    "name": "Load (Cheese & Bacon +1)",
+    "description": "",
+    "price": "$3.25",
+    "category": "SIDES"
+  },
+  {
+    "name": "Baked Sweet Potato add to Entree +1",
+    "description": "",
+    "price": "$4",
+    "category": "SIDES"
+  },
+  {
+    "name": "Marinated Chicken Tips over Rice",
+    "description": "",
+    "price": "$12",
+    "category": "SIDES"
+  },
+  {
+    "name": "Grilled Pork Chops (Bone In)",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Hamburger Steak* with onions and gravy",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Grilled Chicken Breast",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Bar-B-Que Plate with cole slaw & one side",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Spaghetti with Meat Sauce",
+    "description": "",
+    "price": "$10",
+    "category": "SIDES"
+  },
+  {
+    "name": "Clam Strips",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Baby Shrimp",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Filet of Flounder",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Filet of Perch",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Filet of Alaskan Whitefish",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Stuffed Deviled Crab",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Whole Catfish (Bone In)",
+    "description": "",
+    "price": "$12",
+    "category": "SIDES"
+  },
+  {
+    "name": "Catfish Filets",
+    "description": "",
+    "price": "$12",
+    "category": "SIDES"
+  },
+  {
+    "name": "Oysters",
+    "description": "",
+    "price": "$15",
+    "category": "SIDES"
+  },
+  {
+    "name": "“hand breaded”",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Any Two Items from above Seafood",
+    "description": "",
+    "price": "$13",
+    "category": "SIDES"
+  },
+  {
+    "name": "Any Three Items from above Seafood",
+    "description": "",
+    "price": "$15",
+    "category": "SIDES"
+  },
+  {
+    "name": "Jumbo Shrimp",
+    "description": "",
+    "price": "$22",
+    "category": "SIDES"
+  },
+  {
+    "name": "Baked Potato",
+    "description": "",
+    "price": "$4",
+    "category": "SIDES"
+  },
+  {
+    "name": "Loaded (cheese & bacon) +",
+    "description": "",
+    "price": "$1",
+    "category": "SIDES"
+  },
+  {
+    "name": "Baked Sweet Potato",
+    "description": "",
+    "price": "$4",
+    "category": "SIDES"
+  },
+  {
+    "name": "Flowering Onion",
+    "description": "",
+    "price": "$8",
+    "category": "SIDES"
+  },
+  {
+    "name": "Clam Chowder",
+    "description": "",
+    "price": "$9",
+    "category": "SIDES"
+  },
+  {
+    "name": "Oyster Stew",
+    "description": "",
+    "price": "$9",
+    "category": "SIDES"
+  },
+  {
+    "name": "Shrimp Cocktail",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Oyster Cocktail",
+    "description": "",
+    "price": "$11",
+    "category": "SIDES"
+  },
+  {
+    "name": "Cheese Sticks with marinara",
+    "description": "",
+    "price": "$8",
+    "category": "SIDES"
+  },
+  {
+    "name": "Potato Skins",
+    "description": "",
+    "price": "$9",
+    "category": "SIDES"
+  },
+  {
+    "name": "She Crab Soup",
+    "description": "",
+    "price": "$10",
+    "category": "SIDES"
+  },
+  {
+    "name": "House",
+    "description": "",
+    "price": "$6",
+    "category": "SALADS"
+  },
+  {
+    "name": "Shrimp",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "Grilled Chicken",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "The Captain’s Chef",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "Greek",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "Java Jeff’s Grilled Shrimp",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "Grilled Salmon Salad",
+    "description": "",
+    "price": "$20",
+    "category": "SALADS"
+  },
+  {
+    "name": "Homemade BBQ Plate",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "Homemade BBQ Sandwich",
+    "description": "",
+    "price": "$12",
+    "category": "SALADS"
+  },
+  {
+    "name": "Fish Sandwich",
+    "description": "",
+    "price": "$12",
+    "category": "SALADS"
+  },
+  {
+    "name": "Grilled Chicken Sandwich",
+    "description": "",
+    "price": "$11",
+    "category": "SALADS"
+  },
+  {
+    "name": "8 oz. Cheeseburger",
+    "description": "",
+    "price": "$11",
+    "category": "SALADS"
+  },
+  {
+    "name": "Chicken Tenders",
+    "description": "",
+    "price": "$15",
+    "category": "SALADS"
+  },
+  {
+    "name": "Soft Drinks",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Iced Tea",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Lemonade",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Coffee",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Hot Chocolate",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Hot Tea",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Milk",
+    "description": "",
+    "price": "$3.25",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Filet Mignon*",
+    "description": "",
+    "price": "$32",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Ribeye Steak*",
+    "description": "",
+    "price": "$28",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "T-Bone Porterhouse*",
+    "description": "",
+    "price": "$32",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Center Cut Sirloin*",
+    "description": "",
+    "price": "$19",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Hamburger Steak*",
+    "description": "",
+    "price": "$17",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Grilled Chicken Breast",
+    "description": "",
+    "price": "$17",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Grilled Boneless Pork Chops",
+    "description": "",
+    "price": "$17",
+    "category": "BEVERAGES"
+  },
+  {
+    "name": "Chicken and Shrimp Alfredo",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Seafood Alfredo",
+    "description": "",
+    "price": "$25",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Chicken Parmesan",
+    "description": "",
+    "price": "$19",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Fettuccine Alfredo",
+    "description": "",
+    "price": "$15",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Filet of Flounder",
+    "description": "",
+    "price": "$20",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Tilapia",
+    "description": "",
+    "price": "$20",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Alaskan Whitefish",
+    "description": "",
+    "price": "$20",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Greek Style Flounder",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Greek Style Baby Shrimp",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Jumbo Shrimp",
+    "description": "",
+    "price": "$26",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Greek Style additional +",
+    "description": "",
+    "price": "$2",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Any 2 items Above",
+    "description": "",
+    "price": "$26",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Any 3 items Above",
+    "description": "",
+    "price": "$28",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Captain’s Platter",
+    "description": "",
+    "price": "$28",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Mahi Mahi",
+    "description": "",
+    "price": "$25",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Filet of Red Snapper",
+    "description": "",
+    "price": "$25",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Salmon Filet",
+    "description": "",
+    "price": "$25",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Stuffed Filet of Flounder",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Grilled Tuna",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Filet of Flounder",
+    "description": "",
+    "price": "$18",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Tilapia",
+    "description": "",
+    "price": "$17",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Baby Shrimp",
+    "description": "",
+    "price": "$17",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Jumbo Shrimp",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Oysters",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Filet of Perch",
+    "description": "",
+    "price": "$17",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Whole Catfish [Bone In]",
+    "description": "",
+    "price": "$18",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Catfish Strips",
+    "description": "",
+    "price": "$18",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Boiled Baby Shrimp",
+    "description": "",
+    "price": "$19",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Boiled Jumbo Shrimp",
+    "description": "",
+    "price": "$23",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Filet of Alaskan Whitefish",
+    "description": "",
+    "price": "$19",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Stuffed Deviled Crab",
+    "description": "",
+    "price": "$16",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Clam Strips",
+    "description": "",
+    "price": "$17",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Any 2 items Above",
+    "description": "",
+    "price": "$24",
+    "category": "PASTAS"
+  },
+  {
+    "name": "Any 3 items Above",
+    "description": "",
+    "price": "$26",
+    "category": "PASTAS"
   }
 ]

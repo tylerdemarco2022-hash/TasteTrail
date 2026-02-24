@@ -5,6 +5,14 @@ import StarRating from './StarRating'
 import Saved from './Saved'
 import EditRatingModal from './EditRatingModal'
 import EditBioModal from './EditBioModal'
+import { API_BASE_URL } from '../config/api'
+import {
+  getActiveProfileId,
+  getPrivateProfileForUser,
+  loadUserScopedValue,
+  saveUserScopedValue,
+  setPrivateProfileForUser
+} from '../utils/accountStorage'
 
 /**
  * Profile Component - User's Own Profile with Privacy Toggle
@@ -19,22 +27,30 @@ import EditBioModal from './EditBioModal'
 
 export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
   const { profile, user, refreshProfile } = useAuth()
+  const profileId = profile?.id || getActiveProfileId()
   const [gallery, setGallery] = useState([])
   const [badges, setBadges] = useState([])
   const [activeTab, setActiveTab] = useState('my-content') // 'my-content' or 'saved'
   const [menuOpen, setMenuOpen] = useState(null)
   const [editingItem, setEditingItem] = useState(null)
   const [editingBio, setEditingBio] = useState(false)
-  const [bio, setBio] = useState('Welcome to TasteTrails! Start exploring and rating dishes.')
+  const [bio, setBio] = useState(() =>
+    loadUserScopedValue('user_bio', 'Welcome to TasteTrails! Start exploring and rating dishes.', profileId)
+  )
   const [isPrivate, setIsPrivate] = useState(false)
   const [updatingPrivacy, setUpdatingPrivacy] = useState(false)
 
   useEffect(() => {
     // Load privacy setting from profile
     if (profile?.is_private !== undefined) {
-      setIsPrivate(profile.is_private)
+      const localPrivate = getPrivateProfileForUser(profile.id)
+      setIsPrivate(typeof localPrivate === 'boolean' ? localPrivate : profile.is_private)
     }
   }, [profile])
+
+  useEffect(() => {
+    setBio(loadUserScopedValue('user_bio', 'Welcome to TasteTrails! Start exploring and rating dishes.', profileId))
+  }, [profileId])
 
   useEffect(() => {
     const loadBadges = () => {
@@ -51,7 +67,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
 
     const loadRatedItems = () => {
       try {
-        const saved = JSON.parse(localStorage.getItem('my-rated-items') || '[]')
+        const saved = JSON.parse(localStorage.getItem(`my-rated-items:${profileId}`) || '[]')
         setGallery(saved)
       } catch (e) {
         setGallery([])
@@ -69,7 +85,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
       window.removeEventListener('postsCleared', handlePostsCleared)
       window.removeEventListener('ratingSaved', handleRatingSaved)
     }
-  }, [])
+  }, [profileId])
 
   const handleEditRating = (item) => {
     setEditingItem(item)
@@ -82,7 +98,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
         : g
     )
     setGallery(updatedGallery)
-    localStorage.setItem('my-rated-items', JSON.stringify(updatedGallery))
+    localStorage.setItem(`my-rated-items:${profileId}`, JSON.stringify(updatedGallery))
     setEditingItem(null)
     setMenuOpen(null)
     window.dispatchEvent(new Event('ratingSaved'))
@@ -92,7 +108,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
     if (confirm(`Delete rating for ${item.dish}?`)) {
       const updatedGallery = gallery.filter(g => g.entryId !== item.entryId)
       setGallery(updatedGallery)
-      localStorage.setItem('my-rated-items', JSON.stringify(updatedGallery))
+      localStorage.setItem(`my-rated-items:${profileId}`, JSON.stringify(updatedGallery))
       setMenuOpen(null)
       window.dispatchEvent(new Event('ratingSaved'))
     }
@@ -102,11 +118,11 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
     try {
       // Save bio locally
       setBio(updatedInfo.bio)
-      localStorage.setItem('user_bio', updatedInfo.bio)
+      saveUserScopedValue('user_bio', updatedInfo.bio, profileId)
       
       // Try to update profile name on backend if server is running
       try {
-        const response = await fetch('http://localhost:8081/auth/profile', {
+        const response = await fetch(`${API_BASE_URL}/auth/profile`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -149,7 +165,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
     const newPrivacyState = !isPrivate
     
     try {
-      const response = await fetch('http://localhost:8081/auth/profile', {
+      const response = await fetch(`${API_BASE_URL}/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -164,6 +180,8 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
 
       if (response.ok) {
         setIsPrivate(newPrivacyState)
+        setPrivateProfileForUser(profileId, newPrivacyState)
+        window.dispatchEvent(new Event('privacyUpdated'))
         await refreshProfile()
         alert(`Account is now ${newPrivacyState ? 'private' : 'public'}`)
       } else {
@@ -171,6 +189,9 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
       }
     } catch (e) {
       console.error('Error updating privacy:', e)
+      setIsPrivate(newPrivacyState)
+      setPrivateProfileForUser(profileId, newPrivacyState)
+      window.dispatchEvent(new Event('privacyUpdated'))
       alert('Error updating privacy setting')
     } finally {
       setUpdatingPrivacy(false)

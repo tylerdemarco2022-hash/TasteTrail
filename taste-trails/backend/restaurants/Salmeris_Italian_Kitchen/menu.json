@@ -1,102 +1,254 @@
 [
   {
-    "name": "VideoPlayerNextgendashWorkerEntrypointBundle",
-    "description": "",
-    "category": "Menu"
+    "name": "Crab and Artichoke Dip",
+    "description": "four cheeses. olive oil crumbs. basil pesto. toasted focaccia.",
+    "price": "$14",
+    "category": "Appetizers"
   },
   {
-    "name": "VideoPlayerNextgendashWorkerWithDebugEntrypointBundle",
-    "description": "",
-    "category": "Menu"
+    "name": "Flash Fried Semolina Crusted Calamari",
+    "description": "pepperoncini. fresh basil. garlic. lemon butter. tomato sauce.",
+    "price": "$14",
+    "category": "Appetizers"
   },
   {
-    "name": "VideoPlayerNextgendashWorkerV2EntrypointWorkerBundle",
-    "description": "",
-    "category": "Menu"
+    "name": "Crispy Arancini",
+    "description": "fried risotto. parmesan. mozzarella. house gravy. basil.",
+    "price": "$10",
+    "category": "Appetizers"
   },
   {
-    "name": "WAMediaWasmWorkerBundle",
-    "description": "",
-    "category": "Menu"
+    "name": "Fig and Goat Cheese",
+    "description": "caramelized onion. prosciutto. arugula. olive oil. balsamic. house flatbread.",
+    "price": "$12",
+    "category": "Appetizers"
   },
   {
-    "name": "FileHashWorkerBundle",
-    "description": "",
-    "category": "Menu"
+    "name": "Roasted Cauliflower",
+    "description": "marinated. parmesan crust. evoo crumbs.",
+    "price": "$10",
+    "category": "Appetizers"
   },
   {
-    "name": "MAWMainWebWorkerV2Bundle",
-    "description": "",
-    "category": "Menu"
+    "name": "Pepperoni Pull Apart Bread",
+    "description": "ricotta. mozzarella. basil. garlic oil. pepperoni sauce.",
+    "price": "$14",
+    "category": "Appetizers"
   },
   {
-    "name": "like",
-    "description": "",
-    "category": "Menu"
+    "name": "Salmeri’s Meatballs and Polenta",
+    "description": "parmesan polenta. fresh basil. house gravy.",
+    "price": "$10",
+    "category": "Appetizers"
   },
   {
-    "name": "love",
-    "description": "",
-    "category": "Menu"
+    "name": "Fried Mozzarella",
+    "description": "house sauce. parmesan. pesto.",
+    "price": "$9",
+    "category": "Appetizers"
   },
   {
-    "name": "selfie",
-    "description": "",
-    "category": "Menu"
+    "name": "Warm Olives",
+    "description": "orange zest. fennel seed. garlic. thyme. olive oil.",
+    "price": "$8",
+    "category": "Appetizers"
   },
   {
-    "name": "dorothy",
-    "description": "",
-    "category": "Menu"
+    "name": "Meat & Cheese Board",
+    "description": "assorted italian artisan meats & cheeses. olives. jam. candied nuts. crostini.",
+    "price": "$16",
+    "category": "Appetizers"
   },
   {
-    "name": "toto",
-    "description": "",
-    "category": "Menu"
+    "name": "Cheese and Tomato",
+    "description": "oregano. fresh mozzarella. sauce. olive oil.",
+    "price": "$14",
+    "category": "Pizzas"
   },
   {
-    "name": "haha",
-    "description": "",
-    "category": "Menu"
+    "name": "House Meatball and Ricotta",
+    "description": "caramelized onions. roasted peppers. sauce. basil. mozzarella.",
+    "price": "$15",
+    "category": "Pizzas"
   },
   {
-    "name": "yay",
-    "description": "",
-    "category": "Menu"
+    "name": "Margherita",
+    "description": "fresh mozzarella. basil. parmesan. sauce.",
+    "price": "$14",
+    "category": "Pizzas"
   },
   {
-    "name": "wow",
-    "description": "",
-    "category": "Menu"
+    "name": "“Our” Pepperoni",
+    "description": "artisan pepperoni. pepperoni sauce. fresh mozz. ricotta. basil.",
+    "price": "$15",
+    "category": "Pizzas"
   },
   {
-    "name": "confused",
-    "description": "",
-    "category": "Menu"
+    "name": "Mushroom and Truffle",
+    "description": "caramelized onions. provolone & mozzarella. arugula. fresh herbs.",
+    "price": "$15",
+    "category": "Pizzas"
   },
   {
-    "name": "support",
-    "description": "",
-    "category": "Menu"
+    "name": "Artichoke and Goat Cheese",
+    "description": "prosciutto. smoked goat lady. spinach. caramelized onions.",
+    "price": "$15",
+    "category": "Pizzas"
   },
   {
-    "name": "sorry",
-    "description": "",
-    "category": "Menu"
+    "name": "Baby Mixed Green Salad",
+    "description": "shaved veggies. point reyes toma. marcona almonds. white balsamic vin.",
+    "price": "$8",
+    "category": "Soups & Salads"
   },
   {
-    "name": "anger",
-    "description": "",
-    "category": "Menu"
+    "name": "Salmeri’s Caesar",
+    "description": "parmesan frico. lemony caesar. rosemary focaccia croutons.",
+    "price": "$8",
+    "category": "Soups & Salads"
   },
   {
-    "name": "flame",
-    "description": "",
-    "category": "Menu"
+    "name": "Salmeri’s Caprese Salad",
+    "description": "heirloom tomatoes. basil. fresh mozzarella. olive oil. balsamic syrup. ciabatta crumbs.",
+    "price": "$10",
+    "category": "Soups & Salads"
   },
   {
-    "name": "plane",
-    "description": "",
-    "category": "Menu"
+    "name": "Poached Pear and Burrata Salad",
+    "description": "pistachio. arugula. pickled onion. olive oil. ciabatta. basil.",
+    "price": "$12",
+    "category": "Soups & Salads"
+  },
+  {
+    "name": "Chopped Salad",
+    "description": "tomatoes. olives. pepperoncini. bacon. crispy cannellini beans. citrus vinaigrette.",
+    "price": "$10",
+    "category": "Soups & Salads"
+  },
+  {
+    "name": "Italian Wedding Soup",
+    "description": "spinach. fennel sausage. acini de pepe. parmesan.",
+    "price": "$7",
+    "category": "Soups & Salads"
+  },
+  {
+    "name": "Tuscan Tomato Bisque",
+    "description": "grilled cheese croutons. crystallized basil.",
+    "price": "$7",
+    "category": "Soups & Salads"
+  },
+  {
+    "name": "Lobster & Shrimp Ravioli",
+    "description": "spinach. roasted tomatoes. asparagus. vodka tarragon pink sauce. evoo crumbs.",
+    "price": "$25",
+    "category": "Pastas"
+  },
+  {
+    "name": "Dylan’s Chicken Alfredo",
+    "description": "parmesan crusted fried chicken. broccolini. bucatini pasta. aged parmesan.",
+    "price": "$21",
+    "category": "Pastas"
+  },
+  {
+    "name": "Chicken Parmesan",
+    "description": "parmesan crusted chicken with house gravy and mozzarella. served with our bucatini alfredo.",
+    "price": "$24",
+    "category": "Pastas"
+  },
+  {
+    "name": "Cajun Shrimp Fettucine",
+    "description": "roasted mushrooms. spinach. red pepper alfredo.",
+    "price": "$21",
+    "category": "Pastas"
+  },
+  {
+    "name": "Jason’s Baked Penne",
+    "description": "mozzarella. provolone. ricotta. parmesan. fennel sausage. house gravy.",
+    "price": "$18",
+    "category": "Pastas"
+  },
+  {
+    "name": "Brennan’s Bolognese",
+    "description": "well kinda. meatballs. fennel sausage. short ribs. sauce. pappardelle. pesto.",
+    "price": "$24",
+    "category": "Pastas"
+  },
+  {
+    "name": "Pumpkin Ravioli",
+    "description": "spinach. sage brown butter. pistachio. balsamic. orange pine nut crunch.",
+    "price": "$20",
+    "category": "Pastas"
+  },
+  {
+    "name": "Urban Gourmet Farms Mushroom Ravioli",
+    "description": "tasso ham. oven roasted peppers. basil. garlic cream.",
+    "price": "$18",
+    "category": "Pastas"
+  },
+  {
+    "name": "Penne Carbonara",
+    "description": "smoked bacon. parmesan cream. grilled chicken. spinach.",
+    "price": "$21",
+    "category": "Pastas"
+  },
+  {
+    "name": "Pesto Salmon Pasta",
+    "description": "blistered tomatoes. spinach. artichokes. olive oil. housemade garlic breadcrumbs.",
+    "price": "$23",
+    "category": "Pastas"
+  },
+  {
+    "name": "Beth’s Bolognese Sloppy Joe",
+    "description": "meatballs. sausage. short ribs. mozz and fontina cheese. roasted peppers.",
+    "price": "$13",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Salmeri’s Chicken Parmesan",
+    "description": "pesto. fresh mozz. sauce. lemony arugula. ciabatta.",
+    "price": "$14",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "*Salmeri’s Burger",
+    "description": "mozzarella and provolone. bacon. basil mayo. pickled onions.",
+    "price": "$14",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Meatball Parmesan",
+    "description": "beef and pork. fresh mozzarella. tomato sauce. hoagie roll.",
+    "price": "$14",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Chianti Braised Beef Short Ribs",
+    "description": "marsala glazed mushrooms. polenta. broccolini. beef sauce.",
+    "price": "$29",
+    "category": "Entrees"
+  },
+  {
+    "name": "*Grilled Cold Water Salmon",
+    "description": "tomatoes. spinach. artichoke. squash. lemon butter.",
+    "price": "$25",
+    "category": "Entrees"
+  },
+  {
+    "name": "Salmeri’s Shrimp Scampi",
+    "description": "cacio e pepe risotto. asparagus. roasted garlic. smoked tomato butter.",
+    "price": "$21",
+    "category": "Entrees"
+  },
+  {
+    "name": "Mahi Mahi",
+    "description": "blackened. parmesan risotto. roasted tomato. capers. olives. basil.",
+    "price": "$25",
+    "category": "Entrees"
+  },
+  {
+    "name": "Eggplant Parmesan",
+    "description": "bucatini. mozzarella. sartori parmesan. jon’s marinara. crispy basil. pesto.",
+    "price": "$18",
+    "category": "Entrees"
   }
 ]

@@ -16,6 +16,11 @@ import UserProfile from './components/UserProfile'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
 import { HashRouter as Router, Routes, Route, useParams, useLocation, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
+import {
+  applyThemeToDocument,
+  getActiveProfileId,
+  loadUserScopedValue
+} from './utils/accountStorage'
 
 const COMMUNITY_POSTS_KEY = 'community-posts'
 const CURRENT_USER = 'You'
@@ -34,7 +39,8 @@ function loadCommunityPosts() {
 }
 
 function App() {
-  const { isAuthenticated, loading, login, signup } = useAuth()
+  const { isAuthenticated, loading, login, signup, profile } = useAuth()
+  const activeProfileId = profile?.id || getActiveProfileId()
   const [authView, setAuthView] = useState('login')
   const [activeTab, setActiveTab] = useState('restaurants')
   const [menuPost, setMenuPost] = useState(null)
@@ -75,9 +81,19 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const applyCurrentTheme = () => {
+      const pref = loadUserScopedValue('taste-trails-theme', 'light', activeProfileId)
+      applyThemeToDocument(pref)
+    }
+    applyCurrentTheme()
+    window.addEventListener('themeChanged', applyCurrentTheme)
+    return () => window.removeEventListener('themeChanged', applyCurrentTheme)
+  }, [activeProfileId])
+
   const myPosts = useMemo(
-    () => communityPosts.filter((p) => p?.user?.name === CURRENT_USER || p?.userId === 'user1'),
-    [communityPosts]
+    () => communityPosts.filter((p) => p?.userId === activeProfileId || p?.user_id === activeProfileId),
+    [communityPosts, activeProfileId]
   )
 
   const handleAddComment = (postId, text) => {
@@ -221,11 +237,16 @@ function App() {
     const openMenu = (post) => {
       console.log('openMenu called with post:', post);
       if (!post) return;
-      // Ensure the restaurant_id is set in the menuPost state
+      const isUuidLike = (value) =>
+        typeof value === 'string' &&
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+      const inferredRestaurantId = isUuidLike(post.restaurant_id)
+        ? post.restaurant_id
+        : (isUuidLike(post.id) ? post.id : null);
       setMenuPost({
         ...post,
         restaurant: post.restaurant || post.name,
-        restaurant_id: post.restaurant_id || post.restaurant_id || '00000000-0000-0000-0000-000000000001'
+        restaurant_id: inferredRestaurantId
       });
       navigate('/menu');
     }

@@ -4,6 +4,7 @@ import { Lock } from 'lucide-react'
 import StarRating from './StarRating'
 import { useAuth } from '../context/AuthContext'
 import { posts as seedPosts } from '../data'
+import { getActiveProfileId, getPrivateProfileForUser, loadUserScopedValue } from '../utils/accountStorage'
 
 /**
  * UserProfile Component - Instagram-style Private Account Behavior
@@ -43,6 +44,13 @@ const UserProfile = ({ user, onBack, onFollowToggle, isFollowing }) => {
   const [myRatings, setMyRatings] = useState([]);
   const [ratingsLoading, setRatingsLoading] = useState(false);
   const [ratingsError, setRatingsError] = useState('');
+  const [privacyTick, setPrivacyTick] = useState(0);
+
+  useEffect(() => {
+    const handlePrivacyUpdated = () => setPrivacyTick((value) => value + 1);
+    window.addEventListener('privacyUpdated', handlePrivacyUpdated);
+    return () => window.removeEventListener('privacyUpdated', handlePrivacyUpdated);
+  }, []);
   // Load profile data with privacy checks from backend
   useEffect(() => {
     let cancelled = false;
@@ -155,18 +163,22 @@ const UserProfile = ({ user, onBack, onFollowToggle, isFollowing }) => {
 
   const displayName = user?.name || 'User'
   const email = user?.email || ''
-  const isPrivate = profileData?.user?.is_private
+  const localPrivateOverride = getPrivateProfileForUser(user?.id)
+  const isPrivate = typeof localPrivateOverride === 'boolean'
+    ? localPrivateOverride
+    : profileData?.user?.is_private
   const isFollowingUser = profileData?.isFollowing
   const followRequestStatus = profileData?.followRequestStatus
   const posts = profileData?.posts || []
   const isOwnProfile = currentUserProfile?.id === user?.id
   const isAdmin = currentUserProfile?.role === 'admin'
-  const isLocalProfile = !!profileData?.isLocal
-  const bio = profileData?.user?.bio || localStorage.getItem(`user_bio_${user?.id}`) || 'Food explorer sharing favorite bites.'
+  const bio = profileData?.user?.bio
+    || loadUserScopedValue('user_bio', null, user?.id || getActiveProfileId())
+    || 'Food explorer sharing favorite bites.'
 
   // Determine if we should show content
   // Show content if: public account, OR following, OR own profile, OR admin
-  const canViewContent = !isPrivate || isFollowingUser || isOwnProfile || isAdmin || isLocalProfile
+  const canViewContent = !isPrivate || isFollowingUser || isOwnProfile || isAdmin
 
   const loadLocalPosts = () => {
     try {

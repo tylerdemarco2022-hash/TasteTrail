@@ -6,7 +6,9 @@ import { ocrFromUrl } from './ocr_parse.js'
 import axios from 'axios'
 import { supabase } from './supabase.js'
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY
+// OpenAI disabled.
+// const OPENAI_API_KEY = process.env.OPENAI_API_KEY
+const OPENAI_API_KEY = null
 const YELP_API_KEY = process.env.YELP_API_KEY
 
 // This script demonstrates the pipeline for a small set of restaurants saved in ./data/yelp_charlotte.json
@@ -14,14 +16,16 @@ const YELP_API_KEY = process.env.YELP_API_KEY
 // run OCR on each photo, and then call OpenAI to parse into structured menu JSON. Finally it upserts to Supabase.
 
 async function callOpenAI(prompt) {
-  if (!OPENAI_API_KEY) throw new Error('OPENAI_API_KEY missing')
-  const url = 'https://api.openai.com/v1/chat/completions'
-  const res = await axios.post(url, {
-    model: 'gpt-4o-mini',
-    messages: [{ role: 'system', content: 'You are a menu parsing assistant. Return only JSON.' }, { role: 'user', content: prompt }],
-    temperature: 0
-  }, { headers: { Authorization: `Bearer ${OPENAI_API_KEY}` } })
-  return res.data
+  return { ai_disabled: true }
+  // OpenAI disabled.
+  // if (!OPENAI_API_KEY) throw new Error('OPENAI_API_KEY missing')
+  // const url = 'https://api.openai.com/v1/chat/completions'
+  // const res = await axios.post(url, {
+  //   model: 'gpt-4o-mini',
+  //   messages: [{ role: 'system', content: 'You are a menu parsing assistant. Return only JSON.' }, { role: 'user', content: prompt }],
+  //   temperature: 0
+  // }, { headers: { Authorization: `Bearer ${OPENAI_API_KEY}` } })
+  // return res.data
 }
 
 function buildPrompt(restaurantName, ocrText) {
@@ -48,6 +52,7 @@ async function processBusiness(biz) {
     if (!joined) return null
     const prompt = buildPrompt(biz.name, joined)
     const aiRes = await callOpenAI(prompt)
+    if (aiRes && aiRes.ai_disabled) return { ai_disabled: true }
     // parse model output (this is a simplification; production code should validate)
     const content = aiRes.choices?.[0]?.message?.content || ''
     let parsed = null

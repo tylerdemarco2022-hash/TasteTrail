@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { UserPlus, Check, X } from 'lucide-react'
+import { API_BASE_URL } from '../config/api'
 
 /**
  * FollowRequests Component
@@ -24,7 +25,7 @@ const FollowRequests = () => {
       const token = localStorage.getItem('token')
       if (!token) return
 
-      const response = await fetch('http://localhost:8081/api/follow-requests/incoming', {
+      const response = await fetch(`${API_BASE_URL}/api/follow-requests/incoming`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -54,7 +55,7 @@ const FollowRequests = () => {
       setProcessing(prev => ({ ...prev, [requestId]: 'accepting' }))
       
       const token = localStorage.getItem('token')
-      const response = await fetch(`http://localhost:8081/api/follow-requests/${requestId}/accept`, {
+      const response = await fetch(`${API_BASE_URL}/api/follow-requests/${requestId}/accept`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -84,7 +85,7 @@ const FollowRequests = () => {
       setProcessing(prev => ({ ...prev, [requestId]: 'declining' }))
       
       const token = localStorage.getItem('token')
-      const response = await fetch(`http://localhost:8081/api/follow-requests/${requestId}/decline`, {
+      const response = await fetch(`${API_BASE_URL}/api/follow-requests/${requestId}/decline`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`

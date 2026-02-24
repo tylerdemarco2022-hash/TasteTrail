@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Bell, Mail, Volume2, VolumeX, Check } from 'lucide-react'
 import { API_BASE_URL } from '../config/api'
+import { useAuth } from '../context/AuthContext'
+import { getActiveProfileId, loadUserScopedValue, saveUserScopedValue } from '../utils/accountStorage'
 
 /**
  * NotificationSettings Component
@@ -16,6 +18,8 @@ import { API_BASE_URL } from '../config/api'
  * Settings are saved to backend and localStorage for offline access.
  */
 export default function NotificationSettings() {
+  const { profile } = useAuth()
+  const profileId = profile?.id || getActiveProfileId()
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   
@@ -39,7 +43,7 @@ export default function NotificationSettings() {
   // Load saved preferences on mount
   useEffect(() => {
     loadPreferences()
-  }, [])
+  }, [profileId])
   
   /**
    * Load notification preferences from localStorage and backend
@@ -48,32 +52,23 @@ export default function NotificationSettings() {
   const loadPreferences = async () => {
     try {
       // Try to load from localStorage first for instant UI update
-      const stored = localStorage.getItem('notification_preferences')
-      if (stored) {
-        const prefs = JSON.parse(stored)
-        applyPreferences(prefs)
-      }
+      const prefs = loadUserScopedValue('notification_preferences', null, profileId)
+      if (prefs) applyPreferences(prefs)
       
-      // Then load from backend to sync
+      // Then load from backend to sync (best-effort)
       const token = localStorage.getItem('access_token')
       if (token) {
-        const response = await fetch(`${API_BASE_URL}/api/notification-preferences`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        })
-        
-        if (response.ok) {
-          const text = await response.text()
-          console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
-          let data
-          try {
-            data = JSON.parse(text)
-          } catch (e) {
-            console.error("NOT JSON RESPONSE:", text.slice(0, 200))
-            throw e
+        try {
+          const response = await fetch(`${API_BASE_URL}/api/notification-preferences`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          })
+          if (response.ok) {
+            const data = await response.json()
+            applyPreferences(data)
+            saveUserScopedValue('notification_preferences', data, profileId)
           }
-          applyPreferences(data)
-          // Update localStorage with backend data
-          localStorage.setItem('notification_preferences', JSON.stringify(data))
+        } catch (backendErr) {
+          console.warn('Could not load notification prefs from backend:', backendErr.message)
         }
       }
     } catch (e) {
@@ -109,34 +104,28 @@ export default function NotificationSettings() {
     
     try {
       // Save to localStorage immediately
-      localStorage.setItem('notification_preferences', JSON.stringify(preferences))
+      saveUserScopedValue('notification_preferences', preferences, profileId)
       
-      // Save to backend
+      // Save to backend (best-effort — localStorage is already saved above)
       const token = localStorage.getItem('access_token')
       if (token) {
-        const response = await fetch(`${API_BASE_URL}/api/notification-preferences`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(preferences)
-        })
-        
-        if (response.ok) {
-          setSaved(true)
-          setTimeout(() => setSaved(false), 3000)
-        } else {
-          throw new Error('Failed to save to backend')
+        try {
+          await fetch(`${API_BASE_URL}/api/notification-preferences`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(preferences)
+          })
+        } catch (backendErr) {
+          console.warn('Could not sync notification prefs to backend:', backendErr.message)
         }
-      } else {
-        // Not logged in, but saved locally
-        setSaved(true)
-        setTimeout(() => setSaved(false), 3000)
       }
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
     } catch (e) {
       console.error('Error saving notification preferences:', e)
-      alert('Error saving preferences. Settings saved locally only.')
     } finally {
       setSaving(false)
     }
@@ -162,7 +151,7 @@ export default function NotificationSettings() {
             Notification Settings
           </h2>
           <p className="text-sm text-gray-600 mt-1">
-            Control how and when you receive alerts from Pick Found
+            Control how and when you receive alerts from TasteTrails
           </p>
         </div>
         

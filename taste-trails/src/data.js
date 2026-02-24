@@ -1,20 +1,36 @@
 import { menuData } from './menuData'
+import { getActiveProfileId, loadUserScopedValue } from './utils/accountStorage'
 
 // Load following list from localStorage or use defaults
 const loadFollowing = () => {
   try {
-    const saved = localStorage.getItem('taste-trails-following')
-    return saved ? JSON.parse(saved) : ['user2', 'user3', 'user4'] // Default: Following Maya, Liam, and Ava
+    const profileId = getActiveProfileId()
+    const saved = loadUserScopedValue('taste-trails-following', ['user2', 'user3', 'user4'], profileId)
+    return Array.isArray(saved) ? saved : ['user2', 'user3', 'user4']
   } catch (e) {
     return ['user2', 'user3', 'user4']
   }
 }
 
+const loadCurrentProfile = () => {
+  try {
+    const raw = localStorage.getItem('user_profile')
+    const parsed = raw ? JSON.parse(raw) : null
+    return parsed && typeof parsed === 'object' ? parsed : null
+  } catch (e) {
+    return null
+  }
+}
+
+const currentProfile = loadCurrentProfile()
+const currentProfileId = String(currentProfile?.id || getActiveProfileId() || 'user1')
+const currentProfileName = String(currentProfile?.name || 'You')
+
 // Current user
 export const currentUser = {
-  id: 'user1',
-  name: 'You',
-  avatar: 'https://i.pravatar.cc/64?img=1',
+  id: currentProfileId,
+  name: currentProfileName,
+  avatar: loadUserScopedValue('taste-trails-avatar', 'https://i.pravatar.cc/64?img=1', currentProfileId),
   following: loadFollowing()
 }
 

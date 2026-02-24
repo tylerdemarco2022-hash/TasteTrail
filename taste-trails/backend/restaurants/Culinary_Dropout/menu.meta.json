@@ -1,0 +1,66 @@
+{
+  "source_url": "https://places.singleplatform.com/culinary-dropout/menu",
+  "url_confidence": 0.8,
+  "url_discovery_method": "guess",
+  "scrape_confidence": 0.82,
+  "scrape_confidence_report": {
+    "version": "menu_scraper_confidence_v1",
+    "score": 0.82,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.12,
+      "description_coverage_score": 0.05,
+      "naming_quality_score": 0.07,
+      "category_diversity_score": 0.02,
+      "source_diversity_score": 0.12,
+      "navigation_score": 0.06,
+      "pdf_signal_score": 0,
+      "discovery_score": 0.04,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 189,
+      "priced_item_count": 101,
+      "described_item_count": 87,
+      "multiword_name_count": 175,
+      "category_count": 1,
+      "visited_url_count": 3,
+      "menuish_visited_url_count": 3,
+      "raw_json_item_count": 316,
+      "raw_dom_item_count": 202,
+      "raw_pdf_item_count": 0,
+      "discovered_menu_link_count": 4
+    }
+  },
+  "menu_completeness_score": 0.75,
+  "menu_completeness_report": {
+    "version": "menu_completeness_v1",
+    "score": 0.75,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.09,
+      "description_coverage_score": 0.02,
+      "category_score": 0.02,
+      "naming_score": 0.09,
+      "scrape_score": 0.11,
+      "url_score": 0.08,
+      "penalties": 0.01
+    },
+    "metrics": {
+      "item_count": 133,
+      "priced_item_count": 98,
+      "described_item_count": 33,
+      "category_count": 1,
+      "multiword_name_count": 120,
+      "suspicious_name_count": 0,
+      "modifier_like_name_count": 0,
+      "short_name_count": 7
+    }
+  },
+  "min_scrape_confidence": 0.8,
+  "min_menu_completeness": 0.65,
+  "min_menu_items": 12,
+  "updated_at": "2026-02-23T22:54:45.156Z"
+}

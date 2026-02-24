@@ -14,7 +14,8 @@
     "ocr": "node backend/ocr_parse.js",
     "process": "node backend/process_restaurants.js",
     "server": "node server/index.js",
-    "full-pipeline": "node backend/run_full_pipeline.js"
+    "full-pipeline": "node backend/run_full_pipeline.js",
+    "audit-menus": "node scripts/auditAndRefreshMenus.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",
