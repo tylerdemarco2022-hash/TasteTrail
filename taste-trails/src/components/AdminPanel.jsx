@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { menuData as localMenuData } from '../menuData'
 import { API_BASE } from '../config'
+import { useAuth } from '../context/AuthContext'
 import {
   LayoutDashboard, Store, UtensilsCrossed, Users, Shield,
   BarChart3, Sliders, DollarSign, Server, X, ChevronRight,
@@ -216,6 +217,44 @@ function getModerationData() {
 
 /* ─── Main AdminPanel component ──────────────────────────────── */
 export default function AdminPanel({ onClose }) {
+  const { profile } = useAuth()
+  
+  // Only allow admins to access the panel
+  if (!profile?.role || profile.role !== 'admin') {
+    return (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        background: 'rgba(0, 0, 0, 0.7)', display: 'flex',
+        alignItems: 'center', justifyContent: 'center', zIndex: 9999
+      }}>
+        <div style={{
+          background: '#111115', border: '1px solid #27272f', borderRadius: 16,
+          padding: '40px', textAlign: 'center', maxWidth: 400, backdropFilter: 'blur(8px)'
+        }}>
+          <Shield size={48} style={{ color: '#f43f5e', margin: '0 auto 20px', display: 'block' }} />
+          <h3 style={{ fontSize: 20, fontWeight: 700, color: '#fafafa', margin: 0 }}>
+            Access Denied
+          </h3>
+          <p style={{ color: '#a1a1aa', margin: '12px 0 24px 0', fontSize: 14 }}>
+            You don't have admin permissions to access this panel.
+          </p>
+          <button
+            onClick={onClose}
+            style={{
+              background: '#f59e0b', color: '#0d0d10', border: 'none',
+              borderRadius: 8, padding: '10px 20px', fontSize: 14, fontWeight: 700,
+              cursor: 'pointer', transition: '.15s'
+            }}
+            onMouseOver={(e) => e.target.style.opacity = '0.9'}
+            onMouseOut={(e) => e.target.style.opacity = '1'}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    )
+  }
+  
   const [active, setActive] = useState('dashboard')
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [allRatings, setAllRatings] = useState({})

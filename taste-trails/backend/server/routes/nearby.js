@@ -36,6 +36,24 @@ function hashString(input = '') {
 	return Math.abs(h)
 }
 
+// Load cached restaurant images from restaurant-images.json
+function loadRestaurantImages() {
+	try {
+		const imagesPath = path.resolve(__dirname, '../../data/restaurant-images.json')
+		if (!fs.existsSync(imagesPath)) return {}
+		const images = JSON.parse(fs.readFileSync(imagesPath, 'utf8'))
+		const map = {}
+		for (const img of images) {
+			if (img.id && img.image) {
+				map[img.id] = img
+			}
+		}
+		return map
+	} catch (_) {
+		return {}
+	}
+}
+
 function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 	try {
 		if (!fs.existsSync(LOCAL_RESTAURANTS_DIR)) return []
@@ -43,6 +61,8 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 			const full = path.join(LOCAL_RESTAURANTS_DIR, entry)
 			return fs.statSync(full).isDirectory()
 		})
+
+		const imageMap = loadRestaurantImages()
 
 		const rows = []
 		for (const dir of dirs) {
@@ -58,6 +78,24 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 			const itemCount = Array.isArray(menu) ? menu.length : 0
 			if (itemCount === 0) continue
 
+			// Try to load photo from info.json (set by fetchRestaurantPhotos script)
+			let photoUrl = null
+			let address = 'Charlotte, NC'
+			try {
+				const infoPath = path.join(LOCAL_RESTAURANTS_DIR, dir, 'info.json')
+				if (fs.existsSync(infoPath)) {
+					const info = JSON.parse(fs.readFileSync(infoPath, 'utf8'))
+					photoUrl = info.photo_url || null
+					address = info.address || address
+				}
+			} catch (_) {}
+
+			// Fall back to restaurant-images.json
+			if (!photoUrl && imageMap[dir]) {
+				photoUrl = imageMap[dir].image
+				address = imageMap[dir].address || address
+			}
+
 			const hash = hashString(dir)
 			const latOffset = ((hash % 300) - 150) / 1000 // +/- 0.15 deg
 			const lonOffset = (((Math.floor(hash / 17)) % 300) - 150) / 1000
@@ -69,8 +107,8 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 				lon: Number((lon + lonOffset).toFixed(6)),
 				rating: 4.0 + ((hash % 9) * 0.1),
 				review_count: 30 + (hash % 400),
-				image: null,
-				address: 'Charlotte, NC',
+				image: photoUrl,
+				address,
 				price_level: 2,
 				types: ['restaurant'],
 				source: 'local-menu-cache'

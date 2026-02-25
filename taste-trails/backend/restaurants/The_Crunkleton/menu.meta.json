@@ -1,0 +1,36 @@
+{
+  "source_url": "https://thecrunkleton.com",
+  "url_confidence": 1,
+  "url_discovery_method": "menu_urls_cache",
+  "scrape_confidence": 0.99,
+  "min_scrape_confidence": 0.8,
+  "menu_completeness_score": 0.82,
+  "menu_completeness_report": {
+    "version": "menu_completeness_v1",
+    "score": 0.82,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.12,
+      "description_coverage_score": 0,
+      "category_score": 0.02,
+      "naming_score": 0.1,
+      "scrape_score": 0.14,
+      "url_score": 0.1,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 1100,
+      "priced_item_count": 1085,
+      "described_item_count": 38,
+      "category_count": 1,
+      "multiword_name_count": 1100,
+      "suspicious_name_count": 0,
+      "modifier_like_name_count": 0,
+      "short_name_count": 0
+    }
+  },
+  "min_menu_completeness": 0.65,
+  "min_menu_items": 12,
+  "updated_at": "2026-02-25T03:30:35.923Z"
+}

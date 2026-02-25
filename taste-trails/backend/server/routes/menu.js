@@ -426,37 +426,197 @@ router.get('/users/me/ratings', getUser, async (req, res) => {
   res.json(data);
 });
 
-// Add POST /ratings endpoint
+// Add POST /ratings endpoint (saves to community ratings table)
 router.post('/ratings', async (req, res) => {
   try {
-    console.log('Incoming rating body:', req.body);
+    console.log('📝 [Rating] Incoming rating body:', req.body);
 
-    const { menu_item_id, rating, user_id, comment } = req.body;
-    const rawComment = typeof comment === 'string' ? comment.trim() : '';
-    const sanitizedComment = rawComment ? filterProfanity(rawComment) : null;
+    const { dish_id, rating, user_id, comment, dish_name, restaurant_name } = req.body;
+    
+    console.log(`📝 [Rating] Extracted: dish_id=${dish_id}, user_id=${user_id}, rating=${rating}`);
 
-    const result = await supabase
+    if (!dish_id || !rating || !user_id) {
+      console.error(`❌ [Rating] Missing required fields: dish_id=${dish_id}, rating=${rating}, user_id=${user_id}`);
+      return res.status(400).json({ error: 'Missing required fields: dish_id, rating, user_id' });
+    }
+
+    console.log(`⭐ [Rating] Saving rating for dish ${dish_id}: ${rating}/10 from user ${user_id}`);
+
+    // Try to insert the rating directly
+    let insertResult = await supabase
       .from('ratings')
       .insert([
         {
-          menu_item_id,
-          rating,
-          user_id,
-          comment: sanitizedComment
+          dish_id,
+          rating: Number(rating),
+          user_id
         }
       ])
       .select();
 
-    if (result.error) {
-      console.error('Supabase insert error:', result.error);
-      return res.status(500).json({ error: result.error.message });
+    // If foreign key fails, try to create the dish first (for local/new dishes)
+    if (insertResult.error && insertResult.error.message && insertResult.error.message.includes('foreign key')) {
+      console.log(`⚠️  [Rating] Dish not in database. Attempting to create: ${dish_name} at ${restaurant_name}`);
+      
+      if (dish_name && restaurant_name) {
+        try {
+          // First ensure restaurant exists
+          let restaurantId = null;
+          const { data: restaurants } = await supabase
+            .from('restaurants')
+            .select('id')
+            .ilike('name', restaurant_name)
+            .limit(1);
+
+          if (!restaurants || restaurants.length === 0) {
+            // Create the restaurant
+            const { data: newRest } = await supabase
+              .from('restaurants')
+              .insert([{ name: restaurant_name }])
+              .select();
+            restaurantId = newRest?.[0]?.id;
+          } else {
+            restaurantId = restaurants[0].id;
+          }
+
+          // Now create the menu item
+          if (restaurantId) {
+            const { data: menuItem } = await supabase
+              .from('menu_items')
+              .insert([{
+                restaurant_id: restaurantId,
+                name: dish_name,
+                description: 'User-rated item',
+                category: 'Community'
+              }])
+              .select();
+
+            if (menuItem && menuItem[0]) {
+              // Use the new menu item ID and try rating again
+              insertResult = await supabase
+                .from('ratings')
+                .insert([{
+                  dish_id: menuItem[0].id,
+                  rating: Number(rating),
+                  user_id
+                }])
+                .select();
+              console.log('✅ [Rating] Created dish and saved rating:', menuItem[0].id);
+            }
+          }
+        } catch (createErr) {
+          console.warn('⚠️  Could not auto-create dish:', createErr.message);
+        }
+      }
     }
 
-    console.log('Insert success:', result.data);
-    return res.status(201).json(result.data);
+    if (insertResult.error) {
+      console.error('❌ [Rating] Supabase insert error:', insertResult.error);
+      return res.status(500).json({ error: insertResult.error.message });
+    }
+
+    console.log('✅ [Rating] Rating saved successfully. Data:', insertResult.data);
+    console.log('✅ [Rating] This rating will appear in GET /api/top-dishes results');
+    return res.status(201).json(insertResult.data);
 
   } catch (err) {
-    console.error('Unhandled rating error:', err);
+    console.error('❌ [Rating] Unhandled error:', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/menu-search - Look up dish ID by restaurant and dish name
+router.get('/menu-search', async (req, res) => {
+  try {
+    const { restaurant, dish } = req.query;
+    
+    if (!restaurant || !dish) {
+      return res.status(400).json({ 
+        error: 'Missing required query parameters: restaurant, dish' 
+      });
+    }
+
+    console.log(`🔍 [Menu Search] Looking for dish="${dish}" in restaurant="${restaurant}"`);
+
+    // Get restaurant ID by name first
+    const { data: restaurants, error: restaurantError } = await supabase
+      .from('restaurants')
+      .select('id, name')
+      .ilike('name', `%${restaurant}%`)
+      .limit(1);
+
+    if (restaurantError) {
+      console.error('❌ [Menu Search] Error finding restaurant:', restaurantError);
+      return res.status(500).json({ error: restaurantError.message });
+    }
+
+    if (!restaurants || restaurants.length === 0) {
+      console.log(`⚠️  [Menu Search] No restaurant found matching "${restaurant}"`);
+      return res.json({ 
+        success: false,
+        message: `No restaurant found matching "${restaurant}"`,
+        menu_items: [] 
+      });
+    }
+
+    const restaurantId = restaurants[0].id;
+    console.log(`✅ [Menu Search] Found restaurant: ${restaurants[0].name} (ID: ${restaurantId})`);
+
+    // Now find menu items for this restaurant by dish name
+    const { data: menuItems, error: menuError } = await supabase
+      .from('menu_items')
+      .select('id, name, description, price, category, photo_url')
+      .eq('restaurant_id', restaurantId)
+      .ilike('name', `%${dish}%`)
+      .limit(10);
+
+    if (menuError) {
+      console.error('❌ [Menu Search] Error finding menu items:', menuError);
+      return res.status(500).json({ error: menuError.message });
+    }
+
+    console.log(`✅ [Menu Search] Found ${menuItems?.length || 0} matching dishes`);
+
+    return res.json({
+      success: true,
+      restaurant: restaurants[0],
+      menu_items: menuItems || [],
+      query: { restaurant, dish }
+    });
+
+  } catch (err) {
+    console.error('❌ [Menu Search] Unhandled error:', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+// DEBUG: GET all ratings from past 7 days
+router.get('/ratings-debug', async (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 7;
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - days);
+    const cutoffISO = cutoffDate.toISOString();
+
+    const { data, error } = await supabase
+      .from('ratings')
+      .select('*')
+      .gte('created_at', cutoffISO)
+      .limit(100);
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.json({
+      success: true,
+      count: data?.length || 0,
+      days_lookback: days,
+      cutoff_date: cutoffISO,
+      ratings: data || [],
+      message: `Found ${data?.length || 0} ratings in the past ${days} days`
+    });
+  } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 });
@@ -479,15 +639,13 @@ router.get('/restaurants/:restaurantId/full-menu', async (req, res) => {
     // Fetch menu items for the restaurant
     let query = supabase
       .from('menu_items')
-      .select(
-        'id,name,description,price,category,photo_url,' +
-        'is_vegan,is_vegetarian,is_gluten_free,is_dairy_free,is_nut_free,is_shellfish_free,is_egg_free,is_keto,is_paleo,is_halal,is_kosher,dietary_confidence_score,dietary_manual_override'
-      )
+      .select('id,name,description,price,category,photo_url,restaurant_id')
       .eq('restaurant_id', restaurantId);
 
-    if (dietFlagColumn) {
-      query = query.eq(dietFlagColumn, true);
-    }
+    // Note: dietary filtering disabled - columns don't exist in schema
+    // if (dietFlagColumn) {
+    //   query = query.eq(dietFlagColumn, true);
+    // }
 
     const { data: items, error } = await query;
     if (error) return res.status(400).json({ error: error.message });
@@ -502,19 +660,7 @@ router.get('/restaurants/:restaurantId/full-menu', async (req, res) => {
         description: item.description,
         price: item.price,
         photo_url: item.photo_url,
-        is_vegan: item.is_vegan,
-        is_vegetarian: item.is_vegetarian,
-        is_gluten_free: item.is_gluten_free,
-        is_dairy_free: item.is_dairy_free,
-        is_nut_free: item.is_nut_free,
-        is_shellfish_free: item.is_shellfish_free,
-        is_egg_free: item.is_egg_free,
-        is_keto: item.is_keto,
-        is_paleo: item.is_paleo,
-        is_halal: item.is_halal,
-        is_kosher: item.is_kosher,
-        dietary_confidence_score: item.dietary_confidence_score,
-        dietary_manual_override: item.dietary_manual_override
+        restaurant_id: item.restaurant_id
       });
     });
     const result = Object.entries(categories).map(([category, items]) => ({ category, items }));

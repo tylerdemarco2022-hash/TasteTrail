@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState, lazy, Suspense } from 'react'
+import React, { createContext, useEffect, useMemo, useState, lazy, Suspense, startTransition } from 'react'
 import { useAuth } from './context/AuthContext'
 import Header from './components/Header'
 import BottomTabs from './components/BottomTabs'
@@ -36,11 +36,19 @@ const LoadingFallback = () => (
 const COMMUNITY_POSTS_KEY = 'community-posts'
 const CURRENT_USER = 'You'
 
+function safeGetLocalStorageItem(key) {
+  try {
+    return localStorage.getItem(key)
+  } catch (e) {
+    return null
+  }
+}
+
 export const LocationContext = createContext({ location: null, setLocation: () => {} })
 
 function loadCommunityPosts() {
   try {
-    const raw = localStorage.getItem(COMMUNITY_POSTS_KEY)
+    const raw = safeGetLocalStorageItem(COMMUNITY_POSTS_KEY)
     if (!raw) return seedPosts
     const parsed = JSON.parse(raw)
     return Array.isArray(parsed) ? parsed : seedPosts
@@ -61,10 +69,10 @@ function App() {
   const [showAdmin, setShowAdmin] = useState(false)
   const [communityPosts, setCommunityPosts] = useState(() => loadCommunityPosts())
   const [isNewSignup, setIsNewSignup] = useState(() => {
-    return localStorage.getItem('is_new_signup') === 'true'
+    return safeGetLocalStorageItem('is_new_signup') === 'true'
   })
   const [onboardingCompleted, setOnboardingCompleted] = useState(() => {
-    return localStorage.getItem('onboarding_completed') === 'true'
+    return safeGetLocalStorageItem('onboarding_completed') === 'true'
   })
   // Default to Charlotte coordinates to avoid using the user's device location
   const [location, setLocation] = useState({ latitude: 35.2271, longitude: -80.8431 })
@@ -86,7 +94,11 @@ function App() {
   }, [location])
 
   useEffect(() => {
-    localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(communityPosts))
+    try {
+      localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(communityPosts))
+    } catch (e) {
+      // Ignore storage errors (blocked or unavailable storage).
+    }
   }, [communityPosts])
 
   useEffect(() => {
@@ -173,10 +185,14 @@ function App() {
   }
 
   if (!isAuthenticated) {
-    return authView === 'signup' ? (
-      <Signup onSignup={signup} onLogin={login} onSwitchToLogin={() => setAuthView('login')} />
-    ) : (
-      <Login onLogin={login} onSwitchToSignup={() => setAuthView('signup')} />
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        {authView === 'signup' ? (
+          <Signup onSignup={signup} onLogin={login} onSwitchToLogin={() => setAuthView('login')} />
+        ) : (
+          <Login onLogin={login} onSwitchToSignup={() => setAuthView('signup')} />
+        )}
+      </Suspense>
     )
   }
 
@@ -229,6 +245,20 @@ function App() {
     const location = useLocation()
     const navigate = useNavigate()
 
+    // Escape key closes any open modal
+    useEffect(() => {
+      const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+          if (showNotifications) setShowNotifications(false)
+          else if (showSettings) setShowSettings(false)
+          else if (showSearch) setShowSearch(false)
+          else if (showAdmin) setShowAdmin(false)
+        }
+      }
+      document.addEventListener('keydown', handleEscape)
+      return () => document.removeEventListener('keydown', handleEscape)
+    }, [showNotifications, showSettings, showSearch, showAdmin])
+
     useEffect(() => {
       if (location.pathname !== '/menu' || menuPost) return
       const defaultRestaurant = seedRestaurants.find(
@@ -273,15 +303,19 @@ function App() {
     const handleSwipeLeft = () => {
       const nextIndex = (currentTabIndex + 1) % tabs.length
       const nextTab = tabs[nextIndex]
-      setActiveTab(nextTab)
-      navigate(pathFromTab(nextTab))
+      startTransition(() => {
+        setActiveTab(nextTab)
+        navigate(pathFromTab(nextTab))
+      })
     }
 
     const handleSwipeRight = () => {
       const prevIndex = (currentTabIndex - 1 + tabs.length) % tabs.length
       const prevTab = tabs[prevIndex]
-      setActiveTab(prevTab)
-      navigate(pathFromTab(prevTab))
+      startTransition(() => {
+        setActiveTab(prevTab)
+        navigate(pathFromTab(prevTab))
+      })
     }
 
     useSwipe(handleSwipeLeft, handleSwipeRight)
@@ -311,6 +345,7 @@ function App() {
     return (
       <LocationContext.Provider value={{ location, setLocation }}>
         <div className="app-shell safe-area-all">
+          <a href="#main-content" className="skip-link">Skip to main content</a>
           <Header
             title="TasteTrails"
             onNotificationsClick={() => setShowNotifications(true)}
@@ -319,7 +354,7 @@ function App() {
             onAdminClick={() => setShowAdmin(true)}
           />
 
-          <main className="flex-1">
+          <main id="main-content" className="flex-1">
             <Routes>
               <Route path="/" element={<Feed onOpen={openMenu} />} />
               <Route path="/community" element={<Suspense fallback={<LoadingFallback />}><CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} /></Suspense>} />
@@ -333,17 +368,20 @@ function App() {
           <BottomTabs
             active={activeTab}
             setActive={(tab) => {
-              setActiveTab(tab)
-              setMenuPost(null)
+              startTransition(() => {
+                setActiveTab(tab)
+                setMenuPost(null)
+              })
             }}
-            onTabClick={(tab) => navigate(pathFromTab(tab))}
+            onTabClick={(tab) => startTransition(() => navigate(pathFromTab(tab)))}
           />
 
           {showNotifications && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Notifications">
               <div className="absolute inset-x-0 top-0 max-w-3xl mx-auto bg-white rounded-b-3xl shadow-2xl">
                 <div className="flex justify-end p-4">
                   <button
+                    aria-label="Close notifications"
                     className="px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-100"
                     onClick={() => setShowNotifications(false)}
                   >
@@ -358,7 +396,7 @@ function App() {
           )}
 
           {showSettings && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Settings">
               <div className="absolute inset-0 overflow-y-auto">
                 <Suspense fallback={<LoadingFallback />}>
                   <Settings onClose={() => setShowSettings(false)} />
@@ -368,11 +406,12 @@ function App() {
           )}
 
           {showSearch && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Search">
               <div className="absolute inset-0 overflow-y-auto">
                 <div className="max-w-3xl mx-auto">
                   <div className="flex justify-end p-4">
                     <button
+                      aria-label="Close search"
                       className="px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-100"
                       onClick={() => setShowSearch(false)}
                     >

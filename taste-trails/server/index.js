@@ -1,3 +1,6 @@
+import 'dotenv/config';
+
+console.log("ADMIN_TOKEN FROM ENV:", process.env.ADMIN_TOKEN);
 console.log("🔥 OFFICIAL TASTETRAILS BACKEND STARTED");
 import { fileURLToPath } from 'url';
 import fs from 'fs';
@@ -12,6 +15,11 @@ import followRequestsRoutes from '../backend/server/routes/followRequests.js';
 import authRoutes from './routes/auth.js';
 import userPrefsRoutes from './routes/userPrefs.js';
 import moderationRoutes from './routes/moderation.js';
+import discoveryRoutes from './routes/discovery.js';
+import adminRestaurantsRoutes from './routes/adminRestaurants.js';
+import adminDiscoveryRoutes from '../backend/discovery/adminDiscoveryRoutes.js';
+import topDishesRoutes from './routes/topDishes.js';
+import { startScheduler } from '../backend/discovery/scheduler.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
 import { discoverRestaurantURL } from '../backend/services/urlDiscovery.js';
 import { scrapeMenu as scrapeMenuAgent } from '../backend/scraper/menuScraperAgent.js';
@@ -22,10 +30,6 @@ import {
   flattenScrapedMenuItems as flattenScrapedMenuItemsShared
 } from '../backend/services/menuQuality.js';
 import path from 'path';
-import dotenv from 'dotenv';
-
-// Load environment variables from .env file
-dotenv.config();
 
 const SENTRY_DSN = process.env.SENTRY_DSN;
 const SENTRY_ENABLED = process.env.NODE_ENV === 'production' && !!SENTRY_DSN;
@@ -153,7 +157,11 @@ app.use((req, res, next) => {
 app.use('/api', menuRoutes);
 app.use('/api', nearbyRoutes);
 app.use('/api', followRequestsRoutes);
+app.use('/api', topDishesRoutes);
 app.use('/api', moderationRoutes);
+app.use('/api', discoveryRoutes);
+app.use('/admin/discovery', adminDiscoveryRoutes);
+app.use('/admin/restaurants', adminRestaurantsRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 app.use("/api", userPrefsRoutes);
@@ -170,11 +178,50 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Heartbeat log every 10 seconds
-setInterval(() => {
-  console.log(`[ALIVE] Server heartbeat at ${new Date().toISOString()}`);
-}, 10000);
+// Restaurant images endpoint
+app.get('/api/restaurant-images', (req, res) => {
+  try {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const imagePath = path.join(__dirname, '../backend/data/restaurant-images.json');
+    
+    if (fs.existsSync(imagePath)) {
+      const images = JSON.parse(fs.readFileSync(imagePath, 'utf8'));
+      res.json({ success: true, data: images });
+    } else {
+      res.json({ success: false, error: 'Restaurant images not found', data: [] });
+    }
+  } catch (error) {
+    console.error('Error loading restaurant images:', error);
+    res.status(500).json({ success: false, error: error.message, data: [] });
+  }
+});
 
+// Get single restaurant image
+app.get('/api/restaurant-images/:id', (req, res) => {
+  try {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const imagePath = path.join(__dirname, '../backend/data/restaurant-images.json');
+    
+    if (fs.existsSync(imagePath)) {
+      const images = JSON.parse(fs.readFileSync(imagePath, 'utf8'));
+      const image = images.find(img => img.id === req.params.id);
+      if (image) {
+        res.json({ success: true, data: image });
+      } else {
+        res.status(404).json({ success: false, error: 'Image not found' });
+      }
+    } else {
+      res.status(404).json({ success: false, error: 'Restaurant images database not found' });
+    }
+  } catch (error) {
+    console.error('Error loading restaurant image:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Removed heartbeat log - was flooding console
 // Static file serving (for taste-trails/src/public or similar)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1272,4 +1319,9 @@ console.log(`Server is attempting to start on port: ${PORT}`);
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
   console.log(`TasteTrails backend server running on http://${HOST}:${PORT} (all interfaces)`);
+  
+  // Start discovery scheduler (every 6 hours)
+  const scheduleInterval = process.env.DISCOVERY_SCHEDULE || '0 */6 * * *';
+  const tilesPerRun = parseInt(process.env.DISCOVERY_TILES_PER_RUN) || 5;
+  startScheduler(supabase, scheduleInterval, tilesPerRun);
 });

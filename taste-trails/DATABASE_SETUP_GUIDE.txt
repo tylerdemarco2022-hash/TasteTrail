@@ -1,0 +1,143 @@
+🗄️ DATABASE SETUP - BEFORE YOU CAN RUN DISCOVERY
+
+You need to create 4 new tables in Supabase. Here's how:
+
+============================================================
+STEP 1: Go to Supabase Console
+============================================================
+
+1. Open: https://supabase.com/dashboard
+2. Select your "taste-trails" project
+3. Click "SQL Editor" (left sidebar)
+4. Click "New Query"
+
+============================================================
+STEP 2: Copy and Paste This SQL
+============================================================
+
+-- Discovery Tiles table
+CREATE TABLE IF NOT EXISTS discovery_tiles (
+  id BIGSERIAL PRIMARY KEY,
+  city TEXT NOT NULL,
+  center_lat FLOAT NOT NULL,
+  center_lng FLOAT NOT NULL,
+  radius_m INT NOT NULL DEFAULT 1500,
+  last_scanned_at TIMESTAMP NULL,
+  priority INT NOT NULL DEFAULT 0,
+  fail_count INT NOT NULL DEFAULT 0,
+  next_run_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(city, center_lat, center_lng)
+);
+
+-- Restaurants table (enhanced from existing)
+CREATE TABLE IF NOT EXISTS restaurants (
+  id BIGSERIAL PRIMARY KEY,
+  source TEXT NOT NULL,
+  source_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  lat FLOAT NOT NULL,
+  lng FLOAT NOT NULL,
+  cuisine TEXT,
+  website TEXT,
+  phone TEXT,
+  address TEXT,
+  confidence INT DEFAULT 0,
+  amenity TEXT,
+  opening_hours TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(source, source_id)
+);
+
+-- Restaurant aliases for deduplication
+CREATE TABLE IF NOT EXISTS restaurant_aliases (
+  id BIGSERIAL PRIMARY KEY,
+  restaurant_id BIGINT NOT NULL REFERENCES restaurants(id) ON DELETE CASCADE,
+  normalized_name TEXT NOT NULL,
+  lat FLOAT NOT NULL,
+  lng FLOAT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Discovery runs for logging
+CREATE TABLE IF NOT EXISTS discovery_runs (
+  id BIGSERIAL PRIMARY KEY,
+  city TEXT,
+  started_at TIMESTAMP DEFAULT NOW(),
+  finished_at TIMESTAMP,
+  tiles_processed INT DEFAULT 0,
+  restaurants_discovered INT DEFAULT 0,
+  restaurants_upserted INT DEFAULT 0,
+  errors TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_discovery_tiles_next_run ON discovery_tiles(next_run_at, priority DESC);
+CREATE INDEX IF NOT EXISTS idx_discovery_tiles_city ON discovery_tiles(city);
+CREATE INDEX IF NOT EXISTS idx_restaurants_source ON restaurants(source, source_id);
+CREATE INDEX IF NOT EXISTS idx_restaurants_location ON restaurants(lat, lng);
+CREATE INDEX IF NOT EXISTS idx_restaurants_created ON restaurants(created_at DESC);
+
+============================================================
+STEP 3: Run the Query
+============================================================
+
+1. Paste all the SQL above into the query editor
+2. Click the green ▶️  "Run" button (top right)
+3. Wait for "Query completed successfully"
+
+============================================================
+STEP 4: Verify
+============================================================
+
+In a new SQL query, run:
+
+  SELECT table_name FROM information_schema.tables 
+  WHERE table_schema='public' 
+  ORDER BY table_name;
+
+You should see:
+  ✓ discovery_runs
+  ✓ discovery_tiles
+  ✓ restaurant_aliases
+  ✓ restaurants
+
+============================================================
+STEP 5: You're Ready!
+============================================================
+
+Restart your backend and the discovery system will work:
+
+  npm run server
+
+Then test:
+  
+  curl -X POST http://localhost:8081/admin/discovery/generate-tiles \
+    -H "x-admin-token: dev-token-change-me" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "city": "Charlotte, NC",
+      "minLat": 35.10,
+      "minLng": -80.95,
+      "maxLat": 35.35,
+      "maxLng": -80.70,
+      "spacingKm": 3.0,
+      "radiusM": 1500,
+      "priority": 5
+    }'
+
+Expected response:
+  {
+    "success": true,
+    "message": "Generated 16 tiles for Charlotte, NC",
+    "tileCount": 16
+  }
+
+============================================================
+Questions?
+============================================================
+
+Check DISCOVERY_SYSTEM.md for full documentation

@@ -92,14 +92,15 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
   return (
     <header className="safe-area-top safe-area-horizontal px-4 py-4 bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 shadow-lg">
       <div className="max-w-3xl mx-auto flex items-center justify-between">
-        <button 
+        <button
           onClick={() => {
             setNotificationCount(0) // Immediately clear badge
             onNotificationsClick()
-          }} 
+          }}
+          aria-label={`Notifications${notificationCount > 0 ? `, ${notificationCount} unread` : ''}`}
           className="p-2 glass hover:bg-white/30 rounded-xl relative transition-all"
         >
-          <Heart className={`h-6 w-6 text-white ${notificationCount > 0 ? 'fill-white' : ''}`} />
+          <Heart className={`h-6 w-6 text-white ${notificationCount > 0 ? 'fill-white' : ''}`} aria-hidden="true" />
           {notificationCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg animate-pulse">
               {notificationCount > 9 ? '9+' : notificationCount}
@@ -116,9 +117,10 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
                 onFocus={onSearchClick}
                 onClick={onSearchClick}
                 placeholder="Search for restaurants, people, groups, or cities..."
+                aria-label="Search for restaurants, people, groups, or cities"
                 className="w-72 px-4 py-2 pr-10 rounded-xl bg-white/90 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-white/70"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-hidden="true">
                 <Search className="h-4 w-4" />
               </div>
             </div>
@@ -126,8 +128,11 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
           
           {/* User Profile Menu */}
           <div className="relative">
-            <button 
+            <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
+              aria-label="User profile menu"
+              aria-expanded={showProfileMenu}
+              aria-haspopup="true"
               className="flex items-center gap-2 p-2 glass hover:bg-white/30 rounded-xl transition-all"
             >
               <div className="w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md">
@@ -139,11 +144,12 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
 
             {showProfileMenu && (
               <>
-                <div 
-                  className="fixed inset-0 z-40" 
+                <div
+                  className="fixed inset-0 z-40"
                   onClick={() => setShowProfileMenu(false)}
+                  aria-hidden="true"
                 />
-                <div className="absolute right-0 mt-3 w-64 glass rounded-2xl shadow-2xl border border-white/30 py-2 z-50 overflow-hidden">
+                <div role="menu" aria-label="Profile options" className="absolute right-0 mt-3 w-64 glass rounded-2xl shadow-2xl border border-white/30 py-2 z-50 overflow-hidden">
                   <div className="px-4 py-4 border-b border-gray-200/50">
                     <p className="text-base font-bold text-gray-900">{profile?.name}</p>
                     <p className="text-xs text-gray-600 mt-1">{profile?.email}</p>
@@ -153,36 +159,39 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
                       </span>
                     )}
                   </div>
-                  {onAdminClick && (
+                  {onAdminClick && profile?.role === 'admin' && (
                     <button
+                      role="menuitem"
                       onClick={() => {
                         onAdminClick()
                         setShowProfileMenu(false)
                       }}
                       className="w-full px-4 py-3 text-left text-sm font-medium text-amber-700 hover:bg-amber-50 flex items-center gap-3 transition-all"
                     >
-                      <Shield className="w-5 h-5 text-amber-600" />
+                      <Shield className="w-5 h-5 text-amber-600" aria-hidden="true" />
                       Admin Panel
                     </button>
                   )}
                   <button
+                    role="menuitem"
                     onClick={() => {
                       onSettingsClick()
                       setShowProfileMenu(false)
                     }}
                     className="w-full px-4 py-3 text-left text-sm font-medium text-gray-700 hover:bg-white/50 flex items-center gap-3 transition-all"
                   >
-                    <Settings className="w-5 h-5 text-gray-600" />
+                    <Settings className="w-5 h-5 text-gray-600" aria-hidden="true" />
                     Settings
                   </button>
                   <button
+                    role="menuitem"
                     onClick={() => {
                       logout()
                       setShowProfileMenu(false)
                     }}
                     className="w-full px-4 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50 flex items-center gap-3 transition-all"
                   >
-                    <LogOut className="w-5 h-5 text-red-500" />
+                    <LogOut className="w-5 h-5 text-red-500" aria-hidden="true" />
                     Log Out
                   </button>
                 </div>

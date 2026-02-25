@@ -243,5 +243,60 @@
     "passwordHash": "$2b$12$rIEq5FPzJyBDGeDbUNpVzunsAl.0ee8RRxw0c4ztNb4nnsfhIW4OW",
     "created_at": "2026-02-24T19:49:18.154Z",
     "updated_at": "2026-02-24T19:49:18.154Z"
+  },
+  {
+    "id": "78e5c1ee-9ba6-43b9-a1af-74387f768364",
+    "email": "newuser@test.com",
+    "name": "newuser",
+    "google_id": null,
+    "auth_provider": "local",
+    "avatar_url": null,
+    "role": "user",
+    "is_private": false,
+    "user_code": "16899",
+    "passwordHash": "$2b$12$ZpFCWjG/gJcb.N8L2e6./.TClZO/YCaw..gc59MRq3koGrqmcBteu",
+    "created_at": "2026-02-24T22:34:06.180Z",
+    "updated_at": "2026-02-24T22:34:06.180Z"
+  },
+  {
+    "id": "3d4ebc97-1288-4a0a-9f3b-19b91969b589",
+    "email": "testuser123@example.com",
+    "name": "testuser123",
+    "google_id": null,
+    "auth_provider": "local",
+    "avatar_url": null,
+    "role": "user",
+    "is_private": false,
+    "user_code": "98005",
+    "passwordHash": "$2b$12$rWQ8LaXtDg8BaZB7GbzUGeOY1qia5Nwcpgtf3bCvl84hURK1VWqny",
+    "created_at": "2026-02-24T23:30:08.536Z",
+    "updated_at": "2026-02-24T23:30:08.536Z"
+  },
+  {
+    "id": "db6b2f65-dae3-4e6a-8786-f5bb14f6aa36",
+    "email": "tylerdemarcotyty2022@gmail.com",
+    "name": "tyytytytyty",
+    "google_id": null,
+    "auth_provider": "local",
+    "avatar_url": null,
+    "role": "user",
+    "is_private": false,
+    "user_code": "51483",
+    "passwordHash": "$2b$12$h7UkAmo2BUhfXu8uEqNqheoKUiodJY6dpM/6zKB9Bvm.N4VmeDp.6",
+    "created_at": "2026-02-24T23:30:50.781Z",
+    "updated_at": "2026-02-24T23:30:50.781Z"
+  },
+  {
+    "id": "admin-user-001",
+    "email": "Admin@admin.com",
+    "name": "Admin",
+    "role": "admin",
+    "is_private": false,
+    "user_code": "99999",
+    "passwordHash": "$2b$12$j92y.vNAJb1noo.n6SgeH.XleC2j6yb7pdYzfGY.8QdL6tQVfh7dW",
+    "auth_provider": "local",
+    "avatar_url": null,
+    "created_at": "2026-02-24T23:35:00.000Z",
+    "updated_at": "2026-02-24T23:35:00.000Z"
   }
 ]

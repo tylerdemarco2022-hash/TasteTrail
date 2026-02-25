@@ -3,6 +3,18 @@ import React, { createContext, useState, useContext, useEffect } from 'react'
 
 const AuthContext = createContext(null)
 
+function safeSetLocalStorage(key, value) {
+  try {
+    localStorage.setItem(key, value)
+  } catch (e) {}
+}
+
+function safeRemoveLocalStorage(key) {
+  try {
+    localStorage.removeItem(key)
+  } catch (e) {}
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
@@ -24,7 +36,7 @@ export function AuthProvider({ children }) {
         const data = await response.json()
         setUser(data.user)
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
       } else {
         // Not authenticated
         clearAuth()
@@ -47,7 +59,7 @@ export function AuthProvider({ children }) {
         const data = await response.json()
         setUser(data.user)
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
       } else if (response.status === 401) {
         // Token expired, try to refresh
         const refreshed = await refreshAccessToken()
@@ -77,7 +89,7 @@ export function AuthProvider({ children }) {
         const data = await response.json()
         setUser(data.user)
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
         return true
       } else {
         clearAuth()
@@ -123,11 +135,11 @@ export function AuthProvider({ children }) {
       }
       if (data.profile) {
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
       }
       
       // Clear onboarding completed flag so onboarding shows again on login
-      localStorage.removeItem('onboarding_completed')
+      safeRemoveLocalStorage('onboarding_completed')
       return { success: true }
     } catch (error) {
       if (error?.name === 'AbortError') {
@@ -179,12 +191,12 @@ export function AuthProvider({ children }) {
       }
       if (data.profile) {
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
       }
 
       // Account created successfully - mark as new signup so onboarding shows
-      localStorage.setItem('is_new_signup', 'true')
-      localStorage.removeItem('onboarding_completed')
+      safeSetLocalStorage('is_new_signup', 'true')
+      safeRemoveLocalStorage('onboarding_completed')
       return { success: true }
     } catch (error) {
       // Handle network errors

@@ -775,51 +775,73 @@ export default function MenuView({ post, onBack, showAI }) {
 
   const submitDishRating = async (dish, rating) => {
     const userId = localStorage.getItem('currentUserId');
+    
+    console.log('🔍 [Rating Debug]', {
+      userId,
+      dishId: dish?.id,
+      dishName: dish?.name,
+      ratingValue: rating,
+      API_BASE
+    });
+    
     if (!userId) {
+      console.error("❌ Not logged in - no currentUserId in localStorage");
       alert("You must be logged in to rate.");
       return;
     }
 
-    if (!dish.id) {
-      console.error("Dish ID is missing. Ensure dish data is loaded correctly.");
+    if (!dish?.id) {
+      console.error("❌ Dish ID is missing:", dish);
       alert("Dish data is missing. Please try again.");
       return;
     }
 
     try {
+      const payload = {
+        dish_id: dish.id,
+        user_id: userId,
+        rating: Number(rating)
+      };
+      
+      console.log('📤 [Rating] Sending payload:', payload);
+      console.log('📤 [Rating] To URL:', `${API_BASE}/api/ratings`);
+      
       const response = await fetch(`${API_BASE}/api/ratings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          dish_id: dish.id,
-          user_id: userId,
-          rating: Number(rating)
-        })
+        body: JSON.stringify(payload)
       });
 
+      console.log('📥 [Rating] Response status:', response.status);
+      console.log('📥 [Rating] Response OK:', response.ok);
+      
       if (!response.ok) {
         const text = await response.text()
-        console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
+        console.log("❌ [Rating] RAW RESPONSE:", text.slice(0, 500))
         let err
         try {
           err = JSON.parse(text)
         } catch (e) {
-          console.error("NOT JSON RESPONSE:", text.slice(0, 200))
+          console.error("❌ [Rating] NOT JSON RESPONSE:", text.slice(0, 200))
           throw e
         }
-        console.error("Rating failed:", err);
-        alert("Rating failed. Please try again.");
+        console.error("❌ [Rating] Failed:", err);
+        alert("Rating failed: " + (err?.error || "Unknown error"));
         return;
       }
 
+      const data = await response.json();
+      console.log('✅ [Rating] Success! Saved:', data);
+      
       // Refetch menu data after successful rating submission
       await fetchMenuFromBackend({ restaurantId, restaurantName });
 
       setShowItemRating(false);
       setRatingItem(null);
+      alert(`✅ Rating saved! Check the "Top Dishes" section to see it on the leaderboard.`);
     } catch (error) {
-      console.error("Error submitting rating:", error);
-      alert("An error occurred while submitting your rating. Please try again later.");
+      console.error("❌ [Rating] Network error:", error);
+      alert("An error occurred while submitting your rating. Check browser console for details.");
     }
   }
 
@@ -922,10 +944,13 @@ export default function MenuView({ post, onBack, showAI }) {
   }
 
   const handleShowSummary = (item) => {
-    setSummaryDish(item)
-    const description = generateDishSummary(item.name, post.restaurant || post.name)
-    setDishDescription(description)
-    setShowSummary(true)
+    console.log('handleShowSummary called with item:', item);
+    setSummaryDish(item);
+    const description = generateDishSummary(item.name, post.restaurant || post.name);
+    console.log('Generated description:', description);
+    setDishDescription(description);
+    setShowSummary(true);
+    console.log('Modal state set - showSummary: true, summaryDish:', item.name);
   }
 
   const getPriceDisplay = (price) => {
@@ -1120,7 +1145,7 @@ export default function MenuView({ post, onBack, showAI }) {
 
   const restaurantDescription = post.description || post.about || post.summary || post.caption || 'No description available yet.'
 
-  const handleRatingSubmit = (reviewData) => {
+  const handleRatingSubmit = async (reviewData) => {
     // Save to dish ratings
     const restaurantKey = post.restaurant || post.name
     const existing = dishRatings[reviewData.dishName] || { ratings: [], count: 0, sum: 0, reviews: [] }
@@ -1153,6 +1178,119 @@ export default function MenuView({ post, onBack, showAI }) {
     
     console.log(`✅ Stored review #${newCount} for "${reviewData.dishName}": ${reviewData.rating}/10. New avg: ${newAverage.toFixed(1)}`)
     console.log(`📊 All reviews for "${reviewData.dishName}":`, newReviews)
+    
+    // 🚀 NEW: Also submit to backend for community leaderboard
+    try {
+      // Try to get user ID from currentUserId, or fall back to selectedUserProfile or user_profile
+      let userId = localStorage.getItem('currentUserId')
+      if (!userId) {
+        // Try selectedUserProfile (from old flow)
+        const profileRaw = localStorage.getItem('selectedUserProfile')
+        const profile = profileRaw ? JSON.parse(profileRaw) : null
+        userId = profile?.id
+      }
+      if (!userId) {
+        // Try user_profile (from auth context)
+        const profileRaw = localStorage.getItem('user_profile')
+        const profile = profileRaw ? JSON.parse(profileRaw) : null
+        userId = profile?.id
+      }
+      
+      // Helper function to generate UUID v4-like format
+      const generateUUID = () => {
+        const chars = '0123456789abcdef';
+        let uuid = '';
+        for (let i = 0; i < 32; i++) {
+          uuid += chars[Math.floor(Math.random() * 16)];
+          if (i === 7 || i === 11 || i === 15 || i === 19) {
+            uuid += '-';
+          }
+        }
+        return uuid;
+      };
+
+      // If still no user ID, generate a proper UUID v4 format (for development/testing)
+      if (!userId) {
+        userId = generateUUID()
+        localStorage.setItem('_temp_guest_id', userId)
+        console.log('📝 Generated test UUID:', userId)
+      }
+      
+      // ratingItem doesn't have an ID because it's from local menu fallback
+      // Try to find the dish ID by querying the backend
+      let dishId = null
+      
+      const dishName = ratingItem?.name || reviewData.dishName
+      const restaurantName = post?.restaurant || post?.name
+      
+      if (dishName && restaurantName) {
+        try {
+          console.log('🔍 Looking up dish ID for:', { dishName, restaurantName })
+          // Query the backend to find the menu item ID by restaurant and dish name
+          const lookupResponse = await fetch(`${API_BASE}/api/menu-search?restaurant=${encodeURIComponent(restaurantName)}&dish=${encodeURIComponent(dishName)}`, {
+            method: 'GET'
+          })
+          
+          if (lookupResponse.ok) {
+            const result = await lookupResponse.json()
+            if (result.menu_items && result.menu_items.length > 0) {
+              dishId = result.menu_items[0].id
+              console.log('✅ Found dish ID:', dishId)
+            }
+          }
+        } catch (lookupErr) {
+          console.warn('⚠️  Could not lookup dish ID:', lookupErr.message)
+        }
+      }
+      
+      // If we still don't have a dish ID, generate a deterministic UUID from composite key
+      if (!dishId) {
+        // Create a deterministic UUID-like ID from composite key using a better hash approach
+        const compositeKey = `${restaurantName}-${dishName}`;
+        
+        // Create a longer hash by iterating multiple times
+        let hash = 5381;
+        for (let i = 0; i < compositeKey.length; i++) {
+          hash = ((hash << 5) + hash) + compositeKey.charCodeAt(i);
+        }
+        
+        // Convert hash to hex string and pad to 32 chars
+        // We'll use multiple iterations to create 32 hex chars from the hash
+        let hexStr = '';
+        let h = hash;
+        for (let i = 0; i < 32; i++) {
+          hexStr += Math.abs((h >> (i % 20)) & 0xF).toString(16);
+        }
+        
+        // Format as UUID: 8-4-4-4-12 hex digits
+        dishId = `${hexStr.substring(0, 8)}-${hexStr.substring(8, 12)}-${hexStr.substring(12, 16)}-${hexStr.substring(16, 20)}-${hexStr.substring(20, 32)}`;
+        console.log('📝 Generated composite UUID for dish:', { dishId, compositeKey })
+      }
+      
+      console.log('📡 Submitting to backend...', { dishId, userId, rating: reviewData.rating, dishName, restaurantName })
+      const response = await fetch(`${API_BASE}/api/ratings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dish_id: dishId,
+          user_id: userId,
+          rating: Number(reviewData.rating),
+          comment: reviewData.comment,
+          dish_name: dishName,
+          restaurant_name: restaurantName
+        })
+      })
+      
+      if (response.ok) {
+        const result = await response.json()
+        console.log('✅ Backend saved! rating will appear on leaderboard:', result)
+      } else {
+        const errText = await response.text()
+        console.warn('⚠️  Backend submission failed:', response.status, errText.slice(0, 200))
+      }
+    } catch (err) {
+      console.warn('⚠️  Could not submit to backend:', err.message)
+    }
     
     setDishRatings(updated)
     localStorage.setItem(`dishRatings-${restaurantKey}`, JSON.stringify(updated))
@@ -1859,7 +1997,7 @@ export default function MenuView({ post, onBack, showAI }) {
 
       {/* Dish Summary Modal */}
       {showSummary && summaryDish && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center" style={{ zIndex: 9999 }}>
           <div className="bg-white rounded-lg p-6 w-full max-w-lg mx-4">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">

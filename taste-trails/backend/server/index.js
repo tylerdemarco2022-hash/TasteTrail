@@ -6,6 +6,8 @@ import express from 'express';
 import cors from 'cors';
 import menuRoutes from './routes/menu.js';
 import followRequestsRoutes from './routes/followRequests.js';
+import adminDiscoveryRoutes from '../discovery/adminDiscoveryRoutes.js';
+import topDishesRoutes from './routes/topDishes.js';
 import path from 'path';
 import dotenv from 'dotenv';
 import { discoverRestaurantURL } from '../services/urlDiscovery.js';
@@ -67,9 +69,16 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Register menu API routes
+console.log('📍 Registering menu routes...');
 app.use('/', menuRoutes);
 app.use('/api', menuRoutes);
+console.log('📍 Registering follow requests routes...');
 app.use('/api', followRequestsRoutes);
+console.log('📍 Registering top dishes routes...');
+app.use('/api', topDishesRoutes);
+console.log('✅ All routes registered');
+// Register admin discovery routes
+app.use('/admin/discovery', adminDiscoveryRoutes);
 
 // Health check endpoint (root-level for login connectivity)
 app.get('/health', (req, res) => res.status(200).send('OK'));

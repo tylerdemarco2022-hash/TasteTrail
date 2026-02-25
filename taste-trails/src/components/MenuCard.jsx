@@ -143,10 +143,16 @@ export default memo(function MenuCard({
 
   return (
     <div
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
+        console.log('MenuCard clicked:', item.name, 'onShowSummary:', typeof onShowSummary);
         setPressed(true);
         setTimeout(() => setPressed(false), 150);
-        onShowSummary?.(item);
+        if (onShowSummary) {
+          onShowSummary(item);
+        } else {
+          console.warn('onShowSummary is not defined');
+        }
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setPressed(false); }}
