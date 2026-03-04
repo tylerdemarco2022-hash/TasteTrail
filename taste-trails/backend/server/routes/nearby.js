@@ -3,6 +3,7 @@ import { searchGooglePlaces, searchYelp } from '../../yelp.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { supabase } from '../../supabase.js'
 
 const router = express.Router()
 
@@ -25,6 +26,16 @@ function toDisplayName(dirName = '') {
 		.replace(/_/g, ' ')
 		.replace(/\s+/g, ' ')
 		.trim()
+}
+
+function inferCuisineTags(dirName = '') {
+	const n = dirName.toLowerCase()
+	if (n.includes('steak')) return ['Steakhouse']
+	if (n.includes('seafood') || n.includes('sea_grill') || n.includes('sea_level') || n.includes('fish') || n.includes('shrimp') || n.includes('oyster')) return ['Seafood House']
+	if (n.includes('sushi') || n.includes('japanese') || n.includes('ramen')) return ['Sushi']
+	if (n.includes('gastrobar') || n.includes('taphouse') || n.includes('taproom') || n.includes('crunkleton') || n.includes('foxhole') || n.includes('stir') || n.includes('grill') || n.includes('bar') || n.includes('smokehouse') || n.includes('dropout') || n.includes('pig') || n.includes('link_pin') || n.includes('goodyear') || n.includes('whitakers')) return ['Bar & Grill']
+	if (n.includes('fine') || n.includes('constance') || n.includes('helene') || n.includes('celsius') || n.includes('fahrenheit') || n.includes('sixty') || n.includes('peppervine') || n.includes('vines') || n.includes('grapevine') || n.includes('italia') || n.includes('italian') || n.includes('salmeris') || n.includes('mama_ricotta') || n.includes('postino') || n.includes('angeline') || n.includes('figtree') || n.includes('ilios') || n.includes('greek') || n.includes('la_belle') || n.includes('bulla') || n.includes('restaurant_constance')) return ['Fine Dining']
+	return ['Casual Dining']
 }
 
 function hashString(input = '') {
@@ -111,6 +122,7 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 				address,
 				price_level: 2,
 				types: ['restaurant'],
+				cuisine_tags: inferCuisineTags(dir),
 				source: 'local-menu-cache'
 			})
 		}
@@ -165,8 +177,37 @@ router.get('/nearby-restaurants', async (req, res) => {
 			console.warn('Yelp search failed:', yelpErr.message)
 		}
 
-		// Last fallback
-		return res.json({ restaurants: MOCK_RESTAURANTS })
+		// Last fallback: Try database for restaurants with service_model/cuisine_tags
+		try {
+			const { data, error } = await supabase
+				.from('restaurants')
+				.select('id, name, lat, lon, rating, review_count, image, address, price_level, types, service_model, cuisine_tags')
+				.limit(30);
+			if (error) {
+				console.warn('DB fallback error:', error.message);
+				return res.json({ restaurants: MOCK_RESTAURANTS });
+			}
+			// Parse cuisine_tags if stored as comma string
+			const dbRestaurants = (data || []).map(r => ({
+				...r,
+				cuisine_tags: Array.isArray(r.cuisine_tags)
+				  ? r.cuisine_tags
+				  : (typeof r.cuisine_tags === 'string' && r.cuisine_tags.includes(',')
+					  ? r.cuisine_tags.split(',').map(t => t.trim()).filter(Boolean)
+					  : (r.cuisine_tags ? [r.cuisine_tags] : [])),
+				service_model: Array.isArray(r.service_model)
+				  ? r.service_model
+				  : (typeof r.service_model === 'string' && r.service_model.trim()
+					  ? [r.service_model.trim()]
+					  : []),
+			}));
+			if (dbRestaurants.length > 0) {
+				return res.json({ restaurants: dbRestaurants });
+			}
+		} catch (dbErr) {
+			console.warn('DB fallback exception:', dbErr.message);
+		}
+		return res.json({ restaurants: MOCK_RESTAURANTS });
 	} catch (err) {
 		console.error('[/api/nearby-restaurants] Error:', err)
 		res.status(500).json({ error: err.message || 'Unknown error' })

@@ -298,5 +298,33 @@
     "avatar_url": null,
     "created_at": "2026-02-24T23:35:00.000Z",
     "updated_at": "2026-02-24T23:35:00.000Z"
+  },
+  {
+    "id": "7e338818-8b2f-4ab9-851b-a72475dcaf1f",
+    "email": "asdg@gmail.com",
+    "name": "asdgf",
+    "google_id": null,
+    "auth_provider": "local",
+    "avatar_url": null,
+    "role": "user",
+    "is_private": false,
+    "user_code": "92439",
+    "passwordHash": "$2b$12$Rq2pz6n8pkI07R1GYh3QM.3kN2ewK1z08OTSEHuqF4oyNvuFz0Quq",
+    "created_at": "2026-02-25T17:38:42.796Z",
+    "updated_at": "2026-02-25T17:38:42.796Z"
+  },
+  {
+    "id": "df673dd1-f707-4107-9da5-777e1ac2f363",
+    "email": "tyler@gmail.com",
+    "name": "tyler",
+    "google_id": null,
+    "auth_provider": "local",
+    "avatar_url": null,
+    "role": "user",
+    "is_private": false,
+    "user_code": "42008",
+    "passwordHash": "$2b$12$TBa4HAvUEy07mznljJMHF.u1M.HJvARiorIKlcBTlLM1IZAlaUDTa",
+    "created_at": "2026-02-25T18:01:28.636Z",
+    "updated_at": "2026-02-25T18:01:28.636Z"
   }
 ]

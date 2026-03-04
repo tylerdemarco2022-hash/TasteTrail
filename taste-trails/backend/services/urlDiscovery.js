@@ -1,6 +1,7 @@
 // URL discovery service (no Yelp dependency)
 import fs from 'fs';
 import path from 'path';
+import { safeJsonParse } from '../utils/safeJsonParse.js';
 
 const manualPlatforms = [
   'toasttab.com',
@@ -261,7 +262,7 @@ function buildStructuralSignals(url, normalizedName = '', source = 'search') {
   };
 }
 
-async function probeUrl(url, timeoutMs = 10000) {
+async function probeUrl(url, timeoutMs = 6000) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -390,7 +391,18 @@ function readManualMenuUrls() {
   try {
     if (!fs.existsSync(MENU_URLS_PATH)) return {};
     const raw = fs.readFileSync(MENU_URLS_PATH, 'utf8');
-    return JSON.parse(raw);
+    console.log('[JSONPARSE] Length:', raw.length);
+    console.log('[JSONPARSE] First 300 chars:', raw.slice(0, 300));
+    if (raw.length > 2800) {
+      console.log('[JSONPARSE] Chars 2700-2800:', raw.slice(2700, 2800));
+    }
+    console.log('[JSONPARSE] Raw string:', raw);
+    try {
+      return safeJsonParse('urlDiscovery:menu-urls-found.json', raw);
+    } catch (err) {
+      console.log('[JSONPARSE] Invalid JSON payload detected. Error:', err.message);
+      return {};
+    }
   } catch (_) {
     return {};
   }
@@ -400,7 +412,19 @@ function readCuratedManualSources() {
   try {
     if (!fs.existsSync(MANUAL_MENU_SOURCES_PATH)) return {};
     const raw = fs.readFileSync(MANUAL_MENU_SOURCES_PATH, 'utf8');
-    const parsed = JSON.parse(raw);
+    console.log('[JSONPARSE] Length:', raw.length);
+    console.log('[JSONPARSE] First 300 chars:', raw.slice(0, 300));
+    if (raw.length > 2800) {
+      console.log('[JSONPARSE] Chars 2700-2800:', raw.slice(2700, 2800));
+    }
+    console.log('[JSONPARSE] Raw string:', raw);
+    let parsed = {};
+    try {
+      parsed = safeJsonParse('urlDiscovery:manual_menu_sources.json', raw);
+    } catch (err) {
+      console.log('[JSONPARSE] Invalid JSON payload detected. Error:', err.message);
+      return {};
+    }
     if (!parsed || typeof parsed !== 'object') return {};
     return parsed;
   } catch (_) {
@@ -623,15 +647,25 @@ async function discoverViaGuesses(name = '') {
 }
 
 export async function discoverRestaurantURL(name) {
+  const startTime = Date.now();
   const normalizedName = normalizeRestaurantKey(name);
   const minUrlConfidence = resolveMinUrlConfidence();
   const manualUrl = findManualUrlForName(name);
+  
+  console.log(`[DISCOVERY:P1] Starting discovery for "${name}"...`);
+  
   let manualFailure = null;
   if (manualUrl) {
     const structural = buildStructuralSignals(manualUrl, normalizedName, 'manual');
-    const probe = await probeUrl(structural.url, 12000);
+    const probe = await probeUrl(structural.url, 5000);  // Reduced from 8s to 5s
     const report = buildConfidenceReport(structural, probe, 'manual');
+    const manualUrlLooksStrong =
+      !!structural?.url &&
+      !structural?.blocked_host &&
+      MENU_HINT_REGEX.test(structural.url || '');
     if (report.probe.ok && report.confidence >= minUrlConfidence) {
+      const elapsed = Date.now() - startTime;
+      console.log(`[DISCOVERY:OK] Found via manual source (${elapsed}ms)`);
       return {
         url: report.final_url || structural.url,
         confidence: report.confidence,
@@ -639,6 +673,27 @@ export async function discoverRestaurantURL(name) {
         confidence_report: report
       };
     }
+
+    // Curated manual sources can be valid even when probe fails due transient bot protection.
+    // Prefer manual URL over low-quality guess/aggregator fallbacks when the manual URL is menu-ish.
+    if (manualUrlLooksStrong) {
+      const elapsed = Date.now() - startTime;
+      const fallbackConfidence = Math.max(minUrlConfidence, 0.85);
+      console.log(`[DISCOVERY:OK] Using manual fallback despite probe failure (${elapsed}ms)`);
+      return {
+        url: structural.url,
+        confidence: fallbackConfidence,
+        method: 'manual',
+        confidence_report: {
+          ...report,
+          confidence: fallbackConfidence,
+          tier: fallbackConfidence >= 0.85 ? 'high' : 'medium',
+          reason: report.probe.ok ? 'manual_preferred_fallback' : 'manual_probe_failed_fallback',
+          min_required_confidence: minUrlConfidence
+        }
+      };
+    }
+
     manualFailure = {
       url: null,
       confidence: 0,
@@ -653,16 +708,33 @@ export async function discoverRestaurantURL(name) {
     };
   }
 
-  const searchResult = await discoverViaDuckDuckGo(name);
-  if (searchResult.url) return searchResult;
-
-  const guessResult = await discoverViaGuesses(name);
-  if (guessResult.url) return guessResult;
+  // Run DuckDuckGo and guessing in parallel instead of sequentially
+  console.log(`[DISCOVERY:P2] Running parallel search methods...`);
+  const [searchResult, guessResult] = await Promise.all([
+    discoverViaDuckDuckGo(name),
+    discoverViaGuesses(name)
+  ]);
+  
+  if (searchResult.url) {
+    const elapsed = Date.now() - startTime;
+    console.log(`[DISCOVERY:OK] Found via DuckDuckGo (${elapsed}ms)`);
+    return searchResult;
+  }
+  
+  if (guessResult.url) {
+    const elapsed = Date.now() - startTime;
+    console.log(`[DISCOVERY:OK] Found via guesses (${elapsed}ms)`);
+    return guessResult;
+  }
 
   if (manualFailure) {
+    const elapsed = Date.now() - startTime;
+    console.log(`[DISCOVERY:FAIL] No URL found after ${elapsed}ms`);
     return manualFailure;
   }
 
+  const elapsed = Date.now() - startTime;
+  console.log(`[DISCOVERY:FAIL] All methods exhausted (${elapsed}ms)`);
   return {
     url: null,
     confidence: 0,

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "MOZZARELLA & TOMATOES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . SMALL $8",
+    "description": "FULL $13 FAMILY $",
+    "price": "$18",
+    "category": "APPETIZERS"
+  },
+  {
+    "name": "Menu is subject to change",
+    "description": "March 20",
+    "price": "$25",
+    "category": "SOUP & SALAD"
+  },
+  {
+    "name": "WHOLE WHEAT PASTA AVAILABLE UPON REQUEST FOR AN ADDITIONAL $",
+    "description": "",
+    "price": "$4",
+    "category": "SOUP & SALAD"
+  },
+  {
+    "name": "GLUTEN FREE PASTA AVAILABLE UPON REQUEST FOR AN ADDITIONAL $",
+    "description": "",
+    "price": "$2",
+    "category": "SOUP & SALAD"
+  },
+  {
+    "name": "INDIVIDUAL $6",
+    "description": "FAMILY $",
+    "price": "$12",
+    "category": "SIDES"
+  },
+  {
+    "name": "MEDIUM . . . . . . . . . . . $",
+    "description": "",
+    "price": "$12",
+    "category": "PIZZAS"
+  },
+  {
+    "name": "LARGE . . . . . . . . . . . $",
+    "description": "",
+    "price": "$15",
+    "category": "PIZZAS"
+  },
+  {
+    "name": "Menu is subject to change",
+    "description": "Nov 20",
+    "price": "$24",
+    "category": "PIZZAS"
+  },
+  {
+    "name": "Restaurant",
+    "description": "P. 704.343.01",
+    "price": "$48",
+    "category": "PIZZAS"
+  },
+  {
+    "name": "Catering",
+    "description": "P. 704.343.01",
+    "price": "$55",
+    "category": "PIZZAS"
+  }
+]

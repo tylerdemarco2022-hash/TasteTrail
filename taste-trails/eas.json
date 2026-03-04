@@ -1,34 +1,41 @@
 {
-  "expo": {
-    "name": "TasteTrails",
-    "slug": "taste-trails",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./public/icon.png",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./public/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+  "cli": {
+    "version": ">= 5.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "APP_ENV": "development"
+      }
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.tastetrails.app",
-      "buildNumber": "1.0.0"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./public/icon.png",
-        "backgroundColor": "#ffffff"
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
       },
-      "package": "com.tastetrails.app",
-      "versionCode": 1
+      "android": {
+        "buildType": "apk"
+      }
     },
-    "web": {
-      "favicon": "./public/favicon.ico"
+    "production": {
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "",
+        "ascAppId": "",
+        "appleTeamId": ""
+      },
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "production"
+      }
     }
   }
 }

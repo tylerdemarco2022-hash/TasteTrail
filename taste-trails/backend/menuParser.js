@@ -1,4 +1,5 @@
 import { Anthropic } from "@anthropic-ai/sdk";
+import { safeJsonParse } from './utils/safeJsonParse.js';
 
 const client = new Anthropic();
 
@@ -23,19 +24,20 @@ export async function parseMenuWithAI(rawMenuText, restaurantName, location) {
   try {
     const systemPrompt = `You are a restaurant menu parser. Your job is to extract menu items from raw text and structure them into clean JSON.
 
-Guidelines:
-1. Identify meal categories (Appetizers, Entrees, Desserts, Beverages, etc.)
-2. Extract item names and prices
-3. Keep descriptions short if present
-4. Prices should be numbers only (remove $ and commas)
-5. Group items logically by category
-6. Handle multiple formats: "Item Name $12.99", "Item Name - $12.99", "Item Name......$12.99"
+CRITICAL RULES:
+1. USE THE EXACT SECTION HEADERS from the menu (e.g., "Raw", "Small Plates", "From The Grill", "Mains")
+2. DO NOT create generic categories like "Appetizers" or "Entrees" unless those are the actual headers
+3. Preserve the original casing and spelling of section headers
+4. Extract item names and prices accurately
+5. Keep descriptions if present
+6. Prices should be numbers only (remove $ and commas)
+7. If no section header is visible, use "Uncategorized" ONLY as last resort
 
 Return valid JSON with this structure:
 {
   "categories": [
     {
-      "category": "Category Name",
+      "category": "Exact Section Header From Menu",
       "items": [
         {
           "name": "Item Name",
@@ -68,20 +70,82 @@ Return valid JSON with this structure:
       jsonText = jsonMatch[1];
     }
 
-    const parsed = JSON.parse(jsonText);
+    let parsed;
+    console.log('[JSONPARSE] Length:', jsonText.length);
+    console.log('[JSONPARSE] First 300 chars:', jsonText.slice(0, 300));
+    if (jsonText.length > 2800) {
+      console.log('[JSONPARSE] Chars 2700-2800:', jsonText.slice(2700, 2800));
+    }
+    console.log('[JSONPARSE] Raw string:', jsonText);
+    function sanitizeAiJson(text) {
+      if (!text || typeof text !== "string") return text;
+      // Remove control characters
+      text = text.replace(/[\u0000-\u001F\u007F]/g, "");
+      // Escape single backslashes that are not valid JSON escapes
+      text = text.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
+      return text;
+    }
 
-    // Validate and clean the parsed data
-    const cleanedCategories = (parsed.categories || []).map((cat) => ({
-      category: String(cat.category || "Uncategorized").trim(),
-      items: (cat.items || []).map((item) => ({
-        name: String(item.name || "Unknown Item").trim(),
-        price: typeof item.price === "number" ? item.price : parseFloat(item.price) || 0,
-        description: item.description ? String(item.description).trim() : undefined
-      }))
-    }));
+    const cleaned = sanitizeAiJson(jsonText);
+    if (cleaned.length !== jsonText.length) {
+      console.log('[SANITIZE] Modified AI JSON string length:', jsonText.length, '→', cleaned.length);
+    }
+    try {
+      parsed = safeJsonParse('menuParser:AIResponse', cleaned);
+    } catch (err) {
+      const dumpPath = `/tmp/json_file_failure_${Date.now()}.txt`;
+      require('fs').writeFileSync(dumpPath, cleaned, { encoding: 'utf8' });
+      console.log('[JSONPARSE] Invalid JSON payload detected. Error:', err.message);
+      throw err;
+    }
+
+    // Validate and clean the parsed data with proper warnings
+    const cleanedCategories = (parsed.categories || []).map((cat) => {
+      const rawCategory = cat.category
+      const trimmedCategory = String(rawCategory || "").trim()
+      
+      // Log warning if category is missing or empty
+      if (!trimmedCategory || trimmedCategory === "Uncategorized") {
+        console.warn(
+          `⚠️ Menu Parser Warning [${restaurantName}]: ` +
+          `Category missing or defaulted to "Uncategorized" for ${cat.items?.length || 0} items`
+        )
+      }
+      
+      return {
+        category: trimmedCategory || "Uncategorized", // Always trim, preserve casing
+        items: (cat.items || []).map((item) => {
+          const itemName = String(item.name || "Unknown Item").trim()
+          
+          // Log warning if item name is problematic
+          if (!itemName || itemName === "Unknown Item") {
+            console.warn(
+              `⚠️ Menu Parser Warning [${restaurantName}]: ` +
+              `Invalid item name in category "${trimmedCategory}"`
+            )
+          }
+          
+          return {
+            name: itemName,
+            price: typeof item.price === "number" ? item.price : parseFloat(item.price) || 0,
+            description: item.description ? String(item.description).trim() : undefined
+          }
+        })
+      }
+    })
 
     // Filter out empty categories
     const validCategories = cleanedCategories.filter((cat) => cat.items.length > 0);
+
+    // ORPHAN SECTION DETECTION: Log warnings for sections with no items
+    cleanedCategories.forEach((cat) => {
+      if (cat.items.length === 0) {
+        console.warn(
+          `⚠️ Orphan Section Detected [${restaurantName}]: ` +
+          `Section header "${cat.category}" has no items following it`
+        );
+      }
+    });
 
     return {
       success: true,
@@ -102,10 +166,12 @@ Return valid JSON with this structure:
 
 /**
  * Cleans and validates menu JSON structure
+ * CRITICAL: Always trim category, preserve casing, log warnings
  * @param {Object} menuData - Menu data to validate
+ * @param {string} restaurantName - Restaurant name for logging
  * @returns {Object} - Cleaned menu data
  */
-export function validateMenuStructure(menuData) {
+export function validateMenuStructure(menuData, restaurantName = 'Unknown') {
   if (!menuData || typeof menuData !== "object") {
     return { categories: [] };
   }
@@ -114,16 +180,41 @@ export function validateMenuStructure(menuData) {
 
   return {
     categories: categories
-      .map((cat) => ({
-        category: String(cat.category || "Uncategorized").trim(),
-        items: Array.isArray(cat.items)
-          ? cat.items.map((item) => ({
-              name: String(item.name || "Unknown").trim(),
-              price: typeof item.price === "number" ? item.price : 0,
-              description: item.description ? String(item.description).trim() : undefined
-            }))
-          : []
-      }))
+      .map((cat) => {
+        const rawCategory = cat.category
+        const trimmedCategory = String(rawCategory || "").trim()
+        
+        // BACKEND VALIDATION: Log warning if category is missing
+        if (!trimmedCategory) {
+          console.warn(
+            `⚠️ Backend Validation Warning [${restaurantName}]: ` +
+            `Empty category detected, defaulting to "Uncategorized" for ${cat.items?.length || 0} items`
+          )
+        }
+        
+        return {
+          category: trimmedCategory || "Uncategorized", // Always trim, preserve casing, default at persistence layer
+          items: Array.isArray(cat.items)
+            ? cat.items.map((item) => {
+                const itemName = String(item.name || "").trim()
+                
+                // Log warning for items with missing names
+                if (!itemName) {
+                  console.warn(
+                    `⚠️ Backend Validation Warning [${restaurantName}]: ` +
+                    `Item with empty name in category "${trimmedCategory}"`
+                  )
+                }
+                
+                return {
+                  name: itemName || "Unknown",
+                  price: typeof item.price === "number" ? item.price : 0,
+                  description: item.description ? String(item.description).trim() : undefined
+                }
+              })
+            : []
+        }
+      })
       .filter((cat) => cat.items.length > 0)
   };
 }
@@ -176,16 +267,21 @@ export async function enrichMenuWithDescriptions(menuData, restaurantName) {
     const responseText = message.content[0].type === "text" ? message.content[0].text : "{}";
     const jsonMatch = responseText.match(/(\{[\s\S]*\})/);
     if (jsonMatch) {
-      const descriptions = JSON.parse(jsonMatch[1]);
-      if (descriptions.items && Array.isArray(descriptions.items)) {
-        descriptions.items.forEach((desc) => {
-          const item = itemsNeedingDescriptions.find(
-            (i) => i.name.toLowerCase() === desc.name.toLowerCase()
-          );
-          if (item) {
-            menuData.categories[item.catIdx].items[item.itemIdx].description = desc.description;
-          }
-        });
+      try {
+        const descriptions = safeJsonParse('menuParser:descriptionMatch', jsonMatch[1]);
+        if (descriptions.items && Array.isArray(descriptions.items)) {
+          descriptions.items.forEach((desc) => {
+            const item = itemsNeedingDescriptions.find(
+              (i) => i.name.toLowerCase() === desc.name.toLowerCase()
+            );
+            if (item) {
+              menuData.categories[item.catIdx].items[item.itemIdx].description = desc.description;
+            }
+          });
+        }
+      } catch (err) {
+        console.log("Invalid JSON payload detected.");
+        console.log("First 500 chars:", jsonMatch[1].slice(0, 500));
       }
     }
   } catch (error) {

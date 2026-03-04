@@ -41,48 +41,42 @@ function scoreUrl(url) {
 export async function findDinnerMenuUrl(websiteUrl) {
   try {
     const { data } = await axios.get(websiteUrl, {
-      headers: { "User-Agent": "Mozilla/5.0" }
+      headers: { "User-Agent": "Mozilla/5.0" },
+      timeout: 10000 // 10s timeout
     });
-
     const $ = cheerio.load(data);
     const candidates = [];
-
     $("a").each((_, el) => {
       const href = $(el).attr("href");
       if (!href) return;
-
       let fullUrl = href;
-
       if (href.startsWith("/")) {
         fullUrl = new URL(href, websiteUrl).href;
       }
-
       if (href.startsWith("http") || href.startsWith("/")) {
         candidates.push(fullUrl);
       }
     });
-
     const unique = [...new Set(candidates)];
-
     const scored = unique
-      .map((url) => ({
-        url,
-        score: scoreUrl(url)
-      }))
+      .map((url) => ({ url, score: scoreUrl(url) }))
       .filter((item) => item.score > 0)
       .sort((a, b) => b.score - a.score);
-
     if (!scored.length) {
+      console.warn("No dinner menu URLs found for", websiteUrl);
       return { status: "dinner_menu_not_found" };
     }
-
     return {
       status: "success",
       bestMatch: scored[0].url,
       allCandidates: scored
     };
   } catch (error) {
-    console.error("Dinner menu discovery failed:", error.message);
+    if (error.code === 'ECONNABORTED') {
+      console.error("Dinner menu fetch timed out for", websiteUrl);
+    } else {
+      console.error("Dinner menu discovery failed:", error.message);
+    }
     return { status: "error" };
   }
 }

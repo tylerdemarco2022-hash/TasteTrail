@@ -40,10 +40,19 @@
     },
     "scheme": "tastetrails",
     "extra": {
-      "apiBaseUrl": "https://your-backend-url.com",
+      "apiBaseUrl": "http://192.168.4.53:8081",
       "eas": {
         "projectId": "your-project-id"
       }
-    }
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "TasteTrails needs your location to show nearby restaurants."
+        }
+      ]
+    ]
   }
 }

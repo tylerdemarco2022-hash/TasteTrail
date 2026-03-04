@@ -1,0 +1,68 @@
+[
+  {
+    "name": "MIXED GREENS$11.",
+    "description": "",
+    "price": "$7",
+    "category": "Salads"
+  },
+  {
+    "name": "CORNBREAD$8.",
+    "description": "",
+    "price": "$2",
+    "category": "Salads"
+  },
+  {
+    "name": "BEN'S CHICKEN LIVER MOUSSE$12.",
+    "description": "",
+    "price": "$9",
+    "category": "DRINKS"
+  },
+  {
+    "name": "BAKED PIMENTO CHEESE$15.",
+    "description": "",
+    "price": "$2",
+    "category": "DRINKS"
+  },
+  {
+    "name": "CARROTS$10.",
+    "description": "",
+    "price": "$6",
+    "category": "DESSERT"
+  },
+  {
+    "name": "Monday 17:00-23:",
+    "description": "",
+    "price": "$00",
+    "category": "PASTA"
+  },
+  {
+    "name": "Tuesday 17:00-23:",
+    "description": "",
+    "price": "$00",
+    "category": "PASTA"
+  },
+  {
+    "name": "Wednesday 17:00-23:",
+    "description": "",
+    "price": "$00",
+    "category": "PASTA"
+  },
+  {
+    "name": "Thursday 17:00-23:",
+    "description": "",
+    "price": "$00",
+    "category": "PASTA"
+  },
+  {
+    "name": "Friday 17:00-00:",
+    "description": "",
+    "price": "$00",
+    "category": "PASTA"
+  },
+  {
+    "name": "Sunday 11:00-23:",
+    "description": "",
+    "price": "$00",
+    "category": "PASTA"
+  }
+]

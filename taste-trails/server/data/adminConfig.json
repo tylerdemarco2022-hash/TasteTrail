@@ -1,0 +1,21 @@
+{
+  "algorithm": {
+    "ratingWeight": 65,
+    "recencyWeight": 25,
+    "popularityWeight": 10,
+    "trendingBoost": true,
+    "newDishBoost": false,
+    "bayesianSmoothing": true,
+    "personalizedFeed": false
+  },
+  "monetization": {
+    "featuredEnabled": true,
+    "boostEnabled": false,
+    "sponsoredBadge": false,
+    "adPlacements": false,
+    "featuredRestaurants": [
+      "The Crunkleton"
+    ],
+    "boostedDishes": []
+  }
+}

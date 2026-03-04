@@ -1,6 +1,19 @@
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT EXCEPTION:');
+  console.error(err);
+  console.error('STACK:', err.stack);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('UNHANDLED REJECTION:');
+  console.error(reason);
+  process.exit(1);
+});
 import 'dotenv/config';
 
 console.log("ADMIN_TOKEN FROM ENV:", process.env.ADMIN_TOKEN);
+console.log("⏰ [STARTUP] Backend process started at:", new Date().toISOString());
 console.log("🔥 OFFICIAL TASTETRAILS BACKEND STARTED");
 import { fileURLToPath } from 'url';
 import fs from 'fs';
@@ -17,12 +30,16 @@ import userPrefsRoutes from './routes/userPrefs.js';
 import moderationRoutes from './routes/moderation.js';
 import discoveryRoutes from './routes/discovery.js';
 import adminRestaurantsRoutes from './routes/adminRestaurants.js';
+import adminConfigRoutes from './routes/adminConfig.js';
+import adminUsersRoutes from './routes/adminUsers.js';
+import adminMenuItemsRoutes from './routes/adminMenuItems.js';
 import adminDiscoveryRoutes from '../backend/discovery/adminDiscoveryRoutes.js';
 import topDishesRoutes from './routes/topDishes.js';
 import { startScheduler } from '../backend/discovery/scheduler.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
 import { discoverRestaurantURL } from '../backend/services/urlDiscovery.js';
 import { scrapeMenu as scrapeMenuAgent } from '../backend/scraper/menuScraperAgent.js';
+import { addScrapeJob } from './workers/queueSetup.js';
 import {
   buildMenuCompletenessReport,
   passesMenuCompleteness,
@@ -77,15 +94,23 @@ console.log("BACKEND ENTRY FILE EXECUTING");
 process.on('exit', code => console.error('[EXIT EVENT]', code));
 process.on('beforeExit', code => console.error('[BEFORE EXIT]', code));
 process.on('uncaughtException', err => {
-  console.error('[UNCAUGHT EXCEPTION]', err);
-  if (err && err.stack) console.error(err.stack);
+  console.error('\n');
+  console.error('===== UNCAUGHT EXCEPTION =====');
+  console.error('Message:', err.message);
+  console.error('Stack:', err.stack);
+  console.error('==============================\n');
   if (SENTRY_ENABLED) {
     Sentry.captureException(err);
   }
 });
 process.on('unhandledRejection', err => {
-  console.error('[UNHANDLED REJECTION]', err);
-  if (err && err.stack) console.error(err.stack);
+  console.error('\n');
+  console.error('===== UNHANDLED REJECTION =====');
+  console.error('Rejected Value:', err);
+  if (err && typeof err === 'object' && err.stack) {
+    console.error('Stack:', err.stack);
+  }
+  console.error('================================\n');
   if (SENTRY_ENABLED) {
     Sentry.captureException(err);
   }
@@ -162,6 +187,9 @@ app.use('/api', moderationRoutes);
 app.use('/api', discoveryRoutes);
 app.use('/admin/discovery', adminDiscoveryRoutes);
 app.use('/admin/restaurants', adminRestaurantsRoutes);
+app.use('/admin/config', adminConfigRoutes);
+app.use('/admin/users', adminUsersRoutes);
+app.use('/admin/menu-items', adminMenuItemsRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 app.use("/api", userPrefsRoutes);
@@ -186,8 +214,8 @@ app.get('/api/restaurant-images', (req, res) => {
     const imagePath = path.join(__dirname, '../backend/data/restaurant-images.json');
     
     if (fs.existsSync(imagePath)) {
-      const images = JSON.parse(fs.readFileSync(imagePath, 'utf8'));
-      res.json({ success: true, data: images });
+      console.log('[DEBUG-CACHE] Skipping restaurant-images.json parsing (TEMPORARILY DISABLED)');
+      res.json({ success: true, data: [] });
     } else {
       res.json({ success: false, error: 'Restaurant images not found', data: [] });
     }
@@ -200,21 +228,8 @@ app.get('/api/restaurant-images', (req, res) => {
 // Get single restaurant image
 app.get('/api/restaurant-images/:id', (req, res) => {
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const imagePath = path.join(__dirname, '../backend/data/restaurant-images.json');
-    
-    if (fs.existsSync(imagePath)) {
-      const images = JSON.parse(fs.readFileSync(imagePath, 'utf8'));
-      const image = images.find(img => img.id === req.params.id);
-      if (image) {
-        res.json({ success: true, data: image });
-      } else {
-        res.status(404).json({ success: false, error: 'Image not found' });
-      }
-    } else {
-      res.status(404).json({ success: false, error: 'Restaurant images database not found' });
-    }
+    console.log('[DEBUG-CACHE] Skipping restaurant-images.json parsing (TEMPORARILY DISABLED)');
+    res.status(404).json({ success: false, error: 'Image not found' });
   } catch (error) {
     console.error('Error loading restaurant image:', error);
     res.status(500).json({ success: false, error: error.message });
@@ -273,6 +288,61 @@ app.post('/api/find-menu-items-proxy', async (req, res) => {
 // Example static route
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from TasteTrails backend!' });
+});
+
+// Unified search endpoint: users, restaurants
+app.get('/api/search', async (req, res) => {
+  const q = (req.query.q || '').toLowerCase().trim();
+  if (!q) return res.json({ users: [], restaurants: [], cities: [] });
+
+  // Search local users
+  let users = [];
+  try {
+    const { readJSON } = await import('../backend/utils/localDB.js');
+    const allUsers = readJSON('users.json') || [];
+    users = allUsers
+      .filter(u => {
+        const name = (u.name || '').toLowerCase();
+        const code = (u.user_code || '').toLowerCase();
+        const email = (u.email || '').toLowerCase();
+        return name.includes(q) || code.includes(q) || email.includes(q);
+      })
+      .map(u => ({
+        id: u.id,
+        name: u.name,
+        userCode: u.user_code,
+        avatar_url: u.avatar_url || null,
+      }))
+      .slice(0, 10);
+  } catch (e) {
+    console.error('[search] user lookup error:', e.message);
+  }
+
+  // Search restaurants from Supabase
+  let restaurants = [];
+  try {
+    if (supabase) {
+      const { data } = await supabase
+        .from('restaurants')
+        .select('id,name,location,image_url,avg_rating,review_count')
+        .ilike('name', `%${q}%`)
+        .limit(8);
+      if (data) {
+        restaurants = data.map(r => ({
+          id: r.id,
+          name: r.name,
+          location: r.location || '',
+          image: r.image_url || null,
+          rating: r.avg_rating || 0,
+          reviewCount: r.review_count || 0,
+        }));
+      }
+    }
+  } catch (e) {
+    console.error('[search] restaurant lookup error:', e.message);
+  }
+
+  return res.json({ users, restaurants, cities: [] });
 });
 
 // Example Supabase test endpoint
@@ -376,7 +446,7 @@ app.get('/api/restaurants/:id/menu-source', async (req, res) => {
   }
 });
 
-// Returns the full menu for a restaurant
+// Returns the full menu for a restaurant from Supabase menu_items
 app.get('/api/restaurants/:id/full-menu', async (req, res) => {
   const isValidUUID = (id) => /^[0-9a-fA-F-]{36}$/.test(id);
 
@@ -387,69 +457,61 @@ app.get('/api/restaurants/:id/full-menu', async (req, res) => {
   const restaurantId = req.params.id;
 
   try {
-    const { data, error } = await supabase
+    // Get restaurant info
+    const { data: restaurant, error: restErr } = await supabase
       .from("restaurants")
-      .select("*")
+      .select("id, name")
       .eq("id", restaurantId)
       .single();
 
-    if (error) {
-      return res.status(500).json({
-        error: error.message || 'Supabase error',
-        code: error.code || null,
-        hint: error.hint || null,
-        details: error.details || null
-      });
-    }
-
-    if (!data) {
+    if (restErr || !restaurant) {
       return res.status(404).json({ error: "Restaurant not found" });
     }
 
-    const menu = await getMenuForRestaurant(data);
+    // Try menu_items table first (individual items with ratings)
+    const { data: menuItems, error: itemsErr } = await supabase
+      .from('menu_items')
+      .select('id, name, description, price, photo_url, rating_weighted, rating_bayesian, rating_count, emoji_tags')
+      .eq('restaurant_id', restaurantId);
 
-    if (!menu) {
-      return res.status(404).json({ error: "Menu not found" });
+    if (!itemsErr && menuItems && menuItems.length > 0) {
+      console.log(`✅ [FullMenu] Found ${menuItems.length} items in menu_items for "${restaurant.name}"`);
+      return res.json({
+        menu: menuItems,
+        name: restaurant.name,
+        itemCount: menuItems.length,
+        source: 'database'
+      });
     }
 
-    return res.json({ menu });
+    // Fallback: try restaurant_menus table (full JSON blob)
+    const { data: savedMenu } = await supabase
+      .from('restaurant_menus')
+      .select('menu_json, source_url, updated_at')
+      .eq('restaurant_id', restaurantId)
+      .limit(1)
+      .single();
+
+    if (savedMenu?.menu_json) {
+      const items = Array.isArray(savedMenu.menu_json) ? savedMenu.menu_json : [];
+      console.log(`✅ [FullMenu] Found ${items.length} items in restaurant_menus for "${restaurant.name}"`);
+      return res.json({
+        menu: items,
+        name: restaurant.name,
+        itemCount: items.length,
+        source: 'restaurant_menus'
+      });
+    }
+
+    return res.status(404).json({ error: "Menu not found for this restaurant" });
   } catch (err) {
     console.error('/api/restaurants/:id/full-menu error:', err);
     res.status(500).json({ error: err.message || 'Unknown error' });
   }
 });
 
-// Save a confirmed menu into Supabase so we don't need to re-run the AI parser for it
-app.post('/api/restaurant/:id/save-menu', async (req, res) => {
-  if (!supabase) return res.status(500).json({ error: 'Supabase client not initialized.' });
-  const restaurantId = req.params.id;
-  const { menu, source_url, source_type, restaurant_name } = req.body || {};
-  if (!menu) return res.status(400).json({ error: 'Missing menu JSON in request body.' });
-  try {
-    const payload = {
-      restaurant_id: restaurantId,
-      restaurant_name: restaurant_name || decodeURIComponent(restaurantId),
-      menu_json: menu,
-      source_url: source_url || null,
-      source_type: source_type || 'confirmed',
-      updated_at: new Date().toISOString()
-    };
-    const { data, error } = await supabase.from('restaurant_menus').insert(payload).select().limit(1).single();
-    if (error) {
-      // If insert fails due to unique constraint, attempt an update to overwrite
-      if (error.code && String(error.code).includes('23505')) {
-        const { data: up, error: upErr } = await supabase.from('restaurant_menus').update({ menu_json: menu, source_url: source_url || null, source_type: source_type || 'confirmed', updated_at: new Date().toISOString() }).eq('restaurant_id', restaurantId);
-        if (upErr) return res.status(500).json({ error: upErr.message || upErr });
-        return res.json({ success: true, menu: up });
-      }
-      return res.status(500).json({ error: error.message || error });
-    }
-    res.json({ success: true, menu: data });
-  } catch (e) {
-    console.error('/api/restaurant/:id/save-menu error:', e && e.message ? e.message : e);
-    res.status(500).json({ error: 'Failed to save menu.' });
-  }
-});
+// NOTE: POST /api/save-menu and POST /api/restaurant/:id/save-menu removed.
+// Menu persistence is server-owned only — handled inside GET /api/restaurants/:name.
 
 // Get list of all available restaurants from local filesystem
 app.get('/api/restaurants', async (req, res) => {
@@ -486,12 +548,18 @@ function normalizeRestaurantKey(str = '') {
 function groupMenuItems(menu) {
   const categoryMap = {};
   for (const item of Array.isArray(menu) ? menu : []) {
-    const cat = item?.category || 'Menu';
+    const cat = item?.section_name || item?.category || 'Menu';
     if (!categoryMap[cat]) categoryMap[cat] = [];
     categoryMap[cat].push({
+      id: item?.id || null,
       name: item?.name || '',
       description: item?.description || '',
-      price: item?.price || ''
+      price: item?.price || '',
+      photo_url: item?.photo_url || null,
+      category: item?.category || cat,
+      section_name: item?.section_name || cat,
+      restaurant_id: item?.restaurant_id || null,
+      menu_type: item?.menu_type || null
     });
   }
   return Object.entries(categoryMap).map(([category, items]) => ({ category, items }));
@@ -724,6 +792,200 @@ function allowLegacyMenuCache() {
   return ['1', 'true', 'yes'].includes(String(process.env.ALLOW_LEGACY_MENU_CACHE || '').toLowerCase());
 }
 
+function sanitizeString(str) {
+  if (!str || typeof str !== 'string') return str;
+  return str
+    .replace(/\\(?!["\\/bfnrtu])/g, '')
+    .replace(/\u0000/g, '')
+    .trim();
+}
+
+/**
+ * Save scraped menu items to Supabase menu_items table so we don't re-scrape.
+ * Finds or creates the restaurant, then upserts each menu item.
+ */
+async function saveMenuItemsToDb(restaurantName, menuItems, sourceUrl, { isFreshScrape = false } = {}) {
+  console.log('[DEBUG] Saving menu for:', restaurantName);
+  console.log('[DEBUG] Items received:', Array.isArray(menuItems) ? menuItems.length : 0);
+  if (!supabase || !menuItems || menuItems.length === 0) {
+    console.log('[DEBUG] No menu items to save for:', restaurantName);
+    return;
+  }
+
+  const cleanedItems = menuItems.map((item) => ({
+    ...item,
+    name: sanitizeString(item?.name),
+    description: sanitizeString(item?.description),
+    category: sanitizeString(item?.category),
+    price: sanitizeString(item?.price)
+  }));
+
+  try {
+    // Find or create restaurant
+    let restaurantId = null;
+    const { data: existing } = await supabase
+      .from('restaurants')
+      .select('id')
+      .ilike('name', restaurantName)
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      restaurantId = existing[0].id;
+    } else {
+      const { data: created, error: createErr } = await supabase
+        .from('restaurants')
+        .insert([{ name: restaurantName }])
+        .select();
+      if (!createErr && created?.[0]) {
+        restaurantId = created[0].id;
+      }
+    }
+
+    if (!restaurantId) {
+      console.log('[SCRAPE_SAVE_FAIL] Could not resolve restaurant ID for "%s"', restaurantName);
+      return;
+    }
+    console.log('[DEBUG] Restaurant ID used for save:', restaurantId);
+
+    // Normalize, deduplicate, and validate before insert
+    const seenNames = new Set();
+    const rows = [];
+    for (const item of cleanedItems) {
+      const rawName = sanitizeString(item.name || item.dish || '')?.trim();
+      if (!rawName) continue;
+
+      const dedupKey = rawName.toLowerCase();
+      if (seenNames.has(dedupKey)) continue;
+      seenNames.add(dedupKey);
+
+      // Validate and parse price
+      const rawPrice = item.price ? String(item.price).replace(/[^0-9.]/g, '') : '';
+      const parsedPrice = parseFloat(rawPrice);
+      const price = (Number.isFinite(parsedPrice) && parsedPrice > 0 && parsedPrice < 10000) ? parsedPrice : null;
+
+      // EXPLICIT section_name persistence (never rely on DB default)
+      const sectionName = item.category?.trim() || 'Uncategorized';
+      if (!item.category?.trim()) {
+        console.warn(
+          `⚠️ Backend Persistence Warning [${restaurantName}]: ` +
+          `Missing category for item \"${rawName}\", defaulting to Uncategorized`
+        );
+      }
+
+      rows.push({
+        restaurant_id: restaurantId,
+        name: rawName,
+        description: sanitizeString(item.description || '')?.trim() || null,
+        price,
+        photo_url: item.photo_url || item.image || item.image_url || null,
+        section_name: sectionName
+      });
+    }
+
+    console.log('[DEBUG] Upsert payload length:', rows.length);
+    if (rows.length > 0) {
+      console.log('[DEBUG] First item payload sample:', rows[0]);
+    }
+
+    if (rows.length === 0) return;
+
+    // Check which items already exist for this restaurant
+    const { data: existingItems } = await supabase
+      .from('menu_items')
+      .select('id, name')
+      .eq('restaurant_id', restaurantId);
+
+    const existingNames = new Set((existingItems || []).map(i => i.name.trim().toLowerCase()));
+    const newRows = rows.filter(r => !existingNames.has(r.name.toLowerCase()));
+
+    if (newRows.length > 0) {
+      let insertResult;
+      try {
+        insertResult = await supabase
+          .from('menu_items')
+          .insert(newRows)
+          .select('id');
+      } catch (err) {
+        console.log('Insert failed. Sample item:', newRows[0]);
+        console.error(err);
+        throw err;
+      }
+      console.log('Insert result:', insertResult);
+      const insertErr = insertResult?.error;
+
+      const { data: verifyItems, error: verifyError } = await supabase
+        .from('menu_items')
+        .select('id')
+        .eq('restaurant_id', restaurantId);
+      console.log('[DEBUG] Post-insert verification count:', verifyItems?.length);
+      console.log('[DEBUG] Post-insert verification error:', verifyError);
+
+      if (insertErr) {
+        console.log('[SCRAPE_SAVE_FAIL] menu_items insert error for "%s": %s', restaurantName, insertErr.message);
+      } else {
+        console.log('[SCRAPE_SAVE_SUCCESS] Saved %d new menu items for "%s" (%d already existed)', newRows.length, restaurantName, existingNames.size);
+        
+        // SERVER-SIDE INTEGRITY ASSERTION: Check for excessive uncategorized items
+        const totalItems = rows.length;
+        const uncategorizedCount = rows.filter(r => r.section_name === 'Uncategorized').length;
+        const uncategorizedPercent = (uncategorizedCount / totalItems) * 100;
+        
+        if (uncategorizedPercent > 20) {
+          console.error(
+            `🚨 ERROR: Menu Integrity Violation [${restaurantName}]: ` +
+            `${uncategorizedCount}/${totalItems} items (${uncategorizedPercent.toFixed(1)}%) are Uncategorized (threshold: 20%). ` +
+            `Scraper quality is unacceptable!`
+          );
+        }
+      }
+    } else {
+      console.log('[DB_HIT] All %d items already in DB for "%s"', rows.length, restaurantName);
+    }
+
+    // Upsert into restaurant_menus with versioning and staleness tracking
+    const now = new Date().toISOString();
+    const upsertPayload = {
+      restaurant_id: restaurantId,
+      restaurant_name: restaurantName,
+      menu_json: cleanedItems,
+      source_url: sourceUrl || null,
+      source_type: 'scraped',
+      item_count: rows.length,
+      updated_at: now
+    };
+
+    if (isFreshScrape) {
+      upsertPayload.last_scraped_at = now;
+    }
+
+    // Check current version for bump logic
+    const { data: existingMenu } = await supabase
+      .from('restaurant_menus')
+      .select('menu_version, item_count')
+      .eq('restaurant_id', restaurantId)
+      .limit(1)
+      .single();
+
+    if (existingMenu) {
+      const prevCount = existingMenu.item_count || 0;
+      const prevVersion = existingMenu.menu_version || 1;
+      upsertPayload.menu_version = (rows.length !== prevCount) ? prevVersion + 1 : prevVersion;
+    } else {
+      upsertPayload.menu_version = 1;
+    }
+
+    const { error: menuSaveErr } = await supabase
+      .from('restaurant_menus')
+      .upsert(upsertPayload, { onConflict: 'restaurant_id' });
+
+    if (menuSaveErr) {
+      console.log('[SCRAPE_SAVE_FAIL] restaurant_menus save error for "%s": %s', restaurantName, menuSaveErr.message);
+    }
+  } catch (err) {
+    console.log('[SCRAPE_SAVE_FAIL] Exception saving menu for "%s": %s', restaurantName, err.message);
+  }
+}
+
 async function discoverAndScrapeMenuByName(restaurantName) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
@@ -740,7 +1002,9 @@ async function discoverAndScrapeMenuByName(restaurantName) {
 
   try {
     if (fs.existsSync(cachePath)) {
-      const cacheRaw = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+      console.log('[DEBUG-CACHE] Skipping menu-urls-found.json parsing (TEMPORARILY DISABLED)');
+      // cacheRaw temporarily disabled
+      const cacheRaw = {};
       const cacheCandidates = [restaurantName, normalizedName];
       for (const key of cacheCandidates) {
         const entry = cacheRaw[key];
@@ -1054,254 +1318,159 @@ async function discoverAndScrapeMenuByName(restaurantName) {
   }
 }
 
-// Get specific restaurant info and menu
+const DB_FIRST_THRESHOLD = 8;
+
+// Get specific restaurant info and menu — DB-FIRST with local-file fallback
 app.get('/api/restaurants/:name', async (req, res) => {
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const restaurantsDir = path.join(__dirname, '..', 'backend', 'restaurants');
-    
     const requestedName = decodeURIComponent(req.params.name);
-    
-    // Normalize for matching
-    const normalize = (str) => str.toLowerCase().replace(/[\s_'-]+/g, '_');
-    const requestedNorm = normalize(requestedName);
-    const forceRefresh = ['1', 'true', 'yes'].includes(String(req.query.refresh || '').toLowerCase());
-    
-    // Try exact match first
-    let actualDir = path.join(restaurantsDir, requestedName.replace(/[\s-]+/g, '_').replace(/['']/g, ''));
-    
-    // If not found, search for case-insensitive match
-    if (!fs.existsSync(actualDir)) {
+
+    // Helper: try to read local menu.json for this restaurant name
+    function readLocalMenu(displayName) {
       try {
-        const directories = fs.readdirSync(restaurantsDir).filter(d => 
-          fs.statSync(path.join(restaurantsDir, d)).isDirectory()
-        );
-        
-        const matched = directories.find(d => normalize(d) === requestedNorm);
-        
-        if (matched) {
-          actualDir = path.join(restaurantsDir, matched);
+        const dirName = displayName.replace(/\s+/g, '_');
+        const localPath = path.join(__dirname, '../backend/restaurants', dirName, 'menu.json');
+        if (fs.existsSync(localPath)) {
+          const raw = fs.readFileSync(localPath, 'utf8');
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : null;
         }
-      } catch (e) {
-        console.warn('Error reading directories:', e.message);
-      }
-    }
-    
-    const menuPath = path.join(actualDir, 'menu.json');
-    const menuMetaPath = path.join(actualDir, 'menu.meta.json');
-    const hasCachedMenu = fs.existsSync(menuPath);
-    let cachedRawMenu = [];
-    let cachedMenu = [];
-    let cachedMeta = null;
-
-    try {
-      if (fs.existsSync(menuMetaPath)) {
-        cachedMeta = JSON.parse(fs.readFileSync(menuMetaPath, 'utf8'));
-      }
-    } catch (_) {
-      cachedMeta = null;
+      } catch (_) {}
+      return null;
     }
 
-    if (hasCachedMenu) {
-      try {
-        cachedRawMenu = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
-        cachedMenu = sanitizeMenuItemsShared(cachedRawMenu);
-      } catch (_) {
-        cachedRawMenu = [];
-        cachedMenu = [];
-      }
-    }
+    // ─── STEP 1: Find restaurant in DB ───
+    const { data: dbRestaurant } = await supabase
+      .from('restaurants')
+      .select('id, name, menu_status')
+      .ilike('name', requestedName)
+      .limit(1);
 
-    const cachedCorrupt = isMenuLikelyCorrupt(cachedRawMenu, cachedMenu);
-    const cachedTooSmall = cachedMenu.length > 0 && cachedMenu.length < 6;
-    const minScrapeConfidence = resolveMinScrapeConfidence();
-    const minMenuCompleteness = resolveMinMenuCompleteness();
-    const minMenuItems = resolveMinMenuItems();
-    const legacyCacheAllowed = allowLegacyMenuCache();
-    const cachedScrapeConfidence = Number(cachedMeta?.scrape_confidence);
-    const cachedMissingScrapeConfidence = !Number.isFinite(cachedScrapeConfidence);
-    const cachedBelowScrapeThreshold =
-      (cachedMissingScrapeConfidence && !legacyCacheAllowed) ||
-      (Number.isFinite(cachedScrapeConfidence) && cachedScrapeConfidence < minScrapeConfidence);
-    const cachedMenuCompletenessReport = buildMenuCompletenessReport({
-      items: cachedMenu,
-      scrapeConfidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : null,
-      urlConfidence: Number(cachedMeta?.url_confidence || 0)
-    });
-    const cachedBelowMenuCompleteness = !passesMenuCompleteness(
-      cachedMenuCompletenessReport,
-      minMenuCompleteness,
-      minMenuItems
-    );
-
-    if (forceRefresh || !hasCachedMenu || cachedCorrupt || cachedTooSmall || cachedBelowScrapeThreshold || cachedBelowMenuCompleteness) {
-      const discovered = await discoverAndScrapeMenuByName(requestedName);
-      const discoveredItems = sanitizeMenuItemsShared(discovered.items || []);
-      if (discovered.needsOCR) {
-        return res.status(202).json({
-          name: requestedName,
-          id: requestedNorm,
-          itemCount: 0,
-          categories: [],
-          menu: [],
-          source_url: discovered.source_url,
-          url_confidence: discovered.url_confidence,
-          url_confidence_report: discovered.url_confidence_report,
-          url_discovery_method: discovered.url_discovery_method,
-          scrape_confidence: discovered.scrape_confidence,
-          scrape_confidence_report: discovered.scrape_confidence_report,
-          menu_completeness_score: Number(discovered.menu_completeness_score || 0),
-          menu_completeness_report: discovered.menu_completeness_report || null,
-          min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
-          min_menu_items: Number(discovered.min_menu_items || minMenuItems),
-          needsOCR: true,
-          error: 'Discovered menu is a PDF/image and needs OCR.'
-        });
-      }
-
-      if (!discoveredItems.length) {
-        if (discovered.blocked_by_scrape_confidence || discovered.blocked_by_menu_completeness) {
-          const rejectionReason = discovered.blocked_by_menu_completeness
-            ? `menu completeness ${Number(discovered.menu_completeness_score || 0).toFixed(2)} is below minimum ${Number(discovered.min_menu_completeness || minMenuCompleteness).toFixed(2)} (min items ${Number(discovered.min_menu_items || minMenuItems)})`
-            : `confidence ${Number(discovered.scrape_confidence || 0).toFixed(2)} is below minimum ${Number(discovered.min_scrape_confidence || 0.8).toFixed(2)}`;
-          return res.status(422).json({
-            error: `Scraped menu rejected: ${rejectionReason}`,
-            source_url: discovered.source_url || null,
-            url_confidence: discovered.url_confidence || 0,
-            url_confidence_report: discovered.url_confidence_report || null,
-            url_discovery_method: discovered.url_discovery_method || null,
-            scrape_confidence: discovered.scrape_confidence || 0,
-            scrape_confidence_report: discovered.scrape_confidence_report || null,
-            min_scrape_confidence: discovered.min_scrape_confidence || 0.8,
-            menu_completeness_score: Number(discovered.menu_completeness_score || 0),
-            menu_completeness_report: discovered.menu_completeness_report || null,
-            min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
-            min_menu_items: Number(discovered.min_menu_items || minMenuItems),
-            blocked_by_scrape_confidence: Boolean(discovered.blocked_by_scrape_confidence),
-            blocked_by_menu_completeness: Boolean(discovered.blocked_by_menu_completeness)
-          });
-        }
-        if ((cachedBelowScrapeThreshold || cachedBelowMenuCompleteness) && !legacyCacheAllowed) {
-          const confidenceReason =
-            cachedBelowScrapeThreshold
-              ? `confidence ${Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence.toFixed(2) : 'unknown'} is below minimum ${Number(minScrapeConfidence || 0.8).toFixed(2)}`
-              : null;
-          const completenessReason =
-            cachedBelowMenuCompleteness
-              ? `completeness ${Number(cachedMenuCompletenessReport?.score || 0).toFixed(2)} is below minimum ${Number(minMenuCompleteness || 0.65).toFixed(2)}`
-              : null;
-          const rejectionReason = [confidenceReason, completenessReason].filter(Boolean).join(' and ');
-          return res.status(422).json({
-            error: `Cached menu rejected: ${rejectionReason}`,
-            source_url: discovered.source_url || null,
-            url_confidence: discovered.url_confidence || 0,
-            url_confidence_report: discovered.url_confidence_report || null,
-            url_discovery_method: discovered.url_discovery_method || null,
-            scrape_confidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : 0,
-            scrape_confidence_report: discovered.scrape_confidence_report || null,
-            min_scrape_confidence: minScrapeConfidence,
-            menu_completeness_score: Number(cachedMenuCompletenessReport?.score || 0),
-            menu_completeness_report: cachedMenuCompletenessReport,
-            min_menu_completeness: minMenuCompleteness,
-            min_menu_items: minMenuItems,
-            blocked_by_scrape_confidence: Boolean(cachedBelowScrapeThreshold),
-            blocked_by_menu_completeness: Boolean(cachedBelowMenuCompleteness),
-            needs_refresh: true
-          });
-        }
-        if (!hasCachedMenu) {
-          return res.status(404).json({ error: 'Restaurant not found' });
-        }
-      } else {
-        try {
-          fs.mkdirSync(actualDir, { recursive: true });
-          fs.writeFileSync(menuPath, JSON.stringify(discoveredItems, null, 2), 'utf8');
-          const metaPayload = {
-            source_url: discovered.source_url || null,
-            url_confidence: Number(discovered.url_confidence || 0),
-            url_discovery_method: discovered.url_discovery_method || null,
-            scrape_confidence: Number(discovered.scrape_confidence || 0),
-            min_scrape_confidence: Number(discovered.min_scrape_confidence || minScrapeConfidence),
-            menu_completeness_score: Number(discovered.menu_completeness_score || 0),
-            menu_completeness_report: discovered.menu_completeness_report || null,
-            min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
-            min_menu_items: Number(discovered.min_menu_items || minMenuItems),
-            updated_at: new Date().toISOString()
-          };
-          fs.writeFileSync(menuMetaPath, JSON.stringify(metaPayload, null, 2), 'utf8');
-        } catch (writeErr) {
-          console.warn('Unable to cache discovered menu file:', writeErr.message);
-        }
-
-        const categories = groupMenuItems(discoveredItems);
+    if (!dbRestaurant || dbRestaurant.length === 0) {
+      // Check local file before creating a new DB entry
+      const localItems = readLocalMenu(requestedName);
+      if (localItems && localItems.length > 0) {
+        const categories = groupMenuItems(localItems);
         return res.json({
           name: requestedName,
-          id: path.basename(actualDir),
-          itemCount: discoveredItems.length,
+          itemCount: localItems.length,
           categories,
-          menu: discoveredItems,
-          source_url: discovered.source_url,
-          url_confidence: discovered.url_confidence,
-          url_confidence_report: discovered.url_confidence_report,
-          url_discovery_method: discovered.url_discovery_method,
-          scrape_confidence: discovered.scrape_confidence,
-          scrape_confidence_report: discovered.scrape_confidence_report,
-          menu_completeness_score: Number(discovered.menu_completeness_score || 0),
-          menu_completeness_report: discovered.menu_completeness_report || null,
-          min_menu_completeness: Number(discovered.min_menu_completeness || minMenuCompleteness),
-          min_menu_items: Number(discovered.min_menu_items || minMenuItems),
-          discovered: true,
-          refreshed: forceRefresh
+          menu: localItems,
+          source: 'local-cache'
         });
       }
-    }
 
-    let menu = cachedMenu;
-    if (!menu.length && hasCachedMenu) {
-      try {
-        const fallbackRaw = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
-        menu = sanitizeMenuItemsShared(fallbackRaw);
-      } catch (_) {
-        menu = [];
+      // Not in DB and no local file — create entry and enqueue scrape
+      const { data: newRest, error: createErr } = await supabase
+        .from('restaurants')
+        .insert([{ name: requestedName }])
+        .select('id, name')
+        .single();
+
+      if (createErr || !newRest) {
+        return res.status(404).json({ error: 'Restaurant not found' });
       }
-    }
 
-    if (!menu.length) {
-      return res.status(404).json({
-        error: 'Menu not found for this restaurant yet. Try refresh=1 after URL discovery finishes.'
+      try {
+        await addScrapeJob({ restaurantId: newRest.id, restaurantName: requestedName, jobType: 'initial_scrape' });
+      } catch (_) {}
+
+      return res.json({
+        name: requestedName,
+        id: newRest.id,
+        itemCount: 0,
+        categories: [],
+        menu: [],
+        menuPending: true,
+        source: 'enqueued'
       });
     }
 
-    // Keep local cache clean by rewriting sanitized data when needed.
-    if (hasCachedMenu && Array.isArray(cachedRawMenu) && menu.length !== cachedRawMenu.length) {
+    const dbRestId = dbRestaurant[0].id;
+    const restaurantName = dbRestaurant[0].name;
+    const menuStatus = dbRestaurant[0].menu_status;
+
+    // ─── STEP 1b: Check for image-based menu ───
+    if (menuStatus === 'image_menu') {
+      return res.json({
+        name: restaurantName,
+        id: dbRestId,
+        itemCount: 0,
+        categories: [],
+        menu: [],
+        menuUnavailable: true,
+        reason: 'Image-based menu'
+      });
+    }
+
+    // ─── STEP 2: Query menu items from DB ───
+    const { data: existingItems, error } = await supabase
+      .from('menu_items')
+      .select('*')
+      .eq('restaurant_id', dbRestId);
+
+    const items = existingItems || [];
+
+    // ─── STEP 3: If we have enough items, check quality then return ───
+    if (items.length >= DB_FIRST_THRESHOLD) {
+      // Quality gate: if >75% of items are uncategorized, prefer local file
+      const uncategorized = items.filter(i => !i.category && (!i.section_name || i.section_name === 'Uncategorized')).length;
+      const poorQuality = uncategorized / items.length > 0.75;
+      if (!poorQuality) {
+        const categories = groupMenuItems(items);
+        return res.json({
+          name: restaurantName,
+          id: dbRestId,
+          itemCount: items.length,
+          categories,
+          menu: items,
+          source: 'database'
+        });
+      }
+      console.log(`[DB_FIRST] DB data for "${restaurantName}" is poor quality (${uncategorized}/${items.length} uncategorized), checking local file`);
+    }
+
+    // ─── STEP 4: Not enough items in DB (or poor quality) — check local file first ───
+    const localItems = readLocalMenu(restaurantName);
+    if (localItems && localItems.length > 0) {
+      const categories = groupMenuItems(localItems);
+      return res.json({
+        name: restaurantName,
+        id: dbRestId,
+        itemCount: localItems.length,
+        categories,
+        menu: localItems,
+        source: 'local-cache'
+      });
+    }
+
+    // ─── STEP 5: No local file — enqueue background scrape ───
+    const alreadyScraping = menuStatus === 'in_progress';
+    if (!alreadyScraping) {
       try {
-        fs.writeFileSync(menuPath, JSON.stringify(menu, null, 2), 'utf8');
-      } catch (writeErr) {
-        console.warn('Unable to rewrite sanitized cached menu:', writeErr.message);
+        await addScrapeJob({
+          restaurantId: dbRestId,
+          restaurantName,
+          jobType: items.length === 0 ? 'initial_scrape' : 'low_confidence_retry'
+        });
+        console.log(`[DB_FIRST] Enqueued scrape for "${restaurantName}" (${items.length} items in DB)`);
+      } catch (enqueueErr) {
+        console.error(`[DB_FIRST] Failed to enqueue scrape for "${restaurantName}":`, enqueueErr.message);
       }
     }
 
-    const categories = groupMenuItems(menu);
-    const finalMenuCompletenessReport = buildMenuCompletenessReport({
-      items: menu,
-      scrapeConfidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : null,
-      urlConfidence: Number(cachedMeta?.url_confidence || 0)
-    });
-    
-    res.json({
-      name: path.basename(actualDir).replace(/_/g, ' '),
-      id: path.basename(actualDir),
-      itemCount: menu.length,
+    // Return whatever we have + menuPending flag
+    const categories = groupMenuItems(items);
+    return res.json({
+      name: restaurantName,
+      id: dbRestId,
+      itemCount: items.length,
       categories,
-      menu,
-      scrape_confidence: Number.isFinite(cachedScrapeConfidence) ? cachedScrapeConfidence : null,
-      min_scrape_confidence: minScrapeConfidence,
-      menu_completeness_score: Number(finalMenuCompletenessReport?.score || 0),
-      menu_completeness_report: finalMenuCompletenessReport,
-      min_menu_completeness: minMenuCompleteness,
-      min_menu_items: minMenuItems
+      menu: items,
+      menuPending: true,
+      source: items.length > 0 ? 'database_partial' : 'enqueued'
     });
+
   } catch (err) {
     console.error('/api/restaurants/:name error:', err.message);
     res.status(500).json({ error: 'Failed to fetch restaurant' });

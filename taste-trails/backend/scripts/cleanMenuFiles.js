@@ -5,6 +5,7 @@
  */
 
 import fs from 'fs';
+import { safeJsonParse } from '../utils/safeJsonParse.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { sanitizeMenuItems } from '../services/menuQuality.js';
@@ -17,7 +18,7 @@ const RESTAURANTS_DIR = path.join(__dirname, '../restaurants');
 function cleanMenuFile(filePath) {
   try {
     const rawContent = fs.readFileSync(filePath, 'utf8');
-    const data = JSON.parse(rawContent);
+    const data = safeJsonParse(`cleanMenuFiles:${filePath}`, rawContent);
     
     // Handle both array format and object with menu property
     let menuArray;

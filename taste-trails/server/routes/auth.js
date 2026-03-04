@@ -1101,6 +1101,7 @@ router.post("/signup", signupRateLimiter, async (req, res) => {
         return res.status(201).json({
           success: true,
           message: "Account created successfully",
+          token: data?.session?.access_token || null,
           user: authUser
             ? { id: authUser.id, email: authUser.email || credentials.email }
             : null,
@@ -1130,6 +1131,7 @@ router.post("/signup", signupRateLimiter, async (req, res) => {
       return res.status(201).json({
         success: true,
         message: "Account created successfully",
+        token: accessToken,
         user: localCreate.user,
         profile: localCreate.profile
       });
@@ -1151,12 +1153,13 @@ router.post("/signup", signupRateLimiter, async (req, res) => {
     const { token: refreshToken, tokenHash: refreshTokenHash } = await generateRefreshToken();
     const refreshExpiresAt = Date.now() + REFRESH_TOKEN_TTL_MS;
     await storeRefreshToken(localCreate.user.id, refreshTokenHash, refreshExpiresAt, req);
-    
+
     res.cookie("refreshToken", refreshToken, cookieOptions(REFRESH_TOKEN_TTL_MS));
 
     return res.status(201).json({
       success: true,
       message: "Account created successfully",
+      token: accessToken,
       user: localCreate.user,
       profile: localCreate.profile
     });
@@ -1169,6 +1172,12 @@ router.post("/signup", signupRateLimiter, async (req, res) => {
 router.post("/login", loginRateLimiter, async (req, res) => {
   try {
     const { email, password } = req.body || {};
+    // Log login attempt and env info BEFORE Supabase call
+    console.log("LOGIN ATTEMPT:", {
+      email,
+      supabaseUrl: process.env.SUPABASE_URL,
+      hasAnonKey: !!process.env.SUPABASE_KEY
+    });
     const credentials = validateCredentials(email, password);
 
     if (!credentials.ok) {
@@ -1190,6 +1199,8 @@ router.post("/login", loginRateLimiter, async (req, res) => {
         }),
         "Supabase signInWithPassword"
       );
+      // Log the FULL Supabase response
+      console.log("SUPABASE RESPONSE:", { data, error });
 
       if (!error && data?.session?.access_token && data?.user) {
         let profile;
@@ -1222,9 +1233,10 @@ router.post("/login", loginRateLimiter, async (req, res) => {
         
         res.cookie("refreshToken", refreshToken, cookieOptions(REFRESH_TOKEN_TTL_MS));
 
-        // Return user/profile WITHOUT token in body (it's in cookie)
+        // Return user/profile and token in body (for mobile clients)
         return res.json({
           success: true,
+          token: data.session.access_token,
           user: toPublicUser(profile),
           profile
         });
@@ -1235,7 +1247,7 @@ router.post("/login", loginRateLimiter, async (req, res) => {
       if (localLogin) {
         // Success: clear failed attempts and set cookies
         clearFailedLogins(credentials.email);
-        
+
         // Set access token in httpOnly cookie
         res.cookie("accessToken", localLogin.token, cookieOptions(ACCESS_TOKEN_TTL_MS));
 
@@ -1243,11 +1255,12 @@ router.post("/login", loginRateLimiter, async (req, res) => {
         const { token: refreshToken, tokenHash: refreshTokenHash } = await generateRefreshToken();
         const refreshExpiresAt = Date.now() + REFRESH_TOKEN_TTL_MS;
         await storeRefreshToken(localLogin.user.id, refreshTokenHash, refreshExpiresAt, req);
-        
+
         res.cookie("refreshToken", refreshToken, cookieOptions(REFRESH_TOKEN_TTL_MS));
 
         return res.json({
           success: true,
+          token: localLogin.token,
           user: localLogin.user,
           profile: localLogin.profile
         });
@@ -1278,9 +1291,10 @@ router.post("/login", loginRateLimiter, async (req, res) => {
     
     res.cookie("refreshToken", refreshToken, cookieOptions(REFRESH_TOKEN_TTL_MS));
 
-    // Return user/profile WITHOUT token in body (it's in cookie)
+    // Return user/profile and token in body (for mobile clients)
     return res.json({
       success: true,
+      token: localLogin.token,
       user: localLogin.user,
       profile: localLogin.profile
     });

@@ -1,13 +1,14 @@
-import React, { createContext, useEffect, useMemo, useState, lazy, Suspense, startTransition } from 'react'
+import React, { createContext, useEffect, useMemo, useRef, useState, lazy, Suspense, startTransition } from 'react'
 import { useAuth } from './context/AuthContext'
 import Header from './components/Header'
 import BottomTabs from './components/BottomTabs'
 import Feed from './components/Feed'
+import CategoryRestaurantsPage from './components/CategoryRestaurantsPage'
+import Profile from './components/Profile'
 import useSwipe from './hooks/useSwipe'
 // Lazy load non-critical components for better initial load time
 const CommunityFeed = lazy(() => import('./components/CommunityFeed'))
 const Groups = lazy(() => import('./components/Groups'))
-const Profile = lazy(() => import('./components/Profile'))
 const MenuView = lazy(() => import('./components/MenuView'))
 const Login = lazy(() => import('./components/Login'))
 const Signup = lazy(() => import('./components/Signup'))
@@ -67,6 +68,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [showAdmin, setShowAdmin] = useState(false)
+  const initialRedirectRef = useRef(false)
   const [communityPosts, setCommunityPosts] = useState(() => loadCommunityPosts())
   const [isNewSignup, setIsNewSignup] = useState(() => {
     return safeGetLocalStorageItem('is_new_signup') === 'true'
@@ -245,6 +247,14 @@ function App() {
     const location = useLocation()
     const navigate = useNavigate()
 
+    useEffect(() => {
+      if (initialRedirectRef.current) return
+      initialRedirectRef.current = true
+      if (location.pathname !== '/') {
+        navigate('/', { replace: true })
+      }
+    }, [location.pathname, navigate])
+
     // Escape key closes any open modal
     useEffect(() => {
       const handleEscape = (e) => {
@@ -362,6 +372,7 @@ function App() {
               <Route path="/profile" element={<Suspense fallback={<LoadingFallback />}><Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} /></Suspense>} />
               <Route path="/profile/:userId" element={<Suspense fallback={<LoadingFallback />}><UserProfileRoute /></Suspense>} />
               <Route path="/menu" element={<Suspense fallback={<LoadingFallback />}><MenuView post={menuPost} onBack={closeMenu} showAI /></Suspense>} />
+              <Route path="/category-restaurants" element={<CategoryRestaurantsPage />} />
             </Routes>
           </main>
 

@@ -5,56 +5,38 @@ const router = express.Router();
 
 /**
  * GET /api/top-dishes
- * 
+ *
  * Returns the highest-rated dishes across ALL USERS for the specified time period.
- * NOT based on current user - based on community ratings.
+ * Queries dish_ratings table (the primary rating store) joined with menu_items for names.
  */
 router.get('/top-dishes', async (req, res) => {
   try {
     const days = Math.max(1, Math.min(parseInt(req.query.days) || 7, 365));
     const limit = Math.max(1, Math.min(parseInt(req.query.limit) || 10, 50));
-    const minRatings = Math.max(1, parseInt(req.query.minRatings) || 2);
+    const minRatings = Math.max(1, parseInt(req.query.minRatings) || 1);
 
     // Calculate date cutoff
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - days);
     const cutoffISO = cutoffDate.toISOString();
 
-    console.log(`📊 Fetching top dishes from last ${days} days (limit: ${limit})`);
+    console.log(`[TOPDISHES:P1] Fetching from last ${days} days (limit: ${limit}, minRatings: ${minRatings})`);
 
-    // Simple query: get recent ratings with menu item and restaurant info
-    const { data, error } = await supabase
+    // Step 1: Get all recent ratings from dish_ratings (the primary ratings table)
+    const { data: ratings, error: ratingsError } = await supabase
       .from('dish_ratings')
-      .select(
-        `
-        rating,
-        menu_item_id,
-        created_at,
-        menu_items!inner(
-          id,
-          name,
-          description,
-          price,
-          photo_url,
-          restaurant_id,
-          restaurants!inner(
-            id,
-            name
-          )
-        )
-      `
-      )
+      .select('rating, menu_item_id, created_at')
       .gte('created_at', cutoffISO)
-      .limit(1000);
+      .limit(5000);
 
-    if (error) {
-      console.error('❌ Error fetching ratings:', error);
-      return res.status(500).json({ error: error.message });
+    if (ratingsError) {
+      console.error('[ERROR:TOPDISHES:FETCH] Error fetching dish_ratings:', ratingsError);
+      return res.status(500).json({ error: ratingsError.message });
     }
 
-    console.log(`📥 Retrieved ${data?.length || 0} recent ratings`);
+    console.log(`[TOPDISHES:P2] Retrieved ${ratings?.length || 0} recent ratings from dish_ratings`);
 
-    if (!data || data.length === 0) {
+    if (!ratings || ratings.length === 0) {
       return res.json({
         success: true,
         topDishes: [],
@@ -64,60 +46,108 @@ router.get('/top-dishes', async (req, res) => {
       });
     }
 
-    // Aggregate: group ratings by menu_item
+    // Step 2: Get unique menu item IDs and fetch their details
+    // Filter to valid UUIDs only — ratings with non-UUID dish IDs (e.g. "1") will be skipped
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const itemIds = [...new Set(ratings.map(r => r.menu_item_id))].filter(id => UUID_RE.test(id));
+
+    if (itemIds.length === 0) {
+      console.log('[TOPDISHES:P2] No valid UUID menu_item_ids found in ratings');
+      return res.json({
+        success: true,
+        topDishes: [],
+        period: `${days} days`,
+        count: 0,
+        message: 'No valid dish ratings found for this period'
+      });
+    }
+
+    const { data: menuItems, error: menuError } = await supabase
+      .from('menu_items')
+      .select('id, name, description, price, photo_url, restaurant_id')
+      .in('id', itemIds);
+
+    if (menuError) {
+      console.error('[ERROR:TOPDISHES:ITEMS] Error fetching menu items:', menuError);
+      return res.status(500).json({ error: 'Failed to fetch menu items' });
+    }
+
+    // Step 3: Fetch restaurants
+    const restaurantIds = [...new Set((menuItems || []).map(m => m.restaurant_id).filter(Boolean))];
+    let restMap = {};
+
+    if (restaurantIds.length > 0) {
+      const { data: restaurants } = await supabase
+        .from('restaurants')
+        .select('id, name')
+        .in('id', restaurantIds);
+
+      if (restaurants) {
+        for (const r of restaurants) {
+          restMap[r.id] = r;
+        }
+      }
+    }
+
+    // Build menu item lookup
+    const miMap = {};
+    (menuItems || []).forEach(m => { miMap[m.id] = m; });
+
+    // Step 4: Aggregate ratings by menu_item_id
     const dishMap = new Map();
 
-    for (const record of data) {
-      if (!record.menu_items) continue;
+    for (const rating of ratings) {
+      const mi = miMap[rating.menu_item_id];
+      if (!mi) continue;
 
-      const mi = record.menu_items;
-      const rest = mi.restaurants || {};
-      const key = mi.id; // Use menu_item ID as key
-
-      if (!dishMap.has(key)) {
-        dishMap.set(key, {
+      if (!dishMap.has(mi.id)) {
+        dishMap.set(mi.id, {
           id: mi.id,
           name: mi.name,
           description: mi.description,
           price: mi.price,
           photo: mi.photo_url,
-          restaurant: {
-            id: mi.restaurant_id,
-            name: rest.name || 'Unknown'
-          },
+          restaurant: restMap[mi.restaurant_id] || { name: 'Unknown' },
           ratings: [],
           ratingCount: 0
         });
       }
 
-      const dishData = dishMap.get(key);
-      dishData.ratings.push(record.rating);
-      dishData.ratingCount = dishData.ratings.length;
+      const entry = dishMap.get(mi.id);
+      entry.ratings.push(rating.rating);
+      entry.ratingCount = entry.ratings.length;
     }
 
-    // Calculate averages and sort
+    console.log(`[TOPDISHES:P3] Aggregated ${ratings.length} ratings into ${dishMap.size} dishes`);
+
+    // Step 5: Calculate averages and rank
     const topDishes = Array.from(dishMap.values())
       .filter(dish => dish.ratingCount >= minRatings)
       .map(dish => {
-        const ratings = dish.ratings.sort((a, b) => a - b);
-        const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
-        
+        const ratingArray = dish.ratings.sort((a, b) => a - b);
+        const avg = ratingArray.reduce((a, b) => a + b, 0) / ratingArray.length;
+
         return {
           ...dish,
           rating: parseFloat(avg.toFixed(2)),
-          highest: Math.max(...ratings),
-          lowest: Math.min(...ratings),
+          highest: parseFloat(Math.max(...ratingArray).toFixed(2)),
+          lowest: parseFloat(Math.min(...ratingArray).toFixed(2)),
           badge: getBadge(avg, dish.ratingCount)
         };
       })
       .sort((a, b) => {
-        // Sort by rating desc, then by count desc
         if (b.rating !== a.rating) return b.rating - a.rating;
         return b.ratingCount - a.ratingCount;
       })
       .slice(0, limit);
 
-    console.log(`✅ Top ${topDishes.length} dishes calculated and returned`);
+    // Clean up the ratings arrays before sending
+    topDishes.forEach(d => { delete d.ratings; });
+
+    console.log(`[TOPDISHES:OK] RETURNING ${topDishes.length} DISHES (after filter and sort)`);
+    topDishes.forEach((d, i) => {
+      console.log(`[TOPDISHES:ITEM] ${i+1}. "${d.name}" at ${d.restaurant?.name || '?'} - ${d.rating}/5 (n=${d.ratingCount})`);
+    });
 
     return res.json({
       success: true,
@@ -128,10 +158,10 @@ router.get('/top-dishes', async (req, res) => {
       generatedAt: new Date().toISOString()
     });
   } catch (err) {
-    console.error('❌ Top dishes endpoint error:', err);
-    return res.status(500).json({ 
+    console.error('[ERROR:TOPDISHES:FATAL] Top dishes endpoint error:', err);
+    return res.status(500).json({
       error: 'Failed to fetch top dishes',
-      details: err.message 
+      details: err.message
     });
   }
 });

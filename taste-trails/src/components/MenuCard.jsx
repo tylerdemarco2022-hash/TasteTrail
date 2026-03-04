@@ -182,9 +182,6 @@ export default memo(function MenuCard({
               fontSize: 15,
               fontWeight: 700,
               color: "#111827",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
               flex: 1,
             }}
           >

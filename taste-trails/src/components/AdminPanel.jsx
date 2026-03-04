@@ -166,6 +166,14 @@ function BarChart({ data, maxVal, color = C.amber }) {
   )
 }
 
+/* ─── Admin token helper ────────────────────────────────────── */
+function adminToken() {
+  return localStorage.getItem('admin-token') || 'dev-token-change-me'
+}
+function adminHeaders() {
+  return { 'Content-Type': 'application/json', 'x-admin-token': adminToken() }
+}
+
 /* ─── Data helpers ───────────────────────────────────────────── */
 function getAllDishRatings() {
   const result = {}
@@ -266,13 +274,19 @@ export default function AdminPanel({ onClose }) {
   const [menuItemFlags, setMenuItemFlags] = useState([])
   const [reviewReports, setReviewReports] = useState([])
   const [moderationLoading, setModerationLoading] = useState(false)
-  const [apiHealth, setApiHealth] = useState(null) // null=checking, true=ok, false=down
+  const [apiHealth, setApiHealth] = useState(null)
   const [searchQ, setSearchQ] = useState('')
   const [editingRestaurant, setEditingRestaurant] = useState(null)
   const [editingItem, setEditingItem] = useState(null)
   const [selectedRestaurantForItems, setSelectedRestaurantForItems] = useState(null)
   const [toast, setToast] = useState(null)
   const toastTimer = useRef(null)
+
+  // Server-loaded data
+  const [dbRestaurants, setDbRestaurants] = useState([])
+  const [dbUsers, setDbUsers] = useState([])
+  const [dbRestaurantsLoading, setDbRestaurantsLoading] = useState(false)
+  const [dbUsersLoading, setDbUsersLoading] = useState(false)
 
   /* Load data */
   useEffect(() => {
@@ -281,6 +295,10 @@ export default function AdminPanel({ onClose }) {
     setCommunityPosts(getCommunityPosts())
     checkApiHealth()
     fetchModerationQueue()
+    loadAlgoFromServer()
+    loadMonoFromServer()
+    loadRestaurantsFromServer()
+    loadUsersFromServer()
   }, [])
 
   const showToast = useCallback((msg, type = 'success') => {
@@ -333,17 +351,79 @@ export default function AdminPanel({ onClose }) {
     }
   }
 
-  const saveAlgo = (cfg) => {
+  async function loadAlgoFromServer() {
+    try {
+      const res = await fetch(`${API_BASE}/admin/config/algorithm`, { headers: adminHeaders() })
+      if (res.ok) {
+        const cfg = await res.json()
+        setAlgoConfig(cfg)
+        localStorage.setItem('admin-algo-config', JSON.stringify(cfg))
+      }
+    } catch {}
+  }
+
+  async function loadMonoFromServer() {
+    try {
+      const res = await fetch(`${API_BASE}/admin/config/monetization`, { headers: adminHeaders() })
+      if (res.ok) {
+        const cfg = await res.json()
+        setMonoConfig(cfg)
+        localStorage.setItem('admin-mono-config', JSON.stringify(cfg))
+      }
+    } catch {}
+  }
+
+  async function loadRestaurantsFromServer() {
+    setDbRestaurantsLoading(true)
+    try {
+      const res = await fetch(`${API_BASE}/admin/restaurants`, { headers: adminHeaders() })
+      if (res.ok) {
+        const { restaurants } = await res.json()
+        setDbRestaurants(restaurants || [])
+      }
+    } catch {} finally {
+      setDbRestaurantsLoading(false)
+    }
+  }
+
+  async function loadUsersFromServer() {
+    setDbUsersLoading(true)
+    try {
+      const res = await fetch(`${API_BASE}/admin/users`, { headers: adminHeaders() })
+      if (res.ok) {
+        const { users } = await res.json()
+        setDbUsers(users || [])
+      }
+    } catch {} finally {
+      setDbUsersLoading(false)
+    }
+  }
+
+  const saveAlgo = async (cfg) => {
     setAlgoConfig(cfg)
     localStorage.setItem('admin-algo-config', JSON.stringify(cfg))
     window.dispatchEvent(new Event('algoConfigChanged'))
-    showToast('Algorithm config saved')
+    try {
+      const res = await fetch(`${API_BASE}/admin/config/algorithm`, {
+        method: 'POST', headers: adminHeaders(), body: JSON.stringify(cfg)
+      })
+      showToast(res.ok ? 'Algorithm config saved to server' : 'Saved locally (server error)')
+    } catch {
+      showToast('Saved locally (server offline)')
+    }
   }
 
-  const saveMono = (cfg) => {
+  const saveMono = async (cfg) => {
     setMonoConfig(cfg)
     localStorage.setItem('admin-mono-config', JSON.stringify(cfg))
-    showToast('Monetization config saved')
+    try {
+      const res = await fetch(`${API_BASE}/admin/config/monetization`, {
+        method: 'POST', headers: adminHeaders(), body: JSON.stringify(cfg)
+      })
+      showToast(res.ok ? 'Monetization config saved to server' : 'Saved locally (server error)')
+    } catch {
+      showToast('Saved locally (server offline)')
+    }
   }
 
   const saveMod = (data) => {
@@ -388,20 +468,18 @@ export default function AdminPanel({ onClose }) {
   }, [allRatings, communityPosts])
 
   const localRestaurantNames = Object.keys(localMenuData)
+  // allKnownRestaurants: used for Dashboard stats (merge DB + local + cached)
   const allKnownRestaurants = useMemo(() => {
     const set = new Map()
-    localRestaurantNames.forEach(name => set.set(name, { name, source: 'local', items: localMenuData[name]?.length ?? 0 }))
+    dbRestaurants.forEach(r => set.set(r.name, { ...r, source: 'db' }))
+    localRestaurantNames.forEach(name => {
+      if (!set.has(name)) set.set(name, { name, source: 'local', items: localMenuData[name]?.length ?? 0 })
+    })
     cachedRestaurants.forEach(r => {
       if (!set.has(r.name)) set.set(r.name, { name: r.name, source: 'yelp', items: r.menu?.length ?? 0, ...r })
     })
     return Array.from(set.values())
-  }, [cachedRestaurants, localRestaurantNames])
-
-  const filteredRestaurants = useMemo(() => {
-    if (!searchQ) return allKnownRestaurants
-    const q = searchQ.toLowerCase()
-    return allKnownRestaurants.filter(r => r.name.toLowerCase().includes(q))
-  }, [allKnownRestaurants, searchQ])
+  }, [dbRestaurants, cachedRestaurants, localRestaurantNames])
 
   /* ── Sidebar ── */
   const Sidebar = () => (
@@ -511,7 +589,8 @@ export default function AdminPanel({ onClose }) {
   )
 
   /* ══════════════════════════════════════════════════════
-     SECTION: RESTAURANTS
+        const [scrapingId, setScrapingId] = useState(null)
+ SECTION: RESTAURANTS
   ══════════════════════════════════════════════════════ */
   const RestaurantsSection = () => {
     const [editing, setEditing] = useState(null)
@@ -530,7 +609,12 @@ export default function AdminPanel({ onClose }) {
     const startEdit = (r) => {
       setEditing(r.name)
       const saved = JSON.parse(localStorage.getItem(`admin-restaurant-overrides`) || '{}')
-      setForm({ name: r.name, description: saved[r.name]?.description || '', heroImage: saved[r.name]?.heroImage || '', ...saved[r.name] })
+      setForm({ name: r.name, description: saved[r.name]?.description || '', heroImage: saved[r.name]?.heroImage || '        website: form.website,
+        lunch_url: form.lunch_url,
+        dinner_url: form.dinner_url,
+        drinks_url: form.drinks_url,
+        pdf_url: form.pdf_url,
+', ...saved[r.name] })
     }
 
     const saveEdit = () => {
@@ -542,13 +626,60 @@ export default function AdminPanel({ onClose }) {
       showToast('Restaurant saved')
     }
 
+    const scrapeNow = async (r) => {
+      if (!r.id) { showToast('Only DB restaurants can be scraped'); return }
+      setScrapingId(r.id)
+      try {
+        const res = await fetch(`${API_BASE}/admin/restaurants/${r.id}/scrape`, {
+          method: 'POST', headers: adminHeaders()
+        })
+        const data = await res.json()
+        if (res.ok) {
+          showToast(`Scrape queued for ${r.name}`)
+        } else {
+          showToast(`Error: ${data.error}`)
+        }
+      } catch {
+        showToast('Server offline — could not queue scrape')
+      } finally {
+        setScrapingId(null)
+      }
+    }
+
+    const addRestaurant = async () => {
+      if (!newForm.name.trim()) { showToast('Name is required'); return }
+      setAddingSaving(true)
+      try {
+        const res = await fetch(`${API_BASE}/admin/restaurants`, {
+          method: 'POST', headers: adminHeaders(), body: JSON.stringify(newForm)
+        })
+        if (res.ok) {
+          const { restaurant } = await res.json()
+          setDbRestaurants(prev => [restaurant, ...prev])
+          setNewForm({ name: '', address: '', city: '', state: '', cuisine: '', cover_photo_url: '', website: '', lunch_url: '', dinner_url: '', drinks_url: '', pdf_url: '' })
+          setAddingNew(false)
+          showToast('Restaurant added!')
+        } else {
+          const { error } = await res.json()
+          showToast(`Error: ${error}`)
+        }
+      } catch (err) {
+        showToast('Server offline — could not add restaurant')
+      } finally {
+        setAddingSaving(false)
+      }
+    }
+
     return (
       <div className="admin-fade">
         <SectionHeader title="Restaurant Manager" sub={`${filteredRestaurants.length} restaurants • ${localRestaurantNames.length} with local menus`} />
 
         <div style={{ marginBottom: 16 }}>
           <div style={{ position:'relative' }}>
-            <Search size={14} style={{ position:'absolute', left: 12, top:'50%', transform:'translateY(-50%)', color: C.text3 }} />
+            <Search size={14} style={{ position:          <button className="admin-btn-amber" style={{ padding:'8px 14px', borderRadius: 8, fontSize: 12, display:'flex', alignItems:'center', gap: 6, flexShrink: 0 }} onClick={() => { setAddingNew(true); setEditing(null) }}>
+            <Plus size={12} />Add Restaurant
+          </button>
+'absolute', left: 12, top:'50%', transform:'translateY(-50%)', color: C.text3 }} />
             <input className="admin-input" style={{ paddingLeft: 34 }} placeholder="Search restaurants…" value={searchQ} onChange={e => setSearchQ(e.target.value)} />
           </div>
         </div>
@@ -577,6 +708,20 @@ export default function AdminPanel({ onClose }) {
               <button className="admin-btn-amber" style={{ padding:'8px 18px', borderRadius: 8, fontSize: 13 }} onClick={saveEdit}>
                 <Save size={13} style={{ display:'inline', marginRight: 6 }} />Save Changes
               </button>
+              {editingId && (
+                <button
+                  className="admin-btn-ghost"
+                  style={{ padding:'8px 18px', borderRadius: 8, fontSize: 13, display:'flex', alignItems:'center', gap: 6 }}
+                  disabled={saving || scrapingId === editingId}
+                  onClick={async () => {
+                    await saveEdit()
+                    await scrapeNow({ id: editingId, name: form.name })
+                  }}
+                >
+                  <RefreshCw size={13} />
+                  {scrapingId === editingId ? 'Queuing…' : 'Save & Scrape'}
+                </button>
+              )}
             </div>
           </div>
         ) : null}
@@ -630,6 +775,17 @@ export default function AdminPanel({ onClose }) {
                         <button title="View menu items" className="admin-btn-ghost" style={{ padding:'5px 8px', borderRadius: 6, fontSize: 11 }} onClick={() => { setSelectedRestaurantForItems(r.name); setActive('menu-items') }}>
                           <UtensilsCrossed size={12} />
                         </button>
+                        {r.id && (
+                          <button
+                            title={r.website || r.dinner_url || r.lunch_url ? 'Scrape menu using saved URL' : 'Scrape menu (will discover URL)'}
+                            className="admin-btn-ghost"
+                            style={{ padding:'5px 8px', borderRadius: 6, fontSize: 11, opacity: scrapingId === r.id ? 0.5 : 1 }}
+                            disabled={scrapingId === r.id}
+                            onClick={() => scrapeNow(r)}
+                          >
+                            <RefreshCw size={12} style={scrapingId === r.id ? { animation:'spin 1s linear infinite' } : {}} />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -646,82 +802,1007 @@ export default function AdminPanel({ onClose }) {
      SECTION: MENU ITEMS
   ══════════════════════════════════════════════════════ */
   const MenuItemsSection = () => {
-    const [selRestaurant, setSelRestaurant] = useState(selectedRestaurantForItems || localRestaurantNames[0])
+    const selRestaurant = selectedRestaurantForItems || null
+    const setSelRestaurant = useCallback((nextRestaurant) => {
+      setSelectedRestaurantForItems(nextRestaurant || null)
+    }, [setSelectedRestaurantForItems])
+    const [items, setItems] = useState([])
+    const [itemsLoading, setItemsLoading] = useState(false)
     const [editItem, setEditItem] = useState(null)
+    const [editItemId, setEditItemId] = useState(null)
     const [itemForm, setItemForm] = useState({})
-    const [hiddenItems, setHiddenItems] = useState(() => {
-      try { return JSON.parse(localStorage.getItem('admin-hidden-items') || '{}') } catch { return {} }
-    })
+    const [addingNew, setAddingNew] = useState(false)
+    const [newItemForm, setNewItemForm] = useState({ name: '', description: '', price: '', section_name: '', category: '' })
+    const [saving, setSaving] = useState(false)
+    const [quickSectionSavingKey, setQuickSectionSavingKey] = useState(null)
+    const [sectionFilter, setSectionFilter] = useState('all')
+    const [sortMode, setSortMode] = useState('course')
+    const [editSaveState, setEditSaveState] = useState('idle')
+    const MENU_DISPLAY_PREF_KEY_PREFIX = 'admin-menu-display-prefs-'
+    const MENU_SNAPSHOT_KEY_PREFIX = 'admin-menu-snapshot-'
+    const autoSaveTimerRef = useRef(null)
+    const lastSavedItemSnapshotRef = useRef('')
+    const editLookupNameRef = useRef('')
 
-    const restaurantItems = useMemo(() => {
+    const menuDisplayPrefKeys = useMemo(() => {
       if (!selRestaurant) return []
-      const base = localMenuData[selRestaurant] || []
-      const ratings = allRatings[selRestaurant] || {}
-      const overrides = (() => { try { return JSON.parse(localStorage.getItem(`admin-item-overrides-${selRestaurant}`) || '{}') } catch { return {} } })()
-      return base.map(item => ({
-        ...item,
-        ...overrides[item.name],
-        avg_rating: ratings[item.name]?.average ?? null,
-        rating_count: ratings[item.name]?.count ?? 0,
-        review_count: ratings[item.name]?.reviews?.length ?? 0,
-        last_rated: ratings[item.name]?.reviews?.slice(-1)[0]?.timestamp
-          ? new Date(ratings[item.name].reviews.slice(-1)[0].timestamp).toLocaleDateString()
-          : null
-      }))
-    }, [selRestaurant, allRatings])
+      const keys = [String(selRestaurant).trim()]
+      const matchedRestaurant = dbRestaurants.find((restaurant) => restaurant.id === selRestaurant)
+      if (matchedRestaurant?.name) keys.push(String(matchedRestaurant.name).trim())
+      return [...new Set(keys.filter(Boolean))]
+    }, [dbRestaurants, selRestaurant])
 
-    const isHiddenItem = (restaurant, name) => (hiddenItems[restaurant] || []).includes(name)
+    const menuOverrideKeys = useMemo(() => {
+      if (!selRestaurant) return []
+      const keys = [String(selRestaurant).trim()]
+      const matchedRestaurant = dbRestaurants.find((restaurant) => restaurant.id === selRestaurant)
+      if (matchedRestaurant?.name) keys.push(String(matchedRestaurant.name).trim())
+      return [...new Set(keys.filter(Boolean))]
+    }, [dbRestaurants, selRestaurant])
 
-    const toggleHideItem = (restaurant, name) => {
-      const current = hiddenItems[restaurant] || []
-      const next = current.includes(name) ? current.filter(n => n !== name) : [...current, name]
-      const updated = { ...hiddenItems, [restaurant]: next }
-      setHiddenItems(updated)
-      localStorage.setItem('admin-hidden-items', JSON.stringify(updated))
-      showToast(current.includes(name) ? 'Item shown' : 'Item hidden')
+    const readMenuApprovalState = useCallback(() => {
+      if (!selRestaurant || menuOverrideKeys.length === 0) return { approvedItems: {}, approvedAt: '' }
+      const approvedItems = {}
+      let approvedAt = ''
+
+      for (const key of menuOverrideKeys) {
+        const storageKey = `admin-menu-approval-${key}`
+        const parsed = (() => {
+          try { return JSON.parse(localStorage.getItem(storageKey) || '{}') } catch { return {} }
+        })()
+        const record = parsed && typeof parsed === 'object' ? parsed : {}
+        const map = record?.approvedItems && typeof record.approvedItems === 'object' ? record.approvedItems : {}
+        for (const [itemKey, value] of Object.entries(map)) {
+          if (!itemKey || !value || typeof value !== 'object') continue
+          approvedItems[itemKey] = { ...(approvedItems[itemKey] || {}), ...value }
+        }
+        const candidateApprovedAt = String(record?.approvedAt || '').trim()
+        if (candidateApprovedAt && (!approvedAt || candidateApprovedAt > approvedAt)) {
+          approvedAt = candidateApprovedAt
+        }
+      }
+
+      return { approvedItems, approvedAt }
+    }, [menuOverrideKeys, selRestaurant])
+
+    const [approvedItemsByKey, setApprovedItemsByKey] = useState({})
+    const [menuApprovedAt, setMenuApprovedAt] = useState('')
+    const [approvingFullMenu, setApprovingFullMenu] = useState(false)
+    const [resettingSections, setResettingSections] = useState(false)
+
+    const getApprovalItemKey = useCallback((item) => {
+      const itemId = String(item?.id || '').trim()
+      if (itemId) return `id:${itemId}`
+      const itemName = String(item?.name || '').trim().toLowerCase()
+      if (itemName) return `name:${itemName}`
+      return ''
+    }, [])
+
+    const writeMenuApprovalState = useCallback((nextApprovedItems, approvedAt = '') => {
+      if (!selRestaurant || menuOverrideKeys.length === 0) return
+      const payload = JSON.stringify({
+        approvedItems: nextApprovedItems && typeof nextApprovedItems === 'object' ? nextApprovedItems : {},
+        approvedAt: String(approvedAt || '').trim()
+      })
+      for (const key of menuOverrideKeys) {
+        localStorage.setItem(`admin-menu-approval-${key}`, payload)
+      }
+      window.dispatchEvent(new Event('adminMenuApprovalChanged'))
+    }, [menuOverrideKeys, selRestaurant])
+
+    const isItemApproved = useCallback((item) => {
+      const approvalKey = getApprovalItemKey(item)
+      if (!approvalKey) return false
+      return Boolean(approvedItemsByKey?.[approvalKey]?.approved)
+    }, [approvedItemsByKey, getApprovalItemKey])
+
+    const approvedItemCount = useMemo(() => {
+      if (!Array.isArray(items) || items.length === 0) return 0
+      return items.reduce((count, item) => (isItemApproved(item) ? count + 1 : count), 0)
+    }, [isItemApproved, items])
+
+    const allItemsApproved = items.length > 0 && approvedItemCount === items.length
+
+    const approveWholeMenu = useCallback(() => {
+      if (!selRestaurant || items.length === 0) return
+      const confirmed = window.confirm(`Approve all ${items.length} menu items for this restaurant?`)
+      if (!confirmed) return
+
+      setApprovingFullMenu(true)
+      try {
+        const approvedAt = new Date().toISOString()
+        const nextApprovedItems = {}
+        for (const item of items) {
+          const key = getApprovalItemKey(item)
+          if (!key) continue
+          nextApprovedItems[key] = {
+            approved: true,
+            approvedAt,
+            name: item?.name || ''
+          }
+        }
+
+        // Snapshot current section assignments for every item so user-side grouping
+        // stays aligned with the approved admin categorization.
+        for (const key of menuOverrideKeys) {
+          const storageKey = `admin-item-overrides-${key}`
+          const overrides = (() => {
+            try { return JSON.parse(localStorage.getItem(storageKey) || '{}') } catch { return {} }
+          })()
+
+          for (const item of items) {
+            const itemName = String(item?.name || '').trim()
+            if (!itemName) continue
+
+            const sectionName = String(item?.section_name || item?.category || 'Uncategorized').trim() || 'Uncategorized'
+            const patch = {
+              name: itemName,
+              section_name: sectionName,
+              category: sectionName
+            }
+
+            overrides[itemName] = { ...(overrides[itemName] || {}), ...patch }
+
+            const itemId = String(item?.id || '').trim()
+            if (itemId) {
+              const idKey = `__id:${itemId}`
+              overrides[idKey] = { ...(overrides[idKey] || {}), ...patch }
+            }
+          }
+
+          localStorage.setItem(storageKey, JSON.stringify(overrides))
+        }
+
+        setApprovedItemsByKey(nextApprovedItems)
+        setMenuApprovedAt(approvedAt)
+        writeMenuApprovalState(nextApprovedItems, approvedAt)
+        window.dispatchEvent(new Event('itemOverridesChanged'))
+        showToast(`Approved ${items.length} menu items and locked current sections`)
+      } finally {
+        setApprovingFullMenu(false)
+      }
+    }, [getApprovalItemKey, items, menuOverrideKeys, selRestaurant, showToast, writeMenuApprovalState])
+
+    const persistMenuSnapshot = useCallback((sourceItems = items) => {
+      if (!selRestaurant || menuOverrideKeys.length === 0 || itemsLoading) return
+      const normalizedItems = (Array.isArray(sourceItems) ? sourceItems : []).map((item) => {
+        const section = String(item?.section_name || item?.category || 'Uncategorized').trim() || 'Uncategorized'
+        return {
+          ...item,
+          section_name: section,
+          category: section
+        }
+      })
+      const payload = JSON.stringify({
+        savedAt: new Date().toISOString(),
+        items: normalizedItems
+      })
+      for (const key of menuOverrideKeys) {
+        localStorage.setItem(`${MENU_SNAPSHOT_KEY_PREFIX}${key}`, payload)
+      }
+      window.dispatchEvent(new Event('adminMenuSnapshotChanged'))
+    }, [items, itemsLoading, menuOverrideKeys, selRestaurant])
+
+    const resetAllSectionsToUncategorized = useCallback(async () => {
+      if (!selRestaurant || items.length === 0) return
+      const confirmed = window.confirm(`Reset all ${items.length} items to "Uncategorized"?`)
+      if (!confirmed) return
+
+      const nextSection = 'Uncategorized'
+      const sectionPayload = { section_name: nextSection, category: nextSection }
+      const nextItems = items.map((item) => ({ ...item, ...sectionPayload }))
+
+      setResettingSections(true)
+      setItems(nextItems)
+      if (editItem) {
+        setItemForm((prev) => ({ ...prev, section_name: nextSection, category: nextSection }))
+      }
+
+      try {
+        const isUUID = /^[0-9a-f-]{36}$/i.test(String(selRestaurant || ''))
+        const dbItems = isUUID ? items.filter((item) => String(item?.id || '').trim()) : []
+
+        if (dbItems.length > 0) {
+          const settled = await Promise.allSettled(
+            dbItems.map((item) => fetch(`${API_BASE}/admin/menu-items/${item.id}`, {
+              method: 'PUT',
+              headers: adminHeaders(),
+              body: JSON.stringify(sectionPayload)
+            }))
+          )
+
+          const failedCount = settled.reduce((count, result) => {
+            if (result.status === 'rejected') return count + 1
+            return result.value?.ok ? count : count + 1
+          }, 0)
+
+          if (failedCount > 0) {
+            showToast(`Reset locally for all items (${failedCount} server save failures)`)
+          } else {
+            showToast(`Reset ${items.length} items to Uncategorized`)
+          }
+        } else {
+          showToast(`Reset ${items.length} items to Uncategorized`)
+        }
+      } catch {
+        showToast('Reset applied locally (server offline)')
+      } finally {
+        for (const key of menuOverrideKeys) {
+          const storageKey = `admin-item-overrides-${key}`
+          const overrides = (() => {
+            try { return JSON.parse(localStorage.getItem(storageKey) || '{}') } catch { return {} }
+          })()
+
+          for (const item of nextItems) {
+            const itemName = String(item?.name || '').trim()
+            if (!itemName) continue
+
+            const patch = {
+              name: itemName,
+              section_name: nextSection,
+              category: nextSection
+            }
+
+            overrides[itemName] = { ...(overrides[itemName] || {}), ...patch }
+            const itemId = String(item?.id || '').trim()
+            if (itemId) {
+              const idKey = `__id:${itemId}`
+              overrides[idKey] = { ...(overrides[idKey] || {}), ...patch }
+            }
+          }
+
+          localStorage.setItem(storageKey, JSON.stringify(overrides))
+        }
+
+        window.dispatchEvent(new Event('itemOverridesChanged'))
+        persistMenuSnapshot(nextItems)
+        setResettingSections(false)
+      }
+    }, [adminHeaders, editItem, items, menuOverrideKeys, persistMenuSnapshot, selRestaurant, showToast])
+
+    const readUserMenuOverrides = useCallback(() => {
+      if (!selRestaurant || menuOverrideKeys.length === 0) return { byName: {}, byId: {} }
+      const byName = {}
+      const byId = {}
+      for (const key of menuOverrideKeys) {
+        const storageKey = `admin-item-overrides-${key}`
+        const overrides = (() => {
+          try { return JSON.parse(localStorage.getItem(storageKey) || '{}') } catch { return {} }
+        })()
+        for (const [entryKey, patch] of Object.entries(overrides || {})) {
+          if (!entryKey || !patch || typeof patch !== 'object') continue
+          if (String(entryKey).startsWith('__id:')) {
+            const itemId = String(entryKey).slice(5).trim()
+            if (!itemId) continue
+            byId[itemId] = { ...(byId[itemId] || {}), ...patch }
+            continue
+          }
+          byName[entryKey] = { ...(byName[entryKey] || {}), ...patch }
+        }
+      }
+      return { byName, byId }
+    }, [menuOverrideKeys, selRestaurant])
+
+    const applyUserMenuOverrides = useCallback((rawItems = []) => {
+      const overrides = readUserMenuOverrides()
+      if (!Array.isArray(rawItems) || rawItems.length === 0) return []
+      const byName = overrides?.byName || {}
+      const byId = overrides?.byId || {}
+      if (Object.keys(byName).length === 0 && Object.keys(byId).length === 0) return rawItems
+
+      return rawItems.map((item) => {
+        const itemId = String(item?.id || '').trim()
+        const itemName = String(item?.name || '').trim()
+        const patch = (itemId && byId[itemId]) || byName[itemName]
+        if (!patch || typeof patch !== 'object') return item
+        const next = { ...item, ...patch }
+        if (patch.section_name && !patch.category) next.category = patch.section_name
+        if (!patch.section_name && patch.category) next.section_name = patch.category
+        return next
+      })
+    }, [readUserMenuOverrides])
+
+    const syncUserMenuOverride = useCallback(({ lookupName, nextName, patch, itemId = null }) => {
+      if (!selRestaurant || menuOverrideKeys.length === 0 || !patch || typeof patch !== 'object') return
+      const fromName = String(lookupName || '').trim()
+      const toName = String(nextName || fromName || '').trim()
+      if (!toName) return
+      const normalizedItemId = String(itemId || '').trim()
+      const idKey = normalizedItemId ? `__id:${normalizedItemId}` : ''
+
+      for (const key of menuOverrideKeys) {
+        const storageKey = `admin-item-overrides-${key}`
+        const overrides = (() => {
+          try { return JSON.parse(localStorage.getItem(storageKey) || '{}') } catch { return {} }
+        })()
+        if (fromName && fromName !== toName) {
+          overrides[fromName] = { ...(overrides[fromName] || {}), ...patch, name: toName }
+        }
+        overrides[toName] = { ...(overrides[toName] || {}), ...patch }
+        if (idKey) {
+          overrides[idKey] = { ...(overrides[idKey] || {}), ...patch, name: toName }
+        }
+        localStorage.setItem(storageKey, JSON.stringify(overrides))
+      }
+
+      window.dispatchEvent(new Event('itemOverridesChanged'))
+    }, [menuOverrideKeys, selRestaurant])
+
+    const saveDisplayPrefs = useCallback((nextSortMode, nextSectionFilter) => {
+      if (!selRestaurant || menuDisplayPrefKeys.length === 0) return
+      const payload = JSON.stringify({
+        sortMode: String(nextSortMode || 'course'),
+        sectionFilter: String(nextSectionFilter || 'all')
+      })
+      for (const key of menuDisplayPrefKeys) {
+        localStorage.setItem(`${MENU_DISPLAY_PREF_KEY_PREFIX}${key}`, payload)
+      }
+      window.dispatchEvent(new Event('adminMenuPrefsChanged'))
+    }, [menuDisplayPrefKeys, selRestaurant])
+
+    const handleSortModeChange = useCallback((value) => {
+      const nextSortMode = value || 'course'
+      setSortMode(nextSortMode)
+      saveDisplayPrefs(nextSortMode, sectionFilter)
+    }, [saveDisplayPrefs, sectionFilter])
+
+    const handleSectionFilterChange = useCallback((value) => {
+      const nextSectionFilter = value || 'all'
+      setSectionFilter(nextSectionFilter)
+      saveDisplayPrefs(sortMode, nextSectionFilter)
+    }, [saveDisplayPrefs, sortMode])
+
+    const sectionCourseOrder = useMemo(() => ([
+      { rank: 1, regex: /(to start|starter|starters|appetizer|appetizers|small plate|small plates|raw|shared|shareables?)/i },
+      { rank: 2, regex: /(soup|soups|salad|salads)/i },
+      { rank: 3, regex: /(sandwich|sandwiches|burger|burgers|taco|tacos|wrap|wraps)/i },
+      { rank: 4, regex: /(entree|entrees|main|mains|pasta|pastas|pizza|pizzas|grill|from the grill|signature)/i },
+      { rank: 5, regex: /(vegetable|vegetables|side|sides)/i },
+      { rank: 6, regex: /(dessert|desserts|sweet|sweets)/i },
+      { rank: 7, regex: /(drink|drinks|beverage|beverages|cocktail|cocktails|wine|beer)/i },
+      { rank: 8, regex: /(kids|children)/i }
+    ]), [])
+
+    const normalizeSection = useCallback((item = {}) => {
+      return String(item.section_name || item.category || 'Uncategorized').trim() || 'Uncategorized'
+    }, [])
+
+    const sectionSortRank = useCallback((sectionName = '') => {
+      const name = String(sectionName || '').trim()
+      for (const entry of sectionCourseOrder) {
+        if (entry.regex.test(name)) return entry.rank
+      }
+      return 99
+    }, [sectionCourseOrder])
+
+    const parsePriceValue = useCallback((price) => {
+      if (price == null || price === '') return null
+      if (typeof price === 'number') return Number.isFinite(price) ? price : null
+      const parsed = parseFloat(String(price).replace(/[^0-9.]/g, ''))
+      return Number.isFinite(parsed) ? parsed : null
+    }, [])
+
+    const sectionOptions = useMemo(() => {
+      const unique = new Set()
+      for (const item of items) unique.add(normalizeSection(item))
+      return [...unique].sort((a, b) => {
+        const byRank = sectionSortRank(a) - sectionSortRank(b)
+        if (byRank !== 0) return byRank
+        return a.localeCompare(b)
+      })
+    }, [items, normalizeSection, sectionSortRank])
+
+    const sectionDropdownOptions = useMemo(() => {
+      const commonSections = [
+        'Starters',
+        'Entrees',
+        'Sides',
+        'Salads',
+        'Sandwiches',
+        'Desserts',
+        'Drinks',
+        'Kids',
+        'Uncategorized'
+      ]
+      const merged = new Set([...commonSections, ...sectionOptions])
+      const editSection = String(itemForm.section_name || '').trim()
+      const newSection = String(newItemForm.section_name || '').trim()
+      if (editSection) merged.add(editSection)
+      if (newSection) merged.add(newSection)
+      return [...merged]
+        .map((section) => String(section || '').trim())
+        .filter(Boolean)
+        .sort((a, b) => {
+          const byRank = sectionSortRank(a) - sectionSortRank(b)
+          if (byRank !== 0) return byRank
+          return a.localeCompare(b)
+        })
+    }, [itemForm.section_name, newItemForm.section_name, sectionOptions, sectionSortRank])
+
+    const displayItems = useMemo(() => {
+      let next = [...items]
+      if (sectionFilter !== 'all') {
+        next = next.filter((item) => normalizeSection(item) === sectionFilter)
+      }
+
+      next.sort((a, b) => {
+        const aSection = normalizeSection(a)
+        const bSection = normalizeSection(b)
+
+        if (sortMode === 'section_asc') {
+          const bySection = aSection.localeCompare(bSection)
+          if (bySection !== 0) return bySection
+          return String(a.name || '').localeCompare(String(b.name || ''))
+        }
+
+        if (sortMode === 'section_desc') {
+          const bySection = bSection.localeCompare(aSection)
+          if (bySection !== 0) return bySection
+          return String(a.name || '').localeCompare(String(b.name || ''))
+        }
+
+        if (sortMode === 'name_asc') {
+          return String(a.name || '').localeCompare(String(b.name || ''))
+        }
+
+        if (sortMode === 'name_desc') {
+          return String(b.name || '').localeCompare(String(a.name || ''))
+        }
+
+        if (sortMode === 'price_low') {
+          const aPrice = parsePriceValue(a.price)
+          const bPrice = parsePriceValue(b.price)
+          if (aPrice == null && bPrice == null) return String(a.name || '').localeCompare(String(b.name || ''))
+          if (aPrice == null) return 1
+          if (bPrice == null) return -1
+          if (aPrice !== bPrice) return aPrice - bPrice
+          return String(a.name || '').localeCompare(String(b.name || ''))
+        }
+
+        if (sortMode === 'price_high') {
+          const aPrice = parsePriceValue(a.price)
+          const bPrice = parsePriceValue(b.price)
+          if (aPrice == null && bPrice == null) return String(a.name || '').localeCompare(String(b.name || ''))
+          if (aPrice == null) return 1
+          if (bPrice == null) return -1
+          if (aPrice !== bPrice) return bPrice - aPrice
+          return String(a.name || '').localeCompare(String(b.name || ''))
+        }
+
+        const byCourse = sectionSortRank(aSection) - sectionSortRank(bSection)
+        if (byCourse !== 0) return byCourse
+        const bySection = aSection.localeCompare(bSection)
+        if (bySection !== 0) return bySection
+        return String(a.name || '').localeCompare(String(b.name || ''))
+      })
+
+      return next
+    }, [items, normalizeSection, parsePriceValue, sectionFilter, sectionSortRank, sortMode])
+
+    useEffect(() => {
+      if (!selRestaurant || menuDisplayPrefKeys.length === 0) {
+        setSortMode('course')
+        setSectionFilter('all')
+        return
+      }
+
+      let loadedPrefs = null
+      for (const key of menuDisplayPrefKeys) {
+        try {
+          const raw = localStorage.getItem(`${MENU_DISPLAY_PREF_KEY_PREFIX}${key}`)
+          if (!raw) continue
+          const parsed = JSON.parse(raw)
+          if (parsed && typeof parsed === 'object') {
+            loadedPrefs = parsed
+            break
+          }
+        } catch {}
+      }
+
+      const nextSortMode = typeof loadedPrefs?.sortMode === 'string' ? loadedPrefs.sortMode : 'course'
+      const nextSectionFilter = typeof loadedPrefs?.sectionFilter === 'string' ? loadedPrefs.sectionFilter : 'all'
+      setSortMode(nextSortMode || 'course')
+      setSectionFilter(nextSectionFilter || 'all')
+    }, [menuDisplayPrefKeys, selRestaurant])
+
+    // Load menu items when restaurant changes
+    useEffect(() => {
+      if (!selRestaurant) return
+      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
+      setEditItem(null)
+      setEditItemId(null)
+      setEditSaveState('idle')
+      loadItems(selRestaurant)
+    }, [selRestaurant])
+
+    async function loadItems(restaurantId) {
+      setItemsLoading(true)
+      setItems([])
+      try {
+        // If it looks like a UUID, use the DB endpoint
+        const isUUID = /^[0-9a-f-]{36}$/i.test(restaurantId)
+        if (isUUID) {
+          const res = await fetch(`${API_BASE}/admin/menu-items/restaurant/${restaurantId}`, { headers: adminHeaders() })
+          if (res.ok) {
+            const { items: dbItems } = await res.json()
+            setItems(applyUserMenuOverrides(dbItems || []))
+            setItemsLoading(false)
+            return
+          }
+        }
+        // Fallback to local data by name
+        const localItems = localMenuData[restaurantId] || []
+        const ratings = allRatings[restaurantId] || {}
+        setItems(applyUserMenuOverrides(localItems.map(item => ({
+          ...item,
+          avg_rating: ratings[item.name]?.average ?? null,
+          review_count: ratings[item.name]?.reviews?.length ?? 0,
+        }))))
+      } catch {} finally {
+        setItemsLoading(false)
+      }
     }
+
+    useEffect(() => {
+      if (!selRestaurant) return
+      const refreshFromOverrides = () => {
+        setItems(prev => applyUserMenuOverrides(prev))
+      }
+      const handleStorage = (event) => {
+        const storageKey = String(event?.key || '')
+        if (storageKey.startsWith('admin-item-overrides-')) {
+          refreshFromOverrides()
+        }
+      }
+
+      window.addEventListener('itemOverridesChanged', refreshFromOverrides)
+      window.addEventListener('storage', handleStorage)
+      return () => {
+        window.removeEventListener('itemOverridesChanged', refreshFromOverrides)
+        window.removeEventListener('storage', handleStorage)
+      }
+    }, [applyUserMenuOverrides, selRestaurant])
+
+    useEffect(() => {
+      if (!selRestaurant) {
+        setApprovedItemsByKey({})
+        setMenuApprovedAt('')
+        return
+      }
+
+      const restoreApprovalState = () => {
+        const state = readMenuApprovalState()
+        setApprovedItemsByKey(state?.approvedItems || {})
+        setMenuApprovedAt(state?.approvedAt || '')
+      }
+      const onStorage = (event) => {
+        const storageKey = String(event?.key || '')
+        if (storageKey.startsWith('admin-menu-approval-')) {
+          restoreApprovalState()
+        }
+      }
+
+      restoreApprovalState()
+      window.addEventListener('storage', onStorage)
+      window.addEventListener('adminMenuApprovalChanged', restoreApprovalState)
+      return () => {
+        window.removeEventListener('storage', onStorage)
+        window.removeEventListener('adminMenuApprovalChanged', restoreApprovalState)
+      }
+    }, [readMenuApprovalState, selRestaurant])
+
+    useEffect(() => {
+      if (!selRestaurant) return
+      persistMenuSnapshot(items)
+    }, [items, persistMenuSnapshot, selRestaurant])
 
     const startEditItem = (item) => {
+      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
+      const initialForm = {
+        name: item.name || '',
+        price: item.price || '',
+        description: item.description || '',
+        section_name: item.section_name || item.category || '',
+        is_available: item.is_available !== false,
+      }
       setEditItem(item.name)
-      setItemForm({
-        name: item.name, price: item.price || '', description: item.description || '',
-        avg_rating: item.avg_rating || '', tags: item.tags || [],
-        vegetarian: false, healthy: false, spicy: false, is_new: false,
-        ...(item.tags ? {} : {}),
+      setEditItemId(item.id || null)
+      editLookupNameRef.current = item.name || ''
+      lastSavedItemSnapshotRef.current = JSON.stringify(initialForm)
+      setEditSaveState('idle')
+      setItemForm(initialForm)
+    }
+
+    const saveItemEdit = async ({ closeEditor = false, silent = false } = {}) => {
+      if (!editItem) return false
+      const snapshot = JSON.stringify(itemForm || {})
+      if (snapshot === lastSavedItemSnapshotRef.current) {
+        if (closeEditor) setEditItem(null)
+        setEditSaveState('saved')
+        return true
+      }
+
+      const lookupName = editLookupNameRef.current || editItem
+      const nextLookupName = String(itemForm.name || lookupName || '').trim() || lookupName
+      const localPatch = {
+        ...itemForm,
+        name: nextLookupName,
+        section_name: itemForm.section_name || '',
+        category: itemForm.section_name || itemForm.category || ''
+      }
+      const applyLocalFallback = (message) => {
+        editLookupNameRef.current = nextLookupName
+        setEditItem(nextLookupName)
+        setItems(prev => prev.map(x => {
+          if ((editItemId && x.id === editItemId) || x.name === lookupName || x.name === nextLookupName) {
+            return { ...x, ...localPatch }
+          }
+          return x
+        }))
+        syncUserMenuOverride({
+          lookupName,
+          nextName: nextLookupName,
+          patch: localPatch,
+          itemId: editItemId || null
+        })
+        lastSavedItemSnapshotRef.current = snapshot
+        setEditSaveState('saved')
+        if (!silent && message) showToast(message)
+        return true
+      }
+
+      setSaving(true)
+      setEditSaveState('saving')
+      try {
+        if (editItemId) {
+          const res = await fetch(`${API_BASE}/admin/menu-items/${editItemId}`, {
+            method: 'PUT', headers: adminHeaders(), body: JSON.stringify(itemForm)
+          })
+          if (res.ok) {
+            const { item } = await res.json()
+            setItems(prev => prev.map(x => x.id === editItemId ? { ...x, ...item } : x))
+            const savedLookupName = String(item?.name || nextLookupName || '').trim() || nextLookupName
+            editLookupNameRef.current = savedLookupName
+            syncUserMenuOverride({
+              lookupName,
+              nextName: savedLookupName,
+              itemId: item?.id || editItemId || null,
+              patch: {
+                name: savedLookupName,
+                description: item?.description ?? itemForm.description ?? '',
+                price: item?.price ?? itemForm.price ?? '',
+                section_name: item?.section_name ?? itemForm.section_name ?? item?.category ?? '',
+                category: item?.category ?? itemForm.section_name ?? '',
+                is_available: item?.is_available ?? itemForm.is_available
+              }
+            })
+            if (item?.name) {
+              editLookupNameRef.current = item.name
+              setEditItem(item.name)
+            }
+            lastSavedItemSnapshotRef.current = snapshot
+            setEditSaveState('saved')
+            if (!silent) showToast('Item saved to server')
+          } else {
+            return applyLocalFallback('Saved locally (server error)')
+          }
+        } else {
+          // Local override fallback
+          return applyLocalFallback('Item saved locally')
+        }
+        return true
+      } catch {
+        if (editItemId) return applyLocalFallback('Saved locally (server offline)')
+        setEditSaveState('error')
+        if (!silent) showToast('Error saving item')
+        return false
+      } finally {
+        setSaving(false)
+        if (closeEditor) setEditItem(null)
+      }
+    }
+
+    const itemSectionSaveKey = useCallback((item) => {
+      return String(item?.id || item?.name || '')
+    }, [])
+
+    const quickChangeItemSection = useCallback(async (item, nextSectionRaw) => {
+      if (!item) return
+      const nextSection = String(nextSectionRaw || '').trim()
+      if (!nextSection) return
+      if (normalizeSection(item) === nextSection) return
+
+      const sectionPayload = { section_name: nextSection, category: nextSection }
+      const saveKey = itemSectionSaveKey(item)
+      const lookupName = item.name || ''
+      const nextLookupName = lookupName
+      const applyLocalSectionFallback = (message) => {
+        syncUserMenuOverride({
+          lookupName,
+          nextName: nextLookupName,
+          patch: sectionPayload,
+          itemId: item?.id || null
+        })
+        if (item.id) {
+          setItems(prev => prev.map(x => x.id === item.id ? { ...x, ...sectionPayload } : x))
+        } else {
+          setItems(prev => prev.map(x => x.name === item.name ? { ...x, ...sectionPayload } : x))
+        }
+        if (message) showToast(message)
+      }
+      setQuickSectionSavingKey(saveKey)
+
+      try {
+        if (item.id) {
+          const res = await fetch(`${API_BASE}/admin/menu-items/${item.id}`, {
+            method: 'PUT',
+            headers: adminHeaders(),
+            body: JSON.stringify(sectionPayload)
+          })
+
+          if (!res.ok) {
+            applyLocalSectionFallback('Saved locally (server error)')
+            return
+          }
+
+          const payload = await res.json().catch(() => ({}))
+          const savedItem = payload?.item || {}
+          setItems(prev => prev.map(x => x.id === item.id ? { ...x, ...sectionPayload, ...savedItem } : x))
+          const dbNextLookupName = String(savedItem?.name || item.name || '').trim() || lookupName
+          syncUserMenuOverride({
+            lookupName,
+            nextName: dbNextLookupName,
+            itemId: item?.id || null,
+            patch: {
+              name: dbNextLookupName,
+              section_name: savedItem?.section_name ?? nextSection,
+              category: savedItem?.category ?? nextSection
+            }
+          })
+          showToast('Section updated')
+        } else {
+          applyLocalSectionFallback('Section updated locally')
+        }
+
+        if (editItemId && item.id && editItemId === item.id) {
+          setItemForm(prev => ({ ...prev, section_name: nextSection }))
+        } else if (!item.id && editItem && (editLookupNameRef.current === item.name || editItem === item.name)) {
+          setItemForm(prev => ({ ...prev, section_name: nextSection }))
+        }
+      } catch {
+        applyLocalSectionFallback('Saved locally (server offline)')
+      } finally {
+        setQuickSectionSavingKey(null)
+      }
+    }, [adminHeaders, editItem, editItemId, itemSectionSaveKey, normalizeSection, showToast, syncUserMenuOverride])
+
+    useEffect(() => {
+      if (!editItem) return
+      if (saving) return
+
+      const snapshot = JSON.stringify(itemForm || {})
+      if (!lastSavedItemSnapshotRef.current) {
+        lastSavedItemSnapshotRef.current = snapshot
+        return
+      }
+      if (snapshot === lastSavedItemSnapshotRef.current) return
+
+      setEditSaveState('pending')
+      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
+      autoSaveTimerRef.current = setTimeout(() => {
+        saveItemEdit({ silent: true })
+      }, 650)
+
+      return () => {
+        if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
+      }
+    }, [editItem, itemForm, saving])
+
+    const deleteItem = async (item) => {
+      if (!window.confirm(`Delete "${item.name}"?`)) return
+      if (item.id) {
+        const res = await fetch(`${API_BASE}/admin/menu-items/${item.id}`, { method: 'DELETE', headers: adminHeaders() })
+        if (res.ok) {
+          setItems(prev => prev.filter(x => x.id !== item.id))
+          showToast('Item deleted', 'danger')
+          return
+        }
+      }
+      setItems(prev => prev.filter(x => x.name !== item.name))
+      showToast('Item removed locally', 'danger')
+    }
+
+    const addNewItem = async () => {
+      if (!newItemForm.name.trim()) return showToast('Name is required')
+      setSaving(true)
+      try {
+        const isUUID = /^[0-9a-f-]{36}$/i.test(selRestaurant)
+        if (isUUID) {
+          const res = await fetch(`${API_BASE}/admin/menu-items/restaurant/${selRestaurant}`, {
+            method: 'POST', headers: adminHeaders(), body: JSON.stringify(newItemForm)
+          })
+          if (res.ok) {
+            const { item } = await res.json()
+            setItems(prev => [...prev, item])
+            setNewItemForm({ name: '', description: '', price: '', section_name: '', category: '' })
+            setAddingNew(false)
+            showToast('Item added to server')
+          } else {
+            showToast('Server error adding item')
+          }
+        } else {
+          showToast('Select a DB restaurant to add items')
+        }
+      } catch { showToast('Error adding item') } finally {
+        setSaving(false)
+      }
+    }
+
+    // Build restaurant list from DB + local
+    const allRestList = useMemo(() => {
+      const list = []
+      dbRestaurants.forEach(r => list.push({ id: r.id, label: r.name }))
+      localRestaurantNames.forEach(name => {
+        if (!dbRestaurants.find(r => r.name === name)) list.push({ id: name, label: name + ' (local)' })
       })
-    }
+      return list
+    }, [dbRestaurants])
 
-    const saveItemEdit = () => {
-      const overrides = (() => { try { return JSON.parse(localStorage.getItem(`admin-item-overrides-${selRestaurant}`) || '{}') } catch { return {} } })()
-      overrides[editItem] = { ...overrides[editItem], ...itemForm }
-      localStorage.setItem(`admin-item-overrides-${selRestaurant}`, JSON.stringify(overrides))
-      window.dispatchEvent(new Event('itemOverridesChanged'))
-      setEditItem(null)
-      showToast('Item saved')
-    }
-
-    const TAG_OPTS = ['vegetarian','healthy','spicy','new']
+    const TAG_OPTS = ['vegetarian', 'healthy', 'spicy', 'new']
+    const editSaveText =
+      saving || editSaveState === 'saving'
+        ? 'Saving changes...'
+        : editSaveState === 'pending'
+          ? 'Unsaved changes...'
+          : editSaveState === 'saved'
+            ? 'Saved automatically'
+            : editSaveState === 'error'
+              ? 'Save failed - retry on next change'
+              : 'Auto-save enabled'
+    const editSaveColor =
+      saving || editSaveState === 'saving'
+        ? C.amber
+        : editSaveState === 'pending'
+          ? C.text2
+          : editSaveState === 'saved'
+            ? C.emerald
+            : editSaveState === 'error'
+              ? C.rose
+              : C.text3
 
     return (
       <div className="admin-fade">
-        <SectionHeader title="Menu Items" sub="View and edit items across all restaurants" />
+        <SectionHeader title="Menu Items" sub="Manage menu items across all restaurants — changes go live immediately" />
 
-        <div style={{ display:'flex', gap: 10, marginBottom: 16, flexWrap:'wrap' }}>
-          {localRestaurantNames.map(name => (
-            <button key={name} onClick={() => setSelRestaurant(name)} style={{
-              padding:'6px 14px', borderRadius: 999, fontSize: 12, fontWeight: 600,
-              background: selRestaurant === name ? `${C.amber}22` : C.surface2,
-              border: `1px solid ${selRestaurant === name ? C.amber : C.border}`,
-              color: selRestaurant === name ? C.amber : C.text2, cursor:'pointer', transition:'.15s'
-            }}>{name}</button>
-          ))}
+        {/* Restaurant selector */}
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 6 }}>SELECT RESTAURANT</label>
+          <select className="admin-input" style={{ maxWidth: 400 }} value={selRestaurant || ''} onChange={e => setSelRestaurant(e.target.value || null)}>
+            <option value="">— Choose a restaurant —</option>
+            {allRestList.map(r => <option key={r.id} value={r.id}>{r.label}</option>)}
+          </select>
         </div>
+
+        {selRestaurant && (
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: 12 }}>
+            <div>
+              <div style={{ fontSize: 13, color: C.text2 }}>
+                {displayItems.length}
+                {displayItems.length !== items.length ? ` of ${items.length}` : ''}
+                {` items${itemsLoading ? ' (loading...)' : ''}`}
+              </div>
+              {items.length > 0 && (
+                <div className="admin-mono" style={{ fontSize: 11, color: allItemsApproved ? C.emerald : C.text3, marginTop: 3 }}>
+                  {approvedItemCount}/{items.length} approved
+                  {menuApprovedAt ? ` • ${new Date(menuApprovedAt).toLocaleString()}` : ''}
+                </div>
+              )}
+            </div>
+            <div style={{ display:'flex', gap: 8 }}>
+              <button
+                className="admin-btn-amber"
+                style={{ padding:'6px 12px', borderRadius: 8, fontSize: 12, display:'flex', alignItems:'center', gap: 6 }}
+                onClick={approveWholeMenu}
+                disabled={itemsLoading || items.length === 0 || approvingFullMenu}
+              >
+                <CheckCircle size={12} />
+                {allItemsApproved ? 'Menu Approved' : approvingFullMenu ? 'Approving…' : 'Approve Full Menu'}
+              </button>
+              <button
+                className="admin-btn-danger"
+                style={{ padding:'6px 12px', borderRadius: 8, fontSize: 12, display:'flex', alignItems:'center', gap: 6 }}
+                onClick={resetAllSectionsToUncategorized}
+                disabled={itemsLoading || items.length === 0 || resettingSections || saving}
+              >
+                <Minus size={12} />
+                {resettingSections ? 'Resetting…' : 'Reset Sections'}
+              </button>
+              <button className="admin-btn-ghost" style={{ padding:'6px 12px', borderRadius: 8, fontSize: 12, display:'flex', alignItems:'center', gap: 6 }} onClick={() => loadItems(selRestaurant)}>
+                <RefreshCw size={12} />Refresh
+              </button>
+              <button className="admin-btn-amber" style={{ padding:'6px 12px', borderRadius: 8, fontSize: 12, display:'flex', alignItems:'center', gap: 6 }} onClick={() => setAddingNew(true)}>
+                <Plus size={12} />Add Item
+              </button>
+            </div>
+          </div>
+        )}
+
+        {selRestaurant && items.length > 0 && (
+          <div style={{ display:'flex', gap: 10, marginBottom: 14, flexWrap:'wrap' }}>
+            <div style={{ minWidth: 220, flex: '1 1 220px', maxWidth: 320 }}>
+              <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>SORT</label>
+              <select className="admin-input" value={sortMode} onChange={e => handleSortModeChange(e.target.value)}>
+                <option value="course">Course Order (Starters - Entrees - Sides)</option>
+                <option value="section_asc">Section (A-Z)</option>
+                <option value="section_desc">Section (Z-A)</option>
+                <option value="name_asc">Item Name (A-Z)</option>
+                <option value="name_desc">Item Name (Z-A)</option>
+                <option value="price_low">Price (Low - High)</option>
+                <option value="price_high">Price (High - Low)</option>
+              </select>
+            </div>
+            <div style={{ minWidth: 220, flex: '1 1 220px', maxWidth: 320 }}>
+              <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>FILTER SECTION</label>
+              <select className="admin-input" value={sectionFilter} onChange={e => handleSectionFilterChange(e.target.value)}>
+                <option value="all">All Sections</option>
+                {sectionOptions.map(section => <option key={section} value={section}>{section}</option>)}
+              </select>
+            </div>
+          </div>
+        )}
+
+        {/* Add new item form */}
+        {addingNew && (
+          <div style={{ background: C.surface, border:`1px solid ${C.emerald}44`, borderRadius: 12, padding: 20, marginBottom: 16 }}>
+            <div style={{ display:'flex', justifyContent:'space-between', marginBottom: 14 }}>
+              <div className="admin-syne" style={{ fontSize: 14, fontWeight: 700, color: C.emerald }}>Add New Item</div>
+              <button className="admin-btn-ghost" style={{ padding:'5px 10px', borderRadius: 6, fontSize: 12 }} onClick={() => setAddingNew(false)}>Cancel</button>
+            </div>
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap: 12, marginBottom: 12 }}>
+              <div>
+                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>NAME *</label>
+                <input className="admin-input" value={newItemForm.name} onChange={e => setNewItemForm(p=>({...p, name:e.target.value}))} placeholder="e.g. Truffle Fries" />
+              </div>
+              <div>
+                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>PRICE</label>
+                <input className="admin-input" value={newItemForm.price} onChange={e => setNewItemForm(p=>({...p, price:e.target.value}))} placeholder="12.99" />
+              </div>
+              <div>
+                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>SECTION / CATEGORY</label>
+                <select className="admin-input" value={newItemForm.section_name || ''} onChange={e => setNewItemForm(p=>({...p, section_name:e.target.value, category: e.target.value}))}>
+                  <option value="">Choose section</option>
+                  {sectionDropdownOptions.map(section => <option key={section} value={section}>{section}</option>)}
+                </select>
+              </div>
+              <div style={{ gridColumn:'1/-1' }}>
+                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>DESCRIPTION</label>
+                <textarea className="admin-input" value={newItemForm.description} onChange={e => setNewItemForm(p=>({...p, description:e.target.value}))} rows={2} style={{ resize:'vertical', fontFamily:'Figtree,sans-serif' }} />
+              </div>
+            </div>
+            <button className="admin-btn-amber" style={{ padding:'8px 18px', borderRadius: 8, fontSize: 13 }} onClick={addNewItem} disabled={saving}>
+              <Plus size={13} style={{ display:'inline', marginRight: 6 }} />{saving ? 'Adding…' : 'Add to Server'}
+            </button>
+          </div>
+        )}
 
         {editItem && (
           <div style={{ background: C.surface, border:`1px solid ${C.amber}44`, borderRadius: 12, padding: 20, marginBottom: 16 }}>
             <div style={{ display:'flex', justifyContent:'space-between', marginBottom: 14 }}>
               <div className="admin-syne" style={{ fontSize: 14, fontWeight: 700, color: C.text }}>Edit: {editItem}</div>
-              <button className="admin-btn-ghost" style={{ padding:'5px 10px', borderRadius: 6, fontSize: 12 }} onClick={() => setEditItem(null)}>Cancel</button>
+              <div style={{ display:'flex', alignItems:'center', gap: 10 }}>
+                <span className="admin-mono" style={{ fontSize: 11, color: editSaveColor }}>{editSaveText}</span>
+                <button
+                  className="admin-btn-ghost"
+                  style={{ padding:'5px 10px', borderRadius: 6, fontSize: 12 }}
+                  onClick={() => {
+                    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current)
+                    setEditItem(null)
+                    setEditSaveState('idle')
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
             <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap: 12, marginBottom: 12 }}>
               <div>
@@ -730,88 +1811,105 @@ export default function AdminPanel({ onClose }) {
               </div>
               <div>
                 <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>PRICE</label>
-                <input className="admin-input" value={itemForm.price || ''} onChange={e => setItemForm(p=>({...p, price:e.target.value}))} placeholder="$12.99" />
+                <input className="admin-input" value={itemForm.price || ''} onChange={e => setItemForm(p=>({...p, price:e.target.value}))} placeholder="12.99" />
+              </div>
+              <div>
+                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>SECTION / CATEGORY</label>
+                <select className="admin-input" value={itemForm.section_name || ''} onChange={e => setItemForm(p=>({...p, section_name:e.target.value}))}>
+                  <option value="">Choose section</option>
+                  {sectionDropdownOptions.map(section => <option key={section} value={section}>{section}</option>)}
+                </select>
+              </div>
+              <div style={{ display:'flex', alignItems:'center', gap: 10 }}>
+                <input type="checkbox" id="is_avail" checked={itemForm.is_available !== false} onChange={e => setItemForm(p=>({...p, is_available: e.target.checked}))} style={{ accentColor: C.amber }} />
+                <label htmlFor="is_avail" style={{ fontSize: 13, color: C.text, cursor:'pointer' }}>Available on menu</label>
               </div>
               <div style={{ gridColumn:'1/-1' }}>
                 <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>DESCRIPTION</label>
                 <textarea className="admin-input" value={itemForm.description || ''} onChange={e => setItemForm(p=>({...p, description:e.target.value}))} rows={2} style={{ resize:'vertical', fontFamily:'Figtree,sans-serif' }} />
               </div>
-              <div>
-                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>AVG RATING OVERRIDE</label>
-                <input className="admin-input" type="number" min="0" max="10" step=".1" value={itemForm.avg_rating || ''} onChange={e => setItemForm(p=>({...p, avg_rating:e.target.value}))} placeholder="e.g. 8.4" />
-              </div>
-              <div>
-                <label style={{ fontSize: 11, color: C.text3, fontWeight: 700, letterSpacing:'.06em', display:'block', marginBottom: 5 }}>TAGS</label>
-                <div style={{ display:'flex', gap: 6, flexWrap:'wrap', paddingTop: 4 }}>
-                  {TAG_OPTS.map(tag => {
-                    const active = (itemForm.tags || []).includes(tag)
-                    return (
-                      <button key={tag} className="admin-tag" style={{
-                        background: active ? `${C.amber}22` : C.surface2,
-                        border: `1px solid ${active ? C.amber : C.border}`,
-                        color: active ? C.amber : C.text2
-                      }} onClick={() => {
-                        const tags = itemForm.tags || []
-                        setItemForm(p => ({...p, tags: active ? tags.filter(t=>t!==tag) : [...tags, tag]}))
-                      }}>{tag}</button>
-                    )
-                  })}
-                </div>
-              </div>
             </div>
-            <button className="admin-btn-amber" style={{ padding:'8px 18px', borderRadius: 8, fontSize: 13 }} onClick={saveItemEdit}>
-              <Save size={13} style={{ display:'inline', marginRight: 6 }} />Save Item
+            <button className="admin-btn-amber" style={{ padding:'8px 18px', borderRadius: 8, fontSize: 13 }} onClick={() => saveItemEdit({ silent: false })} disabled={saving}>
+              <Save size={13} style={{ display:'inline', marginRight: 6 }} />{saving ? 'Saving…' : 'Save to Server'}
             </button>
           </div>
         )}
 
         <div style={{ background: C.surface, border:`1px solid ${C.border}`, borderRadius: 12, overflow:'hidden' }}>
           {!selRestaurant ? (
-            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>Select a restaurant above</div>
-          ) : restaurantItems.length === 0 ? (
-            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>No local menu data for this restaurant</div>
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>Select a restaurant above to manage its menu</div>
+          ) : itemsLoading ? (
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>Loading menu items...</div>
+          ) : items.length === 0 ? (
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>No menu items found — use "Add Item" to add some</div>
+          ) : displayItems.length === 0 ? (
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>No items match the selected section filter</div>
           ) : (
             <table style={{ width:'100%', borderCollapse:'collapse' }} className="admin-table">
               <thead style={{ background: C.surface2 }}>
                 <tr>
                   <th style={{ textAlign:'left' }}>Item</th>
-                  <th style={{ textAlign:'left' }}>Category</th>
+                  <th style={{ textAlign:'left' }}>Section</th>
+                  <th style={{ textAlign:'center' }}>Price</th>
                   <th style={{ textAlign:'center' }}>Avg Rating</th>
                   <th style={{ textAlign:'center' }}>Reviews</th>
-                  <th style={{ textAlign:'center' }}>Last Rated</th>
                   <th style={{ textAlign:'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {restaurantItems.map((item, i) => {
-                  const isHidden = isHiddenItem(selRestaurant, item.name)
-                  return (
-                    <tr key={i} style={{ opacity: isHidden ? .4 : 1 }}>
-                      <td>
+                {displayItems.map((item, i) => (
+                  <tr key={item.id || i} style={{ opacity: item.is_available === false ? .45 : 1 }}>
+                    <td>
+                      <div style={{ display:'flex', alignItems:'center', gap: 8, flexWrap:'wrap' }}>
                         <div style={{ fontWeight: 600, color: C.text, fontSize: 13 }}>{item.name}</div>
-                        {item.description && <div style={{ fontSize: 11, color: C.text3, marginTop: 2, maxWidth: 280, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{item.description}</div>}
-                      </td>
-                      <td><Badge color={C.blue}>{item.category || '—'}</Badge></td>
-                      <td style={{ textAlign:'center' }}>
-                        {item.avg_rating != null
-                          ? <span className="admin-mono" style={{ color: item.avg_rating >= 8 ? C.emerald : item.avg_rating >= 6 ? C.amber : C.rose, fontWeight: 700 }}>{item.avg_rating.toFixed(1)}</span>
-                          : <span style={{ color: C.text3 }}>—</span>}
-                      </td>
-                      <td style={{ textAlign:'center' }}><span className="admin-mono" style={{ color: C.text2 }}>{item.review_count || item.rating_count || 0}</span></td>
-                      <td style={{ textAlign:'center', fontSize: 11, color: C.text3 }}>{item.last_rated || '—'}</td>
-                      <td style={{ textAlign:'right' }}>
-                        <div style={{ display:'flex', gap: 5, justifyContent:'flex-end' }}>
-                          <button title="Edit" className="admin-btn-ghost" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => startEditItem(item)}>
-                            <Edit3 size={12} />
-                          </button>
-                          <button title={isHidden ? 'Show' : 'Hide'} className="admin-btn-ghost" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => toggleHideItem(selRestaurant, item.name)}>
-                            {isHidden ? <Eye size={12} /> : <EyeOff size={12} />}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
+                        {isItemApproved(item) && (
+                          <span
+                            className="admin-tag"
+                            style={{ background: `${C.emerald}22`, color: C.emerald, border: `1px solid ${C.emerald}44`, cursor: 'default' }}
+                          >
+                            Approved
+                          </span>
+                        )}
+                      </div>
+                      {item.description && <div style={{ fontSize: 11, color: C.text3, marginTop: 2, maxWidth: 280, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{item.description}</div>}
+                    </td>
+                    <td>
+                      <div style={{ display:'flex', alignItems:'center', gap: 6 }}>
+                        <select
+                          className="admin-input"
+                          style={{ minWidth: 150, padding:'5px 8px', fontSize: 12 }}
+                          value={normalizeSection(item)}
+                          onChange={e => quickChangeItemSection(item, e.target.value)}
+                          disabled={saving || quickSectionSavingKey === itemSectionSaveKey(item)}
+                        >
+                          {sectionDropdownOptions.map(section => <option key={section} value={section}>{section}</option>)}
+                        </select>
+                        {quickSectionSavingKey === itemSectionSaveKey(item) && (
+                          <span className="admin-mono" style={{ fontSize: 10, color: C.text3 }}>Saving...</span>
+                        )}
+                      </div>
+                    </td>
+                    <td style={{ textAlign:'center' }}>
+                      <span className="admin-mono" style={{ color: C.text2 }}>{item.price ? `$${Number(item.price).toFixed(2)}` : '—'}</span>
+                    </td>
+                    <td style={{ textAlign:'center' }}>
+                      {item.avg_rating != null
+                        ? <span className="admin-mono" style={{ color: item.avg_rating >= 4 ? C.emerald : item.avg_rating >= 3 ? C.amber : C.rose, fontWeight: 700 }}>{Number(item.avg_rating).toFixed(1)}</span>
+                        : <span style={{ color: C.text3 }}>—</span>}
+                    </td>
+                    <td style={{ textAlign:'center' }}><span className="admin-mono" style={{ color: C.text2 }}>{item.review_count || 0}</span></td>
+                    <td style={{ textAlign:'right' }}>
+                      <div style={{ display:'flex', gap: 5, justifyContent:'flex-end' }}>
+                        <button title="Edit" className="admin-btn-ghost" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => startEditItem(item)}>
+                          <Edit3 size={12} />
+                        </button>
+                        <button title="Delete" className="admin-btn-danger" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => deleteItem(item)}>
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           )}
@@ -824,85 +1922,126 @@ export default function AdminPanel({ onClose }) {
      SECTION: USERS
   ══════════════════════════════════════════════════════ */
   const UsersSection = () => {
-    const knownUsers = useMemo(() => {
-      const users = [
-        { id:'user1', name:'You', email:'admin@tastetrails.app', role:'admin' },
-        { id:'user2', name:'Maya', email:'maya@example.com', role:'user' },
-        { id:'user3', name:'Liam', email:'liam@example.com', role:'user' },
-        { id:'user4', name:'Ava', email:'ava@example.com', role:'user' },
-        { id:'user5', name:'Sophie', email:'sophie@example.com', role:'user' },
-        { id:'user6', name:'James', email:'james@example.com', role:'user' },
-      ]
-      return users.map(u => {
-        const userPosts = communityPosts.filter(p => p.userId === u.id || p.user_id === u.id)
-        return { ...u, postCount: userPosts.length, lastSeen: userPosts[0]?.timestamp ? new Date(userPosts[0].timestamp).toLocaleDateString() : '—', isBanned: moderation.banned.includes(u.id), isWarned: moderation.warned.includes(u.id) }
-      })
-    }, [])
+    const [localUsers, setLocalUsers] = useState(dbUsers)
 
-    const warnUser = (id) => {
-      const updated = { ...moderation, warned: moderation.warned.includes(id) ? moderation.warned.filter(x=>x!==id) : [...moderation.warned, id] }
-      saveMod(updated)
-      showToast('User warning updated')
+    useEffect(() => { setLocalUsers(dbUsers) }, [dbUsers])
+
+    const updateUserRole = async (u, newRole) => {
+      try {
+        const res = await fetch(`${API_BASE}/admin/users/${u.id}`, {
+          method: 'PATCH', headers: adminHeaders(), body: JSON.stringify({ role: newRole })
+        })
+        if (res.ok) {
+          setLocalUsers(prev => prev.map(x => x.id === u.id ? { ...x, role: newRole } : x))
+          showToast(`User role set to ${newRole}`)
+        } else {
+          showToast('Failed to update user')
+        }
+      } catch {
+        showToast('Server offline')
+      }
     }
-    const banUser = (id) => {
-      const updated = { ...moderation, banned: moderation.banned.includes(id) ? moderation.banned.filter(x=>x!==id) : [...moderation.banned, id] }
-      saveMod(updated)
-      showToast(moderation.banned.includes(id) ? 'User unbanned' : 'User banned')
+
+    const flagSuspicious = async (u) => {
+      // Increase bot_score to flag as suspicious
+      const newBotScore = u.bot_score > 0.7 ? 0.0 : 0.9
+      try {
+        const res = await fetch(`${API_BASE}/admin/users/${u.id}`, {
+          method: 'PATCH', headers: adminHeaders(), body: JSON.stringify({ bot_score: newBotScore })
+        })
+        if (res.ok) {
+          setLocalUsers(prev => prev.map(x => x.id === u.id ? { ...x, bot_score: newBotScore } : x))
+          showToast(newBotScore > 0.5 ? 'User flagged as suspicious' : 'User flag cleared')
+        }
+      } catch { showToast('Server offline') }
     }
+
+    const resetCredibility = async (u) => {
+      try {
+        const res = await fetch(`${API_BASE}/admin/users/${u.id}`, {
+          method: 'PATCH', headers: adminHeaders(), body: JSON.stringify({ credibility_score: 1.0, bot_score: 0.0 })
+        })
+        if (res.ok) {
+          setLocalUsers(prev => prev.map(x => x.id === u.id ? { ...x, credibility_score: 1.0, bot_score: 0.0 } : x))
+          showToast('User credibility reset')
+        }
+      } catch { showToast('Server offline') }
+    }
+
+    const displayUsers = localUsers.length > 0 ? localUsers : []
 
     return (
       <div className="admin-fade">
-        <SectionHeader title="Users" sub={`${knownUsers.length} registered users`} />
+        <SectionHeader title="Users" sub={`${displayUsers.length} registered users`} />
+        <div style={{ display:'flex', justifyContent:'flex-end', marginBottom: 12 }}>
+          <button className="admin-btn-ghost" style={{ padding:'6px 12px', borderRadius: 8, fontSize: 12, display:'flex', alignItems:'center', gap: 6 }} onClick={loadUsersFromServer}>
+            <RefreshCw size={12} />{dbUsersLoading ? 'Loading…' : 'Refresh Users'}
+          </button>
+        </div>
         <div style={{ background: C.surface, border:`1px solid ${C.border}`, borderRadius: 12, overflow:'hidden' }}>
+          {dbUsersLoading ? (
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>Loading users from database…</div>
+          ) : displayUsers.length === 0 ? (
+            <div style={{ padding: 40, textAlign:'center', color: C.text3 }}>No users found in database</div>
+          ) : (
           <table style={{ width:'100%', borderCollapse:'collapse' }} className="admin-table">
             <thead style={{ background: C.surface2 }}>
               <tr>
                 <th style={{ textAlign:'left' }}>User</th>
                 <th style={{ textAlign:'center' }}>Role</th>
-                <th style={{ textAlign:'center' }}>Posts</th>
-                <th style={{ textAlign:'center' }}>Last Active</th>
+                <th style={{ textAlign:'center' }}>Ratings</th>
+                <th style={{ textAlign:'center' }}>Trust Score</th>
                 <th style={{ textAlign:'center' }}>Status</th>
                 <th style={{ textAlign:'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {knownUsers.map((u,i) => (
-                <tr key={i}>
-                  <td>
-                    <div style={{ display:'flex', alignItems:'center', gap: 10 }}>
-                      <div style={{ width: 28, height: 28, borderRadius:'50%', background:`linear-gradient(135deg,${C.amber},${C.amberDim})`, display:'flex', alignItems:'center', justifyContent:'center', fontSize: 12, fontWeight: 700, color: '#09090b', flexShrink: 0 }}>
-                        {u.name.charAt(0)}
+              {displayUsers.map((u, i) => {
+                const isSuspicious = u.bot_score > 0.7
+                const initial = (u.name || u.email || '?').charAt(0).toUpperCase()
+                return (
+                  <tr key={u.id || i}>
+                    <td>
+                      <div style={{ display:'flex', alignItems:'center', gap: 10 }}>
+                        <div style={{ width: 28, height: 28, borderRadius:'50%', background:`linear-gradient(135deg,${C.amber},${C.amberDim})`, display:'flex', alignItems:'center', justifyContent:'center', fontSize: 12, fontWeight: 700, color: '#09090b', flexShrink: 0 }}>
+                          {initial}
+                        </div>
+                        <div>
+                          <div style={{ fontWeight: 600, color: C.text, fontSize: 13 }}>{u.name || '—'}</div>
+                          <div style={{ fontSize: 11, color: C.text3 }}>{u.email}</div>
+                        </div>
                       </div>
-                      <div>
-                        <div style={{ fontWeight: 600, color: C.text, fontSize: 13 }}>{u.name}</div>
-                        <div style={{ fontSize: 11, color: C.text3 }}>{u.email}</div>
+                    </td>
+                    <td style={{ textAlign:'center' }}>
+                      <Badge color={isSuspicious ? C.rose : C.blue}>{u.role || 'user'}</Badge>
+                    </td>
+                    <td style={{ textAlign:'center' }}><span className="admin-mono" style={{ color: C.text2 }}>{u.ratings_count ?? '—'}</span></td>
+                    <td style={{ textAlign:'center' }}>
+                      <span className="admin-mono" style={{ color: u.credibility_score >= 1.5 ? C.emerald : u.credibility_score >= 0.8 ? C.amber : C.rose }}>
+                        {u.credibility_score != null ? Number(u.credibility_score).toFixed(2) : '—'}
+                      </span>
+                    </td>
+                    <td style={{ textAlign:'center' }}>
+                      <Badge color={isSuspicious ? C.rose : C.emerald}>
+                        {isSuspicious ? 'Suspicious' : 'Active'}
+                      </Badge>
+                    </td>
+                    <td style={{ textAlign:'right' }}>
+                      <div style={{ display:'flex', gap: 5, justifyContent:'flex-end' }}>
+                        <button title={u.bot_score > 0.7 ? 'Clear flag' : 'Flag as suspicious'} className="admin-btn-ghost" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => flagSuspicious(u)}>
+                          <AlertTriangle size={12} color={u.bot_score > 0.7 ? C.amber : C.text3} />
+                        </button>
+                        <button title="Reset credibility to 1.0" className="admin-btn-ghost" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => resetCredibility(u)}>
+                          <RefreshCw size={12} />
+                        </button>
                       </div>
-                    </div>
-                  </td>
-                  <td style={{ textAlign:'center' }}><Badge color={u.role === 'admin' ? C.amber : C.blue}>{u.role}</Badge></td>
-                  <td style={{ textAlign:'center' }}><span className="admin-mono" style={{ color: C.text2 }}>{u.postCount}</span></td>
-                  <td style={{ textAlign:'center', fontSize: 12, color: C.text3 }}>{u.lastSeen}</td>
-                  <td style={{ textAlign:'center' }}>
-                    <Badge color={u.isBanned ? C.rose : u.isWarned ? C.amber : C.emerald}>
-                      {u.isBanned ? 'Banned' : u.isWarned ? 'Warned' : 'Active'}
-                    </Badge>
-                  </td>
-                  <td style={{ textAlign:'right' }}>
-                    <div style={{ display:'flex', gap: 5, justifyContent:'flex-end' }}>
-                      {u.id !== 'user1' && <>
-                        <button title="Warn" className="admin-btn-ghost" style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => warnUser(u.id)}>
-                          <AlertTriangle size={12} color={C.amber} />
-                        </button>
-                        <button title={u.isBanned ? 'Unban' : 'Ban'} className={u.isBanned ? 'admin-btn-ghost' : 'admin-btn-danger'} style={{ padding:'5px 7px', borderRadius: 6 }} onClick={() => banUser(u.id)}>
-                          <UserX size={12} />
-                        </button>
-                      </>}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
+          )}
         </div>
       </div>
     )

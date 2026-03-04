@@ -135,11 +135,13 @@ router.get("/admin/menu-item-flags", async (req, res) => {
 });
 
 router.patch("/admin/menu-item-flags/:flagId", async (req, res) => {
+
   const auth = await requireAdmin(req, res);
   if (!auth) return;
 
   const { flagId } = req.params;
   const { status, resolution_note } = req.body || {};
+
 
   if (!status) {
     return res.status(400).json({ error: "Status is required" });
@@ -151,21 +153,21 @@ router.patch("/admin/menu-item-flags/:flagId", async (req, res) => {
     resolved_at: status === "resolved" || status === "dismissed" ? nowIso() : null
   };
 
-  if (supabase) {
-    const { data, error } = await supabase
-      .from("menu_item_flags")
-      .update(updates)
-      .eq("id", flagId)
-      .select()
-      .single();
+  // Use supabaseAdmin for privileged update
+  const { supabaseAdmin } = await import("../../backend/supabase.js");
+  const { data, error } = await supabaseAdmin
+    .from("menu_item_flags")
+    .update(updates)
+    .eq("id", flagId)
+    .select()
+    .single();
 
-    if (error) {
-      if (!tableMissing(error)) {
-        return res.status(400).json({ error: error.message || "Failed to update flag" });
-      }
-    } else {
-      return res.json(data);
+  if (error) {
+    if (!tableMissing(error)) {
+      return res.status(400).json({ error: error.message || "Failed to update flag" });
     }
+  } else {
+    return res.json(data);
   }
 
   const localFlags = readLocalFlags();
