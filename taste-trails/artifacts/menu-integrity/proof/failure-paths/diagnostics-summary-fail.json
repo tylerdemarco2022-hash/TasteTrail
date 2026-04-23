@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.361Z",
+  "category": "diagnostics_summary_degradation_block",
+  "result_type": "fail",
+  "blocked_reason": "BLOCKED: diagnostics summary-only degradation enforced",
+  "oversized_triggered": true,
+  "any_full_payload_leak": false,
+  "artifact_sha256": "c6c494228d9f0486c8cc9c604e08743c54d5a1cf1d70e2ff8d27aa41f62974ec"
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.360Z",
+  "category": "diagnostics_rate_limit_block",
+  "result_type": "fail",
+  "blocked_reason": "BLOCKED: diagnostics rate limit triggered",
+  "rate_limited_count": 50,
+  "artifact_sha256": "3568101060cfcecb2fa8afb78646af7b6755ac72201bda23f2aadba09ce54c1b"
+}

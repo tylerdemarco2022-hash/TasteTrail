@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.457Z",
+  "category": "latency-regression-block",
+  "result_type": "fail",
+  "fail_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\live-high-latency.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n[release-gate] BLOCKED: p95 latency regression: current=260ms baseline=100ms deviation=160.0% threshold=20.0%\n[release-gate] Set ENFORCE_LATENCY_REGRESSION=false or raise LATENCY_REGRESSION_THRESHOLD_PCT to allow.\n",
+    "output": "[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n[release-gate] BLOCKED: p95 latency regression: current=260ms baseline=100ms deviation=160.0% threshold=20.0%\n[release-gate] Set ENFORCE_LATENCY_REGRESSION=false or raise LATENCY_REGRESSION_THRESHOLD_PCT to allow."
+  },
+  "blocked_reason": "[release-gate] BLOCKED: p95 latency regression: current=260ms baseline=100ms deviation=160.0% threshold=20.0%",
+  "guarantee_satisfied": true,
+  "artifact_sha256": "4d6a347dc10e62ecce6bc4ed1b1f2bf3685660e542b417f53e24ce4fc1ba3c2d"
+}

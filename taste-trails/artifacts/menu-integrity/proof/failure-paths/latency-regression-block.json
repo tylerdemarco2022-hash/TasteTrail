@@ -1,0 +1,31 @@
+{
+  "baseline_provenance": {
+    "source": "proof_fixture",
+    "normalized_environment": {
+      "NODE_ENV": "test",
+      "SIM_MODE": "false",
+      "LIVE_MODE": "true",
+      "cpu_class": "github-actions-standard",
+      "load_class": "isolated-proof-run"
+    }
+  },
+  "prior_p95_ms": 100,
+  "current_p95_ms": 260,
+  "threshold_pct": 20,
+  "pass_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\live-high-latency.json",
+    "exit_code": 0,
+    "stdout": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/live-high-latency.json\n",
+    "stderr": "[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n",
+    "output": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/live-high-latency.json\n[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure."
+  },
+  "fail_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\live-high-latency.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n[release-gate] BLOCKED: p95 latency regression: current=260ms baseline=100ms deviation=160.0% threshold=20.0%\n[release-gate] Set ENFORCE_LATENCY_REGRESSION=false or raise LATENCY_REGRESSION_THRESHOLD_PCT to allow.\n",
+    "output": "[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n[release-gate] BLOCKED: p95 latency regression: current=260ms baseline=100ms deviation=160.0% threshold=20.0%\n[release-gate] Set ENFORCE_LATENCY_REGRESSION=false or raise LATENCY_REGRESSION_THRESHOLD_PCT to allow."
+  },
+  "fail_expected": true,
+  "decision_text": "[release-gate] ALERT: last-known-good deviation detected: p95_ms_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n[release-gate] BLOCKED: p95 latency regression: current=260ms baseline=100ms deviation=160.0% threshold=20.0%\n[release-gate] Set ENFORCE_LATENCY_REGRESSION=false or raise LATENCY_REGRESSION_THRESHOLD_PCT to allow."
+}

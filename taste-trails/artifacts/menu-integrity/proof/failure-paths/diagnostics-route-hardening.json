@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-04-23T02:42:13.705Z",
+  "steps": [
+    {
+      "case": "diagnostics_summary_full_pass",
+      "expected": "normal request can return full payload",
+      "status": 200,
+      "success": true,
+      "body_excerpt": {
+        "success": true,
+        "summary_only": false,
+        "degraded_reason": null
+      }
+    },
+    {
+      "case": "diagnostics_rate_limit_pass",
+      "expected": "status 200 while still under configured max",
+      "status": 200,
+      "success": true
+    },
+    {
+      "case": "diagnostics_rate_limit_fail",
+      "expected": "third request returns 429",
+      "statuses": [
+        429,
+        429,
+        429
+      ],
+      "status": 429,
+      "success": true,
+      "body": {
+        "error": "Too many diagnostics requests. Please slow down."
+      }
+    },
+    {
+      "case": "diagnostics_summary_only_degradation_path",
+      "expected": "summary_only=true with degraded_reason=payload_too_large",
+      "status": 200,
+      "success": true,
+      "body_excerpt": {
+        "summary_only": true,
+        "degraded_reason": "payload_too_large",
+        "diagnostics_meta": {
+          "payload_bytes": 99331,
+          "max_payload_bytes": 180000,
+          "trimmed": false,
+          "response_limit_used": 200,
+          "latency_ms": 1,
+          "latency_sla_ms": 250,
+          "latency_sla_met": true
+        }
+      }
+    }
+  ],
+  "success": true
+}

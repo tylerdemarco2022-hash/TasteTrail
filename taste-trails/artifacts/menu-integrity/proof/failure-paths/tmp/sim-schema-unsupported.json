@@ -1,0 +1,73 @@
+{
+  "schema_version": "9.9.9",
+  "generated_at": "2026-04-23T02:42:13.011Z",
+  "run_id": "sim_mode-proof-1776912133011",
+  "mode": "SIM_MODE",
+  "tests": [
+    {
+      "test_name": "db_page_2_fault",
+      "pass_fail": "PASS",
+      "trace_id": "sim_mode-trace-db-page-2-fault",
+      "actual": {
+        "status_code": 503,
+        "strict_mode": true
+      }
+    },
+    {
+      "test_name": "early_stop_truncation",
+      "pass_fail": "PASS",
+      "trace_id": "sim_mode-trace-early-stop",
+      "actual": {
+        "api_count": 3262,
+        "db_count": 3262
+      }
+    },
+    {
+      "test_name": "concurrent_large_menu_10x",
+      "pass_fail": "PASS",
+      "trace_id": "sim_mode-trace-concurrent",
+      "actual": {
+        "unique_api_counts": [
+          3262
+        ],
+        "unique_db_counts": [
+          3262
+        ],
+        "unique_frontend_counts": [
+          3262
+        ]
+      }
+    },
+    {
+      "test_name": "fallback_cache_poison_replay",
+      "pass_fail": "PASS",
+      "trace_id": "sim_mode-trace-fallback-poison",
+      "actual": {
+        "strict_mode_result": "db_error_503"
+      }
+    },
+    {
+      "test_name": "performance_memory_guardrails",
+      "pass_fail": "PASS",
+      "trace_id": "sim_mode-trace-perf",
+      "actual": {
+        "p95_ms": 110,
+        "max_rss_bytes": 200000000
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "pass_fail": "PASS",
+    "release_gate_pass": true,
+    "gate_failures": {
+      "any_adversarial_test_failed": false,
+      "any_count_mismatch": false,
+      "any_silent_truncation": false,
+      "any_fallback_masking_in_strict_mode": false
+    }
+  },
+  "artifact_sha256": "36895e7d3fc0c24e21fd9fcc91ef2d2035e5a45c056eaf88d61e464dcec5d217"
+}

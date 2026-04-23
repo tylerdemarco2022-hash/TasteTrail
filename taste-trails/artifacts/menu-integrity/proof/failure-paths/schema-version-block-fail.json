@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.456Z",
+  "category": "schema-version-block",
+  "result_type": "fail",
+  "fail_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-schema-unsupported.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0\n",
+    "output": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0"
+  },
+  "blocked_reason": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0",
+  "guarantee_satisfied": true,
+  "artifact_sha256": "5704ec0fa2df32727d8c8151de54511fb188b6da80e4fd9386606b321f2011d5"
+}

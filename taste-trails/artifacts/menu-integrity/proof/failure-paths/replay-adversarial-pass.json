@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:28.122Z",
+  "category": "regression_replay_orphan_failure",
+  "result_type": "pass",
+  "pass_result": {
+    "command": "node scripts/replayRegressionScenarios.mjs",
+    "exit_code": 0,
+    "stdout": "[regression-replay] checking 9 regression scenario(s)...\n[regression-replay] 9/9 scenarios fully covered\n  [OK] RSC-001 silent_truncation_at_1000 | test_ref=found gate_sig=enforced\n  [OK] RSC-002 fallback_masking_db_error | test_ref=found gate_sig=enforced\n  [OK] RSC-003 count_parity_broken_concurrent | test_ref=found gate_sig=enforced\n  [OK] RSC-004 regression_trap_control_flow | test_ref=found gate_sig=enforced\n  [OK] RSC-005 fallback_cache_poison | test_ref=found gate_sig=enforced\n  [OK] RSC-006 production_config_drift_unsafe_fallback_flag | test_ref=found gate_sig=enforced\n  [OK] RSC-007 stale_lkg_baseline_hides_latency_drift | test_ref=found gate_sig=enforced\n  [OK] RSC-008 diagnostics_rate_limit_abuse | test_ref=found gate_sig=enforced\n  [OK] RSC-009 diagnostics_payload_overload_summary_degrade | test_ref=found gate_sig=enforced\n[regression-replay] PASS: all regression scenarios are covered by active tests and gate logic\n",
+    "stderr": "",
+    "output": "[regression-replay] checking 9 regression scenario(s)...\n[regression-replay] 9/9 scenarios fully covered\n  [OK] RSC-001 silent_truncation_at_1000 | test_ref=found gate_sig=enforced\n  [OK] RSC-002 fallback_masking_db_error | test_ref=found gate_sig=enforced\n  [OK] RSC-003 count_parity_broken_concurrent | test_ref=found gate_sig=enforced\n  [OK] RSC-004 regression_trap_control_flow | test_ref=found gate_sig=enforced\n  [OK] RSC-005 fallback_cache_poison | test_ref=found gate_sig=enforced\n  [OK] RSC-006 production_config_drift_unsafe_fallback_flag | test_ref=found gate_sig=enforced\n  [OK] RSC-007 stale_lkg_baseline_hides_latency_drift | test_ref=found gate_sig=enforced\n  [OK] RSC-008 diagnostics_rate_limit_abuse | test_ref=found gate_sig=enforced\n  [OK] RSC-009 diagnostics_payload_overload_summary_degrade | test_ref=found gate_sig=enforced\n[regression-replay] PASS: all regression scenarios are covered by active tests and gate logic"
+  },
+  "artifact_sha256": "d4feb1263c91c53eb323125a9401b1590017818a8f7b08603ae8ee357470298e"
+}

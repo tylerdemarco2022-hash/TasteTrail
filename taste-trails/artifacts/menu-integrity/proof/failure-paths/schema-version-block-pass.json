@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.455Z",
+  "category": "schema-version-block",
+  "result_type": "pass",
+  "pass_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json",
+    "exit_code": 0,
+    "stdout": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json\n",
+    "stderr": "",
+    "output": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json"
+  },
+  "guarantee_satisfied": true,
+  "artifact_sha256": "de47200d7a3a6237c99689dd648f493ccad831646ea60ff8a8ad3c4787eeaa9a"
+}

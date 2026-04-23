@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.359Z",
+  "category": "diagnostics_rate_limit_block",
+  "result_type": "pass",
+  "status": 200,
+  "sampled_under_limit": true,
+  "artifact_sha256": "3975482e83bf19f56a754b846c160ab2b967413637d319dea7bb3d2cd9bdf630"
+}
