@@ -80,3 +80,87 @@ html, body, #root {
 .animate-slideUp {
   animation: slideUp 0.3s ease-out;
 }
+/* Safe area utilities for notched devices (iPhones, some Androids) */
+.safe-area-top {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.safe-area-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.safe-area-left {
+  padding-left: max(1rem, env(safe-area-inset-left));
+}
+
+.safe-area-right {
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.safe-area-all {
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.safe-area-horizontal {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* Visible focus indicators for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: #1f2937;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0.5rem;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Hide scrollbar on horizontal cuisine scroll rows */
+.cuisine-chips-scroll::-webkit-scrollbar,
+.cuisine-row-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.cuisine-chips-scroll,
+.cuisine-row-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Line clamp utility */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Remove transitions on reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

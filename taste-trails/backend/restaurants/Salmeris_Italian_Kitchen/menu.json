@@ -54,12 +54,6 @@
     "category": "Appetizers"
   },
   {
-    "name": "Meat & Cheese Board",
-    "description": "assorted italian artisan meats & cheeses. olives. jam. candied nuts. crostini.",
-    "price": "$16",
-    "category": "Appetizers"
-  },
-  {
     "name": "Cheese and Tomato",
     "description": "oregano. fresh mozzarella. sauce. olive oil.",
     "price": "$14",
@@ -69,12 +63,6 @@
     "name": "House Meatball and Ricotta",
     "description": "caramelized onions. roasted peppers. sauce. basil. mozzarella.",
     "price": "$15",
-    "category": "Pizzas"
-  },
-  {
-    "name": "Margherita",
-    "description": "fresh mozzarella. basil. parmesan. sauce.",
-    "price": "$14",
     "category": "Pizzas"
   },
   {
@@ -225,12 +213,6 @@
     "name": "Chianti Braised Beef Short Ribs",
     "description": "marsala glazed mushrooms. polenta. broccolini. beef sauce.",
     "price": "$29",
-    "category": "Entrees"
-  },
-  {
-    "name": "*Grilled Cold Water Salmon",
-    "description": "tomatoes. spinach. artichoke. squash. lemon butter.",
-    "price": "$25",
     "category": "Entrees"
   },
   {

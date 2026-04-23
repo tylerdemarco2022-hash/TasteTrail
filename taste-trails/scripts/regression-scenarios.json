@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Captured regression scenarios replayed on every CI build to prevent recurrence.",
+  "scenarios": [
+    {
+      "id": "RSC-001",
+      "name": "silent_truncation_at_1000",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "adversarial-suite:SIM_MODE",
+      "description": "Fetching a restaurant with >1000 items was silently capped at 1000 when pagination loop exited early. Items 1001+ were never returned.",
+      "trigger": "MENU_ITEMS_REPO_MAX_PAGES=1 with a restaurant that has 3262 items",
+      "expected_behavior": "API must return item_count > 1000, or if capped, must 503 with explicit truncation error, never silently return fewer items than exist",
+      "gate_failure_signature": "any_silent_truncation",
+      "test_ref": "early_stop_truncation in runAdversarialMenuIntegrity.mjs"
+    },
+    {
+      "id": "RSC-002",
+      "name": "fallback_masking_db_error",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "adversarial-suite:SIM_MODE",
+      "description": "When DB paginates and page 2 throws, ALLOW_FALLBACK_ON_DB_ERROR=true would silently return partial results from cache. Caller could not distinguish partial data from full data.",
+      "trigger": "MENU_ITEMS_REPO_THROW_ON_PAGE=2 with ALLOW_FALLBACK_ON_DB_ERROR=false",
+      "expected_behavior": "Must return 503 with source db_error. Must NOT return 200 with partial items.",
+      "gate_failure_signature": "any_fallback_masking_in_strict_mode",
+      "test_ref": "db_page_2_fault in runAdversarialMenuIntegrity.mjs"
+    },
+    {
+      "id": "RSC-003",
+      "name": "count_parity_broken_concurrent",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "adversarial-suite:LIVE_MODE",
+      "description": "Under 10 concurrent requests for the same large-menu restaurant, DB count, API count, and frontend count drifted. This indicates a race condition or cache inconsistency.",
+      "trigger": "10 concurrent requests to /api/restaurants/:id/full-menu",
+      "expected_behavior": "All concurrent responses must return identical item_count. DB raw rows must equal API count. No variance allowed.",
+      "gate_failure_signature": "any_count_mismatch",
+      "test_ref": "concurrent_large_menu_10x in runAdversarialMenuIntegrity.mjs"
+    },
+    {
+      "id": "RSC-004",
+      "name": "regression_trap_control_flow",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "unit-test:fullMenuRoute.controlFlow.test.js",
+      "description": "Route was returning fallback source on DB errors instead of 503. DB errors were being masked as successful responses with stale cache data.",
+      "trigger": "Simulated DB error injected via makeSupabaseQuery factory",
+      "expected_behavior": "DB error must produce 503 with source=db_error. item_count for large restaurant must never be 0 or capped at 1000 when 3262 rows exist.",
+      "gate_failure_signature": "unit_tests_failed",
+      "test_ref": "regression trap: blocks silent truncation in fullMenuRoute.controlFlow.test.js"
+    },
+    {
+      "id": "RSC-005",
+      "name": "fallback_cache_poison",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "adversarial-suite:SIM_MODE",
+      "description": "If a poisoned/truncated result is written to the fallback cache, then DB becomes unavailable, all subsequent fallback reads return corrupted data indefinitely.",
+      "trigger": "Write poisoned cache, then DB throws on all requests",
+      "expected_behavior": "In strict mode (ALLOW_FALLBACK_ON_DB_ERROR=false): 503 must be returned, never poisoned cache. In loose mode: fallback should serve only if the cached count matches last known DB count.",
+      "gate_failure_signature": "any_fallback_masking_in_strict_mode",
+      "test_ref": "fallback_cache_poison_replay in runAdversarialMenuIntegrity.mjs"
+    },
+    {
+      "id": "RSC-006",
+      "name": "production_config_drift_unsafe_fallback_flag",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "startup-guard:menuIntegrityRuntimeGuard",
+      "description": "Production deployment accidentally set ALLOW_FALLBACK_ON_DB_ERROR=true, enabling fallback masking under DB error conditions.",
+      "trigger": "NODE_ENV=production with ALLOW_FALLBACK_ON_DB_ERROR=true",
+      "expected_behavior": "Startup must hard fail with MENU_INTEGRITY_RUNTIME_POLICY_BLOCKED.",
+      "gate_failure_signature": "runtime_policy_fallback_flag_unsafe",
+      "test_ref": "blocks unsafe fallback masking config in production in menuIntegrityRuntimeGuard.test.js"
+    },
+    {
+      "id": "RSC-007",
+      "name": "stale_lkg_baseline_hides_latency_drift",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "release-gate:LKG-compare",
+      "description": "A stale baseline can let severe p95 latency regression drift through unless latency hard gate is enabled.",
+      "trigger": "ENFORCE_LATENCY_REGRESSION=true with previous baseline p95 significantly lower than current",
+      "expected_behavior": "Gate must hard fail with p95 latency regression evidence and explicit baseline/current values.",
+      "gate_failure_signature": "latency_regression_blocked",
+      "test_ref": "BLOCKED: p95 latency regression in releaseGateMenuIntegrity.mjs"
+    },
+    {
+      "id": "RSC-008",
+      "name": "diagnostics_rate_limit_abuse",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "admin-diagnostics-route",
+      "description": "Burst requests against admin diagnostics can become an amplification vector if no route-level limiter is enforced.",
+      "trigger": "Repeated GET /api/admin/menu-integrity/diagnostics above configured max per minute",
+      "expected_behavior": "Endpoint must return HTTP 429 with rate-limit message once threshold is exceeded.",
+      "gate_failure_signature": "diagnostics_rate_limited",
+      "test_ref": "Too many diagnostics requests. Please slow down. in menu.js"
+    },
+    {
+      "id": "RSC-009",
+      "name": "diagnostics_payload_overload_summary_degrade",
+      "captured_at": "2026-04-22T00:00:00.000Z",
+      "source": "admin-diagnostics-route",
+      "description": "Large diagnostics payloads can degrade availability if full payload rendering is always attempted.",
+      "trigger": "Large diagnostics history with low summary-only threshold",
+      "expected_behavior": "Endpoint must return summary_only=true and degraded_reason=payload_too_large.",
+      "gate_failure_signature": "diagnostics_summary_only_degradation",
+      "test_ref": "payload_too_large in menu.js"
+    }
+  ]
+}

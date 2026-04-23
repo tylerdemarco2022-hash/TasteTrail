@@ -1,10 +1,267 @@
 import { API_BASE_URL } from '../config/api'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { restaurants, posts as communityPosts } from '../data'
 import SearchBar from './SearchBar'
 import StarRating from './StarRating'
+import {
+  isBlockedRestaurant,
+  filterBlockedRestaurants,
+  restaurantMatchesDietaryPreferences
+} from '../utils/filters'
 
 console.log('Feed.jsx LOADED')
+
+// Restaurant type categories (user-defined)
+const RESTAURANT_CATEGORIES = [
+  'Fast Casual',
+  'Casual Dining',
+  'Fine Dining',
+  'Bar & Grill',
+  'Steakhouse',
+  'Seafood House',
+  'Sushi',
+]
+
+const CATEGORY_ICONS = {
+  'Fast Casual': '🌯',
+  'Casual Dining': '🍽️',
+  'Fine Dining': '🍷',
+  'Bar & Grill': '🍺',
+  'Steakhouse': '🥩',
+  'Seafood House': '🦞',
+  'Sushi': '🍣',
+}
+
+// Map every cuisine string from the dataset to one or more categories.
+// A restaurant can appear in multiple categories.
+const CUISINE_TO_CATEGORIES = {
+  // Fast Food
+  'classic burgers': ['Fast Food'],
+  'bowling alley food': ['Fast Food'],
+  'donuts': ['Fast Food', 'Bakery'],
+  // Fast Casual
+  'burgers': ['Fast Casual'],
+  'sushi/burgers': ['Fast Casual'],
+  'mexican': ['Fast Casual', 'Casual Dining'],
+  'latin': ['Fast Casual', 'Casual Dining'],
+  'vietnamese': ['Fast Casual', 'Casual Dining'],
+  'thai': ['Fast Casual', 'Casual Dining'],
+  'indian': ['Fast Casual', 'Casual Dining'],
+  'asian fusion': ['Fast Casual', 'Casual Dining'],
+  // Casual Dining
+  'american': ['Casual Dining'],
+  'american casual': ['Casual Dining'],
+  'american diner': ['Casual Dining'],
+  'italian': ['Casual Dining'],
+  'contemporary american': ['Casual Dining'],
+  'new american': ['Casual Dining'],
+  'american grill': ['Casual Dining', 'Bar & Grill'],
+  'american pub': ['Casual Dining', 'Bar & Grill'],
+  'southern': ['Casual Dining'],
+  'new southern': ['Casual Dining'],
+  'greek': ['Casual Dining'],
+  'mediterranean': ['Casual Dining'],
+  'spanish': ['Casual Dining'],
+  'spanish tapas': ['Casual Dining'],
+  'japanese': ['Casual Dining'],
+  'chinese': ['Casual Dining'],
+  'korean': ['Casual Dining'],
+  'asian': ['Casual Dining'],
+  'sushi': ['Casual Dining'],
+  'wood fired': ['Casual Dining', 'Food Truck'],
+  // Fine Dining
+  'fine dining': ['Fine Dining'],
+  'contemporary': ['Fine Dining'],
+  'french': ['Fine Dining'],
+  'wine bar': ['Fine Dining', 'Bar & Grill'],
+  'organic': ['Fine Dining', 'Casual Dining'],
+  'farm to table': ['Fine Dining', 'Casual Dining'],
+  // Buffet
+  'brazilian': ['Buffet', 'Casual Dining'],
+  // Cafe
+  'cafe': ['Cafe'],
+  'coffee': ['Cafe'],
+  // Bakery
+  'bakery': ['Bakery'],
+  'french bakery': ['Bakery', 'Cafe'],
+  // Deli
+  'deli': ['Deli'],
+  'sandwich': ['Deli'],
+  // Bar & Grill
+  'pub food': ['Bar & Grill'],
+  'brewery': ['Bar & Grill'],
+  'craft brewery': ['Bar & Grill'],
+  'bbq': ['Bar & Grill'],
+  'southern bbq': ['Bar & Grill'],
+  // Steakhouse
+  'steakhouse': ['Steakhouse'],
+  'brazilian steakhouse': ['Steakhouse'],
+  // Seafood House
+  'seafood': ['Seafood House'],
+}
+
+// Name keywords → categories
+const NAME_KEYWORDS = [
+  { patterns: ['steakhouse', 'steak house'], cat: 'Steakhouse' },
+  { patterns: ['seafood'], cat: 'Seafood House' },
+  { patterns: ['bar & grill', 'bar and grill', 'taproom', 'tap house', 'ale house', 'brewing', 'brewhouse', 'brew pub', 'brewpub', 'sports bar'], cat: 'Bar & Grill' },
+  { patterns: ['buffet'], cat: 'Buffet' },
+  { patterns: ['food truck'], cat: 'Food Truck' },
+  { patterns: ['cafe', 'café', 'coffee'], cat: 'Cafe' },
+  { patterns: ['bakery', 'bake shop', 'donut', 'doughnut'], cat: 'Bakery' },
+  { patterns: ['deli', 'delicatessen'], cat: 'Deli' },
+  { patterns: ['bistro', 'brasserie', 'trattoria', 'osteria', 'ristorante', 'maison', 'omakase'], cat: 'Fine Dining' },
+]
+
+// Known chain names
+const CHAIN_CATEGORIES = [
+  { names: ["mcdonald", 'burger king', "wendy", 'taco bell', 'kfc', 'chick-fil-a', "popeye", "arby", 'sonic', "jack in the box", "carl's jr", "hardee", 'white castle', "five guys", 'in-n-out', "whataburger", "wingstop", "zaxby", "raising cane", "cook out", 'cookout', 'checkers', "del taco", "el pollo loco", "long john silver", "church's chicken", 'domino', 'pizza hut', "papa john", "little caesar", 'subway', 'jersey mike', 'jimmy john', 'firehouse sub', 'starbucks', 'dunkin'], cat: 'Fast Food' },
+  { names: ['chipotle', 'panera', 'shake shack', 'noodles & company', 'qdoba', "moe's", 'panda express', 'sweetgreen', 'cava', 'blaze pizza', 'mod pizza', 'tropical smoothie', "mcalister", 'potbelly', 'smashburger'], cat: 'Fast Casual' },
+]
+
+// Returns an array of categories for a restaurant
+function getCategories(restaurant) {
+  // 1. Use service_model and cuisine_tags if present
+  const cats = new Set();
+  if (Array.isArray(restaurant.service_model) && restaurant.service_model.length > 0) {
+    restaurant.service_model.forEach(c => {
+      if (typeof c === 'string' && c.trim()) cats.add(c.trim());
+    });
+  } else if (typeof restaurant.service_model === 'string' && restaurant.service_model.trim()) {
+    cats.add(restaurant.service_model.trim());
+  }
+  if (Array.isArray(restaurant.cuisine_tags) && restaurant.cuisine_tags.length > 0) {
+    restaurant.cuisine_tags.forEach(c => {
+      if (typeof c === 'string' && c.trim()) cats.add(c.trim());
+    });
+  } else if (typeof restaurant.cuisine_tags === 'string' && restaurant.cuisine_tags.trim()) {
+    cats.add(restaurant.cuisine_tags.trim());
+  }
+
+  // 2. Fallback to legacy logic if no categories found
+  if (cats.size === 0) {
+    const name = (restaurant.name || '').toLowerCase();
+    const cuisine = (restaurant.cuisine || '').toLowerCase().trim();
+    const types = (restaurant.types || []).map(t => t.toLowerCase());
+    const price = restaurant.price_level || 0;
+
+    // Direct cuisine string match
+    if (cuisine && CUISINE_TO_CATEGORIES[cuisine]) {
+      CUISINE_TO_CATEGORIES[cuisine].forEach(c => cats.add(c));
+    }
+    // Partial cuisine match
+    if (cuisine && cats.size === 0) {
+      for (const [key, values] of Object.entries(CUISINE_TO_CATEGORIES)) {
+        if (cuisine.includes(key) || key.includes(cuisine)) {
+          values.forEach(c => cats.add(c));
+          break;
+        }
+      }
+    }
+
+    // Name keyword check
+    for (const { patterns, cat } of NAME_KEYWORDS) {
+      if (patterns.some(p => name.includes(p))) cats.add(cat);
+    }
+
+    // Known chain names
+    for (const { names, cat } of CHAIN_CATEGORIES) {
+      if (names.some(n => name.includes(n))) cats.add(cat);
+    }
+
+    // Google Places types
+    if (types.includes('cafe') || types.includes('coffee_shop')) cats.add('Cafe');
+    if (types.includes('bakery')) cats.add('Bakery');
+    if (types.includes('bar') || types.includes('barbecue_restaurant')) cats.add('Bar & Grill');
+    if (types.includes('steak_house')) cats.add('Steakhouse');
+    if (types.includes('seafood_restaurant')) cats.add('Seafood House');
+    if (types.includes('meal_delivery') || types.includes('meal_takeaway')) cats.add('Fast Food');
+
+    // Price level signal (adds to, not replaces)
+    if (price === 1) cats.add('Fast Food');
+    if (price === 2) cats.add('Fast Casual');
+    if (price === 3) cats.add('Casual Dining');
+    if (price >= 4) cats.add('Fine Dining');
+  }
+
+  // 3. If still nothing, default to Casual Dining
+  if (cats.size === 0) cats.add('Casual Dining');
+
+  return [...cats];
+}
+
+// Get top 3 most liked dishes from user ratings OR from menu item data
+function getTopDishes(nearbyRestaurants) {
+  const dishes = []
+
+  // 1. Pull from localStorage user ratings
+  try {
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('dishRatings-')) {
+        const restaurantName = key.replace('dishRatings-', '')
+        const ratings = JSON.parse(localStorage.getItem(key) || '{}')
+        for (const [dishName, data] of Object.entries(ratings)) {
+          if (data && data.total && data.count) {
+            dishes.push({
+              name: dishName,
+              restaurant: restaurantName,
+              avgRating: data.total / data.count,
+              reviewCount: data.count,
+              source: 'user',
+            })
+          }
+        }
+      }
+    })
+  } catch { /* ignore */ }
+
+  // 2. If we don't have enough user-rated dishes, pull from menu item ratings
+  if (dishes.length < 3 && Array.isArray(nearbyRestaurants)) {
+    for (const r of nearbyRestaurants) {
+      if (r.loading) continue
+      for (const item of (r.menu || [])) {
+        const itemRating = item.rating
+        if (itemRating && itemRating > 0) {
+          const itemName = item.dish_name || item.name || item.title || ''
+          if (!itemName) continue
+          // Skip if we already have a user rating for this dish
+          if (dishes.some(d => d.name === itemName && d.restaurant === r.name)) continue
+          dishes.push({
+            name: itemName,
+            restaurant: r.name,
+            avgRating: itemRating,
+            reviewCount: 1,
+            source: 'menu',
+          })
+        }
+      }
+    }
+  }
+
+  // Sort: user-rated first, then by avg rating desc, then review count desc
+  dishes.sort((a, b) => {
+    if (a.source !== b.source) return a.source === 'user' ? -1 : 1
+    if (b.avgRating !== a.avgRating) return b.avgRating - a.avgRating
+    return b.reviewCount - a.reviewCount
+  })
+  return dishes.slice(0, 3)
+}
+
+function groupByCategory(restaurants) {
+  const groups = {}
+  for (const r of restaurants) {
+    const cats = getCategories(r)
+    for (const cat of cats) {
+      if (!groups[cat]) groups[cat] = []
+      groups[cat].push(r)
+    }
+  }
+  // Sort each group by rating desc (keep all for "View All")
+  for (const [cat, list] of Object.entries(groups)) {
+    groups[cat] = list.sort((a, b) => (b.avgRating || b.rating || 0) - (a.avgRating || a.rating || 0))
+  }
+  return groups
+}
 
 function haversine(lat1, lon1, lat2, lon2) {
   const toRad = (v) => (v * Math.PI) / 180
@@ -63,29 +320,16 @@ function calculateWaitTime(restaurant) {
   return Math.max(5, baseWait)
 }
 
-const BLOCKED_RESTAURANT_TOKENS = new Set([
-  'chickfila',
-  'cookout',
-  'starbucks',
-  'quicktrip',
-  'quiktrip',
-  'crackerbarrel'
-])
-
-const normalizeRestaurantName = (name = '') =>
-  String(name).toLowerCase().replace(/[^a-z0-9]+/g, '')
-
-const isBlockedRestaurant = (name = '') => {
-  const normalized = normalizeRestaurantName(name)
-  if (!normalized) return false
-  for (const token of BLOCKED_RESTAURANT_TOKENS) {
-    if (normalized.includes(token)) return true
-  }
-  return false
+const filterRestaurantsByDietaryPreferences = (list = [], preferences) => {
+  return list.filter((r) => restaurantMatchesDietaryPreferences(r, preferences))
 }
 
-const filterBlockedRestaurants = (list = []) =>
-  list.filter((r) => !isBlockedRestaurant(r?.name || r?.restaurant || ''))
+const filterAllRestaurants = (list = [], preferences) => {
+  let filtered = filterBlockedRestaurants(list)
+  filtered = filterRestaurantsByDietaryPreferences(filtered, preferences)
+  return filtered
+}
+
 
 export default function Feed({ onOpen }) {
   const [pos, setPos] = useState({ lat: 35.2271, lon: -80.8431 })
@@ -96,6 +340,47 @@ export default function Feed({ onOpen }) {
   const [searchingLocation, setSearchingLocation] = useState(false)
   const [opening, setOpening] = useState(false)
   const [topPicks, setTopPicks] = useState([])
+  const [activeCuisine, setActiveCuisine] = useState(null)
+  const [expandedCategories, setExpandedCategories] = useState({})
+  const [communityTopDishes, setCommunityTopDishes] = useState([])
+  const [loadingTopDishes, setLoadingTopDishes] = useState(false)
+
+  // Listen for admin panel changes to restaurant metadata
+  useEffect(() => {
+    const handler = () => {
+      // Refetch restaurants when admin panel updates service_model/cuisine_tags
+      if (pos) {
+        fetchNearbyYelp();
+      }
+    };
+    window.addEventListener('restaurantOverridesChanged', handler);
+    return () => window.removeEventListener('restaurantOverridesChanged', handler);
+  }, [pos]);
+
+  const toggleExpand = (cat) => {
+    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }))
+  }
+
+  // Compute category groups from nearby restaurants
+  const categoryGroups = React.useMemo(() => {
+    const valid = nearby.filter(r => !r.loading)
+    if (!valid.length) return {}
+    return groupByCategory(valid)
+  }, [nearby])
+
+  // Always show all 12 categories in fixed order
+  const categoryOrder = RESTAURANT_CATEGORIES
+
+  // Top 3 dishes of the week
+  const topDishes = React.useMemo(() => getTopDishes(nearby), [nearby])
+  const [dietaryPreferences, setDietaryPreferences] = useState(() => {
+    try {
+      const prefs = localStorage.getItem('dietary_preferences')
+      return prefs ? JSON.parse(prefs) : []
+    } catch {
+      return []
+    }
+  })
 
   // Calculate top picks based on user ratings
   const calculateTopPicks = () => {
@@ -151,11 +436,43 @@ export default function Feed({ onOpen }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nearby])
 
+  // Fetch community-wide top dishes from backend
+  useEffect(() => {
+    const fetchCommunityTopDishes = async () => {
+      setLoadingTopDishes(true)
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/top-dishes?days=7&limit=3&minRatings=1`
+        )
+        if (!response.ok) throw new Error('Failed to fetch top dishes')
+        const data = await response.json()
+        console.log('📊 Community top 3 dishes loaded:', data)
+        setCommunityTopDishes(data.topDishes || [])
+      } catch (err) {
+        console.error('Error fetching community top dishes:', err)
+        setCommunityTopDishes([])
+      } finally {
+        setLoadingTopDishes(false)
+      }
+    }
+
+    fetchCommunityTopDishes()
+    // Refresh every 1 minute to see new ratings
+    const interval = setInterval(fetchCommunityTopDishes, 60 * 1000)
+    return () => clearInterval(interval)
+  }, [])
+
   const resolveImage = (r, idx = 0) => {
     const existing = (r.image_url || r.image || '').trim()
     if (existing) return existing
     const nameToken = encodeURIComponent(r.name || 'restaurant')
     return `https://source.unsplash.com/600x400/?restaurant,food,${nameToken}&sig=${idx}`
+  }
+
+  // Generate responsive image srcset for Unsplash images
+  const generateImageSrcSet = (baseUrl) => {
+    if (!baseUrl.includes('unsplash.com')) return ''
+    return `${baseUrl.replace(/(\?|&)w=\d+/, '')}?w=300&auto=format&fit=crop&q=80 300w, ${baseUrl.replace(/(\?|&)w=\d+/, '')}?w=600&auto=format&fit=crop&q=80 600w, ${baseUrl.replace(/(\?|&)w=\d+/, '')}?w=900&auto=format&fit=crop&q=80 900w`
   }
 
   async function openWithMenu(r) {
@@ -226,6 +543,23 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pos])
+
+  // Listen for dietary preference changes from Settings
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'dietary_preferences') {
+        try {
+          const updated = e.newValue ? JSON.parse(e.newValue) : []
+          setDietaryPreferences(updated)
+        } catch {
+          setDietaryPreferences([])
+        }
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   async function searchLocation(address) {
     if (!address.trim()) return
@@ -335,7 +669,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       })
 
       withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
+      const filtered = filterAllRestaurants(withDist, dietaryPreferences)
       setNearby(filtered)
 
       // Cache results
@@ -354,7 +688,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
         return ({ ...r, distance, avgRating, waitTime })
       })
       withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
+      const filtered = filterAllRestaurants(withDist, dietaryPreferences)
       setNearby(filtered)
     }
   }
@@ -372,9 +706,9 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       return ({ ...r, distance, avgRating, waitTime })
     })
     withDist.sort((a, b) => a.distance - b.distance)
-    const filtered = filterBlockedRestaurants(withDist)
+    const filtered = filterAllRestaurants(withDist, dietaryPreferences)
     setNearby(filtered)
-  }, [pos])
+  }, [pos, dietaryPreferences])
 
   // Load OSM restaurants for Charlotte (cached)
   async function fetchCharlotte() {
@@ -404,7 +738,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
         }
       })
       // store and set
-      const filtered = filterBlockedRestaurants(items)
+      const filtered = filterAllRestaurants(items, dietaryPreferences)
       localStorage.setItem('osm-charlotte', JSON.stringify(filtered))
       setNearby(filtered)
     } catch (e) {
@@ -481,7 +815,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       })
 
       withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
+      const filtered = filterAllRestaurants(withDist, dietaryPreferences)
       setNearby(filtered)
 
       // Cache results
@@ -549,207 +883,241 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
 
   return (
     <main className="max-w-3xl w-full mx-auto p-4 pb-24 space-y-6">
-      {/* Today's Top Picks Section */}
-      {topPicks.length > 0 && (
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-4 border-2 border-amber-200">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-2xl">🔥</span>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">Today's Top Picks</h3>
-              <p className="text-xs text-gray-600">Based on highly-rated items</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {topPicks.map((r, idx) => (
-              <div 
-                key={r.id || `${r.name}-${idx}`} 
-                className="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
-                onClick={() => openWithMenu(r)}
-              >
-                <img
-                  src={resolveImage(r, idx)}
-                  alt={r.name}
-                  className="w-full h-24 object-cover"
-                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80' }}
-                />
-                <div className="p-2">
-                  <div className="font-semibold text-sm leading-tight mb-1">{r.name}</div>
-                  <div className="flex items-center gap-1 text-xs">
-                    <span className="text-yellow-600">⭐ {r.userAvgRating.toFixed(1)}</span>
-                    <span className="text-gray-500">({r.userReviewCount} {r.userReviewCount === 1 ? 'review' : 'reviews'})</span>
-                  </div>
-                  {r.distance != null && (
-                    <div className="text-xs text-gray-500 mt-1">📍 {r.distance.toFixed(2)} km away</div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      
-      {/* Your Favorite Restaurants Section */}
-      {topPicks.length > 0 && (
-        <div className="glass rounded-2xl p-5 shadow-lg">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">❤️</span>
-            <div>
-              <h3 className="text-lg font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Your Favorites</h3>
-              <p className="text-xs text-gray-600">Restaurants you love and visit often</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {topPicks.map((r, idx) => (
-              <div 
-                key={r.id || `${r.name}-${idx}`} 
-                onClick={() => openWithMenu(r)}
-                className="card-hover glass rounded-xl overflow-hidden cursor-pointer shadow-md"
-              >
-                <img 
-                  src={resolveImage(r, idx)} 
-                  alt={r.name}
-                  className="w-full h-24 object-cover"
-                  onError={(e) => {e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800'}}
-                />
-                <div className="p-3">
-                  <div className="font-bold text-sm text-gray-900 mb-1">{r.name}</div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="px-2 py-1 bg-orange-100 text-orange-700 rounded-full font-medium">
-                      ⭐ {r.userAvgRating?.toFixed(1) || r.avgRating?.toFixed(1)}
-                    </span>
-                    <span className="text-gray-600">
-                      {r.userReviewCount} {r.userReviewCount === 1 ? 'rating' : 'ratings'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      
-      <div className="flex justify-end items-center mb-2">
-        <button onClick={getAIRecommendation} className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-110 transition-all flex items-center justify-center text-2xl">
-          ✨
-        </button>
+      {/* Search Bar - now rendered at the top */}
+      <div className="mb-6">
+        <SearchBar onSelect={() => {}} />
       </div>
 
-      {/* AI Recommendation Modal */}
-      {showAIRecommendation && aiPick && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl">
-            <div className="text-center mb-4">
-              <div className="text-4xl mb-2">✨🍽️✨</div>
-              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-                AI Recommends
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">Based on your taste preferences</p>
-            </div>
-            
-            <div className="mb-4">
-              <img 
-                src={aiPick.image_url || aiPick.image} 
-                alt={aiPick.name}
-                className="w-full h-48 object-cover rounded-lg mb-3"
-                onError={(e) => {e.target.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800'}}
-              />
-              <h4 className="text-xl font-bold mb-2">{aiPick.name}</h4>
-              {aiPick.avgRating && (
-                <div className="flex items-center gap-2 mb-2">
-                  <StarRating value={aiPick.avgRating} />
-                </div>
-              )}
-              {aiPick.distance != null && (
-                <p className="text-sm text-gray-600">📍 {aiPick.distance.toFixed(2)} km away</p>
-              )}
-              <p className="text-sm text-gray-600 mt-2">
-                💡 This restaurant matches your preferences for highly-rated places nearby!
-              </p>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => setShowAIRecommendation(false)}
-                className="flex-1 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
-              >
-                Not Now
-              </button>
-              <button
-                onClick={() => {
-                  setShowAIRecommendation(false)
-                  openWithMenu(aiPick)
-                }}
-                className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-semibold hover:shadow-lg"
-              >
-                View Menu
-              </button>
+      {/* Top 3 Dishes of the Week - Community-wide Highest Rated */}
+      <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-6 border border-blue-200/60 shadow-md">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-3xl">🔥</span>
+            <div>
+              <h3 className="text-lg font-bold text-gray-900">Top 3 This Week</h3>
+              <p className="text-xs text-gray-500">Highest-rated by the community</p>
             </div>
           </div>
+          {loadingTopDishes && <span className="text-xs text-gray-400 animate-pulse">Loading...</span>}
+        </div>
+
+        {communityTopDishes && communityTopDishes.length > 0 ? (
+          <div className="space-y-2.5">
+            {communityTopDishes.map((dish, idx) => (
+              <div
+                key={`${dish.id}-${idx}`}
+                className="flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow border border-blue-100/50"
+              >
+                {/* Medal */}
+                <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white ${
+                  idx === 0 ? 'bg-gradient-to-br from-yellow-400 to-amber-500' :
+                  idx === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-400' :
+                  'bg-gradient-to-br from-orange-400 to-orange-600'
+                }`}>
+                  {['🥇', '🥈', '🥉'][idx]}
+                </div>
+
+                {/* Dish Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-sm text-gray-900 truncate">{dish.name}</div>
+                  <div className="text-xs text-gray-500 truncate">at {dish.restaurant?.name || 'Unknown'}</div>
+                </div>
+
+                {/* Rating and Count */}
+                <div className="flex-shrink-0 text-right">
+                  <div className="flex items-center gap-1">
+                    <span className="text-lg font-bold text-blue-600">{(Number.isFinite(dish.rating) ? ((dish.rating - 1) * (9/4) + 1) : 0).toFixed(1)}</span>
+                    <span className="text-yellow-400">⭐</span>
+                  </div>
+                  <div className="text-[10px] text-gray-400 font-medium">{dish.ratingCount} {dish.ratingCount === 1 ? 'rating' : 'ratings'}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : loadingTopDishes ? (
+          <div className="text-center py-6">
+            <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+            <p className="text-sm text-gray-400 mt-2">Finding the best dishes...</p>
+          </div>
+        ) : (
+          <div className="text-center py-6 text-sm text-gray-400">
+            Be the first to rate a dish! ⭐ See it on the leaderboard.
+          </div>
+        )}
+      </div>
+
+      {!pos && <div className="glass rounded-2xl p-8 text-center shadow-lg"><div className="text-4xl mb-3">📍</div><div className="text-gray-600 font-medium">Determining location...</div></div>}
+
+      {/* Category Filter Chips - always show all 12 */}
+      {pos && (
+        <div className="cuisine-chips-scroll flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+          <button
+            onClick={() => setActiveCuisine(null)}
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+              activeCuisine === null
+                ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-md'
+                : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 shadow-sm'
+            }`}
+          >
+            All
+          </button>
+          {categoryOrder.map(cat => {
+            const count = (categoryGroups[cat] || []).length
+            const isEmpty = count === 0
+            return (
+              <button
+                key={cat}
+                onClick={() => !isEmpty && setActiveCuisine(activeCuisine === cat ? null : cat)}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                  activeCuisine === cat
+                    ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-md'
+                    : isEmpty
+                      ? 'bg-gray-100 text-gray-400 border border-gray-100 cursor-default'
+                      : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 shadow-sm'
+                }`}
+              >
+                {CATEGORY_ICONS[cat] || '🍽️'} {cat}
+                {count > 0 && <span className="ml-1 text-xs opacity-70">({count})</span>}
+              </button>
+            )
+          })}
         </div>
       )}
 
-      {!pos && <div className="glass rounded-2xl p-8 text-center shadow-lg"><div className="text-4xl mb-3">📍</div><div className="text-gray-600 font-medium">Determining location…</div></div>}
+      {/* Category Sections - Each on its own row */}
       {pos && (
-        <div className="grid grid-cols-2 gap-4">
-          {nearby.map((r, idx) => (
-            <div key={r.id || `${r.name}-${idx}`} className="card-hover glass rounded-2xl shadow-lg overflow-hidden flex flex-col">
-              <div className="relative">
-                <img
-                  src={resolveImage(r, idx)}
-                  alt={r.name}
-                  className="w-full h-36 object-cover"
-                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80' }}
-                />
-                {r.avgRating != null && (
-                  <div className="absolute top-2 right-2 glass rounded-full px-3 py-1 shadow-lg">
-                    <span className="text-xs font-bold flex items-center gap-1">
-                      ⭐ {Number(r.avgRating.toFixed(1))}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <div className="p-4 space-y-3 flex-1 flex flex-col">
-                <div className="font-bold text-base text-gray-900 leading-tight">{r.name}</div>
-                <div className="flex flex-wrap gap-2 text-xs">
-                  {r.distance != null && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium flex items-center gap-1">📍 {r.distance.toFixed(1)} km</span>}
-                  {r.waitTime != null && (
-                    <span className={`px-2 py-1 rounded-full font-medium flex items-center gap-1 ${
-                      r.waitTime === 'Closed' ? 'bg-red-100 text-red-700' :
-                      r.waitTime <= 15 ? 'bg-green-100 text-green-700' :
-                      r.waitTime <= 30 ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-red-100 text-red-700'
-                    }`}>
-                      {r.waitTime === 'Closed' ? 'Closed' : `Wait: ${r.waitTime} min`}
-                    </span>
-                  )}
+        <div className="space-y-8">
+          {(activeCuisine ? [activeCuisine] : categoryOrder)
+            .filter(c => (categoryGroups[c] || []).length > 0)
+            .map(cat => (
+            <section key={cat}>
+              {/* Section Header */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-2xl">{CATEGORY_ICONS[cat] || '🍽️'}</span>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">Top {cat}</h3>
+                  <p className="text-xs text-gray-500">Best rated {cat.toLowerCase()} near you</p>
                 </div>
-                <div className="mt-auto flex gap-2">
-                  {r.yelpId && r.review_count >= 10 ? (
-                    <button
-                      onClick={() => {
-                        const restaurantName = encodeURIComponent(r.name)
-                        window.open(`https://www.opentable.com/s?term=${restaurantName}`, '_blank')
-                      }}
-                      className="flex-1 px-3 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-                    >
-                      📅 Book
-                    </button>
-                  ) : (
-                    <div className="flex-1 px-3 py-2.5 text-xs font-medium text-gray-500 bg-gray-100 rounded-xl text-center flex items-center justify-center">
-                      Not Available
-                    </div>
-                  )}
-                  <button
+              </div>
+
+              {/* Horizontal Scroll Cards */}
+              <div className="cuisine-row-scroll flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory -mx-1 px-1">
+                {(expandedCategories[cat] ? categoryGroups[cat] : categoryGroups[cat].slice(0, 5)).map((r, idx) => (
+                  <div
+                    key={r.id || `${r.name}-${idx}`}
+                    className="flex-shrink-0 w-[280px] snap-start card-hover bg-white rounded-2xl shadow-md overflow-hidden flex flex-col border border-gray-100 hover:shadow-xl transition-shadow cursor-pointer"
                     onClick={() => openWithMenu(r)}
-                    className="flex-1 px-3 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-                    disabled={opening}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`View menu for ${r.name}`}
+                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') openWithMenu(r); }}
                   >
-                    {opening ? '⏳' : '🍴 Menu'}
-                  </button>
-                </div>
+                    {pos && (
+                      <div className="space-y-12">
+                        {(activeCuisine ? [activeCuisine] : categoryOrder)
+                          .filter(c => Array.isArray(categoryGroups[c]) && categoryGroups[c].length > 0)
+                          .map(cat => {
+                            const groupArr = Array.isArray(categoryGroups[cat]) ? categoryGroups[cat] : [];
+                            let sorted = [...groupArr];
+                            if (sortBy === 'distance') {
+                              sorted.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+                            } else if (sortBy === 'trending') {
+                              sorted.sort((a, b) => (b.trendingScore || 0) - (a.trendingScore || 0));
+                            }
+                            // Show only first 5, with 'View all' button
+                            const preview = sorted.slice(0, 5);
+                            return (
+                              <section key={cat} className="pt-2">
+                                <div className="flex items-center justify-between mb-4 px-2">
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-3xl">{CATEGORY_ICONS[cat] || '🍽️'}</span>
+                                    <h3 className="text-2xl font-extrabold text-gray-900 tracking-tight">Available for lunch now: {cat}</h3>
+                                    <span className="text-xs text-gray-500 font-semibold">{sorted.length} places</span>
+                                  </div>
+                                  <button
+                                    className="text-red-600 font-semibold text-sm hover:underline px-3 py-1 rounded"
+                                    onClick={() => openCategoryView(cat)}
+                                  >View all</button>
+                                </div>
+                                <div className="cuisine-row-scroll flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory -mx-2 px-2">
+                                  {preview.map((r, idx) => (
+                                    <div
+                                      key={r.id || `${r.name}-${idx}`}
+                                      className="flex-shrink-0 w-[320px] snap-start card-hover bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-shadow cursor-pointer"
+                                      onClick={() => openWithMenu(r)}
+                                      tabIndex={0}
+                                      role="button"
+                                      aria-label={`View menu for ${r.name}`}
+                                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') openWithMenu(r); }}
+                                    >
+                                      <div className="relative">
+                                        <img
+                                          src={`${resolveImage(r, idx)}${resolveImage(r, idx).includes('?') ? '&' : '?'}w=600&auto=format&fit=crop&q=80`}
+                                          alt={r.name}
+                                          loading="lazy"
+                                          className="w-full h-44 object-cover"
+                                          onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80' }}
+                                        />
+                                        {(r.avgRating != null || r.rating != null) && (
+                                          <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-lg">
+                                            <span className="text-base font-bold flex items-center gap-1">
+                                              <span className="text-yellow-500">★</span>
+                                              {Number((r.avgRating || r.rating || 0).toFixed(1))}
+                                            </span>
+                                          </div>
+                                        )}
+                                      </div>
+                                      <div className="p-5 flex-1 flex flex-col justify-between">
+                                        <h4 className="font-bold text-xl text-gray-900 mb-1 truncate">{r.name}</h4>
+                                        <p className="text-sm text-gray-500 mb-2 truncate">{r.cuisine || r.category}</p>
+                                        <div className="flex items-center gap-2 mt-auto">
+                                          <span className="text-xs text-gray-400 truncate">{r.address}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </section>
+                            );
+                          })}
+                      </div>
+                    )}
               </div>
-            </div>
+
+              {/* View All / Show Less button */}
+              {categoryGroups[cat].length > 5 && (
+                <button
+                  onClick={() => {
+                    window.location.hash = '#/category-restaurants';
+                    setTimeout(() => {
+                      const navEvent = new CustomEvent('navigateCategoryRestaurants', {
+                        detail: { category: cat, restaurants: categoryGroups[cat] }
+                      });
+                      window.dispatchEvent(navEvent);
+                    }, 50);
+                  }}
+                  className="mt-2 w-full py-2.5 text-sm font-semibold text-orange-600 bg-orange-50 hover:bg-orange-100 rounded-xl transition-colors flex items-center justify-center gap-1"
+                >
+                  {`View All ${categoryGroups[cat].length} Restaurants`}
+                  <span className="text-xs">▶</span>
+                </button>
+              )}
+            </section>
           ))}
+        </div>
+      )}
+
+      {/* Loading / empty state */}
+      {pos && nearby.length > 0 && nearby[0].loading && (
+        <div className="glass rounded-2xl p-8 text-center shadow-lg">
+          <div className="text-4xl mb-3 animate-pulse">🍽️</div>
+          <div className="text-gray-600 font-medium">Finding restaurants near you...</div>
+        </div>
+      )}
+      {pos && nearby.length === 0 && (
+        <div className="glass rounded-2xl p-8 text-center shadow-lg">
+          <div className="text-4xl mb-3">🔍</div>
+          <div className="text-gray-600 font-medium">No restaurants found nearby</div>
         </div>
       )}
     </main>

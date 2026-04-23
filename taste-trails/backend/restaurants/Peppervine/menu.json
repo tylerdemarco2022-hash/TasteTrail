@@ -96,12 +96,6 @@
     "category": "Menu"
   },
   {
-    "name": "Maple Leaf Duck Breast*",
-    "description": "",
-    "price": "$34.00",
-    "category": "Menu"
-  },
-  {
     "name": "Verlasso Salmon*",
     "description": "",
     "price": "$32.00",
@@ -114,18 +108,6 @@
     "category": "Menu"
   },
   {
-    "name": "24 Hour Short Rib",
-    "description": "Potato Mousseline, Roasted Carrots, Cauliflower, Broccolini, Bordelaise",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "14 Oz Prime New York Strip*",
-    "description": "Potato Pavé, Lion's Mane Mushrooms, Charred Onion, Bourbon Cream",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Flourless Chocolate Torte",
     "description": "Baileys Crème, Caramel, Vanilla Tuile, Smoked Salted Caramel Ice Cream. Suggested: Jorge Ordonez Moscatel",
     "price": "",
@@ -134,12 +116,6 @@
   {
     "name": "Sticky Toffee Pudding",
     "description": "Toffee Cake, Butterscotch, Candied Pecan, Vanilla Ice Cream. Suggested: Smith Woodhouse Port",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Mille Feuille",
-    "description": "Puff Pastry, Chocolate Port Mousse, Strawberry Cream, Strawberry-Lime Sorbet. Suggested: Chateau Doisy-Vedrines Sauternes",
     "price": "",
     "category": "Menu"
   },
@@ -156,44 +132,14 @@
     "category": "Menu"
   },
   {
-    "name": "Ice Cream Trio",
-    "description": "Seasonal Rotation of Flavors. Suggested: Chateau Doisy-Vedrines Sauternes",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Chocolate Martini",
     "description": "Marie Brizard Chocolat Royal, Disaronno Velvet Cream, Vanilla Brandy, Selva Rey Chocolate Rum, Stolichnaya, Monin Dark Choclate Syrup",
     "price": "",
     "category": "Menu"
   },
   {
-    "name": "Espresso Martini",
-    "description": "Espresso, Vanilla Vodka, Cognac, Coffee Liqueur",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "2018 Royal Tokaji Late Harvest, Hungary",
-    "description": "Tangerine, Apricot, Honey",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "2009 Smith Woodhouse Lbv Port, Portugal",
-    "description": "Fig Blackberry, Walnut",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "NV Kopke 10 Year Tawny Port, Portugal",
     "description": "Fig, Currant, Cedar",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Penicillin",
-    "description": "Famous Grouse, Ginger Honey, Lemon, Islay Scotch Mist",
     "price": "",
     "category": "Menu"
   },
@@ -210,44 +156,8 @@
     "category": "Menu"
   },
   {
-    "name": "Mother Lode",
-    "description": "Stellum Bourbon, Early Times BIB, Spiced Grapefruit Honey Cordial, & Lemon Juice",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Goodnight Gracie",
     "description": "Bauchant 8-year Rum, Stoli Vanilla, Taylor's Falernum, Passionfruit, & Lime",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Tongue Thai'd",
-    "description": "Choice of Durham Dis. Cucumber Vodka or Conniption Gin, Cucumber Water, Ginger, Lemongrass, & Lime",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Paper Plane",
-    "description": "Elijah Craig Bourbon, Amaro Montenegro, Aperol, Lemon Juice",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Strawberry Monk",
-    "description": "Sipsmith Strawberry Smash Gin, Green & Yellow Chartreuse, Strawberry & Lime Juice",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "N/A Cheer-Vine Mocktail",
-    "description": "Bing Cherry, Vanilla, Club Soda",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "N/A Tongue Thai'd Mocktail",
-    "description": "Lemongrass-Ginger, Cucumber Water, Ginger Beer, Lime",
     "price": "",
     "category": "Menu"
   },
@@ -258,24 +168,6 @@
     "category": "Menu"
   },
   {
-    "name": "Bottle",
-    "description": "",
-    "price": "$60.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$84.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$90.00",
-    "category": "Menu"
-  },
-  {
     "name": "Demi (",
     "description": "375ml)",
     "price": "$40.00",
@@ -294,120 +186,6 @@
     "category": "Menu"
   },
   {
-    "name": "Bottle",
-    "description": "",
-    "price": "$115.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$105.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$65.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$70.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$80.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$110.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$50.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$55.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$95.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$30.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$39.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$40.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$49.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$54.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$59.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$63.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$64.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$66.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$88.00",
-    "category": "Menu"
-  },
-  {
     "name": "Demi (",
     "description": "375ml)",
     "price": "$50.00",
@@ -423,132 +201,12 @@
     "name": "Demi (",
     "description": "375ml)",
     "price": "$95.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$43.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$75.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$85.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$100.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$45.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$44.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$67.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$111.00",
     "category": "Menu"
   },
   {
     "name": "Magnum (",
     "description": "1.5L)",
     "price": "$110.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$69.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$79.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$53.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$68.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$89.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$94.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$106.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$107.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$112.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$113.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$117.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$120.00",
     "category": "Menu"
   },
   {
@@ -588,57 +246,9 @@
     "category": "Menu"
   },
   {
-    "name": "Bottle",
-    "description": "",
-    "price": "$1",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$93.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$104.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$61.00",
-    "category": "Menu"
-  },
-  {
     "name": "Magnum (",
     "description": "1.5L)",
     "price": "$95.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$87.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$3",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$83.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$56.00",
     "category": "Menu"
   },
   {
@@ -651,12 +261,6 @@
     "name": "Demi (",
     "description": "375ml)",
     "price": "$35.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Bottle",
-    "description": "",
-    "price": "$41.00",
     "category": "Menu"
   },
   {

@@ -1,0 +1,17 @@
+{
+  "pass_result": {
+    "command": "node C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\scripts\\replayRegressionScenarios.mjs",
+    "exit_code": 0,
+    "stdout": "[regression-replay] checking 9 regression scenario(s)...\n[regression-replay] 9/9 scenarios fully covered\n  [OK] RSC-001 silent_truncation_at_1000 | test_ref=found gate_sig=enforced\n  [OK] RSC-002 fallback_masking_db_error | test_ref=found gate_sig=enforced\n  [OK] RSC-003 count_parity_broken_concurrent | test_ref=found gate_sig=enforced\n  [OK] RSC-004 regression_trap_control_flow | test_ref=found gate_sig=enforced\n  [OK] RSC-005 fallback_cache_poison | test_ref=found gate_sig=enforced\n  [OK] RSC-006 production_config_drift_unsafe_fallback_flag | test_ref=found gate_sig=enforced\n  [OK] RSC-007 stale_lkg_baseline_hides_latency_drift | test_ref=found gate_sig=enforced\n  [OK] RSC-008 diagnostics_rate_limit_abuse | test_ref=found gate_sig=enforced\n  [OK] RSC-009 diagnostics_payload_overload_summary_degrade | test_ref=found gate_sig=enforced\n[regression-replay] PASS: all regression scenarios are covered by active tests and gate logic\n",
+    "stderr": "",
+    "output": "[regression-replay] checking 9 regression scenario(s)...\n[regression-replay] 9/9 scenarios fully covered\n  [OK] RSC-001 silent_truncation_at_1000 | test_ref=found gate_sig=enforced\n  [OK] RSC-002 fallback_masking_db_error | test_ref=found gate_sig=enforced\n  [OK] RSC-003 count_parity_broken_concurrent | test_ref=found gate_sig=enforced\n  [OK] RSC-004 regression_trap_control_flow | test_ref=found gate_sig=enforced\n  [OK] RSC-005 fallback_cache_poison | test_ref=found gate_sig=enforced\n  [OK] RSC-006 production_config_drift_unsafe_fallback_flag | test_ref=found gate_sig=enforced\n  [OK] RSC-007 stale_lkg_baseline_hides_latency_drift | test_ref=found gate_sig=enforced\n  [OK] RSC-008 diagnostics_rate_limit_abuse | test_ref=found gate_sig=enforced\n  [OK] RSC-009 diagnostics_payload_overload_summary_degrade | test_ref=found gate_sig=enforced\n[regression-replay] PASS: all regression scenarios are covered by active tests and gate logic"
+  },
+  "fail_result": {
+    "command": "node C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\scripts\\replayRegressionScenarios.mjs",
+    "exit_code": 1,
+    "stdout": "[regression-replay] checking 1 regression scenario(s)...\n[regression-replay] 0/1 scenarios fully covered\n  [FAIL] RSC-ORPHAN-FAIL orphan_scenario_missing_test_ref | test_ref=found gate_sig=MISSING\n",
+    "stderr": "[regression-replay] BLOCKED: orphaned or uncovered scenarios: RSC-ORPHAN-FAIL:gate_failure_signature_unknown:unknown_signature_for_orphan_fixture\n",
+    "output": "[regression-replay] checking 1 regression scenario(s)...\n[regression-replay] 0/1 scenarios fully covered\n  [FAIL] RSC-ORPHAN-FAIL orphan_scenario_missing_test_ref | test_ref=found gate_sig=MISSING\n[regression-replay] BLOCKED: orphaned or uncovered scenarios: RSC-ORPHAN-FAIL:gate_failure_signature_unknown:unknown_signature_for_orphan_fixture"
+  },
+  "fail_expected": true
+}

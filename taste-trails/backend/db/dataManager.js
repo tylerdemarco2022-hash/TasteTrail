@@ -1,6 +1,6 @@
-import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { safeJsonParse } from '../utils/safeJsonParse.js';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -26,7 +26,7 @@ function ensureDB() {
 function readDB() {
 	ensureDB()
 	const raw = fs.readFileSync(DB_PATH, 'utf8')
-	return JSON.parse(raw)
+	return safeJsonParse('dataManager:storage.json', raw)
 }
 
 function writeDB(db) {

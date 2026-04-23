@@ -3,61 +3,102 @@ import React, { createContext, useState, useContext, useEffect } from 'react'
 
 const AuthContext = createContext(null)
 
+function safeSetLocalStorage(key, value) {
+  try {
+    localStorage.setItem(key, value)
+  } catch (e) {}
+}
+
+function safeRemoveLocalStorage(key) {
+  try {
+    localStorage.removeItem(key)
+  } catch (e) {}
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [token, setToken] = useState(localStorage.getItem('access_token'))
 
-  // Check if user is logged in on mount
+  // Check if user is logged in on mount by verifying with /auth/me
+  // (token is in secure httpOnly cookie, automatic with credentials: 'include')
   useEffect(() => {
-    const savedToken = localStorage.getItem('access_token')
-    const savedProfile = localStorage.getItem('user_profile')
-    
-    if (savedToken && savedProfile) {
-      setToken(savedToken)
-      try {
-        setProfile(JSON.parse(savedProfile))
-      } catch (e) {
-        console.error('Failed to parse saved profile:', e)
-        localStorage.removeItem('user_profile')
-      }
-      fetchCurrentUser(savedToken)
-    } else {
-      setLoading(false)
-    }
+    checkAuthStatus()
   }, [])
 
-  async function fetchCurrentUser(accessToken) {
+  async function checkAuthStatus() {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
+        credentials: 'include' // Include httpOnly cookies
       })
       
       if (response.ok) {
-        const text = await response.text()
-        console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
-        let data
-        try {
-          data = JSON.parse(text)
-        } catch (e) {
-          console.error("NOT JSON RESPONSE:", text.slice(0, 200))
-          throw e
-        }
+        const data = await response.json()
         setUser(data.user)
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
       } else {
-        // Token invalid, clear auth
-        logout()
+        // Not authenticated
+        clearAuth()
+      }
+    } catch (error) {
+      console.error('Failed to check auth status:', error)
+      clearAuth()
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function fetchCurrentUser() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/me`, {
+        credentials: 'include' // Include httpOnly cookies
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data.user)
+        setProfile(data.profile)
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
+      } else if (response.status === 401) {
+        // Token expired, try to refresh
+        const refreshed = await refreshAccessToken()
+        if (!refreshed) {
+          clearAuth()
+        } else {
+          // Retry /auth/me after refresh
+          return fetchCurrentUser()
+        }
+      } else {
+        clearAuth()
       }
     } catch (error) {
       console.error('Failed to fetch user:', error)
-      logout()
-    } finally {
-      setLoading(false)
+      clearAuth()
+    }
+  }
+
+  async function refreshAccessToken() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+        method: 'POST',
+        credentials: 'include' // Include httpOnly cookies (refresh token is in cookie)
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data.user)
+        setProfile(data.profile)
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
+        return true
+      } else {
+        clearAuth()
+        return false
+      }
+    } catch (error) {
+      console.error('Failed to refresh token:', error)
+      clearAuth()
+      return false
     }
   }
 
@@ -71,10 +112,11 @@ export function AuthProvider({ children }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
+        credentials: 'include', // Include cookies in response
         signal: controller.signal
-      });
+      })
 
-      const text = await response.text();
+      const text = await response.text()
       let data
       try {
         data = JSON.parse(text)
@@ -83,27 +125,26 @@ export function AuthProvider({ children }) {
       }
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || data.error || "Login failed");
+        throw new Error(data.message || data.error || "Login failed")
       }
 
-      // Store token and user/profile in localStorage and state
-      if (data.token) {
-        localStorage.setItem('access_token', data.token);
-        setToken(data.token);
-      }
+      // Token is now in httpOnly cookie, set by backend
+      // Store user profile and profile in state + localStorage
       if (data.user) {
-        setUser(data.user);
+        setUser(data.user)
       }
       if (data.profile) {
-        setProfile(data.profile);
-        localStorage.setItem('user_profile', JSON.stringify(data.profile));
+        setProfile(data.profile)
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
       }
-      return { success: true };
+      
+      // Clear onboarding completed flag so onboarding shows again on login
+      safeRemoveLocalStorage('onboarding_completed')
+      return { success: true }
     } catch (error) {
       if (error?.name === 'AbortError') {
         return { success: false, error: `Login request timed out after ${Math.round(timeoutMs / 1000)}s. Check backend connection at ${API_BASE_URL}.` }
       }
-      // Handle network errors
       if (error?.message === 'Failed to fetch' || String(error?.message || '').includes('fetch')) {
         return { success: false, error: `Cannot connect to server. Make sure backend is running on ${API_BASE_URL}` }
       }
@@ -118,16 +159,16 @@ export function AuthProvider({ children }) {
       const response = await fetch(`${API_BASE_URL}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name })
+        body: JSON.stringify({ email, password, name }),
+        credentials: 'include' // Include cookies in response
       })
 
       const text = await response.text()
-      console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
       let data
       try {
         data = JSON.parse(text)
       } catch (e) {
-        console.error("NOT JSON RESPONSE:", text.slice(0, 200))
+        console.error("Invalid JSON response:", text.slice(0, 200))
         throw e
       }
 
@@ -143,7 +184,19 @@ export function AuthProvider({ children }) {
         throw new Error(data.error || 'Signup failed')
       }
 
-      // Account created successfully - don't auto-login, let user login manually
+      // Token is now in httpOnly cookie, set by backend
+      // Store profile in state + localStorage
+      if (data.user) {
+        setUser(data.user)
+      }
+      if (data.profile) {
+        setProfile(data.profile)
+        safeSetLocalStorage('user_profile', JSON.stringify(data.profile))
+      }
+
+      // Account created successfully - mark as new signup so onboarding shows
+      safeSetLocalStorage('is_new_signup', 'true')
+      safeRemoveLocalStorage('onboarding_completed')
       return { success: true }
     } catch (error) {
       // Handle network errors
@@ -154,38 +207,44 @@ export function AuthProvider({ children }) {
     }
   }
 
-  function logout() {
+  function clearAuth() {
     setUser(null)
     setProfile(null)
-    setToken(null)
-    localStorage.removeItem('access_token')
     localStorage.removeItem('user_profile')
+  }
+
+  async function logout() {
+    try {
+      // Call logout endpoint to invalidate refresh token and clear cookies
+      await fetch(`${API_BASE_URL}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include'
+      })
+    } catch (error) {
+      console.error('Logout request failed:', error)
+    } finally {
+      // Clear local state regardless of server response
+      clearAuth()
+    }
   }
 
   async function refreshProfile() {
     try {
-      const currentToken = localStorage.getItem('access_token')
-      if (!currentToken) return
-
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
-        headers: {
-          'Authorization': `Bearer ${currentToken}`
-        }
+        credentials: 'include' // Include httpOnly cookies
       })
 
       if (response.ok) {
-        const text = await response.text()
-        console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
-        let data
-        try {
-          data = JSON.parse(text)
-        } catch (e) {
-          console.error("NOT JSON RESPONSE:", text.slice(0, 200))
-          throw e
-        }
+        const data = await response.json()
         setUser(data.user)
         setProfile(data.profile)
         localStorage.setItem('user_profile', JSON.stringify(data.profile))
+      } else if (response.status === 401) {
+        // Token expired, try to refresh
+        const refreshed = await refreshAccessToken()
+        if (!refreshed) {
+          clearAuth()
+        }
       }
     } catch (error) {
       console.error('Failed to refresh profile:', error)
@@ -198,14 +257,14 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={{
       user,
       profile,
-      token,
       loading,
       isAuthenticated: !!user,
       isAdmin,
       login,
       signup,
       logout,
-      refreshProfile
+      refreshProfile,
+      refreshAccessToken
     }}>
       {children}
     </AuthContext.Provider>
@@ -219,3 +278,4 @@ export function useAuth() {
   }
   return context
 }
+

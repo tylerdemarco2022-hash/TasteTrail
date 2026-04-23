@@ -7,6 +7,9 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS public.users (
   id uuid PRIMARY KEY,
   email text UNIQUE NOT NULL,
+  google_id text UNIQUE,
+  auth_provider text DEFAULT 'local' NOT NULL,
+  avatar_url text,
   name text,
   user_code text UNIQUE,
   role text DEFAULT 'user' NOT NULL,
@@ -22,6 +25,7 @@ CREATE TABLE IF NOT EXISTS public.users (
 
 -- Create helpful indexes
 CREATE INDEX IF NOT EXISTS users_email_idx ON public.users (email);
+CREATE INDEX IF NOT EXISTS users_google_id_idx ON public.users (google_id);
 CREATE INDEX IF NOT EXISTS users_name_idx ON public.users (name);
 CREATE INDEX IF NOT EXISTS users_code_idx ON public.users (user_code);
 

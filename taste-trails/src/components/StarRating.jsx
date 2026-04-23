@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Star } from 'lucide-react'
 
-export default function StarRating({ value = 0 }) {
+export default memo(function StarRating({ value = 0 }) {
   // Scale to 10 stars, show half stars
   const scaledValue = value / 2 // Convert 10-point scale to 5 stars for display
   const full = Math.floor(scaledValue)
@@ -20,4 +20,4 @@ export default function StarRating({ value = 0 }) {
       <span className="text-sm text-gray-600 ml-1">{value.toFixed(1)}</span>
     </div>
   )
-}
+})

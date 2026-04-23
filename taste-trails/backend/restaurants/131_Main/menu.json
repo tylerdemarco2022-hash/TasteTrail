@@ -1,172 +1,194 @@
 [
   {
-    "category": "To Start",
     "name": "Cast Iron Corn Bread",
-    "description": "Green chiles, jack & cheddar"
+    "description": "Green chiles, jack & cheddar",
+    "price": "",
+    "category": "To Start"
   },
   {
-    "category": "To Start",
     "name": "Shrimp Cocktail",
-    "description": "Colossal shrimp, Old Bay seasoned, cocktail sauce, horseradish"
+    "description": "Colossal shrimp, Old Bay seasoned, cocktail sauce, horseradish",
+    "price": "",
+    "category": "To Start"
   },
   {
-    "category": "To Start",
     "name": "Smoked Salmon",
-    "description": "Smoked in-house, aioli, toast points"
+    "description": "Smoked in-house, aioli, toast points",
+    "price": "",
+    "category": "To Start"
   },
   {
-    "category": "To Start",
     "name": "Double Dip",
-    "description": "Fire roasted pepper dip, guacamole, salsa, tortilla chips"
+    "description": "Fire roasted pepper dip, guacamole, salsa, tortilla chips",
+    "price": "",
+    "category": "To Start"
   },
   {
-    "category": "To Start",
     "name": "Ahi Tuna Stack",
-    "description": "#1 sushi grade, poke style, mango, sriracha mayo, toast points"
+    "description": "#1 sushi grade, poke style, mango, sriracha mayo, toast points",
+    "price": "",
+    "category": "To Start"
   },
   {
-    "category": "Salads",
     "name": "The Cowboy",
-    "description": "Grilled chicken, kale, cilantro, Cotija, black beans, corn, avocado, tomatoes, pickled onion, chipotle dressing"
+    "description": "Grilled chicken, kale, cilantro, Cotija, black beans, corn, avocado, tomatoes, pickled onion, chipotle dressing",
+    "price": "",
+    "category": "Salads"
   },
   {
-    "category": "Salads",
-    "name": "Thai Steak",
-    "description": "Marinated tenderloin, noodles, peanuts, cabbage, grape tomatoes, mint, avocado, mango"
-  },
-  {
-    "category": "Salads",
     "name": "Ahi Tuna",
-    "description": "Seared #1 sushi grade, rare, mixed greens, avocado, mango, red onions, ginger vinaigrette"
+    "description": "Seared #1 sushi grade, rare, mixed greens, avocado, mango, red onions, ginger vinaigrette",
+    "price": "",
+    "category": "Salads"
   },
   {
-    "category": "Salads",
     "name": "Top Chop",
-    "description": "Grilled chicken, kale, quinoa, goat cheese, tomatoes, almonds, Craisins, artichokes, avocado, corn, herb vinaigrette"
+    "description": "Grilled chicken, kale, quinoa, goat cheese, tomatoes, almonds, Craisins, artichokes, avocado, corn, herb vinaigrette",
+    "price": "",
+    "category": "Salads"
   },
   {
-    "category": "Sandwiches",
     "name": "Classic Cheeseburger",
-    "description": "Fully loaded, cheddar cheese, ground fresh in-house daily, fresh fries"
+    "description": "Fully loaded, cheddar cheese, ground fresh in-house daily, fresh fries",
+    "price": "",
+    "category": "Sandwiches"
   },
   {
-    "category": "Sandwiches",
     "name": "Veggie Burger",
-    "description": "Fully loaded, sweet soy glaze, Havarti cheese, kale & quinoa salad"
+    "description": "Fully loaded, sweet soy glaze, Havarti cheese, kale & quinoa salad",
+    "price": "",
+    "category": "Sandwiches"
   },
   {
-    "category": "Sandwiches",
     "name": "Prime Rib Sandwich",
-    "description": "Slow roasted in-house, au jus, mayo, fresh fries"
+    "description": "Slow roasted in-house, au jus, mayo, fresh fries",
+    "price": "",
+    "category": "Sandwiches"
   },
   {
-    "category": "Entrees",
     "name": "Cedar Plank Salmon",
-    "description": "Center cut, whole grain mustard butter, chilled wild rice salad"
+    "description": "Center cut, whole grain mustard butter, chilled wild rice salad",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Maryland Style Crab Cakes",
-    "description": "Two jumbo lump crab cakes, whole grain mustard sauce, fresh fries"
+    "description": "Two jumbo lump crab cakes, whole grain mustard sauce, fresh fries",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
-    "name": "North Carolina Rainbow Trout",
-    "description": "Limited availability, grilled, simply seasoned, kale & quinoa salad"
-  },
-  {
-    "category": "Entrees",
     "name": "Southern Shrimp And Grits",
-    "description": "Traditional Cajun Creole sauce, corn salsa, asparagus, cured ham"
+    "description": "Traditional Cajun Creole sauce, corn salsa, asparagus, cured ham",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Blackened Chicken Pasta",
-    "description": "Cajun cream sauce, roasted chicken, penne pasta, red peppers, broccoli, bacon"
+    "description": "Cajun cream sauce, roasted chicken, penne pasta, red peppers, broccoli, bacon",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Double Cut Pork Chop",
-    "description": "All natural, pepper crusted, smashed red potatoes"
+    "description": "All natural, pepper crusted, smashed red potatoes",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Danish Baby Back Ribs",
-    "description": "Full rack, smoked in-house, peanut & ginger slaw, fresh fries"
+    "description": "Full rack, smoked in-house, peanut & ginger slaw, fresh fries",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Slow Roasted Chicken",
-    "description": "Herb rubbed, slow roasted, demi-glace, smashed red potatoes"
+    "description": "Herb rubbed, slow roasted, demi-glace, smashed red potatoes",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Big Island Ribeye",
-    "description": "14 oz, cut in-house, marinated in pineapple sweet soy sauce, fresh fries"
+    "description": "14 oz, cut in-house, marinated in pineapple sweet soy sauce, fresh fries",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Entrees",
     "name": "Barrel Cut Filet Mignon",
-    "description": "8 oz certified angus, cut in-house, smashed red potatoes"
+    "description": "8 oz certified angus, cut in-house, smashed red potatoes",
+    "price": "",
+    "category": "Entrees"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Seasonal Vegetable",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Deviled Eggs",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Peanut & Ginger Slaw",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Magic Mountain Green Beans",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Fresh Fries",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Smashed Red Potatoes",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Jumbo Grilled Asparagus",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Kale & Quinoa Salad",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "White Cheddar Grits",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Wild Rice Salad",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Soup Of The Day",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   },
   {
-    "category": "Vegetables & Sides",
     "name": "Main/Caesar/Wedge Salad",
-    "description": null
+    "description": "",
+    "price": "",
+    "category": "Vegetables & Sides"
   }
 ]

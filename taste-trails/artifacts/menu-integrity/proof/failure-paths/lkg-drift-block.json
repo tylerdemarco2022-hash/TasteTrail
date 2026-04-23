@@ -1,0 +1,72 @@
+{
+  "pass_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\live-lkg-drift.json",
+    "exit_code": 0,
+    "stdout": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/live-lkg-drift.json\n",
+    "stderr": "[release-gate] ALERT: last-known-good deviation detected: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure.\n",
+    "output": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/live-lkg-drift.json\n[release-gate] ALERT: last-known-good deviation detected: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold\n[release-gate] Enable ENFORCE_LKG_DRIFT_BLOCK=true to make this a hard gate failure."
+  },
+  "fail_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\live-lkg-drift.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] BLOCKED: last-known-good deviation exceeded threshold: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold\n[release-gate] Set ENFORCE_LKG_DRIFT_BLOCK=false or raise MENU_INTEGRITY_LKG_DEVIATION_THRESHOLD to allow.\n",
+    "output": "[release-gate] BLOCKED: last-known-good deviation exceeded threshold: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold\n[release-gate] Set ENFORCE_LKG_DRIFT_BLOCK=false or raise MENU_INTEGRITY_LKG_DEVIATION_THRESHOLD to allow."
+  },
+  "pass_expected": true,
+  "fail_expected": true,
+  "compare_snapshot": {
+    "generated_at": "2026-04-23T02:42:13.168Z",
+    "threshold": 0.15,
+    "previous_metrics": {
+      "run_id": "proof-baseline",
+      "generated_at": "2026-04-23T02:42:13.016Z",
+      "concurrent_api_count": 1000,
+      "concurrent_db_count": 1000,
+      "p95_ms": 100,
+      "max_rss_bytes": 100000000,
+      "total_tests": 5,
+      "passed_tests": 5
+    },
+    "current_metrics": {
+      "run_id": "live_mode-proof-1776912133011",
+      "generated_at": "2026-04-23T02:42:13.011Z",
+      "environment_fingerprint": {
+        "node_env": "unknown",
+        "sim_mode": "",
+        "live_mode": "",
+        "perf_env_class": "default"
+      },
+      "concurrent_api_count": 3262,
+      "concurrent_db_count": 3262,
+      "p95_ms": 120,
+      "max_rss_bytes": 240000000,
+      "total_tests": 5,
+      "passed_tests": 5
+    },
+    "environment_normalization": {
+      "baseline_fingerprint": null,
+      "current_fingerprint": {
+        "node_env": "unknown",
+        "sim_mode": "",
+        "live_mode": "",
+        "perf_env_class": "default"
+      },
+      "matched": true,
+      "mismatch_fields": []
+    },
+    "deviations": {
+      "concurrent_api_count_pct": 2.262,
+      "concurrent_db_count_pct": 2.262,
+      "p95_ms_pct": 0.2,
+      "max_rss_bytes_pct": 1.4
+    },
+    "alert": true,
+    "alert_reasons": [
+      "concurrent_api_count_pct_deviation_exceeds_threshold",
+      "concurrent_db_count_pct_deviation_exceeds_threshold",
+      "p95_ms_pct_deviation_exceeds_threshold",
+      "max_rss_bytes_pct_deviation_exceeds_threshold"
+    ]
+  }
+}

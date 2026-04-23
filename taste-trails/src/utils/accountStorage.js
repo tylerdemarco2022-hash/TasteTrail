@@ -1,5 +1,25 @@
 const PRIVATE_PROFILES_KEY = "taste-trails-private-profiles";
 
+function safeGetItem(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {}
+}
+
+function safeRemoveItem(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch {}
+}
+
 function safeParseJSON(value, fallback) {
   if (value == null) return fallback;
   try {
@@ -11,7 +31,7 @@ function safeParseJSON(value, fallback) {
 
 export function getActiveProfileId() {
   if (typeof localStorage === "undefined") return "guest";
-  const profile = safeParseJSON(localStorage.getItem("user_profile"), null);
+  const profile = safeParseJSON(safeGetItem("user_profile"), null);
   return String(profile?.id || "guest");
 }
 
@@ -22,24 +42,24 @@ export function getUserScopedKey(baseKey, profileId = getActiveProfileId()) {
 export function loadUserScopedValue(baseKey, fallback, profileId = getActiveProfileId()) {
   if (typeof localStorage === "undefined") return fallback;
   const scopedKey = getUserScopedKey(baseKey, profileId);
-  const scopedRaw = localStorage.getItem(scopedKey);
+  const scopedRaw = safeGetItem(scopedKey);
   if (scopedRaw !== null) return safeParseJSON(scopedRaw, fallback);
   return fallback;
 }
 
 export function saveUserScopedValue(baseKey, value, profileId = getActiveProfileId()) {
   if (typeof localStorage === "undefined") return;
-  localStorage.setItem(getUserScopedKey(baseKey, profileId), JSON.stringify(value));
+  safeSetItem(getUserScopedKey(baseKey, profileId), JSON.stringify(value));
 }
 
 export function removeUserScopedValue(baseKey, profileId = getActiveProfileId()) {
   if (typeof localStorage === "undefined") return;
-  localStorage.removeItem(getUserScopedKey(baseKey, profileId));
+  safeRemoveItem(getUserScopedKey(baseKey, profileId));
 }
 
 export function getPrivateProfilesMap() {
   if (typeof localStorage === "undefined") return {};
-  const raw = localStorage.getItem(PRIVATE_PROFILES_KEY);
+  const raw = safeGetItem(PRIVATE_PROFILES_KEY);
   const parsed = safeParseJSON(raw, {});
   return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
 }
@@ -49,7 +69,7 @@ export function setPrivateProfileForUser(userId, isPrivate) {
   const key = String(userId);
   const map = getPrivateProfilesMap();
   map[key] = Boolean(isPrivate);
-  localStorage.setItem(PRIVATE_PROFILES_KEY, JSON.stringify(map));
+  safeSetItem(PRIVATE_PROFILES_KEY, JSON.stringify(map));
 }
 
 export function getPrivateProfileForUser(userId) {

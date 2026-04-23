@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:27.889Z",
+  "category": "latency_baseline_integrity_block",
+  "result_type": "pass",
+  "baseline_p95": 100,
+  "current_p95": 260,
+  "threshold": 20,
+  "baseline_hash": "65cb672ac247811ae0fc3fad2b51c51f33c090d593921e70112a31c0e91d2de1",
+  "baseline_age_seconds": 81,
+  "max_allowed_age_seconds": 86400,
+  "baseline_stale": false,
+  "artifact_sha256": "5cb4039ee10d8e6a905a03837aff6ab96fffd178b8b56751842eaad5c52fd4a2"
+}

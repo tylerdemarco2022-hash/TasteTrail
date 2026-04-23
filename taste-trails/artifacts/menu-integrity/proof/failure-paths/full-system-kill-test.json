@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.449Z",
+  "enforcements": {
+    "ENFORCE_LKG_DRIFT_BLOCK": true,
+    "ENFORCE_LATENCY_REGRESSION": true,
+    "strict_runtime_guard": true
+  },
+  "injections": {
+    "drift": true,
+    "latency_spike": true,
+    "bad_schema": true
+  },
+  "gate_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\kill-sim-schema-bad.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\kill-live-drift-latency.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0\n",
+    "output": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0"
+  },
+  "first_blocked_line": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0",
+  "first_failure_stops_execution": true,
+  "artifact_sha256": "45edc0960f50ec6e21a5cecc5ddd7f022cf3f3acac604ead83659aa5fbc7dc09"
+}

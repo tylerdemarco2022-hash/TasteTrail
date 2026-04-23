@@ -216,12 +216,6 @@
     "category": "Menu"
   },
   {
-    "name": "Steak Frites*",
-    "description": "",
-    "price": "$23.95",
-    "category": "Menu"
-  },
-  {
     "name": "Shrimp & Grits",
     "description": "",
     "price": "$21.50",
@@ -240,21 +234,9 @@
     "category": "Menu"
   },
   {
-    "name": "Matcha Green Tea Cheesecake",
-    "description": "",
-    "price": "$7.95",
-    "category": "Menu"
-  },
-  {
     "name": "Chocolate Espresso Flourless Cake",
     "description": "",
     "price": "$7.95",
-    "category": "Menu"
-  },
-  {
-    "name": "House Oysters*",
-    "description": "raw or steamed - cocktail, horseradish, mignonette",
-    "price": "",
     "category": "Menu"
   },
   {
@@ -336,12 +318,6 @@
     "category": "Menu"
   },
   {
-    "name": "Biscuits & Gravy Breakfast*",
-    "description": "buttermilk biscuits, sausage gravy, sausage, two eggs any style, breakfast potatoes",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Egg Benedict*",
     "description": "ham, poached eggs, english muffins, hollandaise sauce, breakfast potatoes",
     "price": "",
@@ -378,12 +354,6 @@
     "category": "Menu"
   },
   {
-    "name": "Mimosa",
-    "description": "orange juice, champagne",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Agua Fresca Mimosa",
     "description": "your choice of agua fresca, champagne",
     "price": "",
@@ -396,104 +366,14 @@
     "category": "Menu"
   },
   {
-    "name": "The Haystack",
-    "description": "Four Roses Bourbon, Courvoisier VS, Yellow Chartreuse, house-made spiced orange syrup, cardamom bitters, fresh lemon juice",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "Whiskey to the River",
     "description": "Dickel #8 Sour Mash, apple brandy, Luxardo Liqueur, cardamom bitters, absinthe wash",
     "price": "",
     "category": "Menu"
   },
   {
-    "name": "Wassail",
-    "description": "Four Roses Bourbon, house-made hot spiced cider",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "The Old Fashioned Cocktail",
     "description": "Bourbon, Marasca Cherries, Orange Wedge. We do this classic cocktail in the post-prohibition style using bourbon, fresh orange & cherries",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Slackjawed Jezebel",
-    "description": "Bourbon, Lemon Curd, House-Made Ginger Syrup, Fresh Lemon Juice, Sugar Cane Syrup. The Jezebel takes bourbon, homemade lemon curd, house-made ginger syrup & fresh squeezed lemon juice to leave you slackjawed by its flavor",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Jack Sour",
-    "description": "Rye Whiskey, House Merlot, Fresh Lemon Juice, Sugar Cane Syrup. The first whiskey sour was made in 1872. We based our version off the classic using house-made ingriedents & rye whiskey",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "The Aviation Cocktail",
-    "description": "London Dry Gin, Maraschino Liqueur, Fresh Lemon Juice, Violette Liqueur, Sugar Cane Syrup. This 1917 cocktail has become one of the more popular classics in bars where drinks are done right. Its tartness is clean and quenching while the sweetness is dry & refreshing",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Hemingway Daiquiri",
-    "description": "Aged Rum, Maraschino Liqueur, Fresh Grapefruit Juice, Fresh Lime Juice, Sugar Cane Syrup. Let's all thank Ernest for his love of alcohol! Without him we wouldn't have this delicious concoction",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Flower Power",
-    "description": "Vodka, House-Made Hibiscus Syrup, Fresh Lime Juice, Fresh Orange Juice, Orange and Lime Essential Oils. Vodka mixed with our sweet & aromatic, housemade hibiscus syrup, fresh lime and orange juices, & immune system boosting essential oils that add a rich, smooth texture to the cocktail",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Stir 75",
-    "description": "Broker's Dry Gin, La Marca Prosecco, Aperitivo Select, Fresh Lemon Juice, Sugar Cane Syrup. A refreshing spin on the classic \"French 75\" cocktail. We've paired London dry gin with fresh lemon juice, sugar, & a hint of Italian aperitif liqueur. Topped with Prosecco for a modern twist",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Sbagliato Negroni",
-    "description": "Campari, Carpano Antica Sweet Vermouth, La Marca Prosecco. Invented in 1919 & named for Count Camillo Negron. It took a secret handshake to order it and was a sign to bartenders that you knew what you liked",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Whiskey Bramble",
-    "description": "Bourbon, Cherry Amarascata, Fresh Lemon Juice, Orange Blossom Water, Sugar Cane Syrup. Tartness from cherry marries well with the sweetness of bourbon to create a delicious whiskey drink. We add some fresh squeezed lemon juice along with a few drops of orange blossom flower water for a sagacious libation",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Viva La Astral",
-    "description": "Tequila Reposado, Fresh Grapefruit and Fresh Lemon Juice, Jalapeño Pepper, Cucumber, Ginger Syrup, Sugar Cane Syrup. Tequila, grapefruit juice, lemon juice, and sugar mixed with jalapeño pepper, cucumber, & hous-made ginger syrup",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Austin Mule",
-    "description": "Tito's Vodka, House-Made Ginger Syrup, Fresh Lime Juice, Sugar Cane Syrup. We use our house-made ginger beer & Tito's to make a great classic cocktail",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Elderflower Sour",
-    "description": "Vodka, St. Germain Elderflower, Monin Lime, House-Made Ginger Syrup, Cucumber. The subtle sweetness of a flower coupled with vodka & the crisp dry sweetness of cucumber makes this drink a favorite. We add a bit of sour from preserved lime syrup & fresh ginger to give it a quenching result",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "1948 Margarita",
-    "description": "Tequila Reposado, Gran Gala, FreshLime Juice, Sugar Cane Syrup. A classic brought back from 1948 from the original Margarita Sames recipe. Served on rocks or shaved ice",
-    "price": "",
-    "category": "Menu"
-  },
-  {
-    "name": "Strawberry Moon Sangria",
-    "description": "House Cabernet, Strawberry, Fresh Lemon Juice, Italian Cherry Syrup, Rose Petal Water, Vodka. Nicknamed by Native Americans, the full moon near the summer solstice was a signal to pick strawberries at the peak of their ripeness. We used their advice and made a cocktail with them",
     "price": "",
     "category": "Menu"
   },
@@ -516,12 +396,6 @@
     "category": "Menu"
   },
   {
-    "name": "Iced Tea",
-    "description": "sweet & unsweet",
-    "price": "",
-    "category": "Menu"
-  },
-  {
     "name": "House-Made Agua Frescas",
     "description": "Lemon Cucumber, Strawberry Basil, Cantaloupe Mint",
     "price": "",
@@ -531,168 +405,6 @@
     "name": "½ lb",
     "description": "",
     "price": "$24.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$8.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$31.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$9.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$35.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$9.50",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$98.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$11.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$43.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$8.50",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$33.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$9.25",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$36.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$9.50",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$37.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$10.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$39.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Gls",
-    "description": "",
-    "price": "$10.50",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$41.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$110.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$75.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$85.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$55.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$68.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$90.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$62.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Btl",
-    "description": "",
-    "price": "$100.00",
-    "category": "Menu"
-  },
-  {
-    "name": "Weekdays",
-    "description": "",
-    "price": "$4",
     "category": "Menu"
   }
 ]

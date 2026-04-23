@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-04-23T02:50:30.503Z",
+  "bundle": "artifacts/menu-integrity/proof/failure-paths/proof-bundle-index.json",
+  "guarantees_verified": [
+    "lkg_drift_block",
+    "schema_version_block",
+    "latency_regression_block",
+    "regression_replay_orphan_failure",
+    "diagnostics_rate_limit_block",
+    "diagnostics_summary_degradation_block",
+    "config_guard_block",
+    "latency_baseline_integrity_block"
+  ],
+  "guarantees_failed": [],
+  "evidence_complete": false,
+  "errors": [
+    "proof_bundle_ci_not_executed_in_ci",
+    "proof_bundle_ci_missing_job:fail_lkg_drift",
+    "proof_bundle_ci_missing_job:fail_schema_version",
+    "proof_bundle_ci_missing_job:fail_latency_regression",
+    "proof_bundle_ci_missing_job:fail_replay_orphan",
+    "bundle_evidence_complete_flag_mismatch"
+  ],
+  "artifact_sha256": "6555511f7cf1d01c2961a348ad8bd0669548bf9fd5ee4c6950ab1d4d69d069b2"
+}

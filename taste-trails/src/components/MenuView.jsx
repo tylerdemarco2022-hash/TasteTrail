@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import StarRating from './StarRating'
 import MenuCard from './MenuCard'
 import { posts, restaurants as allRestaurants } from '../data'
 import Reviews from './Reviews'
 import ItemRating from './ItemRating'
 import { API_BASE } from "../config";
+import { inferDietTags } from '../utils/dietTags';
+import { menuData as localMenuData } from '../menuData';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
@@ -27,7 +30,7 @@ function toSectionsFromFlatItems(items) {
   const groups = new Map()
   for (const rawItem of items) {
     if (!rawItem) continue
-    const category = rawItem.category || rawItem.section || 'Menu'
+    const category = rawItem.section_name || rawItem.category || rawItem.section || 'Menu'
     if (!groups.has(category)) groups.set(category, [])
     groups.get(category).push(rawItem)
   }
@@ -42,30 +45,45 @@ function normalizeMenuPayload(payload) {
     return { name: '', sections: [] }
   }
 
+  const payloadName = payload.name || payload.restaurant || ''
+  const payloadId = payload.id || payload.restaurant_id || null
+
   const directSections = Array.isArray(payload.sections) ? payload.sections : []
   if (directSections.length > 0) {
     return {
-      name: payload.name || payload.restaurant || '',
+      id: payloadId,
+      name: payloadName,
+      restaurant: payload.restaurant || payloadName,
       sections: toSectionsFromCategories(directSections)
+    }
+  }
+
+  const rawMenu = Array.isArray(payload.menu) ? payload.menu : []
+  if (rawMenu.length > 0) {
+    const looksLikeSectionGroups = rawMenu.some((entry) => Array.isArray(entry?.items))
+    return {
+      id: payloadId,
+      name: payloadName,
+      restaurant: payload.restaurant || payloadName,
+      sections: looksLikeSectionGroups
+        ? toSectionsFromCategories(rawMenu)
+        : toSectionsFromFlatItems(rawMenu)
     }
   }
 
   if (Array.isArray(payload.categories) && payload.categories.length > 0) {
     return {
-      name: payload.name || payload.restaurant || '',
+      id: payloadId,
+      name: payloadName,
+      restaurant: payload.restaurant || payloadName,
       sections: toSectionsFromCategories(payload.categories)
     }
   }
 
-  if (Array.isArray(payload.menu) && payload.menu.length > 0) {
-    return {
-      name: payload.name || payload.restaurant || '',
-      sections: toSectionsFromFlatItems(payload.menu)
-    }
-  }
-
   return {
-    name: payload.name || payload.restaurant || '',
+    id: payloadId,
+    name: payloadName,
+    restaurant: payload.restaurant || payloadName,
     sections: []
   }
 }
@@ -73,6 +91,42 @@ function normalizeMenuPayload(payload) {
 function countSectionItems(sections) {
   if (!Array.isArray(sections)) return 0
   return sections.reduce((sum, section) => sum + (Array.isArray(section?.items) ? section.items.length : 0), 0)
+}
+
+function readAdminToken() {
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') return ''
+  return String(localStorage.getItem('admin-token') || 'dev-token-change-me').trim()
+}
+
+function toSectionsFromAdminItems(items = [], activeType = '') {
+  if (!Array.isArray(items) || items.length === 0) return []
+
+  const normalizedType = String(activeType || '').trim().toLowerCase()
+  const typedItems = normalizedType
+    ? items.filter((item) => String(item?.menu_type || '').trim().toLowerCase() === normalizedType)
+    : []
+  const sourceItems = typedItems.length > 0 ? typedItems : items
+
+  const grouped = new Map()
+  for (const rawItem of sourceItems) {
+    if (!rawItem || typeof rawItem !== 'object') continue
+
+    const sectionName = String(rawItem.section_name || rawItem.category || 'Uncategorized').trim() || 'Uncategorized'
+    const normalizedItem = {
+      ...rawItem,
+      section_name: sectionName,
+      category: String(rawItem.category || sectionName).trim() || sectionName
+    }
+
+    if (!grouped.has(sectionName)) grouped.set(sectionName, [])
+    grouped.get(sectionName).push(normalizedItem)
+  }
+
+  return Array.from(grouped.entries()).map(([name, sectionItems]) => ({
+    name,
+    category: name,
+    items: sectionItems
+  }))
 }
 
 function toFetchErrorMessage(error) {
@@ -83,29 +137,344 @@ function toFetchErrorMessage(error) {
   return `Menu fetch error: ${text || 'Unknown error'}`
 }
 
+const ADMIN_MENU_PREFS_PREFIX = 'admin-menu-display-prefs-'
+const ADMIN_ITEM_OVERRIDES_PREFIX = 'admin-item-overrides-'
+const ADMIN_MENU_SNAPSHOT_PREFIX = 'admin-menu-snapshot-'
+const ADMIN_SORT_MODES = new Set([
+  'course',
+  'section_asc',
+  'section_desc',
+  'name_asc',
+  'name_desc',
+  'price_low',
+  'price_high'
+])
+const ADMIN_SECTION_COURSE_ORDER = [
+  { rank: 1, regex: /(to start|starter|starters|appetizer|appetizers|small plate|small plates|raw|shared|shareables?)/i },
+  { rank: 2, regex: /(soup|soups|salad|salads)/i },
+  { rank: 3, regex: /(sandwich|sandwiches|burger|burgers|taco|tacos|wrap|wraps)/i },
+  { rank: 4, regex: /(entree|entrees|main|mains|pasta|pastas|pizza|pizzas|grill|from the grill|signature)/i },
+  { rank: 5, regex: /(vegetable|vegetables|side|sides)/i },
+  { rank: 6, regex: /(dessert|desserts|sweet|sweets)/i },
+  { rank: 7, regex: /(drink|drinks|beverage|beverages|cocktail|cocktails|wine|beer)/i },
+  { rank: 8, regex: /(kids|children)/i }
+]
+
+function normalizeLookupToken(value) {
+  return String(value || '').trim().toLowerCase()
+}
+
+function getLookupValueVariants(value) {
+  const base = String(value || '').trim()
+  if (!base) return []
+
+  const variants = [base]
+  const collapsed = base.replace(/\s+/g, ' ').trim()
+  if (collapsed && collapsed !== base) variants.push(collapsed)
+
+  const beforeParen = collapsed.split('(')[0]?.trim()
+  if (beforeParen && beforeParen !== collapsed) variants.push(beforeParen)
+
+  const beforeComma = collapsed.split(',')[0]?.trim()
+  if (beforeComma && beforeComma !== collapsed) variants.push(beforeComma)
+
+  const beforeDash = collapsed.split(/\s[-\u2013\u2014|]\s/)[0]?.trim()
+  if (beforeDash && beforeDash !== collapsed) variants.push(beforeDash)
+
+  return variants
+}
+
+function safeParseObject(raw) {
+  if (!raw) return null
+  try {
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) return parsed
+    return null
+  } catch {
+    return null
+  }
+}
+
+function getUniqueLookupCandidates(values = []) {
+  const seen = new Set()
+  const unique = []
+  for (const value of values) {
+    const variants = getLookupValueVariants(value)
+    for (const variant of variants) {
+      const token = normalizeLookupToken(variant)
+      if (!token || seen.has(token)) continue
+      seen.add(token)
+      unique.push(variant)
+    }
+  }
+  return unique
+}
+
+function readMatchingStorageObjects(prefix, rawCandidates) {
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') return []
+  const candidates = getUniqueLookupCandidates(rawCandidates)
+  if (candidates.length === 0) return []
+
+  const matches = []
+  const seenStorageKeys = new Set()
+
+  for (const candidate of candidates) {
+    const storageKey = `${prefix}${candidate}`
+    const parsed = safeParseObject(localStorage.getItem(storageKey))
+    if (parsed) {
+      matches.push({ storageKey, value: parsed })
+      seenStorageKeys.add(storageKey)
+    }
+  }
+
+  const normalizedCandidates = new Set(candidates.map((candidate) => normalizeLookupToken(candidate)))
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const storageKey = localStorage.key(index)
+    if (!storageKey || seenStorageKeys.has(storageKey) || !storageKey.startsWith(prefix)) continue
+    const suffix = storageKey.slice(prefix.length)
+    if (!normalizedCandidates.has(normalizeLookupToken(suffix))) continue
+    const parsed = safeParseObject(localStorage.getItem(storageKey))
+    if (!parsed) continue
+    matches.push({ storageKey, value: parsed })
+    seenStorageKeys.add(storageKey)
+  }
+
+  return matches
+}
+
+function readAdminDisplayPrefs(rawCandidates) {
+  const matches = readMatchingStorageObjects(ADMIN_MENU_PREFS_PREFIX, rawCandidates)
+  if (matches.length === 0) {
+    return { sortMode: null, sectionFilter: 'all' }
+  }
+
+  let sortMode = null
+  let sectionFilter = 'all'
+  for (const match of matches) {
+    const candidateSortMode = typeof match.value?.sortMode === 'string' ? match.value.sortMode : null
+    if (ADMIN_SORT_MODES.has(candidateSortMode)) {
+      sortMode = candidateSortMode
+    }
+    const candidateSectionFilter = typeof match.value?.sectionFilter === 'string' && match.value.sectionFilter.trim()
+      ? match.value.sectionFilter.trim()
+      : ''
+    if (candidateSectionFilter) {
+      sectionFilter = candidateSectionFilter
+    }
+  }
+
+  return {
+    sortMode,
+    sectionFilter
+  }
+}
+
+function readAdminItemOverrides(rawCandidates) {
+  const matches = readMatchingStorageObjects(ADMIN_ITEM_OVERRIDES_PREFIX, rawCandidates)
+  const byName = {}
+  const byId = {}
+
+  for (const match of matches) {
+    for (const [entryKey, override] of Object.entries(match.value)) {
+      if (!entryKey || !override || typeof override !== 'object' || Array.isArray(override)) continue
+      if (String(entryKey).startsWith('__id:')) {
+        const itemId = String(entryKey).slice(5).trim()
+        if (!itemId) continue
+        byId[itemId] = { ...(byId[itemId] || {}), ...override }
+        continue
+      }
+      byName[entryKey] = { ...(byName[entryKey] || {}), ...override }
+    }
+  }
+
+  return { byName, byId }
+}
+
+function readAdminMenuSnapshot(rawCandidates, activeType = '') {
+  const matches = readMatchingStorageObjects(ADMIN_MENU_SNAPSHOT_PREFIX, rawCandidates)
+  if (matches.length === 0) return []
+
+  let chosenItems = []
+  let chosenSavedAt = ''
+
+  for (const match of matches) {
+    const value = match?.value && typeof match.value === 'object' ? match.value : {}
+    const items = Array.isArray(value?.items) ? value.items : []
+    if (items.length === 0) continue
+
+    const savedAt = String(value?.savedAt || value?.updatedAt || '').trim()
+    if (!chosenSavedAt || (savedAt && savedAt > chosenSavedAt)) {
+      chosenItems = items
+      chosenSavedAt = savedAt
+      continue
+    }
+    if (!savedAt && chosenItems.length === 0) {
+      chosenItems = items
+    }
+  }
+
+  return toSectionsFromAdminItems(chosenItems, activeType)
+}
+
+function getSectionCourseRank(sectionName = '') {
+  const name = String(sectionName || '').trim()
+  for (const entry of ADMIN_SECTION_COURSE_ORDER) {
+    if (entry.regex.test(name)) return entry.rank
+  }
+  return 99
+}
+
+function parseMenuItemPrice(price) {
+  if (price == null || price === '') return null
+  if (typeof price === 'number') return Number.isFinite(price) ? price : null
+  const parsed = parseFloat(String(price).replace(/[^0-9.]/g, ''))
+  return Number.isFinite(parsed) ? parsed : null
+}
+
+function applyAdminMenuPresentation(rawSections, prefs, overrideMap) {
+  if (!Array.isArray(rawSections) || rawSections.length === 0) return []
+
+  const overrideByNameLookup = new Map()
+  const overrideByIdLookup = new Map()
+  const nameOverrides = (() => {
+    if (overrideMap?.byName && typeof overrideMap.byName === 'object') return overrideMap.byName
+    return overrideMap && typeof overrideMap === 'object' ? overrideMap : {}
+  })()
+  const idOverrides = overrideMap?.byId && typeof overrideMap.byId === 'object' ? overrideMap.byId : {}
+
+  for (const [itemName, override] of Object.entries(nameOverrides || {})) {
+    if (String(itemName).startsWith('__id:')) continue
+    const token = normalizeLookupToken(itemName)
+    if (!token || !override || typeof override !== 'object' || Array.isArray(override)) continue
+    overrideByNameLookup.set(token, { ...(overrideByNameLookup.get(token) || {}), ...override })
+  }
+  for (const [itemId, override] of Object.entries(idOverrides || {})) {
+    const idToken = String(itemId || '').trim()
+    if (!idToken || !override || typeof override !== 'object' || Array.isArray(override)) continue
+    overrideByIdLookup.set(idToken, { ...(overrideByIdLookup.get(idToken) || {}), ...override })
+  }
+  for (const [entryKey, override] of Object.entries(nameOverrides || {})) {
+    if (!String(entryKey).startsWith('__id:')) continue
+    const idToken = String(entryKey).slice(5).trim()
+    if (!idToken || !override || typeof override !== 'object' || Array.isArray(override)) continue
+    overrideByIdLookup.set(idToken, { ...(overrideByIdLookup.get(idToken) || {}), ...override })
+  }
+  const sortMode = ADMIN_SORT_MODES.has(prefs?.sortMode) ? prefs.sortMode : null
+  const sectionFilter = String(prefs?.sectionFilter || 'all').trim()
+  const normalizedSectionFilter = normalizeLookupToken(sectionFilter)
+  const hasSectionFilter = Boolean(normalizedSectionFilter && normalizedSectionFilter !== 'all')
+
+  if (overrideByNameLookup.size === 0 && overrideByIdLookup.size === 0 && !sortMode && !hasSectionFilter) {
+    return rawSections
+  }
+
+  const flattenedItems = []
+  rawSections.forEach((section, sectionIndex) => {
+    const sectionName = String(section?.name || section?.category || 'Menu').trim() || 'Menu'
+    const sectionItems = Array.isArray(section?.items) ? section.items : []
+    sectionItems.forEach((item, itemIndex) => {
+      if (!item || typeof item !== 'object') return
+      const itemIdToken = String(item?.id || '').trim()
+      const itemToken = getMenuItemSortName(item)
+      const override = (itemIdToken && overrideByIdLookup.get(itemIdToken)) || (itemToken ? overrideByNameLookup.get(itemToken) : null)
+      const mergedItem = override ? { ...item, ...override } : { ...item }
+      if (override && typeof override === 'object') {
+        const overrideSectionName = String(override.section_name || '').trim()
+        const overrideCategory = String(override.category || '').trim()
+        if (!overrideSectionName && overrideCategory) mergedItem.section_name = overrideCategory
+        if (overrideSectionName && !overrideCategory) mergedItem.category = overrideSectionName
+      }
+      const finalSectionName = String(
+        mergedItem.section_name || mergedItem.category || mergedItem.section || sectionName
+      ).trim() || 'Menu'
+
+      flattenedItems.push({
+        ...mergedItem,
+        __sectionName: finalSectionName,
+        __sectionOrder: sectionIndex,
+        __itemOrder: itemIndex
+      })
+    })
+  })
+
+  if (flattenedItems.length === 0) return []
+
+  const filteredItems = hasSectionFilter
+    ? flattenedItems.filter((item) => normalizeLookupToken(item.__sectionName) === normalizedSectionFilter)
+    : flattenedItems
+
+  const grouped = new Map()
+  for (const item of filteredItems) {
+    if (!grouped.has(item.__sectionName)) grouped.set(item.__sectionName, [])
+    grouped.get(item.__sectionName).push(item)
+  }
+
+  let sections = Array.from(grouped.entries()).map(([name, items]) => ({ name, items }))
+
+  if (sortMode === 'section_asc') {
+    sections.sort((a, b) => a.name.localeCompare(b.name))
+  } else if (sortMode === 'section_desc') {
+    sections.sort((a, b) => b.name.localeCompare(a.name))
+  } else if (sortMode === 'course') {
+    sections.sort((a, b) => {
+      const byCourse = getSectionCourseRank(a.name) - getSectionCourseRank(b.name)
+      if (byCourse !== 0) return byCourse
+      return a.name.localeCompare(b.name)
+    })
+  }
+
+  return sections.map((section) => {
+    const nextItems = [...section.items]
+    if (sortMode === 'name_asc') {
+      nextItems.sort((a, b) => getMenuItemSortName(a).localeCompare(getMenuItemSortName(b)))
+    } else if (sortMode === 'name_desc') {
+      nextItems.sort((a, b) => getMenuItemSortName(b).localeCompare(getMenuItemSortName(a)))
+    } else if (sortMode === 'price_low') {
+      nextItems.sort((a, b) => {
+        const aPrice = parseMenuItemPrice(a.price)
+        const bPrice = parseMenuItemPrice(b.price)
+        if (aPrice == null && bPrice == null) return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
+        if (aPrice == null) return 1
+        if (bPrice == null) return -1
+        if (aPrice !== bPrice) return aPrice - bPrice
+        return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
+      })
+    } else if (sortMode === 'price_high') {
+      nextItems.sort((a, b) => {
+        const aPrice = parseMenuItemPrice(a.price)
+        const bPrice = parseMenuItemPrice(b.price)
+        if (aPrice == null && bPrice == null) return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
+        if (aPrice == null) return 1
+        if (bPrice == null) return -1
+        if (aPrice !== bPrice) return bPrice - aPrice
+        return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
+      })
+    } else {
+      nextItems.sort((a, b) => {
+        if (a.__itemOrder !== b.__itemOrder) return a.__itemOrder - b.__itemOrder
+        return getMenuItemSortName(a).localeCompare(getMenuItemSortName(b))
+      })
+    }
+
+    return {
+      name: section.name,
+      items: nextItems.map((item) => {
+        const { __sectionName, __sectionOrder, __itemOrder, ...cleanItem } = item
+        return cleanItem
+      })
+    }
+  })
+}
+
 const MENU_TAB_RULES = [
-  { key: 'appetizers', label: 'Appetizers', regex: /(appetizer|starter|small plate|shareable|antipasti|antipasto)/i },
-  { key: 'soups_salads', label: 'Soups & Salads', regex: /(soup|salad)/i },
-  { key: 'pizzas', label: 'Pizzas', regex: /(pizza|flatbread)/i },
-  { key: 'pastas', label: 'Pastas', regex: /(pasta|ravioli|spaghetti|penne|fettuccine|linguine|gnocchi|lasagna|risotto)/i },
-  { key: 'sandwiches', label: 'Sandwiches', regex: /(sandwich|burger|panini|wrap)/i },
-  { key: 'entrees', label: 'Entrees', regex: /(entree|main|secondi|chicken|steak|salmon|mahi|short ribs|scampi)/i },
-  { key: 'desserts', label: 'Desserts', regex: /(dessert|cake|gelato|ice cream|brownie|tiramisu|sweet)/i },
-  { key: 'drinks', label: 'Drinks', regex: /(drink|beverage|cocktail|wine|beer|coffee|tea|soda|juice|mocktail)/i },
-  { key: 'sides', label: 'Sides', regex: /(side|fries|chips)/i }
+  // DEPRECATED: This is no longer used
+  // Categories are now preserved from the original menu structure
+  // No automatic classification happens
 ]
 
 const MENU_TAB_ORDER = [
-  'entrees',
-  'soups_salads',
-  'appetizers',
-  'pizzas',
-  'pastas',
-  'sandwiches',
-  'desserts',
-  'drinks',
-  'sides',
-  'menu'
+  // DEPRECATED: Dynamic ordering based on section appearance
+  // Sections now appear in the order they were scraped
 ]
 
 const COMMUNITY_POSTS_KEY = 'community-posts'
@@ -129,16 +498,18 @@ function getMenuItemSortName(item = {}) {
 }
 
 function getMenuCategoryMeta(item = {}, sectionName = '') {
-  const sectionText = String(sectionName || '').toLowerCase()
-  const categoryText = String(item?.category || '').toLowerCase()
-  const nameText = String(item?.name || item?.dish_name || item?.dish || item?.title || '').toLowerCase()
-  const haystack = `${sectionText} ${categoryText} ${nameText}`
-
-  for (const rule of MENU_TAB_RULES) {
-    if (rule.regex.test(haystack)) {
-      return { key: rule.key, label: rule.label }
-    }
+  // Prefer using the item's category field directly (from restaurant's menu)
+  const itemCategory = String(item?.category || '').trim()
+  if (itemCategory) {
+    return { key: itemCategory.toLowerCase().replace(/\s+/g, '_'), label: itemCategory }
   }
+  
+  // Fallback to section name if item has no category
+  const sectionText = String(sectionName || '').trim()
+  if (sectionText) {
+    return { key: sectionText.toLowerCase().replace(/\s+/g, '_'), label: sectionText }
+  }
+
   return { key: 'menu', label: 'Menu' }
 }
 
@@ -151,6 +522,25 @@ export default function MenuView({ post, onBack, showAI }) {
   const [newImage, setNewImage] = useState(null)
   const [newPrice, setNewPrice] = useState(2)
   const [savedItemsState, setSavedItemsState] = useState([])
+  const profileId = React.useMemo(() => {
+    try {
+      const raw = localStorage.getItem('user_profile')
+      if (raw) {
+        const parsed = JSON.parse(raw)
+        if (parsed?.id) return String(parsed.id)
+      }
+    } catch (e) {}
+    return localStorage.getItem('currentProfileId') || 'guest'
+  }, [])
+  const flagStorageKey = React.useMemo(() => `menu-item-flags:${profileId}`, [profileId])
+  const [flaggedItems, setFlaggedItems] = useState(() => {
+    try {
+      const raw = localStorage.getItem(flagStorageKey)
+      return raw ? JSON.parse(raw) : {}
+    } catch {
+      return {}
+    }
+  })
   
   // Dish summary modal state
   const [showSummary, setShowSummary] = useState(false)
@@ -168,10 +558,28 @@ export default function MenuView({ post, onBack, showAI }) {
   const [showItemRating, setShowItemRating] = useState(false)
   const [ratingItem, setRatingItem] = useState(null)
   const [activeCategoryTab, setActiveCategoryTab] = useState('all')
+  const [activeFilter, setActiveFilter] = useState(null) // Quick filter state
+  const [expandedSections, setExpandedSections] = useState({ drinks: false }) // Track which sections are expanded
   const didAutoGenerateMenu = useRef(false)
   const sectionRefs = useRef({})
 
   const [menuData, setMenuData] = useState(null); // New: menuData state for backend menu response
+
+  // Menu type state (breakfast, lunch, dinner, drinks)
+  const [availableTypes, setAvailableTypes] = useState([]);
+  const [activeType, setActiveType] = useState(null);
+  const [adminMenuSyncVersion, setAdminMenuSyncVersion] = useState(0)
+
+
+  // Load dietary preferences on mount
+  const [dietaryPreferences, setDietaryPreferences] = useState(() => {
+    try {
+      const prefs = localStorage.getItem('dietary_preferences')
+      return prefs ? JSON.parse(prefs) : []
+    } catch {
+      return []
+    }
+  })
 
   if (!post) return null
 
@@ -181,26 +589,202 @@ export default function MenuView({ post, onBack, showAI }) {
     if (isUuidLike(post?.id)) return post.id
     return null
   }, [post?.restaurant_id, post?.id])
+  const adminLookupCandidates = React.useMemo(() => {
+    const keys = [
+      restaurantId,
+      post?.restaurant_id,
+      post?.id,
+      restaurantName,
+      menuData?.id,
+      menuData?.name,
+      menuData?.restaurant
+    ]
+    return getUniqueLookupCandidates(keys)
+  }, [restaurantId, post?.restaurant_id, post?.id, restaurantName, menuData?.id, menuData?.name, menuData?.restaurant])
+  const adminDisplayPrefs = React.useMemo(() => {
+    return readAdminDisplayPrefs(adminLookupCandidates)
+  }, [adminLookupCandidates, adminMenuSyncVersion])
+  const adminItemOverrides = React.useMemo(() => {
+    return readAdminItemOverrides(adminLookupCandidates)
+  }, [adminLookupCandidates, adminMenuSyncVersion])
+  const adminSnapshotSections = React.useMemo(() => {
+    return readAdminMenuSnapshot(adminLookupCandidates, activeType)
+  }, [adminLookupCandidates, adminMenuSyncVersion, activeType])
+
+  const persistFlaggedItems = (updater) => {
+    setFlaggedItems((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater
+      try {
+        localStorage.setItem(flagStorageKey, JSON.stringify(next))
+      } catch (e) {}
+      return next
+    })
+  }
+
+  const buildFlagKey = (item) => {
+    const baseId = item?.id || item?.name || 'unknown'
+    const restId = restaurantId || post?.id || 'unknown'
+    return `${restId}::${String(baseId).toLowerCase()}`
+  }
+
+  const isItemFlagged = (item) => Boolean(flaggedItems?.[buildFlagKey(item)])
+
+  const saveLocalMenuFlag = (payload) => {
+    try {
+      const raw = localStorage.getItem('menu-item-flag-queue')
+      const existing = raw ? JSON.parse(raw) : []
+      const next = [payload, ...(Array.isArray(existing) ? existing : [])]
+      localStorage.setItem('menu-item-flag-queue', JSON.stringify(next))
+    } catch (e) {}
+  }
+
+  const handleFlagMenuItem = async (item) => {
+    const reason = window.prompt('What seems wrong with this item? (e.g., not food, wrong name, missing price)')
+    if (!reason) return
+
+    const flagKey = buildFlagKey(item)
+    persistFlaggedItems((prev) => ({
+      ...prev,
+      [flagKey]: {
+        flagged_at: Date.now(),
+        reason: reason.trim()
+      }
+    }))
+
+    const payload = {
+      menu_item_id: item?.id || null,
+      restaurant_id: restaurantId,
+      restaurant_name: restaurantName,
+      item_name: item?.name || item?.dish_name || item?.dish || 'Unknown item',
+      reason: reason.trim(),
+      details: item?.description || null
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/menu-item-flags`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      })
+      if (!res.ok) {
+        saveLocalMenuFlag(payload)
+      }
+    } catch (e) {
+      saveLocalMenuFlag(payload)
+    }
+  }
+
+  const saveLocalReviewReport = (payload) => {
+    try {
+      const raw = localStorage.getItem('review-report-queue')
+      const existing = raw ? JSON.parse(raw) : []
+      const next = [payload, ...(Array.isArray(existing) ? existing : [])]
+      localStorage.setItem('review-report-queue', JSON.stringify(next))
+    } catch (e) {}
+  }
+
+  const handleReportReview = async (dish, review) => {
+    const reason = window.prompt('Why are you reporting this review?')
+    if (!reason) return
+
+    const payload = {
+      menu_item_id: dish?.id || null,
+      restaurant_id: restaurantId,
+      restaurant_name: restaurantName,
+      dish_name: dish?.name || null,
+      rating_value: Number(review?.rating) || null,
+      comment: review?.comment || null,
+      reason: reason.trim(),
+      details: review?.timestamp ? `reviewed_at:${review.timestamp}` : null
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/review-reports`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      })
+      if (!res.ok) {
+        saveLocalReviewReport(payload)
+      }
+    } catch (e) {
+      saveLocalReviewReport(payload)
+    }
+  }
 
   // Load dish ratings from localStorage on mount
   React.useEffect(() => {
     const saved = localStorage.getItem(`dishRatings-${post.restaurant || post.name}`)
     if (saved) {
       try {
-        setDishRatings(JSON.parse(saved))
+        const loaded = JSON.parse(saved)
+        setDishRatings(loaded)
+        const dishCount = Object.keys(loaded).length
+        const totalReviews = Object.values(loaded).reduce((sum, dish) => sum + (dish.count || 0), 0)
+        console.log(`📖 Loaded ${totalReviews} reviews for ${dishCount} dishes from localStorage`)
       } catch (e) {
         console.warn('Failed to load dish ratings:', e)
       }
     }
   }, [post.restaurant, post.name])
 
+  // Hydrate menu items with stored review data whenever dishRatings changes
   React.useEffect(() => {
-    // Always try to fetch full menu from backend when menu view opens
-    if (restaurantId || restaurantName) {
+    if (!dishRatings || Object.keys(dishRatings).length === 0) return
+
+    const hydrateItemWithReviews = (item) => {
+      const itemName = item?.name || item?.dish_name || item?.dish || ''
+      const dishData = dishRatings[itemName]
+      
+      if (!dishData || !dishData.count) return item
+
+      // Update item with complete review data from localStorage
+      return {
+        ...item,
+        avg_rating: Number(dishData.average.toFixed(1)),
+        rating: Number(dishData.average.toFixed(1)),
+        rating_bayesian: Number(dishData.average.toFixed(1)),
+        rating_count: dishData.count,
+        ratings_count: dishData.count,
+        all_reviews: dishData.reviews
+      }
+    }
+
+    // Hydrate all menu sources
+    if (Array.isArray(fetchedMenu) && fetchedMenu.length > 0) {
+      setFetchedMenu(prev => prev.map(hydrateItemWithReviews))
+    }
+    if (Array.isArray(aiMenu) && aiMenu.length > 0) {
+      setAiMenu(prev => prev.map(hydrateItemWithReviews))
+    }
+    if (menuData?.sections) {
+      setMenuData(prev => ({
+        ...prev,
+        sections: prev.sections.map(section => ({
+          ...section,
+          items: section.items.map(hydrateItemWithReviews)
+        }))
+      }))
+    }
+  }, [dishRatings]) // Re-run when dishRatings changes (on load or after rating)
+
+  React.useEffect(() => {
+    // Fetch available menu types when component/restaurant changes
+    if (restaurantName) {
+      fetchMenuTypes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restaurantName])
+
+  React.useEffect(() => {
+    // Refetch menu when active type changes
+    if ((restaurantId || restaurantName) && activeType) {
       fetchMenuFromBackend({ restaurantId, restaurantName });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restaurantId, restaurantName])
+  }, [activeType])
   async function triggerMenuScrape() {
     console.log('🔄 Triggering menu scrape for:', post.restaurant || post.name)
     setMenuLoading(true)
@@ -280,9 +864,12 @@ export default function MenuView({ post, onBack, showAI }) {
       let data = null;
       let normalized = { name: restaurantName || '', sections: [] };
 
+      // Build the type parameter for API calls
+      const typeParam = activeType ? `&type=${activeType}` : '';
+
       if (restaurantId) {
-        console.log("Menu fetch by ID:", restaurantId);
-        const idUrl = `${API_BASE}/api/restaurants/${restaurantId}/full-menu`;
+        console.log("Menu fetch by ID:", restaurantId, "Type:", activeType);
+        const idUrl = `${API_BASE}/api/restaurants/${restaurantId}/full-menu?type=${activeType || 'dinner'}`;
         const idRes = await fetch(idUrl);
         if (idRes.ok) {
           data = await idRes.json();
@@ -293,8 +880,8 @@ export default function MenuView({ post, onBack, showAI }) {
       }
 
       if (normalized.sections.length === 0 && restaurantName) {
-        console.log("Menu fetch by name fallback:", restaurantName);
-        const nameUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}`;
+        console.log("Menu fetch by name fallback:", restaurantName, "Type:", activeType);
+        const nameUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}?type=${activeType || 'dinner'}`;
         const nameRes = await fetch(nameUrl);
         if (nameRes.ok) {
           data = await nameRes.json();
@@ -304,10 +891,43 @@ export default function MenuView({ post, onBack, showAI }) {
         }
       }
 
+      // Admin-side source of truth: if admin token exists and restaurant ID is known,
+      // prefer the same menu_items dataset used by Admin Panel.
+      const adminToken = readAdminToken()
+      const resolvedRestaurantId = String(restaurantId || normalized?.id || data?.id || '').trim()
+      if (adminToken && isUuidLike(resolvedRestaurantId)) {
+        try {
+          const adminRes = await fetch(`${API_BASE}/admin/menu-items/restaurant/${resolvedRestaurantId}`, {
+            headers: { 'x-admin-token': adminToken }
+          })
+          if (adminRes.ok) {
+            const adminPayload = await adminRes.json().catch(() => ({}))
+            const adminItems = Array.isArray(adminPayload?.items) ? adminPayload.items : []
+            const adminSections = toSectionsFromAdminItems(adminItems, activeType)
+            if (adminSections.length > 0) {
+              normalized = {
+                ...normalized,
+                id: resolvedRestaurantId,
+                name: normalized?.name || restaurantName || '',
+                restaurant: normalized?.restaurant || restaurantName || '',
+                sections: adminSections
+              }
+              console.log('[MenuView] Using admin menu items source for user display:', {
+                restaurantId: resolvedRestaurantId,
+                sections: adminSections.length,
+                items: countSectionItems(adminSections)
+              })
+            }
+          }
+        } catch (adminErr) {
+          console.warn('[MenuView] Admin source fetch failed, falling back to public menu source:', adminErr?.message || adminErr)
+        }
+      }
+
       const currentCount = countSectionItems(normalized.sections);
       if (restaurantName && currentCount < 8) {
         console.log("Menu appears incomplete, refreshing source scrape for:", restaurantName);
-        const refreshUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}?refresh=1`;
+        const refreshUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}?refresh=1&type=${activeType || 'dinner'}`;
         const refreshRes = await fetch(refreshUrl);
         if (refreshRes.ok) {
           const refreshedData = await refreshRes.json();
@@ -321,20 +941,117 @@ export default function MenuView({ post, onBack, showAI }) {
         }
       }
 
+      // Fallback to local static menu data if backend returned nothing
+      if (normalized.sections.length === 0 && restaurantName) {
+        const localKey = Object.keys(localMenuData).find(
+          k => k.toLowerCase() === restaurantName.toLowerCase()
+        )
+        if (localKey && Array.isArray(localMenuData[localKey])) {
+          const localSections = toSectionsFromFlatItems(localMenuData[localKey])
+          if (localSections.length > 0) {
+            console.log(`Using local menu fallback for "${restaurantName}" (${localKey})`)
+            normalized = { name: restaurantName, sections: localSections }
+          }
+        }
+      }
+
       console.log("Normalized fetched menu:", normalized);
       setMenuData(normalized);
     } catch (e) {
       console.error("Menu fetch error:", e.message);
+      // Try local menu fallback before showing error
+      const localKey = Object.keys(localMenuData).find(
+        k => k.toLowerCase() === restaurantName.toLowerCase()
+      )
+      if (localKey && Array.isArray(localMenuData[localKey])) {
+        const localSections = toSectionsFromFlatItems(localMenuData[localKey])
+        if (localSections.length > 0) {
+          console.log(`Using local menu fallback for "${restaurantName}" after error`)
+          setMenuData({ name: restaurantName, sections: localSections })
+          setMenuLoading(false)
+          return
+        }
+      }
       alert(toFetchErrorMessage(e));
       setMenuData({ name: restaurantName || '', sections: [] });
     }
     setMenuLoading(false);
   }
 
+  async function fetchMenuTypes() {
+    // Fetch available menu types for this restaurant by name
+    if (!restaurantName) return;
+    
+    console.log('🔍 fetchMenuTypes() called for restaurant:', restaurantName);
+    
+    try {
+      const res = await fetch(`${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}/types`);
+      if (res.ok) {
+        const data = await res.json();
+        console.log('TYPES API RESPONSE:', data);
+        console.log('📋 Available menu types:', data.available_types);
+        setAvailableTypes(data.available_types || []);
+        
+        // Auto-select logic:
+        // - If only 1 type exists → select it
+        // - Else if 'dinner' is available → select 'dinner'
+        // - Else select first available type
+        if (data.available_types && data.available_types.length > 0) {
+          if (data.available_types.length === 1) {
+            setActiveType(data.available_types[0]);
+            console.log('🔄 Only one menu type available, auto-selecting:', data.available_types[0]);
+          } else if (data.available_types.includes('dinner')) {
+            setActiveType('dinner');
+            console.log('🔄 Multiple types available, defaulting to dinner');
+          } else {
+            setActiveType(data.available_types[0]);
+            console.log('🔄 Multiple types available, selecting first:', data.available_types[0]);
+          }
+        }
+      } else {
+        console.warn('Failed to fetch menu types. Status:', res.status);
+        console.log('API Response was not ok');
+        setAvailableTypes(['dinner']);
+        setActiveType('dinner');
+      }
+    } catch (e) {
+      console.error('Error fetching menu types:', e.message);
+      setAvailableTypes(['dinner']);
+      setActiveType('dinner');
+    }
+  }
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('savedItems')) || [];
     setSavedItemsState(saved);
   }, []);
+
+  React.useEffect(() => {
+    const refreshAdminView = () => setAdminMenuSyncVersion((prev) => prev + 1)
+    const onStorage = (event) => {
+      const storageKey = String(event?.key || '')
+      if (!storageKey) return
+      if (
+        storageKey.startsWith(ADMIN_MENU_PREFS_PREFIX) ||
+        storageKey.startsWith(ADMIN_ITEM_OVERRIDES_PREFIX) ||
+        storageKey.startsWith(ADMIN_MENU_SNAPSHOT_PREFIX)
+      ) {
+        refreshAdminView()
+      }
+    }
+
+    window.addEventListener('storage', onStorage)
+    window.addEventListener('adminMenuPrefsChanged', refreshAdminView)
+    window.addEventListener('itemOverridesChanged', refreshAdminView)
+    window.addEventListener('adminMenuSnapshotChanged', refreshAdminView)
+
+    return () => {
+      window.removeEventListener('storage', onStorage)
+      window.removeEventListener('adminMenuPrefsChanged', refreshAdminView)
+      window.removeEventListener('itemOverridesChanged', refreshAdminView)
+      window.removeEventListener('adminMenuSnapshotChanged', refreshAdminView)
+    }
+  }, [])
 
   async function aiFindMenu() {
     setLoading(true)
@@ -384,12 +1101,19 @@ export default function MenuView({ post, onBack, showAI }) {
     return toSectionsFromFlatItems(effectiveMenu)
   }, [effectiveMenu])
 
-  const displaySections = React.useMemo(() => {
+  const rawDisplaySections = React.useMemo(() => {
+    if (Array.isArray(adminSnapshotSections) && adminSnapshotSections.length > 0) {
+      return adminSnapshotSections
+    }
     if (Array.isArray(menuData?.sections) && menuData.sections.length > 0) {
       return menuData.sections
     }
     return fallbackSections
-  }, [menuData, fallbackSections])
+  }, [adminSnapshotSections, menuData, fallbackSections])
+
+  const displaySections = React.useMemo(() => {
+    return applyAdminMenuPresentation(rawDisplaySections, adminDisplayPrefs, adminItemOverrides)
+  }, [rawDisplaySections, adminDisplayPrefs, adminItemOverrides])
 
   const displayItemCount = React.useMemo(() => {
     return countSectionItems(displaySections)
@@ -568,52 +1292,89 @@ export default function MenuView({ post, onBack, showAI }) {
   }
 
   const submitDishRating = async (dish, rating) => {
-    const userId = localStorage.getItem('currentUserId');
+    // Resolve user ID from multiple possible localStorage sources
+    let userId = localStorage.getItem('currentUserId');
     if (!userId) {
+      try {
+        const profile = JSON.parse(localStorage.getItem('user_profile') || 'null');
+        userId = profile?.id || null;
+      } catch {}
+    }
+    if (!userId) {
+      try {
+        const profile = JSON.parse(localStorage.getItem('selectedUserProfile') || 'null');
+        userId = profile?.id || null;
+      } catch {}
+    }
+
+    console.log('🔍 [Rating Debug]', {
+      userId,
+      dishId: dish?.id,
+      dishName: dish?.name,
+      ratingValue: rating,
+      API_BASE
+    });
+
+    if (!userId) {
+      console.error("❌ Not logged in - no user ID found in localStorage");
       alert("You must be logged in to rate.");
       return;
     }
 
-    if (!dish.id) {
-      console.error("Dish ID is missing. Ensure dish data is loaded correctly.");
+    if (!dish?.id) {
+      console.error("❌ Dish ID is missing:", dish);
       alert("Dish data is missing. Please try again.");
       return;
     }
 
     try {
+      const payload = {
+        dish_id: dish.id,
+        user_id: userId,
+        rating: Number(rating),
+        dish_name: dish.name || dish.dish_name || '',
+        restaurant_name: post?.restaurant || post?.name || ''
+      };
+
+      console.log('📤 [Rating] Sending payload:', payload);
+      console.log('📤 [Rating] To URL:', `${API_BASE}/api/ratings`);
+      
       const response = await fetch(`${API_BASE}/api/ratings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          dish_id: dish.id,
-          user_id: userId,
-          rating: Number(rating)
-        })
+        body: JSON.stringify(payload)
       });
 
+      console.log('📥 [Rating] Response status:', response.status);
+      console.log('📥 [Rating] Response OK:', response.ok);
+      
       if (!response.ok) {
         const text = await response.text()
-        console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
+        console.log("❌ [Rating] RAW RESPONSE:", text.slice(0, 500))
         let err
         try {
           err = JSON.parse(text)
         } catch (e) {
-          console.error("NOT JSON RESPONSE:", text.slice(0, 200))
+          console.error("❌ [Rating] NOT JSON RESPONSE:", text.slice(0, 200))
           throw e
         }
-        console.error("Rating failed:", err);
-        alert("Rating failed. Please try again.");
+        console.error("❌ [Rating] Failed:", err);
+        alert("Rating failed: " + (err?.error || "Unknown error"));
         return;
       }
 
+      const data = await response.json();
+      console.log('✅ [Rating] Success! Saved:', data);
+      
       // Refetch menu data after successful rating submission
       await fetchMenuFromBackend({ restaurantId, restaurantName });
 
       setShowItemRating(false);
       setRatingItem(null);
+      alert(`✅ Rating saved! Check the "Top Dishes" section to see it on the leaderboard.`);
     } catch (error) {
-      console.error("Error submitting rating:", error);
-      alert("An error occurred while submitting your rating. Please try again later.");
+      console.error("❌ [Rating] Network error:", error);
+      alert("An error occurred while submitting your rating. Check browser console for details.");
     }
   }
 
@@ -716,10 +1477,18 @@ export default function MenuView({ post, onBack, showAI }) {
   }
 
   const handleShowSummary = (item) => {
-    setSummaryDish(item)
-    const description = generateDishSummary(item.name, post.restaurant || post.name)
-    setDishDescription(description)
-    setShowSummary(true)
+    console.log('handleShowSummary called with item:', item);
+    const dishName = item?.name || item?.dish_name || item?.dish || item?.title || 'Dish';
+    const restaurantName = post?.restaurant || post?.name || 'this restaurant';
+    setSummaryDish({ ...item, name: dishName });
+    const rawDescription = item?.description || item?.desc || item?.details || '';
+    const description = rawDescription.trim()
+      ? rawDescription.trim()
+      : generateDishSummary(dishName, restaurantName);
+    console.log('Generated description:', description);
+    setDishDescription(description);
+    setShowSummary(true);
+    console.log('Modal state set - showSummary: true, summaryDish:', dishName);
   }
 
   const getPriceDisplay = (price) => {
@@ -747,38 +1516,100 @@ export default function MenuView({ post, onBack, showAI }) {
     return 'Other'
   }
 
+  // Helper to get tags (prefer item.tags, fallback to inferred)
+  const getTags = React.useCallback((item) => {
+    return Array.isArray(item?.tags) && item.tags.length > 0 ? item.tags : inferDietTags(item)
+  }, [])
+
+  // Check if an item matches user's dietary preferences
+  const matchesDietaryPreferences = React.useCallback((item) => {
+    // If user selected "none" or no preferences, show all items
+    if (!dietaryPreferences || dietaryPreferences.length === 0 || dietaryPreferences.includes('none')) {
+      return true
+    }
+
+    const tags = getTags(item)
+    
+    // If user selected vegetarian or vegan
+    if (dietaryPreferences.includes('vegetarian') || dietaryPreferences.includes('vegan')) {
+      return tags.includes('vegetarian')
+    }
+
+    return true
+  }, [dietaryPreferences, getTags])
+
+  // Helper function to check if item matches filter criteria
+  const itemMatchesFilter = React.useCallback((item, filter) => {
+    // First check if item matches dietary preferences
+    if (!matchesDietaryPreferences(item)) return false
+    
+    if (!filter) return true
+    
+    const tags = getTags(item)
+    
+    switch (filter) {
+      case 'TOP_RATED':
+        return true // Show all items, sorted by rating (real or fake fallback)
+
+      case 'MOST_ORDERED':
+        return true // Show all items, sorted by review count (real or fake fallback)
+        
+      case 'HEALTHY':
+        return tags.includes('healthy')
+        
+      case 'VEGETARIAN':
+        return tags.includes('vegetarian')
+        
+      case 'SPICY':
+        return tags.includes('spicy')
+        
+      case 'NEW': {
+        // If is_new flag exists, use it; otherwise check created_at (last 14 days)
+        if (item?.is_new === true) return true
+        if (item?.created_at) {
+          const cutoff = Date.now() - (14 * 24 * 60 * 60 * 1000)
+          return new Date(item.created_at).getTime() >= cutoff
+        }
+        return false
+      }
+        
+      default:
+        return true
+    }
+  }, [getTags, matchesDietaryPreferences])
+
+  // Build user-visible sections directly from resolved section data.
+  // This keeps Admin section assignments as the source of truth.
   const categorySections = React.useMemo(() => {
-    const groups = new Map()
+    const grouped = new Map()
+
     for (const section of displaySections) {
-      const sectionName = section?.name || section?.category || 'Menu'
       const sectionItems = Array.isArray(section?.items) ? section.items : []
+      const fallbackSectionName = String(section?.name || section?.category || 'Menu').trim() || 'Menu'
+
       for (const item of sectionItems) {
-        if (!item) continue
-        const meta = getMenuCategoryMeta(item, sectionName)
-        if (!groups.has(meta.key)) {
-          groups.set(meta.key, {
-            key: meta.key,
-            name: meta.label,
+        if (!item || item.isSubheader) continue
+        if (!itemMatchesFilter(item, activeFilter)) continue
+
+        const resolvedSectionName = String(
+          item?.section_name || item?.category || item?.section || fallbackSectionName
+        ).trim() || fallbackSectionName
+        const sectionKey = resolvedSectionName.toLowerCase().replace(/\s+/g, '_')
+
+        if (!grouped.has(sectionKey)) {
+          grouped.set(sectionKey, {
+            key: sectionKey,
+            name: resolvedSectionName,
             items: []
           })
         }
-        groups.get(meta.key).items.push(item)
+
+        grouped.get(sectionKey).items.push(item)
       }
     }
 
-    const knownSections = MENU_TAB_ORDER
-      .filter((key) => groups.has(key))
-      .map((key) => groups.get(key))
-
-    const unknownSections = Array.from(groups.values())
-      .filter((section) => !MENU_TAB_ORDER.includes(section.key))
-      .sort((a, b) => a.name.localeCompare(b.name))
-
-    return [...knownSections, ...unknownSections].map((section) => ({
-      ...section,
-      items: [...section.items].sort((a, b) => getMenuItemSortName(a).localeCompare(getMenuItemSortName(b)))
-    }))
-  }, [displaySections])
+    return Array.from(grouped.values()).filter((section) => section.items.length > 0)
+  }, [displaySections, activeFilter, itemMatchesFilter]);
 
   const categoryTabs = React.useMemo(() => {
     const allCount = categorySections.reduce((sum, section) => sum + section.items.length, 0)
@@ -814,7 +1645,7 @@ export default function MenuView({ post, onBack, showAI }) {
 
   const restaurantDescription = post.description || post.about || post.summary || post.caption || 'No description available yet.'
 
-  const handleRatingSubmit = (reviewData) => {
+  const handleRatingSubmit = async (reviewData) => {
     // Save to dish ratings
     const restaurantKey = post.restaurant || post.name
     const existing = dishRatings[reviewData.dishName] || { ratings: [], count: 0, sum: 0, reviews: [] }
@@ -823,9 +1654,16 @@ export default function MenuView({ post, onBack, showAI }) {
     const newRatings = [...(existing.ratings || []), reviewData.rating]
     const newCount = newRatings.length
     const newSum = newRatings.reduce((a, b) => a + b, 0)
+    const newAverage = newSum / newCount
     
-    // Add review details
-    const newReviews = [...(existing.reviews || []), reviewData]
+    // Add review details (store complete review with timestamp, user, comment, photo)
+    const newReviews = [...(existing.reviews || []), {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+      photo: reviewData.photo,
+      timestamp: Date.now(),
+      dishName: reviewData.dishName
+    }]
     
     const updated = {
       ...dishRatings,
@@ -833,13 +1671,198 @@ export default function MenuView({ post, onBack, showAI }) {
         ratings: newRatings,
         count: newCount,
         sum: newSum,
-        average: newSum / newCount,
+        average: newAverage,
         reviews: newReviews
       }
     }
     
+    console.log(`✅ Stored review #${newCount} for "${reviewData.dishName}": ${reviewData.rating}/10. New avg: ${newAverage.toFixed(1)}`)
+    console.log(`📊 All reviews for "${reviewData.dishName}":`, newReviews)
+    
+    // 🚀 NEW: Also submit to backend for community leaderboard
+    try {
+      // Helper function to generate UUID v4-like format
+      const generateUUID = () => {
+        const chars = '0123456789abcdef';
+        let uuid = '';
+        for (let i = 0; i < 32; i++) {
+          uuid += chars[Math.floor(Math.random() * 16)];
+          if (i === 7 || i === 11 || i === 15 || i === 19) {
+            uuid += '-';
+          }
+        }
+        return uuid;
+      };
+
+      // Helper to check if string is valid UUID format
+      const isValidUUID = (str) => {
+        if (!str) return false;
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        return uuidRegex.test(str);
+      };
+      
+      // Try to get user ID from currentUserId, or fall back to selectedUserProfile or user_profile
+      let userId = localStorage.getItem('currentUserId')
+      if (!userId) {
+        // Try selectedUserProfile (from old flow)
+        const profileRaw = localStorage.getItem('selectedUserProfile')
+        const profile = profileRaw ? JSON.parse(profileRaw) : null
+        userId = profile?.id
+      }
+      if (!userId) {
+        // Try user_profile (from auth context)
+        const profileRaw = localStorage.getItem('user_profile')
+        const profile = profileRaw ? JSON.parse(profileRaw) : null
+        userId = profile?.id
+      }
+
+      // ⚠️ CRITICAL FIX: If userId is not a valid UUID, generate one
+      if (!isValidUUID(userId)) {
+        console.warn('⚠️ User ID is not a valid UUID:', userId);
+        userId = generateUUID();
+        localStorage.setItem('_temp_guest_uuid', userId);
+        console.log('📝 Generated valid UUID for user:', userId);
+      }
+      
+      // ratingItem doesn't have an ID because it's from local menu fallback
+      // Try to find the dish ID by querying the backend
+      let dishId = null
+      
+      const dishName = ratingItem?.name || reviewData.dishName
+      const restaurantName = post?.restaurant || post?.name
+      
+      if (dishName && restaurantName) {
+        try {
+          console.log('🔍 Looking up dish ID for:', { dishName, restaurantName })
+          // Query the backend to find the menu item ID by restaurant and dish name
+          const lookupResponse = await fetch(`${API_BASE}/api/menu-search?restaurant=${encodeURIComponent(restaurantName)}&dish=${encodeURIComponent(dishName)}`, {
+            method: 'GET'
+          })
+          
+          if (lookupResponse.ok) {
+            const result = await lookupResponse.json()
+            if (result.menu_items && result.menu_items.length > 0) {
+              dishId = result.menu_items[0].id
+              console.log('✅ Found dish ID:', dishId)
+            }
+          }
+        } catch (lookupErr) {
+          console.warn('⚠️  Could not lookup dish ID:', lookupErr.message)
+        }
+      }
+      
+      // If we still don't have a dish ID, generate a deterministic UUID from composite key
+      if (!dishId) {
+        // Create a deterministic UUID-like ID from composite key using a better hash approach
+        const compositeKey = `${restaurantName}-${dishName}`;
+        
+        // Create a longer hash by iterating multiple times
+        let hash = 5381;
+        for (let i = 0; i < compositeKey.length; i++) {
+          hash = ((hash << 5) + hash) + compositeKey.charCodeAt(i);
+        }
+        
+        // Convert hash to hex string and pad to 32 chars
+        // We'll use multiple iterations to create 32 hex chars from the hash
+        let hexStr = '';
+        let h = hash;
+        for (let i = 0; i < 32; i++) {
+          hexStr += Math.abs((h >> (i % 20)) & 0xF).toString(16);
+        }
+        
+        // Format as UUID: 8-4-4-4-12 hex digits
+        dishId = `${hexStr.substring(0, 8)}-${hexStr.substring(8, 12)}-${hexStr.substring(12, 16)}-${hexStr.substring(16, 20)}-${hexStr.substring(20, 32)}`;
+        console.log('📝 Generated composite UUID for dish:', { dishId, compositeKey })
+      }
+      
+      // 🔍 INSTRUMENTATION: Log payload before sending
+      const payload = {
+        dish_id: dishId,
+        user_id: userId,
+        rating: Number(reviewData.rating),
+        comment: reviewData.comment,
+        dish_name: dishName,
+        restaurant_name: restaurantName
+      };
+      const url = `${API_BASE}/api/ratings`;
+      
+      console.log('🚀 [FRONTEND] ABOUT TO SEND RATING REQUEST');
+      console.log('🚀 [FRONTEND] URL:', url);
+      console.log('🚀 [FRONTEND] API_BASE:', API_BASE);
+      console.log('🚀 [FRONTEND] Payload:', payload);
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      
+      console.log('📥 [FRONTEND] Response status:', response.status);
+      console.log('📥 [FRONTEND] Response ok:', response.ok);
+      
+      if (response.ok) {
+        const result = await response.json()
+        console.log('✅ [FRONTEND] Backend saved! Response:', result)
+        console.log('✅ [FRONTEND] Rating will appear on leaderboard')
+      } else {
+        const errText = await response.text()
+        console.error('❌ [FRONTEND] Backend submission failed!');
+        console.error('❌ [FRONTEND] Status:', response.status);
+        console.error('❌ [FRONTEND] Error text:', errText.slice(0, 500));
+      }
+    } catch (err) {
+      console.error('❌ [FRONTEND] Exception during backend submission!');
+      console.error('❌ [FRONTEND] Error:', err);
+      console.error('❌ [FRONTEND] Error message:', err.message);
+      console.error('❌ [FRONTEND] Error stack:', err.stack);
+    }
+    
     setDishRatings(updated)
     localStorage.setItem(`dishRatings-${restaurantKey}`, JSON.stringify(updated))
+
+    // OPTIMISTIC UPDATE: Update menu items in state immediately using COMPLETE review data
+    const updateMenuItem = (item) => {
+      const itemName = item?.name || item?.dish_name || item?.dish || ''
+      if (itemName.toLowerCase() !== reviewData.dishName.toLowerCase()) return item
+
+      // Use the COMPLETE calculated average from ALL stored reviews
+      const dishData = updated[reviewData.dishName]
+      const trueAverage = dishData.average
+      const trueCount = dishData.count
+
+      return {
+        ...item,
+        my_rating: Number(reviewData.rating),
+        avg_rating: Number(trueAverage.toFixed(1)),
+        rating: Number(trueAverage.toFixed(1)),
+        rating_bayesian: Number(trueAverage.toFixed(1)),
+        rating_count: trueCount,
+        ratings_count: trueCount,
+        // Store all reviews with the item for transparency
+        all_reviews: dishData.reviews
+      }
+    }
+
+    // Update all menu sources
+    if (Array.isArray(fetchedMenu)) {
+      setFetchedMenu(prev => prev.map(updateMenuItem))
+    }
+    if (Array.isArray(aiMenu)) {
+      setAiMenu(prev => prev.map(updateMenuItem))
+    }
+    if (Array.isArray(post.menu)) {
+      post.menu = post.menu.map(updateMenuItem)
+    }
+    // Update menuData sections if present
+    if (menuData?.sections) {
+      setMenuData(prev => ({
+        ...prev,
+        sections: prev.sections.map(section => ({
+          ...section,
+          items: section.items.map(updateMenuItem)
+        }))
+      }))
+    }
 
     // Persist to "My Ratings" for profile tab
     try {
@@ -1009,6 +2032,23 @@ export default function MenuView({ post, onBack, showAI }) {
     }
   }, [post.menu_status]);
 
+  // Listen for dietary preference changes from Settings
+  React.useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'dietary_preferences') {
+        try {
+          const updated = e.newValue ? JSON.parse(e.newValue) : []
+          setDietaryPreferences(updated)
+        } catch {
+          setDietaryPreferences([])
+        }
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
+
   if (showItemRating && ratingItem) {
     return (
       <ItemRating
@@ -1025,6 +2065,10 @@ export default function MenuView({ post, onBack, showAI }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-amber-100">
+      {/* DEBUG: Menu Types */}
+      {console.log('AVAILABLE TYPES:', availableTypes)}
+      {console.log('ACTIVE TYPE:', activeType)}
+      
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-amber-100 shadow-2xl shadow-amber-100/60 p-6 lg:p-8">
           <div className="overflow-hidden rounded-3xl border border-amber-100 shadow-lg shadow-amber-100/60 mb-6">
@@ -1060,8 +2104,318 @@ export default function MenuView({ post, onBack, showAI }) {
             </div>
           </div>
 
+      {/* Menu Type Tabs */}
+      {console.log('🔍 TAB RENDER CHECK: availableTypes=', availableTypes, ' | length=', availableTypes.length, ' | will render tabs?', availableTypes.length >= 1)}
+      {availableTypes.length >= 1 && (
+        <div className="mb-6 flex gap-2 overflow-x-auto pb-2 border-b border-amber-200">
+          {['breakfast', 'lunch', 'dinner', 'drinks'].map(type => (
+            availableTypes.includes(type) && (
+              <button
+                key={type}
+                {...(availableTypes.length > 1 && { onClick: () => setActiveType(type) })}
+                className={`px-4 py-2 whitespace-nowrap font-medium capitalize transition-colors ${
+                  availableTypes.length === 1
+                    ? 'text-amber-600 border-b-2 border-amber-600 bg-white'
+                    : activeType === type
+                    ? 'text-amber-600 border-b-2 border-amber-600 bg-white hover:text-amber-700'
+                    : 'text-gray-600 hover:text-gray-900 bg-gray-50'
+                }`}
+                aria-pressed={activeType === type}
+              >
+                {type === 'breakfast' && '🌅 Breakfast'}
+                {type === 'lunch' && '🌞 Lunch'}
+                {type === 'dinner' && '🌙 Dinner'}
+                {type === 'drinks' && '🍹 Drinks'}
+              </button>
+            )
+          ))}
+        </div>
+      )}
+
       <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
         Dietary filters are algorithmically generated and may not reflect kitchen cross-contamination. Always confirm with the restaurant.
+      </div>
+
+      {/* Quick Filter Chips - Mobile Optimized */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 20, background: 'linear-gradient(to bottom, white 85%, transparent)', paddingTop: 8, paddingBottom: 12, marginBottom: 16 }}>
+        <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin', WebkitOverflowScrolling: 'touch' }}>
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'TOP_RATED' ? null : 'TOP_RATED')}
+            aria-label="Filter by top rated items"
+            aria-pressed={activeFilter === 'TOP_RATED'}
+            style={{
+              border: 'none',
+              padding: '12px 16px',
+              borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: activeFilter === 'TOP_RATED' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'TOP_RATED' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'TOP_RATED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
+              if (activeFilter !== 'TOP_RATED') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            ⭐ Top Rated
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'MOST_ORDERED' ? null : 'MOST_ORDERED')}
+            aria-label="Filter by most ordered items"
+            aria-pressed={activeFilter === 'MOST_ORDERED'}
+            style={{
+              border: 'none',
+              padding: '12px 16px',
+              borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: activeFilter === 'MOST_ORDERED' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'MOST_ORDERED' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'MOST_ORDERED' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
+              if (activeFilter !== 'MOST_ORDERED') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🔥 Most Ordered
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'HEALTHY' ? null : 'HEALTHY')}
+            aria-label="Filter by healthy items"
+            aria-pressed={activeFilter === 'HEALTHY'}
+            style={{
+              border: 'none',
+              padding: '12px 16px',
+              borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: activeFilter === 'HEALTHY' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'HEALTHY' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'HEALTHY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
+              if (activeFilter !== 'HEALTHY') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🥗 Healthy
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'VEGETARIAN' ? null : 'VEGETARIAN')}
+            aria-label="Filter by vegetarian items"
+            aria-pressed={activeFilter === 'VEGETARIAN'}
+            style={{
+              border: 'none',
+              padding: '12px 16px',
+              borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: activeFilter === 'VEGETARIAN' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'VEGETARIAN' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'VEGETARIAN' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
+              if (activeFilter !== 'VEGETARIAN') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🧀 Vegetarian
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'SPICY' ? null : 'SPICY')}
+            aria-label="Filter by spicy items"
+            aria-pressed={activeFilter === 'SPICY'}
+            style={{
+              border: 'none',
+              padding: '12px 16px',
+              borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: activeFilter === 'SPICY' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'SPICY' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'SPICY' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
+              if (activeFilter !== 'SPICY') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🌶 Spicy
+          </button>
+
+          <button
+            onClick={() => setActiveFilter(activeFilter === 'NEW' ? null : 'NEW')}
+            aria-label="Filter by new items"
+            aria-pressed={activeFilter === 'NEW'}
+            style={{
+              border: 'none',
+              padding: '12px 16px',
+              borderRadius: 20,
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: activeFilter === 'NEW' ? '#f59e0b' : '#f3f3f3',
+              color: activeFilter === 'NEW' ? 'white' : '#374151',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              fontSize: 14,
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              boxShadow: activeFilter === 'NEW' ? '0 2px 4px rgba(245, 158, 11, 0.3)' : 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#e0e0e0'
+            }}
+            onMouseLeave={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#f3f3f3'
+            }}
+            onTouchStart={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#e0e0e0'
+            }}
+            onTouchEnd={(e) => {
+              if (activeFilter !== 'NEW') e.target.style.background = '#f3f3f3'
+            }}
+          >
+            🆕 New
+          </button>
+
+          {activeFilter && (
+            <button
+              onClick={() => setActiveFilter(null)}
+              aria-label="Clear all filters"
+              style={{
+                border: '1px solid #d1d5db',
+                padding: '12px 16px',
+                borderRadius: 20,
+                minHeight: 44,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'white',
+                color: '#6b7280',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                fontSize: 14,
+                fontWeight: 600,
+                transition: 'all 0.2s ease',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#f9fafb'
+                e.target.style.borderColor = '#9ca3af'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'white'
+                e.target.style.borderColor = '#d1d5db'
+              }}
+              onTouchStart={(e) => {
+                e.target.style.background = '#f9fafb'
+                e.target.style.borderColor = '#9ca3af'
+              }}
+              onTouchEnd={(e) => {
+                e.target.style.background = 'white'
+                e.target.style.borderColor = '#d1d5db'
+              }}
+            >
+              ✕ Clear
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="mb-6 overflow-x-auto">
@@ -1093,63 +2447,97 @@ export default function MenuView({ post, onBack, showAI }) {
 
       <div className="space-y-10">
         {visibleCategorySections.length > 0 ? (
-          visibleCategorySections.map(section => (
-            <div
-              key={section.key}
-              ref={el => { if (el) sectionRefs.current[section.key] = el }}
-            >
-              {/* Sticky section header */}
+          visibleCategorySections.map(section => {
+            const isCollapsible = section.key === 'drinks'
+            const isExpanded = expandedSections[section.key] !== false
+            const shouldShowItems = !isCollapsible || isExpanded
+
+            return (
               <div
-                className="sticky top-0 z-10"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(255,251,235,0.97) 85%, transparent)',
-                  paddingTop: 14,
-                  paddingBottom: 10,
-                  marginLeft: -2,
-                  marginRight: -2,
-                  paddingLeft: 2,
-                  paddingRight: 2,
-                }}
+                key={section.key}
+                ref={el => { if (el) sectionRefs.current[section.key] = el }}
               >
-                <h2
+                {/* Sticky section header */}
+                <div
+                  className="sticky top-0 z-10 cursor-pointer"
+                  onClick={() => {
+                    if (isCollapsible) {
+                      setExpandedSections(prev => ({
+                        ...prev,
+                        [section.key]: !prev[section.key]
+                      }))
+                    }
+                  }}
                   style={{
-                    margin: 0,
-                    fontSize: 21,
-                    fontWeight: 700,
-                    color: '#111827',
-                    letterSpacing: '-0.01em',
+                    background: 'linear-gradient(to bottom, rgba(255,251,235,0.97) 85%, transparent)',
+                    paddingTop: 14,
+                    paddingBottom: 10,
+                    marginLeft: -2,
+                    marginRight: -2,
+                    paddingLeft: 2,
+                    paddingRight: 2,
                   }}
                 >
-                  {section.name}
-                </h2>
-                <div
-                  style={{
-                    height: 1,
-                    marginTop: 8,
-                    background: 'linear-gradient(to right, #f59e0b55, transparent)',
-                  }}
-                />
-              </div>
-
-              {/* Items list */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
-                {section.items.map(item => (
-                  <MenuCard
-                    key={item.id || item.name}
-                    item={item}
-                    isSaved={isItemSaved(item)}
-                    onSave={toggleSaveItem}
-                    onRate={(it) => {
-                      setRatingItem(it)
-                      setShowItemRating(true)
+                  <div className="flex items-center justify-between">
+                    <h2
+                      style={{
+                        margin: 0,
+                        fontSize: 21,
+                        fontWeight: 700,
+                        color: '#111827',
+                        letterSpacing: '-0.01em',
+                        flex: 1,
+                      }}
+                    >
+                      {section.name}
+                    </h2>
+                    {isCollapsible && (
+                      <span
+                        style={{
+                          fontSize: 20,
+                          marginRight: 8,
+                          transition: 'transform 0.2s',
+                          transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)',
+                          display: 'inline-block',
+                        }}
+                      >
+                        ▼
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      height: 1,
+                      marginTop: 8,
+                      background: 'linear-gradient(to right, #f59e0b55, transparent)',
                     }}
-                    onShowSummary={handleShowSummary}
-                    ratingDisplay={getDisplayItemRating(item)}
                   />
-                ))}
+                </div>
+
+                {/* Items list - only show if expanded */}
+                {shouldShowItems && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
+                    {section.items.map(item => (
+                      <MenuCard
+                        key={item.id || item.name}
+                        item={item}
+                        isSaved={isItemSaved(item)}
+                        onSave={toggleSaveItem}
+                        onFlag={handleFlagMenuItem}
+                        isFlagged={isItemFlagged(item)}
+                        onRate={(it) => {
+                          setRatingItem(it)
+                          setShowItemRating(true)
+                        }}
+                        onShowSummary={handleShowSummary}
+                        ratingDisplay={getDisplayItemRating(item)}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
-          ))
+            )
+          })
         ) : (
           <div className="text-gray-500 text-center py-8">Could not find menu</div>
         )}
@@ -1197,16 +2585,29 @@ export default function MenuView({ post, onBack, showAI }) {
       )}
 
       {/* Dish Summary Modal */}
-      {showSummary && summaryDish && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      {showSummary && summaryDish && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center" style={{ zIndex: 9999 }}>
           <div className="bg-white rounded-lg p-6 w-full max-w-lg mx-4">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 {summaryDish.image && <img src={summaryDish.image} alt="" className="w-16 h-16 object-cover rounded" />}
                 <div>
-                  <h3 className="text-xl font-bold">{summaryDish.name}</h3>
+                  <h3 className="text-xl font-bold">
+                    {summaryDish.name || summaryDish.dish_name || summaryDish.title || 'Dish'}
+                  </h3>
                   <div className="flex items-center gap-3 mt-1">
-                    <StarRating value={summaryDish.rating} />
+                    {(() => {
+                      const ratingInfo = getDisplayItemRating(summaryDish);
+                      if (ratingInfo.count === 0) {
+                        return <span className="text-sm text-gray-400">No ratings yet</span>;
+                      }
+                      return <>
+                        <StarRating value={Number(ratingInfo.rating)} />
+                        <span className="text-lg font-bold text-blue-600">{Number(ratingInfo.rating).toFixed(1)}</span>
+                        <span className="text-yellow-400">⭐</span>
+                        <span className="text-xs text-gray-500">/10</span>
+                      </>;
+                    })()}
                     {summaryDish.price && <span className="text-sm font-semibold text-amber-600">{getPriceDisplay(summaryDish.price)}</span>}
                   </div>
                 </div>
@@ -1221,10 +2622,74 @@ export default function MenuView({ post, onBack, showAI }) {
               </button>
             </div>
             
+
             <div className="mb-4">
               <h4 className="text-sm font-semibold text-gray-700 mb-2">📖 About this dish</h4>
               <p className="text-gray-600 leading-relaxed">{dishDescription}</p>
             </div>
+
+            {/* Dish Rating and Actions */}
+            <div className="mb-4 flex flex-col gap-2">
+              <div className="flex items-center gap-3">
+                {(() => {
+                  const ratingInfo = getDisplayItemRating(summaryDish);
+                  if (ratingInfo.count === 0) {
+                    return <span className="text-sm text-gray-400">No ratings yet</span>;
+                  }
+                  return <>
+                    <span className="text-lg font-bold text-blue-600">{Number(ratingInfo.rating).toFixed(1)}</span>
+                    <span className="text-yellow-400">⭐</span>
+                    <span className="text-xs text-gray-500">/10</span>
+                  </>;
+                })()}
+                <button
+                  className="ml-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs font-semibold"
+                  onClick={() => {
+                    setShowSummary(false);
+                    setShowItemRating(true);
+                    setRatingItem(summaryDish);
+                  }}
+                >
+                  Rate this dish
+                </button>
+                <button
+                  className="ml-2 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-xs font-semibold"
+                  onClick={() => alert('Comments coming soon!')}
+                >
+                  Comments
+                </button>
+              </div>
+            </div>
+
+            {Array.isArray(summaryDish?.all_reviews) && summaryDish.all_reviews.length > 0 && (
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold text-gray-700 mb-2">Recent reviews</h4>
+                <div className="space-y-2 max-h-40 overflow-y-auto">
+                  {summaryDish.all_reviews
+                    .slice(-5)
+                    .reverse()
+                    .map((review, idx) => (
+                      <div key={`${summaryDish.name || 'dish'}-${idx}`} className="border border-gray-100 rounded-lg p-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-gray-700">
+                            Rating {Number(review?.rating || 0).toFixed(1)}/10
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleReportReview(summaryDish, review)}
+                            className="text-xs text-red-500 hover:text-red-600"
+                          >
+                            Report
+                          </button>
+                        </div>
+                        {review?.comment && (
+                          <p className="text-xs text-gray-600 mt-1">{review.comment}</p>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
 
             <div className="flex justify-end gap-2">
               <button 
@@ -1244,59 +2709,18 @@ export default function MenuView({ post, onBack, showAI }) {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
-      {/* Dish Rating Modal */}
-      {ratingDish && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-sm shadow-lg">
-            <h3 className="text-lg font-semibold mb-4">Rate "{ratingDish}"</h3>
-            
-            <div className="mb-6">
-              <label className="block text-sm text-gray-600 mb-3">How would you rate this dish?</label>
-              <div className="flex items-center justify-between gap-4">
-                <input 
-                  type="range" 
-                  min="1" 
-                  max="10" 
-                  step="0.5" 
-                  value={userDishRating} 
-                  onChange={(e) => setUserDishRating(Number(e.target.value))}
-                  className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                />
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600">{userDishRating.toFixed(1)}</div>
-                  <div className="text-xs text-gray-500">/10</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Show current average */}
-            {item.rating_count > 0 && (
-              <div className="mb-4 p-3 bg-gray-100 rounded">
-                <div className="text-sm text-gray-600">
-                  <strong>Community Rating:</strong> {item.rating_bayesian}/10 ({item.rating_count} ratings)
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-3">
-              <button 
-                onClick={() => setRatingDish(null)}
-                className="flex-1 px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={() => submitDishRating(ratingDish, userDishRating)}
-                className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold"
-              >
-                Submit Rating
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Dish Rating Page */}
+      {showItemRating && ratingItem && (
+        <ItemRating
+          item={ratingItem}
+          restaurant={fetchedMenu || {}}
+          onBack={() => { setShowItemRating(false); setRatingItem(null); }}
+          onSubmit={() => { setShowItemRating(false); setRatingItem(null); }}
+        />
       )}
 
         </div>

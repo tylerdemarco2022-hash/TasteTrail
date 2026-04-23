@@ -98,7 +98,7 @@ If you cannot extract menu items, return: { "categories": [] }`
       }
     }
 
-    const menuData = JSON.parse(jsonMatch[0])
+      const menuData = require('../utils/safeJsonParse.js').safeJsonParse('ocr_agent:file', jsonMatch[0])
     
     if (!menuData.categories || menuData.categories.length === 0) {
       return {

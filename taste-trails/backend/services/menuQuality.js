@@ -1,8 +1,11 @@
-const TECH_GARBAGE_NAME_REGEX = /(bundle|worker|entrypoint|webpack|nextgen|nextgendash|videoplayer|wamedia|wasm|filehash|mainwebworker|chunk|sourcemap|source map|javascript|manifest)/i;
-const NOISE_MENU_NAME_REGEX = /(^view\b.*\bmenu\b|^home$|^about$|^contact$|^menu$|^meta\b|privacy policy|terms of service|all rights reserved|\||©)/i;
-const CONTACT_LOCATION_REGEX = /(uh-?oh|call|phone|tel|highway|ighway|hwy|street|st\.|avenue|ave|boulevard|blvd|road|rd|fort mill|charlotte|north carolina|south carolina)/i;
-const MODIFIER_ONLY_REGEX = /^(with|add|extra|choice of|served with|free refills|no refills|fried or raw|hot or cold|to any)\b/i;
-const ORDER_ACTION_REGEX = /(order|pickup|carryout|takeout|delivery|call[\s-]?ahead)/i;
+const TECH_GARBAGE_NAME_REGEX = /(bundle|worker|entrypoint|webpack|nextgen|nextgendash|videoplayer|wamedia|wasm|filehash|mainwebworker|chunk|sourcemap|source map|javascript|manifest|debug|v2|maw|wap|webp|jpeg|png|cache|api|json|xml|html|css|sdk)/i;
+const NOISE_MENU_NAME_REGEX = /(^view\b.*\bmenu\b|^home$|^about$|^contact$|^menu$|^meta\b|privacy policy|terms of service|all rights reserved|\||©|^skip to|^navigate|^share|^print|^download|^save|^close|^back|^next|^previous|^search|^filter)/i;
+const CONTACT_LOCATION_REGEX = /(uh-?oh|call|phone|tel|highway|ighway|hwy|street|st\.|avenue|ave|boulevard|blvd|road|rd|fort mill|charlotte|north carolina|south carolina|hours|open|closed|location|address|directions|map|find us|visit us)/i;
+const MODIFIER_ONLY_REGEX = /^(with|add|extra|choice of|served with|free refills|no refills|fried or raw|hot or cold|to any|must be|please|note:|disclaimer|allergen|contains)\b/i;
+const ORDER_ACTION_REGEX = /(order|pickup|carryout|takeout|delivery|call[\s-]?ahead|reserve|reservation|book|booking|gift card)/i;
+const SOCIAL_MEDIA_REGEX = /(facebook|twitter|instagram|tiktok|youtube|linkedin|pinterest|snapchat|follow us|@|#hashtag|social)/i;
+const WEBSITE_NAV_REGEX = /(login|signup|sign up|sign in|register|account|cart|checkout|payment|shipping|returns|faq)/i;
+const NON_ALCOHOLIC_DRINK_REGEX = /(coffee|iced coffee|tea|iced tea|hot tea|milk|soft drink|soda|pop|coke|pepsi|sprite|root beer|ginger ale|lemonade|juice|water|bottled water|sweet tea|unsweet tea|hot chocolate)/i;
 const REACTION_NAMES = new Set([
   'like',
   'love',
@@ -17,7 +20,13 @@ const REACTION_NAMES = new Set([
   'sorry',
   'anger',
   'flame',
-  'plane'
+  'plane',
+  'share',
+  'comment',
+  'reply',
+  'repost',
+  'react',
+  'emoji'
 ]);
 
 function clamp(value, min, max) {
@@ -69,7 +78,10 @@ export function isLikelyMenuName(name = '') {
   if (CONTACT_LOCATION_REGEX.test(clean)) return false;
   if (MODIFIER_ONLY_REGEX.test(clean)) return false;
   if (ORDER_ACTION_REGEX.test(clean) && !/\bmenu\b/i.test(clean)) return false;
+  if (SOCIAL_MEDIA_REGEX.test(clean)) return false;
+  if (WEBSITE_NAV_REGEX.test(clean)) return false;
   if (REACTION_NAMES.has(clean.toLowerCase())) return false;
+  if (/\babove\b/i.test(clean)) return false;
   if (!/[a-z]/i.test(clean)) return false;
   if (/,\s*[A-Z]{2}$/.test(clean)) return false;
   if (/\b\d{5}(?:-\d{4})?\b/.test(clean)) return false;
@@ -78,10 +90,21 @@ export function isLikelyMenuName(name = '') {
   if (/^\d{2,4}\s*-\s*\d{2,4}\s*cal\b/i.test(clean)) return false;
   if (/^\d{2,4}\s*cal\b/i.test(clean)) return false;
   if (/^\d+\s*(oz|lb|lbs|g|kg)\b/i.test(clean)) return false;
+  
+  // Reject one-word items except oysters
+  if (!clean.includes(' ') && !/^oysters?$/i.test(clean)) return false;
+  
+  // Reject items that are mostly numbers
   const alphaCount = (clean.match(/[a-z]/gi) || []).length;
   const digitCount = (clean.match(/\d/g) || []).length;
   if (digitCount > 0 && alphaCount <= 3) return false;
+  
+  // Reject camelCase tech strings (e.g., "mainWebWorker")
   if (!clean.includes(' ') && /[a-z][A-Z]/.test(clean) && clean.length > 14) return false;
+  
+  // Reject items that start with numbers followed by spaces
+  if (/^\d+\s+/.test(clean) && !/^\d+\s+(oz|lb|piece|inch|ct|count|size|burger|sandwich|taco|pizza)/.test(clean.toLowerCase())) return false;
+  
   return true;
 }
 
@@ -91,6 +114,7 @@ export function normalizeMenuItem(raw, fallbackCategory = 'Menu') {
   if (typeof raw === 'string') {
     const text = normalizeText(raw);
     if (!text) return null;
+    if (NON_ALCOHOLIC_DRINK_REGEX.test(text)) return null;
     const priceMatch = text.match(/\$?\s?(\d{1,3}(?:\.\d{2})?)/);
     const name = normalizeDishName(priceMatch ? text.slice(0, priceMatch.index) : text);
     const price = priceMatch ? normalizePrice(priceMatch[1]) : '';
@@ -106,8 +130,12 @@ export function normalizeMenuItem(raw, fallbackCategory = 'Menu') {
 
   if (typeof raw !== 'object') return null;
   const name = normalizeDishName(raw.name || raw.title || raw.dish_name || '');
+  const categoryText = normalizeText(raw.category || fallbackCategory);
+  const descriptionText = normalizeText(raw.description || '');
+  const beverageText = `${name} ${categoryText} ${descriptionText}`;
+  if (NON_ALCOHOLIC_DRINK_REGEX.test(beverageText)) return null;
   if (!isLikelyMenuName(name)) return null;
-  const description = normalizeText(raw.description || '');
+  const description = descriptionText;
   const price = normalizePrice(raw.price || raw.amount || '');
   if (!price && /\b\d{2,4}\s*cal\b/i.test(name)) return null;
   if (!price && description.length > 180) return null;

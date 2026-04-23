@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.454Z",
+  "category": "lkg-drift-block",
+  "result_type": "fail",
+  "fail_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\live-lkg-drift.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] BLOCKED: last-known-good deviation exceeded threshold: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold\n[release-gate] Set ENFORCE_LKG_DRIFT_BLOCK=false or raise MENU_INTEGRITY_LKG_DEVIATION_THRESHOLD to allow.\n",
+    "output": "[release-gate] BLOCKED: last-known-good deviation exceeded threshold: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold\n[release-gate] Set ENFORCE_LKG_DRIFT_BLOCK=false or raise MENU_INTEGRITY_LKG_DEVIATION_THRESHOLD to allow."
+  },
+  "blocked_reason": "[release-gate] BLOCKED: last-known-good deviation exceeded threshold: concurrent_api_count_pct_deviation_exceeds_threshold, concurrent_db_count_pct_deviation_exceeds_threshold, p95_ms_pct_deviation_exceeds_threshold, max_rss_bytes_pct_deviation_exceeds_threshold",
+  "guarantee_satisfied": true,
+  "artifact_sha256": "4161fcfb7c0bab0842cacd0a6e858b43b4a5efa355cfefb0314532f542814df9"
+}

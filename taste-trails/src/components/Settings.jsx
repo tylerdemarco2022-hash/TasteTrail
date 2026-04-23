@@ -61,12 +61,21 @@ export default function Settings({ onClose }) {
   const [avatarUrl, setAvatarUrl]       = useState(() => loadUserScopedValue('taste-trails-avatar', null))
   const [profileSaving, setProfileSaving] = useState(false)
   const [pwSaving, setPwSaving]         = useState(false)
+  const [exporting, setExporting]       = useState(false)
 
   // Privacy
   const [privateProfile, setPrivateProfile] = useState(profile?.is_private || false)
 
   // Dietary
-  const [dietary, setDietary] = useState(() => loadUserScopedValue('taste-trails-dietary', {}))
+  const [dietary, setDietary] = useState(() => {
+    try {
+      const prefs = localStorage.getItem('dietary_preferences')
+      if (!prefs) return []
+      return JSON.parse(prefs)
+    } catch {
+      return []
+    }
+  })
 
   // Personalization
   const [aiSuggestions, setAiSuggestions] = useState(() => loadUserScopedValue('taste-trails-ai-suggestions', true))
@@ -84,7 +93,13 @@ export default function Settings({ onClose }) {
     const localPrivate = getPrivateProfileForUser(profile.id)
     setPrivateProfile(typeof localPrivate === 'boolean' ? localPrivate : !!profile.is_private)
     setAvatarUrl(loadUserScopedValue('taste-trails-avatar', null, profile.id))
-    setDietary(loadUserScopedValue('taste-trails-dietary', {}, profile.id))
+    // Load dietary preferences from array format
+    try {
+      const prefs = localStorage.getItem('dietary_preferences')
+      setDietary(prefs ? JSON.parse(prefs) : [])
+    } catch {
+      setDietary([])
+    }
     setAiSuggestions(loadUserScopedValue('taste-trails-ai-suggestions', true, profile.id))
     setDataSharing(loadUserScopedValue('taste-trails-data-sharing', true, profile.id))
     const storedTheme = loadUserScopedValue('taste-trails-theme', 'light', profile.id)
@@ -96,10 +111,11 @@ export default function Settings({ onClose }) {
   // ── helpers ──────────────────────────────────────────────────────────────
 
   async function apiCall(method, path, body) {
-    const token = localStorage.getItem('access_token')
+    // Token is now in httpOnly cookie, sent automatically with credentials: 'include'
     const opts = {
       method,
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include' // Include httpOnly cookies
     }
     if (body) opts.body = JSON.stringify(body)
     const res  = await fetch(`${API_BASE_URL}${path}`, opts)
@@ -109,6 +125,7 @@ export default function Settings({ onClose }) {
     if (!res.ok) throw new Error(data?.error || `Request failed (${res.status})`)
     return data
   }
+
 
   // ── handlers ─────────────────────────────────────────────────────────────
 
@@ -167,6 +184,27 @@ export default function Settings({ onClose }) {
       alert('Failed: ' + err.message)
     } finally {
       setPwSaving(false)
+    }
+  }
+
+  const handleExportData = async () => {
+    setExporting(true)
+    try {
+      const data = await apiCall('GET', '/auth/account/export')
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      const stamp = new Date().toISOString().slice(0, 10)
+      a.href = url
+      a.download = `taste-trails-export-${stamp}.json`
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(url)
+    } catch (err) {
+      alert('Failed to export data: ' + err.message)
+    } finally {
+      setExporting(false)
     }
   }
 
@@ -232,9 +270,17 @@ export default function Settings({ onClose }) {
   }
 
   const toggleDietary = (key) => {
-    const next = { ...dietary, [key]: !dietary[key] }
+    const next = Array.isArray(dietary) ? [...dietary] : []
+    const index = next.indexOf(key)
+    if (index > -1) {
+      // Remove preference
+      next.splice(index, 1)
+    } else {
+      // Add preference
+      next.push(key)
+    }
     setDietary(next)
-    saveUserScopedValue('taste-trails-dietary', next, profileId)
+    localStorage.setItem('dietary_preferences', JSON.stringify(next))
   }
 
   // ── render ────────────────────────────────────────────────────────────────
@@ -383,6 +429,20 @@ export default function Settings({ onClose }) {
                   </div>
                 </div>
 
+                {/* Data Export */}
+                <div className="border-t border-gray-100 pt-6">
+                  <h3 className="text-base font-semibold text-gray-800 mb-2">Data Export</h3>
+                  <p className="text-sm text-gray-500 mb-4">Download a JSON copy of your account data and ratings.</p>
+                  <button
+                    onClick={handleExportData}
+                    disabled={exporting}
+                    className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-semibold hover:bg-gray-200 disabled:opacity-50 transition flex items-center justify-center gap-2 text-sm"
+                  >
+                    <Database className="w-4 h-4" />
+                    {exporting ? 'Preparing export…' : 'Download My Data'}
+                  </button>
+                </div>
+
                 {/* Danger Zone */}
                 <div className="border-t border-red-100 pt-6">
                   <h3 className="text-base font-semibold text-red-600 mb-3">Danger Zone</h3>
@@ -448,21 +508,21 @@ export default function Settings({ onClose }) {
                       key={key}
                       onClick={() => toggleDietary(key)}
                       className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition text-left ${
-                        dietary[key]
+                        dietary.includes(key)
                           ? 'border-orange-500 bg-orange-50 text-orange-700'
                           : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
                       }`}
                     >
                       <span className="text-xl leading-none">{emoji}</span>
                       <span className="font-medium text-sm">{label}</span>
-                      {dietary[key] && (
+                      {dietary.includes(key) && (
                         <span className="ml-auto text-orange-500 text-xs font-bold">✓</span>
                       )}
                     </button>
                   ))}
                 </div>
                 <p className="text-xs text-gray-400 mt-4">
-                  Preferences are saved locally and used to badge matching menu items
+                  ✨ Changes apply instantly – restaurants and menu items will update based on your selection
                 </p>
               </div>
             )}

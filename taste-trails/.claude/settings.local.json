@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vitest run)",
+      "Bash(npx vite build)",
+      "Bash(npm install node-html-parser --save)",
+      "Bash(npm install node-html-parser --save --legacy-peer-deps)",
+      "Bash(npm install bullmq ioredis --save --legacy-peer-deps)",
+      "Bash(node -e \"require\\(''bullmq''\\); require\\(''ioredis''\\); require\\(''node-html-parser''\\); console.log\\(''All packages OK''\\);\")",
+      "Bash(node -e \":*)",
+      "Bash(timeout 8 node server/index.js)",
+      "Bash(timeout 12 node server/index.js)",
+      "Bash(curl -s http://localhost:8081/auth/me)",
+      "Bash(timeout 5 bash -c 'until curl -s http://localhost:8081/auth/me > /dev/null 2>&1; do echo \"\"waiting...\"\"; done')"
+    ]
+  }
+}

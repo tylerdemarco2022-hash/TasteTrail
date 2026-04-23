@@ -1,18 +1,23 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useEffect, useMemo, useRef, useState, lazy, Suspense, startTransition } from 'react'
 import { useAuth } from './context/AuthContext'
 import Header from './components/Header'
 import BottomTabs from './components/BottomTabs'
 import Feed from './components/Feed'
-import CommunityFeed from './components/CommunityFeed'
-import Groups from './components/Groups'
+import CategoryRestaurantsPage from './components/CategoryRestaurantsPage'
 import Profile from './components/Profile'
-import MenuView from './components/MenuView'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import Notifications from './components/Notifications'
-import Settings from './components/Settings'
-import UserSearch from './components/UserSearch'
-import UserProfile from './components/UserProfile'
+import useSwipe from './hooks/useSwipe'
+// Lazy load non-critical components for better initial load time
+const CommunityFeed = lazy(() => import('./components/CommunityFeed'))
+const Groups = lazy(() => import('./components/Groups'))
+const MenuView = lazy(() => import('./components/MenuView'))
+const Login = lazy(() => import('./components/Login'))
+const Signup = lazy(() => import('./components/Signup'))
+const Notifications = lazy(() => import('./components/Notifications'))
+const Settings = lazy(() => import('./components/Settings'))
+const UserSearch = lazy(() => import('./components/UserSearch'))
+const UserProfile = lazy(() => import('./components/UserProfile'))
+const AdminPanel = lazy(() => import('./components/AdminPanel'))
+import Onboarding from './components/Onboarding'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
 import { HashRouter as Router, Routes, Route, useParams, useLocation, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -22,14 +27,29 @@ import {
   loadUserScopedValue
 } from './utils/accountStorage'
 
+// Loading fallback for lazy components
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="glass rounded-2xl px-6 py-4 shadow-lg text-gray-700">Loading…</div>
+  </div>
+)
+
 const COMMUNITY_POSTS_KEY = 'community-posts'
 const CURRENT_USER = 'You'
+
+function safeGetLocalStorageItem(key) {
+  try {
+    return localStorage.getItem(key)
+  } catch (e) {
+    return null
+  }
+}
 
 export const LocationContext = createContext({ location: null, setLocation: () => {} })
 
 function loadCommunityPosts() {
   try {
-    const raw = localStorage.getItem(COMMUNITY_POSTS_KEY)
+    const raw = safeGetLocalStorageItem(COMMUNITY_POSTS_KEY)
     if (!raw) return seedPosts
     const parsed = JSON.parse(raw)
     return Array.isArray(parsed) ? parsed : seedPosts
@@ -47,7 +67,15 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [showAdmin, setShowAdmin] = useState(false)
+  const initialRedirectRef = useRef(false)
   const [communityPosts, setCommunityPosts] = useState(() => loadCommunityPosts())
+  const [isNewSignup, setIsNewSignup] = useState(() => {
+    return safeGetLocalStorageItem('is_new_signup') === 'true'
+  })
+  const [onboardingCompleted, setOnboardingCompleted] = useState(() => {
+    return safeGetLocalStorageItem('onboarding_completed') === 'true'
+  })
   // Default to Charlotte coordinates to avoid using the user's device location
   const [location, setLocation] = useState({ latitude: 35.2271, longitude: -80.8431 })
 
@@ -68,7 +96,11 @@ function App() {
   }, [location])
 
   useEffect(() => {
-    localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(communityPosts))
+    try {
+      localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(communityPosts))
+    } catch (e) {
+      // Ignore storage errors (blocked or unavailable storage).
+    }
   }, [communityPosts])
 
   useEffect(() => {
@@ -155,10 +187,28 @@ function App() {
   }
 
   if (!isAuthenticated) {
-    return authView === 'signup' ? (
-      <Signup onSignup={signup} onSwitchToLogin={() => setAuthView('login')} />
-    ) : (
-      <Login onLogin={login} onSwitchToSignup={() => setAuthView('signup')} />
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        {authView === 'signup' ? (
+          <Signup onSignup={signup} onLogin={login} onSwitchToLogin={() => setAuthView('login')} />
+        ) : (
+          <Login onLogin={login} onSwitchToSignup={() => setAuthView('signup')} />
+        )}
+      </Suspense>
+    )
+  }
+
+  // Show onboarding for all users who haven't completed it
+  if (!onboardingCompleted) {
+    return (
+      <Onboarding
+        onComplete={() => {
+          setOnboardingCompleted(true)
+          setIsNewSignup(false)
+          localStorage.removeItem('is_new_signup')
+          console.log('✅ Onboarding completed!')
+        }}
+      />
     )
   }
 
@@ -198,6 +248,28 @@ function App() {
     const navigate = useNavigate()
 
     useEffect(() => {
+      if (initialRedirectRef.current) return
+      initialRedirectRef.current = true
+      if (location.pathname !== '/') {
+        navigate('/', { replace: true })
+      }
+    }, [location.pathname, navigate])
+
+    // Escape key closes any open modal
+    useEffect(() => {
+      const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+          if (showNotifications) setShowNotifications(false)
+          else if (showSettings) setShowSettings(false)
+          else if (showSearch) setShowSearch(false)
+          else if (showAdmin) setShowAdmin(false)
+        }
+      }
+      document.addEventListener('keydown', handleEscape)
+      return () => document.removeEventListener('keydown', handleEscape)
+    }, [showNotifications, showSettings, showSearch, showAdmin])
+
+    useEffect(() => {
       if (location.pathname !== '/menu' || menuPost) return
       const defaultRestaurant = seedRestaurants.find(
         (restaurant) => (restaurant.name || '').toLowerCase() === 'culinary dropout'
@@ -234,6 +306,30 @@ function App() {
       setActiveTab(tabFromPath(location.pathname))
     }, [location.pathname])
 
+    // Swipe gesture handling for tab navigation
+    const tabs = ['restaurants', 'feed', 'groups', 'profile']
+    const currentTabIndex = tabs.indexOf(activeTab)
+
+    const handleSwipeLeft = () => {
+      const nextIndex = (currentTabIndex + 1) % tabs.length
+      const nextTab = tabs[nextIndex]
+      startTransition(() => {
+        setActiveTab(nextTab)
+        navigate(pathFromTab(nextTab))
+      })
+    }
+
+    const handleSwipeRight = () => {
+      const prevIndex = (currentTabIndex - 1 + tabs.length) % tabs.length
+      const prevTab = tabs[prevIndex]
+      startTransition(() => {
+        setActiveTab(prevTab)
+        navigate(pathFromTab(prevTab))
+      })
+    }
+
+    useSwipe(handleSwipeLeft, handleSwipeRight)
+
     const openMenu = (post) => {
       console.log('openMenu called with post:', post);
       if (!post) return;
@@ -258,74 +354,93 @@ function App() {
 
     return (
       <LocationContext.Provider value={{ location, setLocation }}>
-        <div className="app-shell">
+        <div className="app-shell safe-area-all">
+          <a href="#main-content" className="skip-link">Skip to main content</a>
           <Header
             title="TasteTrails"
             onNotificationsClick={() => setShowNotifications(true)}
             onSearchClick={() => setShowSearch(true)}
             onSettingsClick={() => setShowSettings(true)}
+            onAdminClick={() => setShowAdmin(true)}
           />
 
-          <main className="flex-1">
+          <main id="main-content" className="flex-1">
             <Routes>
               <Route path="/" element={<Feed onOpen={openMenu} />} />
-              <Route path="/community" element={<CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} />} />
-              <Route path="/groups" element={<Groups />} />
-              <Route path="/profile" element={<Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} />} />
-              <Route path="/profile/:userId" element={<UserProfileRoute />} />
-              <Route path="/menu" element={<MenuView post={menuPost} onBack={closeMenu} showAI />} />
+              <Route path="/community" element={<Suspense fallback={<LoadingFallback />}><CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} /></Suspense>} />
+              <Route path="/groups" element={<Suspense fallback={<LoadingFallback />}><Groups /></Suspense>} />
+              <Route path="/profile" element={<Suspense fallback={<LoadingFallback />}><Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} /></Suspense>} />
+              <Route path="/profile/:userId" element={<Suspense fallback={<LoadingFallback />}><UserProfileRoute /></Suspense>} />
+              <Route path="/menu" element={<Suspense fallback={<LoadingFallback />}><MenuView post={menuPost} onBack={closeMenu} showAI /></Suspense>} />
+              <Route path="/category-restaurants" element={<CategoryRestaurantsPage />} />
             </Routes>
           </main>
 
           <BottomTabs
             active={activeTab}
             setActive={(tab) => {
-              setActiveTab(tab)
-              setMenuPost(null)
+              startTransition(() => {
+                setActiveTab(tab)
+                setMenuPost(null)
+              })
             }}
-            onTabClick={(tab) => navigate(pathFromTab(tab))}
+            onTabClick={(tab) => startTransition(() => navigate(pathFromTab(tab)))}
           />
 
           {showNotifications && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Notifications">
               <div className="absolute inset-x-0 top-0 max-w-3xl mx-auto bg-white rounded-b-3xl shadow-2xl">
                 <div className="flex justify-end p-4">
                   <button
+                    aria-label="Close notifications"
                     className="px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-100"
                     onClick={() => setShowNotifications(false)}
                   >
                     Close
                   </button>
                 </div>
-                <Notifications />
+                <Suspense fallback={<LoadingFallback />}>
+                  <Notifications />
+                </Suspense>
               </div>
             </div>
           )}
 
           {showSettings && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Settings">
               <div className="absolute inset-0 overflow-y-auto">
-                <Settings onClose={() => setShowSettings(false)} />
+                <Suspense fallback={<LoadingFallback />}>
+                  <Settings onClose={() => setShowSettings(false)} />
+                </Suspense>
               </div>
             </div>
           )}
 
           {showSearch && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Search">
               <div className="absolute inset-0 overflow-y-auto">
                 <div className="max-w-3xl mx-auto">
                   <div className="flex justify-end p-4">
                     <button
+                      aria-label="Close search"
                       className="px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-100"
                       onClick={() => setShowSearch(false)}
                     >
                       Close
                     </button>
                   </div>
-                  <UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} />
+                  </Suspense>
                 </div>
               </div>
             </div>
+          )}
+
+          {showAdmin && (
+            <Suspense fallback={<LoadingFallback />}>
+              <AdminPanel onClose={() => setShowAdmin(false)} />
+            </Suspense>
           )}
         </div>
       </LocationContext.Provider>

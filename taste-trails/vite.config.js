@@ -13,4 +13,8 @@ export default defineConfig({
       input: 'index.html',
     },
   },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+  },
 })

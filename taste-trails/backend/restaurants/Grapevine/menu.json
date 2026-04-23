@@ -1,102 +1,320 @@
 [
   {
-    "name": "VideoPlayerNextgendashWorkerEntrypointBundle",
+    "name": "Crabmeat Stuffed Mushrooms",
     "description": "",
+    "price": "$15",
     "category": "Menu"
   },
   {
-    "name": "VideoPlayerNextgendashWorkerWithDebugEntrypointBundle",
+    "name": "Shrimp Grapevine",
     "description": "",
+    "price": "$15",
     "category": "Menu"
   },
   {
-    "name": "VideoPlayerNextgendashWorkerV2EntrypointWorkerBundle",
+    "name": "Firecracker Shrimp",
     "description": "",
+    "price": "$15",
     "category": "Menu"
   },
   {
-    "name": "WAMediaWasmWorkerBundle",
+    "name": "Spicy Pecan Shrimp",
     "description": "",
+    "price": "$15",
     "category": "Menu"
   },
   {
-    "name": "FileHashWorkerBundle",
+    "name": "Crawfish Cornbread",
     "description": "",
+    "price": "$11",
     "category": "Menu"
   },
   {
-    "name": "MAWMainWebWorkerV2Bundle",
+    "name": "Eggplant Wheels",
     "description": "",
+    "price": "$11",
     "category": "Menu"
   },
   {
-    "name": "like",
+    "name": "Crab Cakes",
     "description": "",
+    "price": "$15",
     "category": "Menu"
   },
   {
-    "name": "love",
+    "name": "substitute crabmeat au gratin for $",
     "description": "",
+    "price": "$3",
     "category": "Menu"
   },
   {
-    "name": "selfie",
+    "name": "Fried Green Tomatoes",
     "description": "",
+    "price": "$15",
     "category": "Menu"
   },
   {
-    "name": "dorothy",
+    "name": "Portobello Mushroom Fries",
     "description": "",
+    "price": "$11",
     "category": "Menu"
   },
   {
-    "name": "toto",
+    "name": "Chicken (grilled, fried or blackened)",
     "description": "",
-    "category": "Menu"
+    "price": "$19",
+    "category": "Salads"
   },
   {
-    "name": "haha",
+    "name": "Shrimp (grilled, fried or blackened)",
     "description": "",
-    "category": "Menu"
+    "price": "$19",
+    "category": "Salads"
   },
   {
-    "name": "yay",
+    "name": "Ahi Tuna (grilled or blackened)",
     "description": "",
-    "category": "Menu"
+    "price": "$23",
+    "category": "Salads"
   },
   {
-    "name": "wow",
+    "name": "Chicken (grilled, fried or blackened)",
     "description": "",
-    "category": "Menu"
+    "price": "$21",
+    "category": "Salads"
   },
   {
-    "name": "confused",
+    "name": "Shrimp (grilled, fried or blackened)",
     "description": "",
-    "category": "Menu"
+    "price": "$21",
+    "category": "Salads"
   },
   {
-    "name": "support",
+    "name": "Crawfish (grilled, fried or blackened)",
     "description": "",
-    "category": "Menu"
+    "price": "$21",
+    "category": "Salads"
   },
   {
-    "name": "sorry",
+    "name": "Chicken Sandwich",
     "description": "",
-    "category": "Menu"
+    "price": "$15",
+    "category": "Sandwiches"
   },
   {
-    "name": "anger",
+    "name": "Shrimp Poboy",
     "description": "",
-    "category": "Menu"
+    "price": "$15",
+    "category": "Sandwiches"
   },
   {
-    "name": "flame",
+    "name": "Grilled onions $",
     "description": "",
-    "category": "Menu"
+    "price": "$1",
+    "category": "Sandwiches"
   },
   {
-    "name": "plane",
+    "name": "Provolone or cheddar cheese $",
     "description": "",
-    "category": "Menu"
+    "price": "$1",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Side of Sauce 5Potato Salad",
+    "description": "",
+    "price": "$3",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Rough Mashed Potatoes",
+    "description": "",
+    "price": "$3",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Green Beans 3Dinner Salad",
+    "description": "",
+    "price": "$5",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Jumbo Lump Crabmeat",
+    "description": "",
+    "price": "$15",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Three Jumbo Shrimp",
+    "description": "",
+    "price": "$7",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Grilled Vegetables 5French Bread",
+    "description": "",
+    "price": "$5",
+    "category": "Sandwiches"
+  },
+  {
+    "name": "Cup 6Bowl",
+    "description": "",
+    "price": "$12",
+    "category": "Soups"
+  },
+  {
+    "name": "Cup 8Bowl",
+    "description": "",
+    "price": "$14",
+    "category": "Soups"
+  },
+  {
+    "name": "Catfish Bites",
+    "description": "",
+    "price": "$12",
+    "category": "Soups"
+  },
+  {
+    "name": "Eggplant Parmesan",
+    "description": "",
+    "price": "$18",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crabmeat Eggplant Pasta",
+    "description": "",
+    "price": "$24",
+    "category": "Pasta"
+  },
+  {
+    "name": "Parmesan Chicken",
+    "description": "",
+    "price": "$20",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crab Cake Pasta",
+    "description": "",
+    "price": "$31",
+    "category": "Pasta"
+  },
+  {
+    "name": "Chicken Breasts",
+    "description": "",
+    "price": "$20",
+    "category": "Pasta"
+  },
+  {
+    "name": "Spinach and Andouille Stuffed Chicken",
+    "description": "",
+    "price": "$23",
+    "category": "Pasta"
+  },
+  {
+    "name": "Southern Fish Fillet",
+    "description": "",
+    "price": "$19",
+    "category": "Pasta"
+  },
+  {
+    "name": "Pecan Encrusted Redfish",
+    "description": "",
+    "price": "$28",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crab Stuffed Redfish",
+    "description": "",
+    "price": "$34",
+    "category": "Pasta"
+  },
+  {
+    "name": "Ahi Tuna",
+    "description": "",
+    "price": "$27",
+    "category": "Pasta"
+  },
+  {
+    "name": "Spinach and Andouille Stuffed Redfish",
+    "description": "",
+    "price": "$30",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crab Stuffed Chicken",
+    "description": "",
+    "price": "$26",
+    "category": "Pasta"
+  },
+  {
+    "name": "Half & Half",
+    "description": "",
+    "price": "$21",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crawfish Cornbread with Southern Fish",
+    "description": "",
+    "price": "$24",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crabmeat Stuffed Portobello Mushroom",
+    "description": "",
+    "price": "$29",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crab Cake Dinner",
+    "description": "",
+    "price": "$29",
+    "category": "Pasta"
+  },
+  {
+    "name": "Crabmeat Stuffed Eggplant",
+    "description": "",
+    "price": "$21",
+    "category": "Pasta"
+  },
+  {
+    "name": "Pork Tenderloin Ribeye",
+    "description": "",
+    "price": "$24",
+    "category": "Pasta"
+  },
+  {
+    "name": "Filet Mignon",
+    "description": "",
+    "price": "$45",
+    "category": "Pasta"
+  },
+  {
+    "name": "Brownie A La Mode",
+    "description": "",
+    "price": "$10",
+    "category": "Desserts"
+  },
+  {
+    "name": "Old-Fashioned Lemon Ice Box Pie",
+    "description": "",
+    "price": "$6",
+    "category": "Desserts"
+  },
+  {
+    "name": "Vanilla Bean Ice Cream",
+    "description": "",
+    "price": "$5",
+    "category": "Desserts"
+  },
+  {
+    "name": "White Chocolate Bread Pudding",
+    "description": "",
+    "price": "$12",
+    "category": "Desserts"
+  },
+  {
+    "name": "Creole Surf and Turf Pasta",
+    "description": "",
+    "price": "$26",
+    "category": "Desserts"
   }
 ]

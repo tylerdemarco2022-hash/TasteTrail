@@ -1,0 +1,36 @@
+{
+  "source_url": "https://places.singleplatform.com/sealevelnc/menu",
+  "url_confidence": 0.86,
+  "url_discovery_method": "duckduckgo",
+  "scrape_confidence": 0.83,
+  "min_scrape_confidence": 0.8,
+  "menu_completeness_score": 0.76,
+  "menu_completeness_report": {
+    "version": "menu_completeness_v1",
+    "score": 0.76,
+    "tier": "medium",
+    "factors": {
+      "item_count_score": 0.34,
+      "price_coverage_score": 0.12,
+      "description_coverage_score": 0,
+      "category_score": 0.02,
+      "naming_score": 0.08,
+      "scrape_score": 0.12,
+      "url_score": 0.09,
+      "penalties": 0
+    },
+    "metrics": {
+      "item_count": 100,
+      "priced_item_count": 98,
+      "described_item_count": 2,
+      "category_count": 1,
+      "multiword_name_count": 82,
+      "suspicious_name_count": 0,
+      "modifier_like_name_count": 0,
+      "short_name_count": 2
+    }
+  },
+  "min_menu_completeness": 0.65,
+  "min_menu_items": 12,
+  "updated_at": "2026-02-24T18:07:32.410Z"
+}

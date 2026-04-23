@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:28.121Z",
+  "category": "regression_replay_orphan_failure",
+  "result_type": "fail",
+  "fail_result": {
+    "command": "node scripts/replayRegressionScenarios.mjs",
+    "exit_code": 1,
+    "stdout": "[regression-replay] checking 1 regression scenario(s)...\n[regression-replay] 0/1 scenarios fully covered\n  [FAIL] RSC-ADVERSARIAL-FAIL missing_gate_signature | test_ref=found gate_sig=MISSING\n",
+    "stderr": "[regression-replay] BLOCKED: orphaned or uncovered scenarios: RSC-ADVERSARIAL-FAIL:gate_failure_signature_missing\n",
+    "output": "[regression-replay] checking 1 regression scenario(s)...\n[regression-replay] 0/1 scenarios fully covered\n  [FAIL] RSC-ADVERSARIAL-FAIL missing_gate_signature | test_ref=found gate_sig=MISSING\n[regression-replay] BLOCKED: orphaned or uncovered scenarios: RSC-ADVERSARIAL-FAIL:gate_failure_signature_missing"
+  },
+  "blocked_reason": "[regression-replay] BLOCKED: orphaned or uncovered scenarios: RSC-ADVERSARIAL-FAIL:gate_failure_signature_missing",
+  "artifact_sha256": "c5e862fafb7454fc2111e41f5508e7257914911df616c6a698a7f4c45345cc2e"
+}

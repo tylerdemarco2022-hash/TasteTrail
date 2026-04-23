@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UserPlus, User, Lock, Mail, AlertCircle, CheckCircle } from 'lucide-react'
 
-export default function Signup({ onSignup, onSwitchToLogin }) {
+export default function Signup({ onSignup, onSwitchToLogin, onLogin }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -29,9 +29,15 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
       const result = await onSignup(email, password, name)
       
       if (result?.success) {
-        // Account created successfully - redirect to login
-        alert('Account created successfully! Please log in with your credentials.')
-        onSwitchToLogin()
+        // Account created successfully - auto-login so user goes straight to onboarding
+        console.log('✅ Signup successful, auto-logging in...')
+        const loginResult = await onLogin(email, password)
+        if (!loginResult?.success) {
+          // Fallback: tell user to login manually
+          alert('Account created! Please log in with your credentials.')
+          onSwitchToLogin()
+        }
+        // If login was successful, app will handle the rest (show onboarding)
       } else {
         setError(result?.error || 'Signup failed')
       }
@@ -123,10 +129,10 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
-                  type="password"
+                  type="text"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder="Enter password"
                   required
                   minLength={6}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
@@ -148,10 +154,10 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
-                  type="password"
+                  type="text"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder="Confirm password"
                   required
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
                 />

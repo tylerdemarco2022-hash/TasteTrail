@@ -1,187 +1,224 @@
 [
   {
-    "category": "Dinner",
+    "category": "Raw",
     "name": "Osetra Caviar",
-    "description": "Sustainably Farmed Osetra Caviar, Creme Fraiche Egg, Chives, House Chips"
+    "description": "Sustainably Farmed Osetra Caviar, Creme Fraiche Egg, Chives, House Chips",
+    "price": "$120"
   },
   {
-    "category": "Dinner",
+    "category": "Raw",
     "name": "Raw Oysters",
-    "description": "Charred Lemon, Mignonette, Horseradish"
+    "description": "Charred Lemon, Mignonette, Horseradish",
+    "price": "Market Price"
   },
   {
-    "category": "Dinner",
+    "category": "Raw",
     "name": "Tuna Tartar",
-    "description": "AAA Tuna, Yuzu Aioli, Bottarga, Kataifi, Barrel Aged Shoyu, Caviar"
+    "description": "AAA Tuna, Yuzu Aioli, Bottarga, Kataifi, Barrel Aged Shoyu, Caviar",
+    "price": "$31"
   },
   {
-    "category": "Dinner",
+    "category": "Shared",
     "name": "Duck Flautas",
-    "description": "Duck Confit, Turnip and Radish Salpicon, Pico, Pecorino, Alabama White Sauce"
+    "description": "Duck Confit, Turnip and Radish Salpicon, Pico, Pecorino, Alabama White Sauce",
+    "price": "$17"
   },
   {
-    "category": "Dinner",
+    "category": "Shared",
     "name": "Charred Oysters",
-    "description": "Chesapeake Bay Oysters, Pecorino, Blackening Spice, Charred Ciabatta"
+    "description": "Chesapeake Bay Oysters, Pecorino, Blackening Spice, Charred Ciabatta",
+    "price": "$21"
   },
   {
-    "category": "Dinner",
+    "category": "Shared",
     "name": "Mussels",
-    "description": "Chorizo, Hearth Charred Tomatoes, Pot Stock, Charred Ciabatta"
+    "description": "Chorizo, Hearth Charred Tomatoes, Pot Stock, Charred Ciabatta",
+    "price": "$23"
   },
   {
-    "category": "Dinner",
+    "category": "Shared",
     "name": "Charred Wings",
-    "description": "House Made Hot Sauce with Celery, Carrot, and Roth Buttermilk Bleu or Dry Rubbed and topped with Alabama White Sauce, Blistered Onion Confit"
+    "description": "House Made Hot Sauce with Celery, Carrot, and Roth Buttermilk Bleu or Dry Rubbed and topped with Alabama White Sauce, Blistered Onion Confit",
+    "price": "$19"
   },
   {
-    "category": "Dinner",
+    "category": "Shared",
     "name": "Wagyu Skewers",
-    "description": "Wagyu Flat Iron, Arbol Chili, Cilantro Lime Slaw, Chimichurri"
+    "description": "Wagyu Flat Iron, Arbol Chili, Cilantro Lime Slaw, Chimichurri",
+    "price": "$26"
   },
   {
-    "category": "Dinner",
+    "category": "Shared",
     "name": "Crab Cakes",
-    "description": "Yuzu Miso Crab Cakes, Chipotle Aioli"
+    "description": "Yuzu Miso Crab Cakes, Chipotle Aioli",
+    "price": "$22"
   },
   {
-    "category": "Dinner",
-    "name": "A Really Good Burger",
-    "description": "American Cheese, Lettuce, Red Onions, Sauce, Brioche"
-  },
-  {
-    "category": "Dinner",
-    "name": "Wagyu Burger",
-    "description": "1/2 lb Wagyu, Aged Cheddar, Caramelized Onions, Truffle Aioli, Brioche"
-  },
-  {
-    "category": "Dinner",
-    "name": "Korean Fried Chicken Sandwich",
-    "description": "Korean Fried Chicken, Gochujang Aioli, Kimchi, House Cucumber, Brioche"
-  },
-  {
-    "category": "Dinner",
-    "name": "House-Made Pecan Pie",
-    "description": "Served Warm with Salted Caramel Ice Cream"
-  },
-  {
-    "category": "Dinner",
-    "name": "Beignets",
-    "description": "With Cold Brew Icing"
-  },
-  {
-    "category": "Dinner",
-    "name": "Bowl of Ice Cream",
-    "description": "Salted Caramel Ice Cream, Bourbon Caramel, Candied Pecans"
-  },
-  {
-    "category": "Dinner",
-    "name": "Seasonal Crumble",
-    "description": "Fruit Compote, Cinnamon Crumble, Salted Caramel Ice Cream"
-  },
-  {
-    "category": "Dinner",
+    "category": "Soups & Salads",
     "name": "She Crab Soup",
-    "description": "Lump Crab, Bottarga, Crab Roe Creme Fraiche, Chive Oil"
+    "description": "Lump Crab, Bottarga, Crab Roe Creme Fraiche, Chive Oil",
+    "price": "$15"
   },
   {
-    "category": "Dinner",
+    "category": "Soups & Salads",
     "name": "Fig and Pear Salad",
-    "description": "Arugula, Pear, Mission Figs, Feta, Crispy Prosciutto, Fig Balsamic Vinaigrette"
+    "description": "Arugula, Pear, Mission Figs, Feta, Crispy Prosciutto, Fig Balsamic Vinaigrette",
+    "price": "$10-16"
   },
   {
-    "category": "Dinner",
+    "category": "Soups & Salads",
     "name": "Caesar Salad",
-    "description": "Romaine, Poached Egg, Parmesan, Bacon Crisp, Crispy Capers"
+    "description": "Romaine, Poached Egg, Parmesan, Bacon Crisp, Crispy Capers",
+    "price": "$9-14"
   },
   {
-    "category": "Dinner",
+    "category": "Soups & Salads",
     "name": "Wedge Salad",
-    "description": "Smoked Bacon, Blistered Tomato, Shaved Purple Onion, Sesame Seed, Roth Buttermilk Bleu"
+    "description": "Smoked Bacon, Blistered Tomato, Shaved Purple Onion, Sesame Seed, Roth Buttermilk Bleu",
+    "price": "$9-14"
   },
   {
-    "category": "Dinner",
+    "category": "Hand-Helds",
+    "name": "A Really Good Burger",
+    "description": "American Cheese, Lettuce, Red Onions, Sauce, Brioche. Served with Parmesan, Garlic & Herb Fries",
+    "price": "$18"
+  },
+  {
+    "category": "Hand-Helds",
+    "name": "Wagyu Burger",
+    "description": "1/2 lb Wagyu, Aged Cheddar, Caramelized Onions, Truffle Aioli, Brioche. Served with Parmesan, Garlic & Herb Fries",
+    "price": "$32"
+  },
+  {
+    "category": "Hand-Helds",
+    "name": "Korean Fried Chicken Sandwich",
+    "description": "Korean Fried Chicken, Gochujang Aioli, Kimchi, House Cucumber, Brioche. Served with Parmesan, Garlic & Herb Fries",
+    "price": "$17"
+  },
+  {
+    "category": "Mains",
     "name": "Mediterranean Chicken Piccata",
-    "description": "Seared SMF Chicken Breast over Duck Fat Potatoes, Charred Asparagus, topped with Sundried Tomato Tapenade, Goat Cheese, and Lemon Caper Cream Sauce"
+    "description": "Seared SMF Chicken Breast over Duck Fat Potatoes, Charred Asparagus, topped with Sundried Tomato Tapenade, Goat Cheese, and Lemon Caper Cream Sauce",
+    "price": "$32"
   },
   {
-    "category": "Dinner",
+    "category": "Mains",
     "name": "Sea Bass",
-    "description": "Chilean Sea Bass, Green Curry, Forbidden Rice, Pickled Kumquat, Jasmine Tea Tuile"
+    "description": "Chilean Sea Bass, Green Curry, Forbidden Rice, Pickled Kumquat, Jasmine Tea Tuile",
+    "price": "$43"
   },
   {
-    "category": "Dinner",
+    "category": "Mains",
     "name": "Fra Diavolo",
-    "description": "Linguini, Clams, Mussels, Jumbo Shrimp, Asparagus, Tomato Calabrian Chili Sauce"
+    "description": "Linguini, Clams, Mussels, Jumbo Shrimp, Asparagus, Tomato Calabrian Chili Sauce",
+    "price": "$36"
   },
   {
-    "category": "Dinner",
+    "category": "Mains",
     "name": "Lamb Shank",
-    "description": "Roz Ma’amar, Braised Lamb Shank, Roasted Carrots, Tobacco Onions, Lamb Demi"
+    "description": "Roz Ma'amar, Braised Lamb Shank, Roasted Carrots, Tobacco Onions, Lamb Demi",
+    "price": "$55"
   },
   {
-    "category": "Dinner",
+    "category": "From The Grill",
     "name": "Dry-Aged NY Strip",
-    "description": "14oz Boneless"
+    "description": "14oz Boneless, hearth fired and served sliced",
+    "price": "$74"
   },
   {
-    "category": "Dinner",
+    "category": "From The Grill",
     "name": "Wagyu Flat Iron",
-    "description": "8oz Boneless"
+    "description": "8oz Boneless, hearth fired and served sliced",
+    "price": "$52"
   },
   {
-    "category": "Dinner",
+    "category": "From The Grill",
     "name": "Cowboy Pork Chop",
-    "description": "15oz Bone-In"
+    "description": "15oz Bone-In, hearth fired and served sliced",
+    "price": "$38"
   },
   {
-    "category": "Dinner",
+    "category": "From The Grill",
     "name": "Tomahawk Steak",
-    "description": "42oz Bone-In, CAB Ribeye, served with Rescoldo Potatoes, Hearth Vegetable Board Dressing, Charred Bread"
+    "description": "42oz Bone-In CAB Ribeye, served with Rescoldo Potatoes, Hearth Vegetable Board Dressing, Charred Bread",
+    "price": "$180"
   },
   {
-    "category": "Dinner",
+    "category": "From The Grill",
     "name": "Steak Frites",
-    "description": "8oz Hanger Steak, topped with Chimichurri, Sesame Seed, with Parmesan, Garlic, and Herb Fries"
+    "description": "8oz Hanger Steak, topped with Chimichurri, Sesame Seed, with Parmesan, Garlic, and Herb Fries",
+    "price": "$40"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Bowl of Fries",
-    "description": "House Cut, Parmesan, Garlic, Herb"
+    "description": "House Cut, Parmesan, Garlic, Herb",
+    "price": "$10"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Asparagus",
-    "description": "Miso Butter, Aleppo"
+    "description": "Miso Butter, Aleppo",
+    "price": "$13"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Duck Fat Potatoes",
-    "description": "Crispy Confit Potatoes, Lemon Caper Aioli"
+    "description": "Crispy Confit Potatoes, Lemon Caper Aioli",
+    "price": "$12"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Glazed Carrots",
-    "description": "Tri-color Carrots, Sorghum Chili Crisp Glaze, Greens"
+    "description": "Tri-color Carrots, Sorghum Chili Crisp Glaze, Greens",
+    "price": "$12"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Hearth Vegetables",
-    "description": "Local Vegetables, Benne"
+    "description": "Local Vegetables, Benne",
+    "price": "$14"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Hearth Shishito Peppers",
-    "description": "Blistered Shishitos Peppers, Soy Honey Glaze, Spiced Peanuts, Benne"
+    "description": "Blistered Shishitos Peppers, Soy Honey Glaze, Spiced Peanuts, Benne",
+    "price": "$12"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "7th Street Corn",
-    "description": "Grilled NC Sweet Corn, Dukes Mayo, Blackening Seasoning, Pecorino Cheese, Poblano"
+    "description": "Grilled NC Sweet Corn, Dukes Mayo, Blackening Seasoning, Pecorino Cheese, Poblano",
+    "price": "$11"
   },
   {
-    "category": "Dinner",
+    "category": "Small Plates",
     "name": "Mac & Three Cheese Shells",
-    "description": "Cheddar, American, Parmesan"
+    "description": "Cheddar, American, Parmesan (add Fresh Truffle +$6)",
+    "price": "$10-20"
+  },
+  {
+    "category": "After Dinner",
+    "name": "House-Made Pecan Pie",
+    "description": "Served Warm with Salted Caramel Ice Cream",
+    "price": "$14"
+  },
+  {
+    "category": "After Dinner",
+    "name": "Beignets",
+    "description": "With Cold Brew Icing",
+    "price": "$14"
+  },
+  {
+    "category": "After Dinner",
+    "name": "Bowl of Ice Cream",
+    "description": "Salted Caramel Ice Cream, Bourbon Caramel, Candied Pecans",
+    "price": "$11"
+  },
+  {
+    "category": "After Dinner",
+    "name": "Seasonal Crumble",
+    "description": "Fruit Compote, Cinnamon Crumble, Salted Caramel Ice Cream",
+    "price": "$12"
   }
 ]

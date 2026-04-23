@@ -3,6 +3,7 @@ import { searchGooglePlaces, searchYelp } from '../../yelp.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { supabase } from '../../supabase.js'
 
 const router = express.Router()
 
@@ -27,6 +28,16 @@ function toDisplayName(dirName = '') {
 		.trim()
 }
 
+function inferCuisineTags(dirName = '') {
+	const n = dirName.toLowerCase()
+	if (n.includes('steak')) return ['Steakhouse']
+	if (n.includes('seafood') || n.includes('sea_grill') || n.includes('sea_level') || n.includes('fish') || n.includes('shrimp') || n.includes('oyster')) return ['Seafood House']
+	if (n.includes('sushi') || n.includes('japanese') || n.includes('ramen')) return ['Sushi']
+	if (n.includes('gastrobar') || n.includes('taphouse') || n.includes('taproom') || n.includes('crunkleton') || n.includes('foxhole') || n.includes('stir') || n.includes('grill') || n.includes('bar') || n.includes('smokehouse') || n.includes('dropout') || n.includes('pig') || n.includes('link_pin') || n.includes('goodyear') || n.includes('whitakers')) return ['Bar & Grill']
+	if (n.includes('fine') || n.includes('constance') || n.includes('helene') || n.includes('celsius') || n.includes('fahrenheit') || n.includes('sixty') || n.includes('peppervine') || n.includes('vines') || n.includes('grapevine') || n.includes('italia') || n.includes('italian') || n.includes('salmeris') || n.includes('mama_ricotta') || n.includes('postino') || n.includes('angeline') || n.includes('figtree') || n.includes('ilios') || n.includes('greek') || n.includes('la_belle') || n.includes('bulla') || n.includes('restaurant_constance')) return ['Fine Dining']
+	return ['Casual Dining']
+}
+
 function hashString(input = '') {
 	let h = 0
 	for (let i = 0; i < input.length; i += 1) {
@@ -36,6 +47,24 @@ function hashString(input = '') {
 	return Math.abs(h)
 }
 
+// Load cached restaurant images from restaurant-images.json
+function loadRestaurantImages() {
+	try {
+		const imagesPath = path.resolve(__dirname, '../../data/restaurant-images.json')
+		if (!fs.existsSync(imagesPath)) return {}
+		const images = JSON.parse(fs.readFileSync(imagesPath, 'utf8'))
+		const map = {}
+		for (const img of images) {
+			if (img.id && img.image) {
+				map[img.id] = img
+			}
+		}
+		return map
+	} catch (_) {
+		return {}
+	}
+}
+
 function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 	try {
 		if (!fs.existsSync(LOCAL_RESTAURANTS_DIR)) return []
@@ -43,6 +72,8 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 			const full = path.join(LOCAL_RESTAURANTS_DIR, entry)
 			return fs.statSync(full).isDirectory()
 		})
+
+		const imageMap = loadRestaurantImages()
 
 		const rows = []
 		for (const dir of dirs) {
@@ -58,6 +89,24 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 			const itemCount = Array.isArray(menu) ? menu.length : 0
 			if (itemCount === 0) continue
 
+			// Try to load photo from info.json (set by fetchRestaurantPhotos script)
+			let photoUrl = null
+			let address = 'Charlotte, NC'
+			try {
+				const infoPath = path.join(LOCAL_RESTAURANTS_DIR, dir, 'info.json')
+				if (fs.existsSync(infoPath)) {
+					const info = JSON.parse(fs.readFileSync(infoPath, 'utf8'))
+					photoUrl = info.photo_url || null
+					address = info.address || address
+				}
+			} catch (_) {}
+
+			// Fall back to restaurant-images.json
+			if (!photoUrl && imageMap[dir]) {
+				photoUrl = imageMap[dir].image
+				address = imageMap[dir].address || address
+			}
+
 			const hash = hashString(dir)
 			const latOffset = ((hash % 300) - 150) / 1000 // +/- 0.15 deg
 			const lonOffset = (((Math.floor(hash / 17)) % 300) - 150) / 1000
@@ -69,10 +118,11 @@ function loadLocalRestaurantFallback(lat, lon, limit = 30) {
 				lon: Number((lon + lonOffset).toFixed(6)),
 				rating: 4.0 + ((hash % 9) * 0.1),
 				review_count: 30 + (hash % 400),
-				image: null,
-				address: 'Charlotte, NC',
+				image: photoUrl,
+				address,
 				price_level: 2,
 				types: ['restaurant'],
+				cuisine_tags: inferCuisineTags(dir),
 				source: 'local-menu-cache'
 			})
 		}
@@ -127,8 +177,37 @@ router.get('/nearby-restaurants', async (req, res) => {
 			console.warn('Yelp search failed:', yelpErr.message)
 		}
 
-		// Last fallback
-		return res.json({ restaurants: MOCK_RESTAURANTS })
+		// Last fallback: Try database for restaurants with service_model/cuisine_tags
+		try {
+			const { data, error } = await supabase
+				.from('restaurants')
+				.select('id, name, lat, lon, rating, review_count, image, address, price_level, types, service_model, cuisine_tags')
+				.limit(30);
+			if (error) {
+				console.warn('DB fallback error:', error.message);
+				return res.json({ restaurants: MOCK_RESTAURANTS });
+			}
+			// Parse cuisine_tags if stored as comma string
+			const dbRestaurants = (data || []).map(r => ({
+				...r,
+				cuisine_tags: Array.isArray(r.cuisine_tags)
+				  ? r.cuisine_tags
+				  : (typeof r.cuisine_tags === 'string' && r.cuisine_tags.includes(',')
+					  ? r.cuisine_tags.split(',').map(t => t.trim()).filter(Boolean)
+					  : (r.cuisine_tags ? [r.cuisine_tags] : [])),
+				service_model: Array.isArray(r.service_model)
+				  ? r.service_model
+				  : (typeof r.service_model === 'string' && r.service_model.trim()
+					  ? [r.service_model.trim()]
+					  : []),
+			}));
+			if (dbRestaurants.length > 0) {
+				return res.json({ restaurants: dbRestaurants });
+			}
+		} catch (dbErr) {
+			console.warn('DB fallback exception:', dbErr.message);
+		}
+		return res.json({ restaurants: MOCK_RESTAURANTS });
 	} catch (err) {
 		console.error('[/api/nearby-restaurants] Error:', err)
 		res.status(500).json({ error: err.message || 'Unknown error' })

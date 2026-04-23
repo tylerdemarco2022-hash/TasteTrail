@@ -143,12 +143,46 @@ function extractJsonFromHtml(html = "") {
   const payloads = [];
   const ldJsonRegex = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
   let match = null;
-  while ((match = ldJsonRegex.exec(html)) !== null) {
-    const raw = (match[1] || "").trim();
-    if (!raw) continue;
+  const domain = (() => {
     try {
-      payloads.push(JSON.parse(raw));
+      const urlMatch = html.match(/<meta[^>]*property=["']og:url["'][^>]*content=["']([^"']+)/);
+      if (urlMatch) return new URL(urlMatch[1]).hostname;
     } catch (_) {}
+    return 'unknown';
+  })();
+  while ((match = ldJsonRegex.exec(html)) !== null) {
+    let scriptText = (match[1] || "").trim();
+    if (!scriptText) continue;
+    // Remove control chars
+    scriptText = scriptText.replace(/[\u0000-\u001F\u007F]/g, "");
+    // Handle multiple JSON objects in one script tag
+    const jsonObjects = [];
+    let buffer = "";
+    let depth = 0;
+    for (let i = 0; i < scriptText.length; i++) {
+      const char = scriptText[i];
+      if (char === '{') {
+        if (depth === 0) buffer = "";
+        depth++;
+      }
+      if (depth > 0) buffer += char;
+      if (char === '}') {
+        depth--;
+        if (depth === 0 && buffer) {
+          jsonObjects.push(buffer);
+          buffer = "";
+        }
+      }
+    }
+    for (const objText of jsonObjects.length ? jsonObjects : [scriptText]) {
+      try {
+        const parsed = require('../utils/safeJsonParse.js').safeJsonParse(`ld+json:${domain}`, objText);
+        payloads.push(parsed);
+      } catch (err) {
+        console.warn(`[ld+json SKIPPED] ${domain} | ${objText.slice(0, 120)}...`);
+        // Skip this block, do not crash
+      }
+    }
   }
   return payloads;
 }
@@ -258,7 +292,7 @@ function dedupeItems(items = []) {
 }
 
 async function extractDomItems(page) {
-  return page.evaluate(() => {
+  const result = await page.evaluate(() => {
     const priceRegex = /\$?\s?\d{1,3}(?:\.\d{2})?/;
     const badTextRegex = /(privacy|terms|cookie|careers|facebook|instagram|twitter|youtube|accessibility|copyright)/i;
     const techGarbageRegex = /(bundle|worker|entrypoint|webpack|nextgen|nextgendash|videoplayer|wamedia|wasm|filehash|mainwebworker|chunk|sourcemap|source map|javascript|manifest)/i;
@@ -315,7 +349,9 @@ async function extractDomItems(page) {
       "article",
       "li"
     ];
-    const nodes = Array.from(document.querySelectorAll(selectors.join(","))).slice(0, 5000);
+    // Limit DOM nodes to first 1500 - reduces DOM traversal time significantly
+    const nodes = Array.from(document.querySelectorAll(selectors.join(","))).slice(0, 1500);
+    const nodesExamined = nodes.length;
 
     for (const node of nodes) {
       const text = normalize(node.innerText || node.textContent || "");
@@ -373,8 +409,12 @@ async function extractDomItems(page) {
       push(out, name, price, "", "Menu");
     }
 
-    return out.slice(0, 1200);
+    return {
+      items: out.slice(0, 1200),
+      nodesExamined
+    };
   });
+  return result;
 }
 
 async function findMenuLinks(page, currentUrl) {
@@ -420,11 +460,13 @@ async function findMenuLinks(page, currentUrl) {
 
   const unique = [];
   const seen = new Set();
-  for (const entry of scored.sort((a, b) => b.score - a.score)) {
+  // Limit link examination to first 200 to avoid walking entire DOM
+  const topScored = scored.sort((a, b) => b.score - a.score).slice(0, 200);
+  for (const entry of topScored) {
     if (seen.has(entry.url)) continue;
     seen.add(entry.url);
     unique.push(entry.url);
-    if (unique.length >= 6) break;
+    if (unique.length >= 4) break;  // Reduced from 6 to 4
   }
   return unique;
 }
@@ -466,6 +508,7 @@ function parsePdfMenuLines(rawText = "") {
   const items = [];
   let currentSection = "Menu";
 
+
   for (const rawLine of lines) {
     const line = rawLine
       .replace(/[•·]/g, " ")
@@ -473,11 +516,39 @@ function parsePdfMenuLines(rawText = "") {
       .trim();
     if (!line || line.length > 240) continue;
 
+    // --- DEBUG: Log all candidate subheaders ---
+    let isLikelySubheader = false;
+    let subheaderReason = "";
     if (MENU_SECTION_HEADING_REGEX.test(line)) {
+      isLikelySubheader = true;
+      subheaderReason = "regex";
+    } else if (/^[A-Z0-9 &]{3,30}$/.test(line) && !/\d{1,2}(?:\.\d{2})?/.test(line) && line.split(' ').length <= 5) {
+      isLikelySubheader = true;
+      subheaderReason = "all-caps short";
+    } else if (/^[A-Za-z][A-Za-z \-]{2,40}$/.test(line) && !/\d/.test(line) && line.length <= 32 && line === line.toUpperCase()) {
+      // Extra: all-uppercase, no numbers, short
+      isLikelySubheader = true;
+      subheaderReason = "extra-all-caps";
+    } else if (/^[A-Za-z][A-Za-z \-]{2,40}$/.test(line) && !/\d/.test(line) && line.length <= 32 && /^[A-Z][a-z]+( [A-Z][a-z]+)*$/.test(line)) {
+      // Extra: Title Case, no numbers, short
+      isLikelySubheader = true;
+      subheaderReason = "title-case";
+    }
+    if (isLikelySubheader) {
+      if (typeof console !== 'undefined' && console.log) {
+        console.log(`[PDF SUBHEADER DETECTED] '${line}' (${subheaderReason})`);
+      }
       currentSection = line
         .replace(/\s+/g, " ")
         .trim()
         .replace(/\b\w/g, (m) => m.toUpperCase());
+      items.push({
+        name: null,
+        description: null,
+        price: null,
+        category: currentSection,
+        isSubheader: true
+      });
       continue;
     }
 
@@ -706,6 +777,9 @@ async function extractHeroImage(page) {
 
 export async function scrapeMenu(startUrl) {
   let browser = null;
+  const globalStartTime = performance.now();
+  const startTime = Date.now();  // Define at start so catch/finally can use it
+  let discoveryEndTime = null;
   const networkPayloads = [];
   const visited = [];
   const aggregatedSections = [];
@@ -716,13 +790,25 @@ export async function scrapeMenu(startUrl) {
   let rawPdfItems = 0;
   let discoveredMenuLinks = 0;
   let heroImageUrl = null;
+  let domNodesExamined = 0;
+  let earlyExitTriggered = false;
+  let earlyExitReason = null;
+  let lastPageHtml = null;  // Store last page HTML for debugging
+  let lastResponseStatus = null;  // Store HTTP status code
+  let lastResolvedUrl = null;  // Store final resolved URL
 
   try {
+    console.log('[SCRAPER][DEBUG] Scraping menu URL:', startUrl);
+    let extractorType = 'unknown';
     if (isLikelyPdfUrl(startUrl)) {
+      extractorType = 'pdf';
       visited.push(startUrl);
       const pdfItems = await extractPdfItemsFromUrl(startUrl);
+      console.log('[SCRAPER][DEBUG] Extractor type:', extractorType);
+      console.log('[SCRAPER][DEBUG] PDF candidate count:', pdfItems.length);
       rawPdfItems += pdfItems.length;
       if (pdfItems.length > 0) {
+        // ...existing code...
         aggregatedSections.push({
           section: "Menu (PDF)",
           items: pdfItems
@@ -737,8 +823,10 @@ export async function scrapeMenu(startUrl) {
           discoveredMenuLinks
         });
         const confidence = confidenceReport.score;
+        const totalTime = performance.now() - globalStartTime;
+        const sources = ['pdf'].filter(s => s === 'pdf' && rawPdfItems > 0);
 
-        return {
+        const response = {
           menu_sections: flattened.length
             ? [{ section: "Menu", items: flattened }]
             : [],
@@ -747,10 +835,27 @@ export async function scrapeMenu(startUrl) {
           item_count: flattened.length,
           confidence,
           confidence_report: confidenceReport,
-          hero_image_url: null   // PDF-only path: no browser page to extract hero from
+          hero_image_url: null
         };
+
+        if (process.env.NODE_ENV !== 'production') {
+          response.debug_metrics = {
+            discovery_time_ms: 0,
+            scrape_time_ms: totalTime,
+            total_time_ms: totalTime,
+            total_items_found: flattened.length,
+            sources_used: sources,
+            early_exit_triggered: false,
+            pages_visited: 1,
+            json_payloads_captured: 0,
+            dom_nodes_examined: 0
+          };
+        }
+
+        return response;
       }
     } else {
+      extractorType = 'html';
       toVisit.push(startUrl);
     }
 
@@ -761,36 +866,55 @@ export async function scrapeMenu(startUrl) {
       }
     }
 
-    browser = await chromium.launch({ headless: true });
+    console.log(`[SCRAPER:P1] Launching browser...`);
+    
+    browser = await chromium.launch({ headless: true, args: ['--single-process'] });
     const context = await browser.newContext({
       userAgent:
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
     });
+    
+    // Route to block heavy resources that slow down page load
+    await context.route('**/*.{png,jpg,jpeg,gif,svg}', route => route.abort());
+    await context.route('**/*.css', route => route.abort());
+    await context.route('**/*.woff*', route => route.abort());
     const page = await context.newPage();
-    page.setDefaultNavigationTimeout(45000);
+    page.setDefaultNavigationTimeout(20000);  // Reduced from 45s to 20s - fail fast on slow sites
 
     page.on("response", async (response) => {
       try {
+        // Skip collection if we already have enough payloads
+        if (networkPayloads.length >= 25) return;
         const url = response.url().toLowerCase();
         const contentType = (response.headers()["content-type"] || "").toLowerCase();
         if (!contentType.includes("application/json")) return;
         if (!/(menu|item|product|dish|graphql|api|order|catalog|wp-json)/.test(url)) return;
         const data = await response.json().catch(() => null);
         if (!data) return;
-        if (networkPayloads.length < 60) networkPayloads.push(data);
+        networkPayloads.push(data);
       } catch (_) {}
     });
 
-    while (toVisit.length > 0 && seenUrls.size < 6) {
+    discoveryEndTime = performance.now();
+
+    let foundEnoughItems = false;  // Early exit flag
+    while (toVisit.length > 0 && seenUrls.size < 4 && !foundEnoughItems) {
       const target = toVisit.shift();
       if (!target || seenUrls.has(target)) continue;
       seenUrls.add(target);
       visited.push(target);
 
       try {
-        const navResponse = await page.goto(target, { waitUntil: "domcontentloaded", timeout: 45000 });
+        const pageStartTime = Date.now();
+        const navResponse = await page.goto(target, { waitUntil: "domcontentloaded", timeout: 20000 });  // Reduced from 45s to 20s
+        console.log('[SCRAPER][DEBUG] Extractor type:', extractorType);
+        const navStatus = navResponse?.status?.() || null;
         const navContentType = String(navResponse?.headers?.()["content-type"] || "").toLowerCase();
         const navFinalUrl = navResponse?.url?.() || target;
+        
+        // Store for debugging
+        if (navStatus) lastResponseStatus = navStatus;
+        lastResolvedUrl = navFinalUrl;
         if (navContentType.includes("application/pdf") || isLikelyPdfUrl(navFinalUrl)) {
           const pdfItems = await extractPdfItemsFromUrl(navFinalUrl);
           rawPdfItems += pdfItems.length;
@@ -807,36 +931,87 @@ export async function scrapeMenu(startUrl) {
           }
           continue;
         }
-        await page.waitForTimeout(2500);
+        // Conditional wait: skip wait if we already have content from previous page
+        if (aggregatedSections.length === 0) {
+          // First page load: wait for JS execution and content
+          await page.waitForTimeout(600);
+        }
+        
         // Capture hero image on first successfully loaded page (best chance of finding it)
-        if (!heroImageUrl) {
+        if (!heroImageUrl && aggregatedSections.length === 0) {
           heroImageUrl = await extractHeroImage(page);
         }
-      } catch (_) {
+      } catch (err) {
+        console.log(`[SCRAPER:NAVIGATION] Failed to load ${target.substring(0, 50)}... - ${err.message?.substring(0, 50) || 'timeout'}`);
         continue;
       }
 
-      const html = await page.content();
-      const scriptPayloads = extractJsonFromHtml(html);
-      const allPayloads = [...networkPayloads, ...scriptPayloads];
-      const jsonItems = dedupeItems(
-        allPayloads.flatMap((payload) => flattenJsonMenuItems(payload, []))
-      );
-      rawJsonItems += jsonItems.length;
-      if (jsonItems.length > 0) {
-        aggregatedSections.push({
-          section: "Menu (JSON)",
-          items: jsonItems
-        });
-      }
+        const html = await page.content();
+        lastPageHtml = html;  // Store for debugging
+        console.log('[SCRAPER][DEBUG] Raw HTML length:', html.length);
+        if (html.length > 0) {
+          const tempHtmlPath = require('os').tmpdir() + '/deans_steakhouse_menu.html';
+          require('fs').writeFileSync(tempHtmlPath, html.slice(0, 2000), 'utf8');
+          console.log('[SCRAPER][DEBUG] Saved first 2000 chars to:', tempHtmlPath);
+        }
+        let candidateReasons = [];
+        const scriptPayloads = extractJsonFromHtml(html);
+        const allPayloads = [...networkPayloads, ...scriptPayloads];
+        const jsonItems = [];
+        for (const payload of allPayloads) {
+          const candidates = flattenJsonMenuItems(payload, []);
+          console.log('[SCRAPER][DEBUG] JSON candidate count:', candidates.length);
+          for (const item of candidates) {
+            if (!item.name) candidateReasons.push('Missing name');
+            if (!item.price) candidateReasons.push('Missing price');
+            // ...existing code...
+          }
+          jsonItems.push(...dedupeItems(candidates));
+        }
+        rawJsonItems += jsonItems.length;
+        if (jsonItems.length > 0) {
+          aggregatedSections.push({
+            section: "Menu (JSON)",
+            items: jsonItems
+          });
+        }
+        if (candidateReasons.length > 0) {
+          console.log('[SCRAPER][DEBUG] Candidate rejection reasons:', candidateReasons);
+        }
 
-      const domItems = dedupeItems(await extractDomItems(page));
-      rawDomItems += domItems.length;
-      if (domItems.length > 0) {
-        aggregatedSections.push({
-          section: "Menu (DOM)",
-          items: domItems
-        });
+      // Track DOM nodes examined via instrumented extractDomItems
+        const domItemsResult = await extractDomItems(page);
+        const domItems = Array.isArray(domItemsResult) ? domItemsResult : domItemsResult.items;
+        console.log('[SCRAPER][DEBUG] DOM candidate count:', domItems.length);
+        let domCandidateReasons = [];
+        for (const item of domItems) {
+          if (!item.name) domCandidateReasons.push('Missing name');
+          if (!item.price) domCandidateReasons.push('Missing price');
+          // ...existing code...
+        }
+        if (domItemsResult.nodesExamined !== undefined) {
+          domNodesExamined += domItemsResult.nodesExamined;
+        }
+        const finalDomItems = dedupeItems(domItems);
+        rawDomItems += finalDomItems.length;
+        if (finalDomItems.length > 0) {
+          aggregatedSections.push({
+            section: "Menu (DOM)",
+            items: finalDomItems
+          });
+        }
+        if (domCandidateReasons.length > 0) {
+          console.log('[SCRAPER][DEBUG] DOM candidate rejection reasons:', domCandidateReasons);
+        }
+
+      // Early exit: if we've found 6+ items from 2+ sources, we can stop crawling
+      const totalItems = rawJsonItems + rawDomItems + rawPdfItems;
+      if (totalItems >= 6 && aggregatedSections.length >= 2) {
+        earlyExitTriggered = true;
+        earlyExitReason = `Found ${totalItems} items from ${aggregatedSections.length} sources at ${seenUrls.size} URLs`;
+        console.log(`[SCRAPER:EARLY-EXIT] ${earlyExitReason}`);
+        foundEnoughItems = true;
+        break;
       }
 
       const nextLinks = await findMenuLinks(page, target);
@@ -875,8 +1050,17 @@ export async function scrapeMenu(startUrl) {
       discoveredMenuLinks
     });
     const confidence = confidenceReport.score;
+    const totalTime = performance.now() - globalStartTime;
+    const discoveryTime = discoveryEndTime - globalStartTime;
+    const scrapeTime = totalTime - discoveryTime;
+    
+    const sourcesUsed = [
+      rawJsonItems > 0 && 'json',
+      rawDomItems > 0 && 'dom',
+      rawPdfItems > 0 && 'pdf'
+    ].filter(Boolean);
 
-    return {
+    const response = {
       menu_sections: flattened.length
         ? [{ section: "Menu", items: flattened }]
         : [],
@@ -887,7 +1071,34 @@ export async function scrapeMenu(startUrl) {
       confidence_report: confidenceReport,
       hero_image_url: heroImageUrl || null
     };
+
+    if (process.env.NODE_ENV !== 'production') {
+      response.debug_metrics = {
+        discovery_time_ms: Math.round(discoveryTime),
+        scrape_time_ms: Math.round(scrapeTime),
+        total_time_ms: Math.round(totalTime),
+        total_items_found: flattened.length,
+        sources_used: sourcesUsed,
+        early_exit_triggered: earlyExitTriggered,
+        early_exit_reason: earlyExitReason,
+        pages_visited: visited.length,
+        json_payloads_captured: networkPayloads.length,
+        dom_nodes_examined: domNodesExamined,
+        http_status: lastResponseStatus,
+        final_url: lastResolvedUrl,
+        html_size_bytes: lastPageHtml ? lastPageHtml.length : 0
+      };
+      
+      // Include HTML snapshot if no items were found
+      if (flattened.length === 0 && lastPageHtml) {
+        response.debug_html_snapshot = lastPageHtml.substring(0, 50000);  // First 50KB
+      }
+    }
+
+    return response;
   } catch (error) {
+    const elapsed = Date.now() - startTime;
+    console.log(`[SCRAPER:ERROR] Failed after ${elapsed}ms: ${error?.message?.substring(0, 50) || 'unknown'}`);
     const confidenceReport = {
       version: "menu_scraper_confidence_v1",
       score: 0,
@@ -930,6 +1141,8 @@ export async function scrapeMenu(startUrl) {
       error: error?.message || String(error)
     };
   } finally {
+    const elapsed = Date.now() - startTime;
+    console.log(`[SCRAPER:CLOSING] Closing browser after ${elapsed}ms total`);
     if (browser) {
       try {
         await browser.close();

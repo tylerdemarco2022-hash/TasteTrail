@@ -1,0 +1,19 @@
+{
+  "pass_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-pass.json",
+    "exit_code": 0,
+    "stdout": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json\n",
+    "stderr": "",
+    "output": "[release-gate] PASS\n[release-gate] report: artifacts/menu-integrity/proof/failure-paths/tmp/sim-pass.json"
+  },
+  "fail_result": {
+    "command": "node scripts/releaseGateMenuIntegrity.mjs C:\\Users\\tyler\\OneDrive\\Documents\\Apps new\\APPS\\taste-trails\\artifacts\\menu-integrity\\proof\\failure-paths\\tmp\\sim-schema-unsupported.json",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0\n",
+    "output": "[release-gate] BLOCKED: SIM_MODE:schema_version_unsupported:9.9.9:supported=1.0.0|1.1.0|1.2.0"
+  },
+  "fail_contains_schema_unsupported": true,
+  "fail_contains_checksum_mismatch": false,
+  "isolation_proven": true
+}

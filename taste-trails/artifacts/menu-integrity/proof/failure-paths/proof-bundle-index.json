@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "proof-hardening-2026-04-23T02-42-12-943Z",
+  "generated_at": "2026-04-23T02:42:29.459Z",
+  "run_window": {
+    "started_at": "2026-04-23T02:42:12.943Z",
+    "ended_at": "2026-04-23T02:42:29.459Z"
+  },
+  "guarantees": {
+    "lkg_drift_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/lkg-drift-block-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/lkg-drift-block-fail.json",
+      "pass_exit_code": 0,
+      "fail_exit_code": 1,
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "schema_version_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/schema-version-block-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/schema-version-block-fail.json",
+      "pass_exit_code": 0,
+      "fail_exit_code": 1,
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "latency_regression_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/latency-regression-block-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/latency-regression-block-fail.json",
+      "pass_exit_code": 0,
+      "fail_exit_code": 1,
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "regression_replay_orphan_failure": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/replay-adversarial-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/replay-adversarial-fail.json",
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "diagnostics_rate_limit_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/diagnostics-rate-limit-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/diagnostics-rate-limit-fail.json",
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "diagnostics_summary_degradation_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/diagnostics-summary-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/diagnostics-summary-fail.json",
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "config_guard_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/config-guard-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/config-guard-fail.json",
+      "pass_ok": true,
+      "fail_ok": true
+    },
+    "latency_baseline_integrity_block": {
+      "pass_artifact": "artifacts/menu-integrity/proof/failure-paths/latency-baseline-integrity-pass.json",
+      "fail_artifact": "artifacts/menu-integrity/proof/failure-paths/latency-baseline-integrity-fail.json",
+      "pass_ok": true,
+      "fail_ok": true
+    }
+  },
+  "guarantees_verified": [
+    "lkg_drift_block",
+    "schema_version_block",
+    "latency_regression_block",
+    "regression_replay_orphan_failure",
+    "diagnostics_rate_limit_block",
+    "diagnostics_summary_degradation_block",
+    "config_guard_block",
+    "latency_baseline_integrity_block"
+  ],
+  "guarantees_failed": [],
+  "evidence_complete": true,
+  "ci_evidence": {
+    "artifact": "artifacts/menu-integrity/proof/failure-paths/proof-bundle-ci.json"
+  },
+  "supporting_artifacts": {
+    "config_guard_fail": "artifacts/menu-integrity/proof/failure-paths/config-guard-fail.json",
+    "latency_baseline_integrity": "artifacts/menu-integrity/proof/failure-paths/latency-baseline-integrity.json",
+    "replay_adversarial_failure": "artifacts/menu-integrity/proof/failure-paths/replay-adversarial-failure.json",
+    "diagnostics_abuse_test": "artifacts/menu-integrity/proof/failure-paths/diagnostics-abuse-test.json",
+    "full_system_kill_test": "artifacts/menu-integrity/proof/failure-paths/full-system-kill-test.json"
+  },
+  "artifact_sha256": "b14559eb0aae5c0224d192b533a16c085e0686ce6caf874621726525ae224a80"
+}

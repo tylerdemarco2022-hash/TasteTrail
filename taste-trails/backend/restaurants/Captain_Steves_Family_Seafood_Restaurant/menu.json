@@ -36,31 +36,7 @@
     "category": "Menu"
   },
   {
-    "name": "House",
-    "description": "",
-    "price": "$5",
-    "category": "Menu"
-  },
-  {
-    "name": "Shrimp",
-    "description": "",
-    "price": "$12",
-    "category": "Menu"
-  },
-  {
     "name": "Grilled Chicken",
-    "description": "",
-    "price": "$12",
-    "category": "Menu"
-  },
-  {
-    "name": "Chef",
-    "description": "",
-    "price": "$12",
-    "category": "Menu"
-  },
-  {
-    "name": "Greek",
     "description": "",
     "price": "$12",
     "category": "Menu"
@@ -150,48 +126,6 @@
     "category": "SALADS"
   },
   {
-    "name": "Soft Drinks (free refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
-    "name": "Iced Tea (free refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
-    "name": "Homemade Lemonade (free refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
-    "name": "Coffee (free refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
-    "name": "Hot Chocolate (no refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
-    "name": "Hot Tea (no refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
-    "name": "Milk (no refills)",
-    "description": "",
-    "price": "$3",
-    "category": "SALADS"
-  },
-  {
     "name": "Potato Salad",
     "description": "",
     "price": "$3",
@@ -241,12 +175,6 @@
   },
   {
     "name": "Grilled Pork Chops (Bone In)",
-    "description": "",
-    "price": "$11",
-    "category": "SIDES"
-  },
-  {
-    "name": "Hamburger Steak* with onions and gravy",
     "description": "",
     "price": "$11",
     "category": "SIDES"
@@ -330,18 +258,6 @@
     "category": "SIDES"
   },
   {
-    "name": "Any Two Items from above Seafood",
-    "description": "",
-    "price": "$13",
-    "category": "SIDES"
-  },
-  {
-    "name": "Any Three Items from above Seafood",
-    "description": "",
-    "price": "$15",
-    "category": "SIDES"
-  },
-  {
     "name": "Jumbo Shrimp",
     "description": "",
     "price": "$22",
@@ -354,7 +270,7 @@
     "category": "SIDES"
   },
   {
-    "name": "Loaded (cheese & bacon) +",
+    "name": "Loaded (cheese & bacon)",
     "description": "",
     "price": "$1",
     "category": "SIDES"
@@ -414,18 +330,6 @@
     "category": "SIDES"
   },
   {
-    "name": "House",
-    "description": "",
-    "price": "$6",
-    "category": "SALADS"
-  },
-  {
-    "name": "Shrimp",
-    "description": "",
-    "price": "$15",
-    "category": "SALADS"
-  },
-  {
     "name": "Grilled Chicken",
     "description": "",
     "price": "$15",
@@ -433,12 +337,6 @@
   },
   {
     "name": "The Captain’s Chef",
-    "description": "",
-    "price": "$15",
-    "category": "SALADS"
-  },
-  {
-    "name": "Greek",
     "description": "",
     "price": "$15",
     "category": "SALADS"
@@ -480,69 +378,15 @@
     "category": "SALADS"
   },
   {
-    "name": "8 oz. Cheeseburger",
-    "description": "",
-    "price": "$11",
-    "category": "SALADS"
-  },
-  {
     "name": "Chicken Tenders",
     "description": "",
     "price": "$15",
     "category": "SALADS"
   },
   {
-    "name": "Soft Drinks",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Iced Tea",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Lemonade",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Coffee",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Hot Chocolate",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Hot Tea",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Milk",
-    "description": "",
-    "price": "$3.25",
-    "category": "BEVERAGES"
-  },
-  {
     "name": "Filet Mignon*",
     "description": "",
     "price": "$32",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Ribeye Steak*",
-    "description": "",
-    "price": "$28",
     "category": "BEVERAGES"
   },
   {
@@ -555,12 +399,6 @@
     "name": "Center Cut Sirloin*",
     "description": "",
     "price": "$19",
-    "category": "BEVERAGES"
-  },
-  {
-    "name": "Hamburger Steak*",
-    "description": "",
-    "price": "$17",
     "category": "BEVERAGES"
   },
   {
@@ -606,12 +444,6 @@
     "category": "PASTAS"
   },
   {
-    "name": "Tilapia",
-    "description": "",
-    "price": "$20",
-    "category": "PASTAS"
-  },
-  {
     "name": "Alaskan Whitefish",
     "description": "",
     "price": "$20",
@@ -636,21 +468,9 @@
     "category": "PASTAS"
   },
   {
-    "name": "Greek Style additional +",
+    "name": "Greek Style additional",
     "description": "",
     "price": "$2",
-    "category": "PASTAS"
-  },
-  {
-    "name": "Any 2 items Above",
-    "description": "",
-    "price": "$26",
-    "category": "PASTAS"
-  },
-  {
-    "name": "Any 3 items Above",
-    "description": "",
-    "price": "$28",
     "category": "PASTAS"
   },
   {
@@ -693,12 +513,6 @@
     "name": "Filet of Flounder",
     "description": "",
     "price": "$18",
-    "category": "PASTAS"
-  },
-  {
-    "name": "Tilapia",
-    "description": "",
-    "price": "$17",
     "category": "PASTAS"
   },
   {
@@ -765,18 +579,6 @@
     "name": "Clam Strips",
     "description": "",
     "price": "$17",
-    "category": "PASTAS"
-  },
-  {
-    "name": "Any 2 items Above",
-    "description": "",
-    "price": "$24",
-    "category": "PASTAS"
-  },
-  {
-    "name": "Any 3 items Above",
-    "description": "",
-    "price": "$26",
     "category": "PASTAS"
   }
 ]

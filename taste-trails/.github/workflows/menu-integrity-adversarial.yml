@@ -1,0 +1,441 @@
+name: menu-integrity-adversarial
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - taste-trails-final
+
+jobs:
+  unit-integration-tests:
+    name: unit-integration-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Runtime menu-items contract guard
+        run: npm run guard:menu-items
+
+      - name: Unit and integration tests
+        run: npm test
+
+      - name: Regression scenario replay
+        run: npm run test:regression-replay
+
+  adversarial-menu-integrity-sim:
+    name: adversarial-menu-integrity-sim
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+    env:
+      NODE_ENV: test
+      PORT: 3110
+      SIM_MODE: "true"
+      LIVE_MODE: "false"
+      MENU_INTEGRITY_CANARY_ON_STARTUP: "false"
+      ALLOW_FALLBACK_ON_DB_ERROR: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run adversarial menu integrity suite (SIM)
+        run: npm run test:adversarial-menu-integrity
+
+      - name: Upload SIM adversarial artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: menu-integrity-adversarial-sim
+          path: |
+            artifacts/menu-integrity/adversarial/latest/adversarial-menu-integrity-sim.json
+            artifacts/menu-integrity/adversarial/latest/adversarial-menu-integrity-sim.md
+            artifacts/menu-integrity/adversarial/runs
+          if-no-files-found: error
+
+  adversarial-menu-integrity-live:
+    name: adversarial-menu-integrity-live
+    if: ${{ secrets.SUPABASE_URL != '' && secrets.SUPABASE_SERVICE_ROLE_KEY != '' }}
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+      - adversarial-menu-integrity-sim
+    env:
+      NODE_ENV: test
+      PORT: 3110
+      SIM_MODE: "false"
+      LIVE_MODE: "true"
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
+      ADMIN_TOKEN: ${{ secrets.ADMIN_API_KEY }}
+      MENU_INTEGRITY_CANARY_ON_STARTUP: "false"
+      ALLOW_FALLBACK_ON_DB_ERROR: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run adversarial menu integrity suite (LIVE)
+        run: npm run test:adversarial-menu-integrity
+
+      - name: Upload LIVE adversarial artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: menu-integrity-adversarial-live
+          path: |
+            artifacts/menu-integrity/adversarial/latest/adversarial-menu-integrity-live.json
+            artifacts/menu-integrity/adversarial/latest/adversarial-menu-integrity-live.md
+            artifacts/menu-integrity/adversarial/runs
+          if-no-files-found: error
+
+  release-gate-menu-integrity:
+    name: release-gate-menu-integrity
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+      - adversarial-menu-integrity-sim
+      - adversarial-menu-integrity-live
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Guard release gate logic tampering
+        env:
+          RELEASE_GATE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          RELEASE_GATE_HEAD_SHA: ${{ github.sha }}
+          RELEASE_GATE_CHANGE_OVERRIDE: ${{ vars.RELEASE_GATE_CHANGE_OVERRIDE || secrets.RELEASE_GATE_CHANGE_OVERRIDE || '' }}
+        run: node scripts/ciEnforceReleaseGateTamper.mjs
+
+      - name: Download SIM adversarial artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: menu-integrity-adversarial-sim
+          path: artifacts/menu-integrity/adversarial/latest
+
+      - name: Download LIVE adversarial artifacts
+        if: ${{ needs.adversarial-menu-integrity-live.result == 'success' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: menu-integrity-adversarial-live
+          path: artifacts/menu-integrity/adversarial/latest
+
+      - name: Enforce release gate
+        env:
+          REQUIRE_LIVE_REPORT: ${{ needs.adversarial-menu-integrity-live.result == 'success' && 'true' || 'false' }}
+          RELEASE_GATE_ENFORCE_UNIT_TESTS: 'true'
+        run: node scripts/releaseGateMenuIntegrity.mjs artifacts/menu-integrity/adversarial/latest/adversarial-menu-integrity-sim.json artifacts/menu-integrity/adversarial/latest/adversarial-menu-integrity-live.json
+
+  fail-lkg-drift:
+    name: fail-lkg-drift
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+    outputs:
+      exit_code: ${{ steps.simulate.outputs.exit_code }}
+      artifact_name: ci-failure-lkg-drift.log
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Simulate LKG drift failure
+        id: simulate
+        run: |
+          set +e
+          node scripts/runCiFailureSimulation.mjs fail-lkg-drift artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload ci-failure-lkg-drift.log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-failure-lkg-drift.log
+          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
+          if-no-files-found: error
+
+      - name: Mark job as failed
+        run: |
+          code='${{ steps.simulate.outputs.exit_code }}'
+          if [ -z "$code" ] || [ "$code" = "0" ]; then
+            exit 97
+          fi
+          exit "$code"
+
+  fail-schema-version:
+    name: fail-schema-version
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+    outputs:
+      exit_code: ${{ steps.simulate.outputs.exit_code }}
+      artifact_name: ci-failure-schema.log
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Simulate schema version failure
+        id: simulate
+        run: |
+          set +e
+          node scripts/runCiFailureSimulation.mjs fail-schema-version artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload ci-failure-schema.log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-failure-schema.log
+          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
+          if-no-files-found: error
+
+      - name: Mark job as failed
+        run: |
+          code='${{ steps.simulate.outputs.exit_code }}'
+          if [ -z "$code" ] || [ "$code" = "0" ]; then
+            exit 97
+          fi
+          exit "$code"
+
+  fail-latency-regression:
+    name: fail-latency-regression
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+    outputs:
+      exit_code: ${{ steps.simulate.outputs.exit_code }}
+      artifact_name: ci-failure-latency.log
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Simulate latency regression failure
+        id: simulate
+        run: |
+          set +e
+          node scripts/runCiFailureSimulation.mjs fail-latency-regression artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload ci-failure-latency.log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-failure-latency.log
+          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
+          if-no-files-found: error
+
+      - name: Mark job as failed
+        run: |
+          code='${{ steps.simulate.outputs.exit_code }}'
+          if [ -z "$code" ] || [ "$code" = "0" ]; then
+            exit 97
+          fi
+          exit "$code"
+
+  fail-replay-orphan:
+    name: fail-replay-orphan
+    runs-on: ubuntu-latest
+    needs:
+      - unit-integration-tests
+    outputs:
+      exit_code: ${{ steps.simulate.outputs.exit_code }}
+      artifact_name: ci-failure-replay.log
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Simulate replay orphan failure
+        id: simulate
+        run: |
+          set +e
+          node scripts/runCiFailureSimulation.mjs fail-replay-orphan artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload ci-failure-replay.log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-failure-replay.log
+          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
+          if-no-files-found: error
+
+      - name: Mark job as failed
+        run: |
+          code='${{ steps.simulate.outputs.exit_code }}'
+          if [ -z "$code" ] || [ "$code" = "0" ]; then
+            exit 97
+          fi
+          exit "$code"
+
+  ci-evidence-aggregate:
+    name: ci-evidence-aggregate
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs:
+      - release-gate-menu-integrity
+      - fail-lkg-drift
+      - fail-schema-version
+      - fail-latency-regression
+      - fail-replay-orphan
+    env:
+      CI_FAIL_LKG_CONCLUSION: ${{ needs.fail-lkg-drift.result }}
+      CI_FAIL_LKG_EXIT_CODE: ${{ needs.fail-lkg-drift.outputs.exit_code }}
+      CI_FAIL_LKG_ARTIFACT_NAME: ci-failure-lkg-drift.log
+      CI_FAIL_LKG_JOB_ID: ''
+
+      CI_FAIL_SCHEMA_CONCLUSION: ${{ needs.fail-schema-version.result }}
+      CI_FAIL_SCHEMA_EXIT_CODE: ${{ needs.fail-schema-version.outputs.exit_code }}
+      CI_FAIL_SCHEMA_ARTIFACT_NAME: ci-failure-schema.log
+      CI_FAIL_SCHEMA_JOB_ID: ''
+
+      CI_FAIL_LATENCY_CONCLUSION: ${{ needs.fail-latency-regression.result }}
+      CI_FAIL_LATENCY_EXIT_CODE: ${{ needs.fail-latency-regression.outputs.exit_code }}
+      CI_FAIL_LATENCY_ARTIFACT_NAME: ci-failure-latency.log
+      CI_FAIL_LATENCY_JOB_ID: ''
+
+      CI_FAIL_REPLAY_CONCLUSION: ${{ needs.fail-replay-orphan.result }}
+      CI_FAIL_REPLAY_EXIT_CODE: ${{ needs.fail-replay-orphan.outputs.exit_code }}
+      CI_FAIL_REPLAY_ARTIFACT_NAME: ci-failure-replay.log
+      CI_FAIL_REPLAY_JOB_ID: ''
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download ci-failure-lkg-drift.log
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-failure-lkg-drift.log
+          path: artifacts/menu-integrity/proof/failure-paths
+
+      - name: Download ci-failure-schema.log
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-failure-schema.log
+          path: artifacts/menu-integrity/proof/failure-paths
+
+      - name: Download ci-failure-latency.log
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-failure-latency.log
+          path: artifacts/menu-integrity/proof/failure-paths
+
+      - name: Download ci-failure-replay.log
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-failure-replay.log
+          path: artifacts/menu-integrity/proof/failure-paths
+
+      - name: Generate local proof artifacts (non-CI-labeled)
+        env:
+          REQUIRE_LIVE_REPORT: 'false'
+          RELEASE_GATE_ENFORCE_UNIT_TESTS: 'false'
+          ENFORCE_LKG_DRIFT_BLOCK: 'true'
+          ENFORCE_LATENCY_REGRESSION: 'true'
+          MENU_INTEGRITY_PERF_ENV_CLASS: 'github-actions-standard'
+        run: npm run proof:menu-integrity-hardening
+
+      - name: Generate real CI evidence
+        run: npm run proof:menu-integrity-ci
+
+      - name: Validate proof bundle with hard CI evidence checks
+        run: npm run proof:menu-integrity-validate
+
+      - name: Upload final proof bundle artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: menu-integrity-proof-bundle-final
+          path: |
+            artifacts/menu-integrity/proof/failure-paths/proof-bundle-index.json
+            artifacts/menu-integrity/proof/failure-paths/proof-bundle-ci.json
+            artifacts/menu-integrity/proof/failure-paths/proof-bundle-validation.json
+            artifacts/menu-integrity/proof/failure-paths/full-system-kill-test.json
+          if-no-files-found: error
