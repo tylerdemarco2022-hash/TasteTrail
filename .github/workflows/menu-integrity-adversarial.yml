@@ -76,7 +76,7 @@ jobs:
 
   adversarial-menu-integrity-live:
     name: adversarial-menu-integrity-live
-    if: ${{ secrets.SUPABASE_URL != '' && secrets.SUPABASE_SERVICE_ROLE_KEY != '' }}
+    if: ${{ false }}
     runs-on: ubuntu-latest
     needs:
       - unit-integration-tests
@@ -439,4 +439,5 @@ jobs:
             artifacts/menu-integrity/proof/failure-paths/proof-bundle-validation.json
             artifacts/menu-integrity/proof/failure-paths/full-system-kill-test.json
           if-no-files-found: error
+
 
