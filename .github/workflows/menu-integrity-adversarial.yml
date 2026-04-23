@@ -189,7 +189,8 @@ jobs:
         id: simulate
         run: |
           set +e
-          node taste-trails/scripts/runCiFailureSimulation.mjs fail-lkg-drift taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
+          cd taste-trails
+          node scripts/runCiFailureSimulation.mjs fail-lkg-drift artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -237,7 +238,8 @@ jobs:
         id: simulate
         run: |
           set +e
-          node taste-trails/scripts/runCiFailureSimulation.mjs fail-schema-version taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
+          cd taste-trails
+          node scripts/runCiFailureSimulation.mjs fail-schema-version artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -285,7 +287,8 @@ jobs:
         id: simulate
         run: |
           set +e
-          node taste-trails/scripts/runCiFailureSimulation.mjs fail-latency-regression taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
+          cd taste-trails
+          node scripts/runCiFailureSimulation.mjs fail-latency-regression artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -333,7 +336,8 @@ jobs:
         id: simulate
         run: |
           set +e
-          node taste-trails/scripts/runCiFailureSimulation.mjs fail-replay-orphan taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
+          cd taste-trails
+          node scripts/runCiFailureSimulation.mjs fail-replay-orphan artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
