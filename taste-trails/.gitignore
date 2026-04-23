@@ -60,3 +60,6 @@ Thumbs.db
 server-startup.log
 server.err
 vite.err
+
+# CI evidence - must only be generated inside GitHub Actions
+artifacts/menu-integrity/proof/failure-paths/proof-bundle-ci.json
