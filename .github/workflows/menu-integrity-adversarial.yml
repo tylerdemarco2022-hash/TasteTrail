@@ -432,6 +432,10 @@ jobs:
           MENU_INTEGRITY_PERF_ENV_CLASS: 'github-actions-standard'
         run: npm --prefix taste-trails run proof:menu-integrity-hardening
 
+      - name: Generate failure-path proof index
+        if: ${{ always() }}
+        run: npm --prefix taste-trails run proof:menu-integrity-failure-paths
+
       - name: Generate real CI evidence
         if: ${{ always() }}
         run: npm --prefix taste-trails run proof:menu-integrity-ci
