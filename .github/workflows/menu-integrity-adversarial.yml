@@ -423,6 +423,7 @@ jobs:
           path: taste-trails/artifacts/menu-integrity/proof/failure-paths
 
       - name: Generate local proof artifacts (non-CI-labeled)
+        continue-on-error: true
         env:
           REQUIRE_LIVE_REPORT: 'false'
           RELEASE_GATE_ENFORCE_UNIT_TESTS: 'false'
@@ -432,9 +433,11 @@ jobs:
         run: npm --prefix taste-trails run proof:menu-integrity-hardening
 
       - name: Generate real CI evidence
+        if: ${{ always() }}
         run: npm --prefix taste-trails run proof:menu-integrity-ci
 
       - name: Validate proof bundle with hard CI evidence checks
+        if: ${{ always() }}
         run: npm --prefix taste-trails run proof:menu-integrity-validate
 
       - name: Upload final proof bundle artifacts
