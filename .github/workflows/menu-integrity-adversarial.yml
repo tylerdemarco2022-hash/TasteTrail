@@ -24,7 +24,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix taste-trails ci
 
       - name: Runtime menu-items contract guard
         run: npm run guard:menu-items
@@ -188,7 +188,7 @@ jobs:
         id: simulate
         run: |
           set +e
-          node scripts/runCiFailureSimulation.mjs fail-lkg-drift artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
+          node taste-trails/scripts/runCiFailureSimulation.mjs fail-lkg-drift taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -198,7 +198,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ci-failure-lkg-drift.log
-          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-lkg-drift.log
           if-no-files-found: error
 
       - name: Mark job as failed
@@ -229,13 +229,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix taste-trails ci
 
       - name: Simulate schema version failure
         id: simulate
         run: |
           set +e
-          node scripts/runCiFailureSimulation.mjs fail-schema-version artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
+          node taste-trails/scripts/runCiFailureSimulation.mjs fail-schema-version taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -245,7 +245,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ci-failure-schema.log
-          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-schema.log
           if-no-files-found: error
 
       - name: Mark job as failed
@@ -276,13 +276,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix taste-trails ci
 
       - name: Simulate latency regression failure
         id: simulate
         run: |
           set +e
-          node scripts/runCiFailureSimulation.mjs fail-latency-regression artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
+          node taste-trails/scripts/runCiFailureSimulation.mjs fail-latency-regression taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -292,7 +292,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ci-failure-latency.log
-          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-latency.log
           if-no-files-found: error
 
       - name: Mark job as failed
@@ -323,13 +323,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix taste-trails ci
 
       - name: Simulate replay orphan failure
         id: simulate
         run: |
           set +e
-          node scripts/runCiFailureSimulation.mjs fail-replay-orphan artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
+          node taste-trails/scripts/runCiFailureSimulation.mjs fail-replay-orphan taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -339,7 +339,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ci-failure-replay.log
-          path: artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths/ci-failure-replay.log
           if-no-files-found: error
 
       - name: Mark job as failed
@@ -391,31 +391,31 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix taste-trails ci
 
       - name: Download ci-failure-lkg-drift.log
         uses: actions/download-artifact@v4
         with:
           name: ci-failure-lkg-drift.log
-          path: artifacts/menu-integrity/proof/failure-paths
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths
 
       - name: Download ci-failure-schema.log
         uses: actions/download-artifact@v4
         with:
           name: ci-failure-schema.log
-          path: artifacts/menu-integrity/proof/failure-paths
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths
 
       - name: Download ci-failure-latency.log
         uses: actions/download-artifact@v4
         with:
           name: ci-failure-latency.log
-          path: artifacts/menu-integrity/proof/failure-paths
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths
 
       - name: Download ci-failure-replay.log
         uses: actions/download-artifact@v4
         with:
           name: ci-failure-replay.log
-          path: artifacts/menu-integrity/proof/failure-paths
+          path: taste-trails/artifacts/menu-integrity/proof/failure-paths
 
       - name: Generate local proof artifacts (non-CI-labeled)
         env:
@@ -424,13 +424,13 @@ jobs:
           ENFORCE_LKG_DRIFT_BLOCK: 'true'
           ENFORCE_LATENCY_REGRESSION: 'true'
           MENU_INTEGRITY_PERF_ENV_CLASS: 'github-actions-standard'
-        run: npm run proof:menu-integrity-hardening
+        run: npm --prefix taste-trails run proof:menu-integrity-hardening
 
       - name: Generate real CI evidence
-        run: npm run proof:menu-integrity-ci
+        run: npm --prefix taste-trails run proof:menu-integrity-ci
 
       - name: Validate proof bundle with hard CI evidence checks
-        run: npm run proof:menu-integrity-validate
+        run: npm --prefix taste-trails run proof:menu-integrity-validate
 
       - name: Upload final proof bundle artifacts
         if: always()
@@ -438,10 +438,10 @@ jobs:
         with:
           name: menu-integrity-proof-bundle-final
           path: |
-            artifacts/menu-integrity/proof/failure-paths/proof-bundle-index.json
-            artifacts/menu-integrity/proof/failure-paths/proof-bundle-ci.json
-            artifacts/menu-integrity/proof/failure-paths/proof-bundle-validation.json
-            artifacts/menu-integrity/proof/failure-paths/full-system-kill-test.json
+            taste-trails/artifacts/menu-integrity/proof/failure-paths/proof-bundle-index.json
+            taste-trails/artifacts/menu-integrity/proof/failure-paths/proof-bundle-ci.json
+            taste-trails/artifacts/menu-integrity/proof/failure-paths/proof-bundle-validation.json
+            taste-trails/artifacts/menu-integrity/proof/failure-paths/full-system-kill-test.json
           if-no-files-found: error
 
 
