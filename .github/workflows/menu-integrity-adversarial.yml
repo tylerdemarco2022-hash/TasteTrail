@@ -357,23 +357,23 @@ jobs:
       - fail-latency-regression
       - fail-replay-orphan
     env:
-      CI_FAIL_LKG_CONCLUSION: ${{ needs.fail-lkg-drift.result }}
-      CI_FAIL_LKG_EXIT_CODE: ${{ needs.fail-lkg-drift.outputs.exit_code }}
+      CI_FAIL_LKG_CONCLUSION: ${{ needs['fail-lkg-drift'].result }}
+      CI_FAIL_LKG_EXIT_CODE: ${{ needs['fail-lkg-drift'].outputs.exit_code }}
       CI_FAIL_LKG_ARTIFACT_NAME: ci-failure-lkg-drift.log
       CI_FAIL_LKG_JOB_ID: ''
 
-      CI_FAIL_SCHEMA_CONCLUSION: ${{ needs.fail-schema-version.result }}
-      CI_FAIL_SCHEMA_EXIT_CODE: ${{ needs.fail-schema-version.outputs.exit_code }}
+      CI_FAIL_SCHEMA_CONCLUSION: ${{ needs['fail-schema-version'].result }}
+      CI_FAIL_SCHEMA_EXIT_CODE: ${{ needs['fail-schema-version'].outputs.exit_code }}
       CI_FAIL_SCHEMA_ARTIFACT_NAME: ci-failure-schema.log
       CI_FAIL_SCHEMA_JOB_ID: ''
 
-      CI_FAIL_LATENCY_CONCLUSION: ${{ needs.fail-latency-regression.result }}
-      CI_FAIL_LATENCY_EXIT_CODE: ${{ needs.fail-latency-regression.outputs.exit_code }}
+      CI_FAIL_LATENCY_CONCLUSION: ${{ needs['fail-latency-regression'].result }}
+      CI_FAIL_LATENCY_EXIT_CODE: ${{ needs['fail-latency-regression'].outputs.exit_code }}
       CI_FAIL_LATENCY_ARTIFACT_NAME: ci-failure-latency.log
       CI_FAIL_LATENCY_JOB_ID: ''
 
-      CI_FAIL_REPLAY_CONCLUSION: ${{ needs.fail-replay-orphan.result }}
-      CI_FAIL_REPLAY_EXIT_CODE: ${{ needs.fail-replay-orphan.outputs.exit_code }}
+      CI_FAIL_REPLAY_CONCLUSION: ${{ needs['fail-replay-orphan'].result }}
+      CI_FAIL_REPLAY_EXIT_CODE: ${{ needs['fail-replay-orphan'].outputs.exit_code }}
       CI_FAIL_REPLAY_ARTIFACT_NAME: ci-failure-replay.log
       CI_FAIL_REPLAY_JOB_ID: ''
     steps:
@@ -439,3 +439,4 @@ jobs:
             artifacts/menu-integrity/proof/failure-paths/proof-bundle-validation.json
             artifacts/menu-integrity/proof/failure-paths/full-system-kill-test.json
           if-no-files-found: error
+
