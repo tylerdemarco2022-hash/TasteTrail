@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         continue-on-error: true
-        run: npm --prefix taste-trails ci
+        run: echo "Skipping dependency install for CI failure simulation job"
 
       - name: Runtime menu-items contract guard
         run: npm run guard:menu-items
@@ -231,7 +231,7 @@ jobs:
 
       - name: Install dependencies
         continue-on-error: true
-        run: npm --prefix taste-trails ci
+        run: echo "Skipping dependency install for CI failure simulation job"
 
       - name: Simulate schema version failure
         id: simulate
@@ -279,7 +279,7 @@ jobs:
 
       - name: Install dependencies
         continue-on-error: true
-        run: npm --prefix taste-trails ci
+        run: echo "Skipping dependency install for CI failure simulation job"
 
       - name: Simulate latency regression failure
         id: simulate
@@ -327,7 +327,7 @@ jobs:
 
       - name: Install dependencies
         continue-on-error: true
-        run: npm --prefix taste-trails ci
+        run: echo "Skipping dependency install for CI failure simulation job"
 
       - name: Simulate replay orphan failure
         id: simulate
@@ -396,7 +396,7 @@ jobs:
 
       - name: Install dependencies
         continue-on-error: true
-        run: npm --prefix taste-trails ci
+        run: echo "Skipping dependency install for CI evidence aggregate job"
 
       - name: Download ci-failure-lkg-drift.log
         uses: actions/download-artifact@v4
