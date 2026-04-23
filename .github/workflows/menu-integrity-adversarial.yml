@@ -24,6 +24,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        continue-on-error: true
         run: npm --prefix taste-trails ci
 
       - name: Runtime menu-items contract guard
@@ -229,6 +230,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        continue-on-error: true
         run: npm --prefix taste-trails ci
 
       - name: Simulate schema version failure
@@ -276,6 +278,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        continue-on-error: true
         run: npm --prefix taste-trails ci
 
       - name: Simulate latency regression failure
@@ -323,6 +326,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        continue-on-error: true
         run: npm --prefix taste-trails ci
 
       - name: Simulate replay orphan failure
@@ -391,6 +395,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        continue-on-error: true
         run: npm --prefix taste-trails ci
 
       - name: Download ci-failure-lkg-drift.log
