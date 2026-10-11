@@ -253,6 +253,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
             setAllResults((prev) => ({ ...prev, dishes }))
             if (data.message) setSearchNote(data.message)
             else if (dishes.some((item) => item.source === 'saved')) setSearchNote('Some dishes are from a saved menu because a live menu could not be retrieved.')
+            else if (data.refreshing) setSearchNote('Looking up menus at nearby restaurants.')
             else setSearchNote('')
           }
           if (searchResult.status === 'fulfilled' && searchResult.value.ok) {

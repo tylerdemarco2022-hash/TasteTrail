@@ -163,6 +163,25 @@ async function respondWithMenuItems(req, res) {
   }
 }
 
+app.get('/api/place-photo', async (req, res) => {
+  const name = String(req.query.name || '')
+  const key = process.env.GOOGLE_PLACES_API_KEY
+  if (!key || !/^places\/[^/?#]+\/photos\/[^/?#]+$/.test(name)) {
+    return res.status(404).end()
+  }
+  try {
+    const response = await fetch(`https://places.googleapis.com/v1/${name}/media?maxHeightPx=480&skipHttpRedirect=true`, {
+      headers: { 'X-Goog-Api-Key': key }
+    })
+    if (!response.ok) return res.status(404).end()
+    const payload = await response.json()
+    if (!payload?.photoUri) return res.status(404).end()
+    return res.redirect(payload.photoUri)
+  } catch {
+    return res.status(404).end()
+  }
+})
+
 app.get('/api/restaurant-menu', async (req, res) => {
   try {
     const result = await handleRestaurantMenu(req.query || {})

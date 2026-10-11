@@ -157,6 +157,7 @@ export default function MenuView({ post, onBack, showAI }) {
   const [fetchedMenu, setFetchedMenu] = useState(null)
   const [menuLoading, setMenuLoading] = useState(false)
   const [menuNotice, setMenuNotice] = useState('')
+  const [menuWebsite, setMenuWebsite] = useState(post?.website || null)
   
   // Dish rating state
   const [dishRatings, setDishRatings] = useState({}) // dishName -> { totalRating, count, userRating }
@@ -282,11 +283,16 @@ export default function MenuView({ post, onBack, showAI }) {
     setMenuNotice('')
     try {
       const params = new URLSearchParams({ name: restaurantName || '' })
+      if (post.website) params.set('website', post.website)
+      if (post.menuUrl) params.set('menuUrl', post.menuUrl)
+      if (post.lat != null) params.set('lat', String(post.lat))
+      if (post.lon != null) params.set('lng', String(post.lon))
       const res = await fetch(`${API_BASE}/api/restaurant-menu?${params}`)
       if (res.ok) {
         const data = await res.json()
         const sections = Array.isArray(data.sections) ? data.sections : []
-        setMenuNotice(data.message || (data.source === 'live' ? 'Menu retrieved from the restaurant.' : ''))
+        setMenuWebsite(data.website || post.website || null)
+        setMenuNotice(data.source === 'unavailable' ? 'Menu not available online' : (data.message || ''))
         if (data.source === 'unavailable' || sections.length === 0) {
           setMenuData({
             name: restaurantName || '',
@@ -1032,13 +1038,7 @@ export default function MenuView({ post, onBack, showAI }) {
                 {post.dish && <div className="text-sm text-amber-100/90">Signature: {post.dish}</div>}
                 <div className="flex flex-wrap gap-2 text-xs">
                   {menuLoading && (
-                    <span className="px-2 py-1 rounded-full bg-white/25">
-                      <svg className="animate-spin h-5 w-5 text-amber-500 inline mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                      </svg>
-                      Loading menu…
-                    </span>
+                    <span className="px-2 py-1 rounded-full bg-white/25">Menu loading</span>
                   )}
                   <span className="px-2 py-1 rounded-full bg-white/25">{menuFiltersActive ? visibleItemCount : displayItemCount} items</span>
                 </div>
@@ -1163,8 +1163,13 @@ export default function MenuView({ post, onBack, showAI }) {
             </div>
           ))
         ) : (
-          <div className="text-gray-500 text-center py-8">
-            {menuFiltersActive ? 'No dishes match this search. Clear a filter or try a different word.' : (menuNotice || 'Could not retrieve a menu for this restaurant.')}
+          <div className="text-gray-500 text-center py-8 space-y-3">
+            <p>{menuLoading ? 'Menu loading' : (menuFiltersActive ? 'No dishes match this search. Clear a filter or try a different word.' : (menuNotice || 'Menu not available online'))}</p>
+            {!menuLoading && !menuFiltersActive && menuWebsite && (
+              <a href={menuWebsite} target="_blank" rel="noreferrer" className="inline-block text-amber-700 font-semibold underline">
+                Visit the restaurant site
+              </a>
+            )}
           </div>
         )}
       </div>

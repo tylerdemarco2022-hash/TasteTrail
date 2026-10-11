@@ -18,6 +18,7 @@
     "audit-menus": "node scripts/auditAndRefreshMenus.mjs",
     "test": "node --test src/services/menuItemFinder.test.js src/services/menuDocumentParser.test.js src/services/liveMenu.test.js",
     "menu-coverage": "node scripts/menuCoverage.mjs",
+    "nearby-coverage": "node scripts/nearbyCoverage.mjs",
     "build:ios": "VITE_CAPACITOR=true vite build"
   },
   "dependencies": {

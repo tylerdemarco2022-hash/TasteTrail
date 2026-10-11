@@ -10,7 +10,17 @@ import { foldRestaurantName, knownRestaurantRecords } from './restaurantSources.
 const require = createRequire(import.meta.url)
 const defaultCacheDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../data/menu-cache')
 const USER_AGENT = 'Mozilla/5.0 (compatible; TasteTrail/1.0; +https://tastetrails.app) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+const OSM_USER_AGENT = 'TasteTrail/1.0 (restaurant discovery; +https://tastetrails.app)'
+const OVERPASS_ENDPOINTS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.openstreetmap.fr/api/interpreter'
+]
 const MIN_ITEMS = 3
+const DEFAULT_RADIUS_MILES = 3
+const MAX_RADIUS_MILES = 8
+const NEARBY_LIMIT = 20
+const BACKGROUND_MENU_LIMIT = 8
+const DISCOVERY_TTL_MS = 30 * 60 * 1000
 
 function hours(name, fallback) {
   const value = Number(process.env[name])
@@ -80,6 +90,27 @@ function mergeCatalog(liveItems, savedCatalog) {
   return [...liveItems, ...saved]
 }
 
+function milesBetween(lat1, lng1, lat2, lng2) {
+  const toRad = (value) => (value * Math.PI) / 180
+  const dLat = toRad(lat2 - lat1)
+  const dLng = toRad(lng2 - lng1)
+  const a = Math.sin(dLat / 2) ** 2
+    + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
+  return 3958.8 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+function radiusMiles(value) {
+  const radius = Number(value)
+  if (!Number.isFinite(radius) || radius <= 0) return DEFAULT_RADIUS_MILES
+  const miles = radius > 100 ? radius / 1609.34 : radius
+  return Math.min(miles, MAX_RADIUS_MILES)
+}
+
+function finiteCoord(value, limit) {
+  const number = Number(value)
+  return Number.isFinite(number) && Math.abs(number) <= limit ? number : null
+}
+
 export function createLiveMenuService(options = {}) {
   const cacheDir = options.cacheDir || process.env.MENU_CACHE_DIR || defaultCacheDir
   const fetchImpl = options.fetchImpl || globalThis.fetch
@@ -87,7 +118,12 @@ export function createLiveMenuService(options = {}) {
   const sources = options.sources || knownRestaurantRecords()
   const savedCatalog = options.savedCatalog || getNodeMenuCatalog()
   const now = options.now || (() => Date.now())
+  const placesKey = options.placesKey !== undefined ? options.placesKey : process.env.GOOGLE_PLACES_API_KEY
+  const fetchGapMs = options.fetchGapMs ?? 400
+  const discoveryCache = new Map()
+  const inFlightMenus = new Set()
   let refreshPromise = null
+  let menuChain = Promise.resolve()
 
   function cachePath(name) {
     const slug = foldRestaurantName(name).replace(/\s+/g, '-') || 'unknown'
@@ -195,6 +231,7 @@ export function createLiveMenuService(options = {}) {
         name: record.name,
         source: 'live',
         sourceUrl: record.sourceUrl || null,
+        website: record.website || null,
         fetchedAt: record.fetchedAt || null,
         message: `Menu retrieved ${day} from ${host}.`,
         items: record.items,
@@ -206,6 +243,7 @@ export function createLiveMenuService(options = {}) {
         name: record?.name,
         source: 'saved',
         sourceUrl: null,
+        website: record?.website || null,
         fetchedAt: null,
         message: `Could not retrieve a live menu for ${record?.name || 'this restaurant'}. Showing the saved menu, which may be out of date.`,
         items: saved.map((item) => ({
@@ -221,8 +259,9 @@ export function createLiveMenuService(options = {}) {
       name: record?.name,
       source: 'unavailable',
       sourceUrl: null,
+      website: record?.website || null,
       fetchedAt: record?.fetchedAt || null,
-      message: `Could not retrieve a menu for ${record?.name || 'this restaurant'}.`,
+      message: 'Menu not available online.',
       items: [],
       sections: []
     }
@@ -234,9 +273,9 @@ export function createLiveMenuService(options = {}) {
       address: fetchOptions.address || null,
       latitude: fetchOptions.latitude ?? null,
       longitude: fetchOptions.longitude ?? null,
-      approximate: true,
+      approximate: fetchOptions.approximate ?? true,
       menuUrls: fetchOptions.menuUrls || [],
-      websites: fetchOptions.websites || []
+      websites: fetchOptions.websites || (fetchOptions.website ? [fetchOptions.website] : [])
     }
     if (!source.name) {
       return resultFromRecord({ name: '' }, [])
@@ -276,6 +315,7 @@ export function createLiveMenuService(options = {}) {
       latitude: source.latitude ?? null,
       longitude: source.longitude ?? null,
       approximate: Boolean(source.approximate),
+      website: (source.websites || [])[0] || null,
       source: live ? 'live' : 'unavailable',
       sourceUrl: live ? sourceUrl : null,
       fetchedAt,
@@ -287,97 +327,273 @@ export function createLiveMenuService(options = {}) {
     return resultFromRecord(record, saved)
   }
 
-  async function discoverNearby(lat, lng) {
-    const key = process.env.GOOGLE_PLACES_API_KEY
-    if (key) {
-      try {
-        const response = await fetchImpl('https://places.googleapis.com/v1/places:searchNearby', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': key,
-            'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.websiteUri'
-          },
-          body: JSON.stringify({
-            includedTypes: ['restaurant'],
-            maxResultCount: 10,
-            locationRestriction: {
-              circle: {
-                center: { latitude: Number(lat), longitude: Number(lng) },
-                radius: 2000
-              }
-            }
-          })
-        })
-        if (response?.ok) {
-          const payload = await response.json()
-          const places = Array.isArray(payload.places) ? payload.places : []
-          return places.map((place) => ({
-            name: place.displayName?.text || '',
-            address: place.formattedAddress || null,
-            latitude: place.location?.latitude ?? null,
-            longitude: place.location?.longitude ?? null,
-            approximate: false,
-            menuUrls: [],
-            websites: place.websiteUri ? [place.websiteUri] : []
-          })).filter((place) => place.name)
-        }
-      } catch {
-        // Fall through to OpenStreetMap when Places is unreachable.
-      }
+  function hoursText(value) {
+    if (!value) return null
+    if (typeof value === 'string') return value
+    const lines = value.weekdayDescriptions
+    return Array.isArray(lines) && lines.length ? lines.join('; ') : null
+  }
+
+  function normalizePlace(place) {
+    const latitude = finiteCoord(place.latitude, 90)
+    const longitude = finiteCoord(place.longitude, 180)
+    const websites = [...new Set((place.websites || []).filter((url) => /^https?:\/\//i.test(String(url))))]
+    const menuUrls = [...new Set((place.menuUrls || []).filter((url) => /^https?:\/\//i.test(String(url))))]
+    return {
+      id: place.id || null,
+      name: String(place.name || '').trim(),
+      address: place.address || null,
+      latitude,
+      longitude,
+      approximate: Boolean(place.approximate),
+      menuUrls,
+      websites,
+      hours: place.hours || null,
+      rating: Number.isFinite(Number(place.rating)) ? Number(place.rating) : null,
+      ratingCount: Number.isFinite(Number(place.ratingCount)) ? Number(place.ratingCount) : null,
+      photoName: place.photoName || null
     }
-    const query = `[out:json][timeout:15];(node["amenity"~"restaurant|fast_food"](around:2000,${lat},${lng});way["amenity"~"restaurant|fast_food"](around:2000,${lat},${lng}););out center tags 12;`
-    const response = await fetchImpl('https://overpass-api.de/api/interpreter', {
+  }
+
+  function sortPlaces(lat, lng, places) {
+    return places
+      .filter((place) => place.name)
+      .map((place) => ({
+        ...place,
+        distanceMiles: place.latitude != null && place.longitude != null
+          ? Math.round(milesBetween(lat, lng, place.latitude, place.longitude) * 100) / 100
+          : null
+      }))
+      .filter((place) => place.distanceMiles == null || place.distanceMiles <= MAX_RADIUS_MILES)
+      .sort((a, b) => (a.distanceMiles ?? 99) - (b.distanceMiles ?? 99))
+  }
+
+  async function discoverGoogle(lat, lng, meters) {
+    if (!placesKey) return null
+    const response = await fetchImpl('https://places.googleapis.com/v1/places:searchNearby', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': USER_AGENT
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': placesKey,
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.websiteUri,places.rating,places.userRatingCount,places.regularOpeningHours,places.photos'
       },
-      body: `data=${encodeURIComponent(query)}`
+      body: JSON.stringify({
+        includedTypes: ['restaurant'],
+        maxResultCount: NEARBY_LIMIT,
+        rankPreference: 'DISTANCE',
+        locationRestriction: {
+          circle: {
+            center: { latitude: lat, longitude: lng },
+            radius: meters
+          }
+        }
+      })
     })
-    if (!response?.ok) return []
+    if (!response?.ok) return null
     const payload = await response.json()
-    return (payload.elements || []).map((element) => {
+    return (payload.places || []).map((place) => normalizePlace({
+      id: place.id || null,
+      name: place.displayName?.text || '',
+      address: place.formattedAddress || null,
+      latitude: place.location?.latitude,
+      longitude: place.location?.longitude,
+      websites: place.websiteUri ? [place.websiteUri] : [],
+      hours: hoursText(place.regularOpeningHours),
+      rating: place.rating,
+      ratingCount: place.userRatingCount,
+      photoName: place.photos?.[0]?.name || null
+    }))
+  }
+
+  async function discoverOverpass(lat, lng, meters) {
+    const query = `[out:json][timeout:25];(node["amenity"="restaurant"](around:${meters},${lat},${lng});way["amenity"="restaurant"](around:${meters},${lat},${lng});node["amenity"="fast_food"](around:${meters},${lat},${lng});way["amenity"="fast_food"](around:${meters},${lat},${lng}););out center tags;`
+    for (const endpoint of OVERPASS_ENDPOINTS) {
+      try {
+        const response = await fetchImpl(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+            'User-Agent': OSM_USER_AGENT
+          },
+          body: `data=${encodeURIComponent(query)}`
+        })
+        if (!response?.ok) continue
+        const payload = await response.json()
+        if (!Array.isArray(payload.elements)) continue
+        return payload.elements.map((element) => mapOverpassElement(element))
+      } catch {
+        continue
+      }
+    }
+    return []
+  }
+
+  function mapOverpassElement(element) {
       const tags = element.tags || {}
-      const website = tags.website || tags['contact:website'] || null
+      const website = tags.website || tags['contact:website'] || tags.url || tags['contact:url'] || null
       const menu = tags.menu || tags['contact:menu'] || null
-      return {
+      return normalizePlace({
+        id: element.id ? `osm-${element.type || 'node'}-${element.id}` : null,
         name: tags.name || '',
         address: tags['addr:full'] || [tags['addr:housenumber'], tags['addr:street'], tags['addr:city']].filter(Boolean).join(' ') || null,
-        latitude: element.lat ?? element.center?.lat ?? null,
-        longitude: element.lon ?? element.center?.lon ?? null,
-        approximate: false,
+        latitude: element.lat ?? element.center?.lat,
+        longitude: element.lon ?? element.center?.lon,
         menuUrls: menu ? [menu] : [],
-        websites: website ? [website] : []
+        websites: website ? [website] : [],
+        hours: tags.opening_hours || null
+      })
+  }
+
+  function withKnownNearby(lat, lng, miles, places) {
+    const names = new Set(places.map((place) => foldRestaurantName(place.name)))
+    const extras = sources.filter((source) => {
+      if (names.has(foldRestaurantName(source.name))) return false
+      if (source.latitude == null || source.longitude == null) return false
+      return milesBetween(lat, lng, source.latitude, source.longitude) <= miles
+    }).map((source) => normalizePlace(source))
+    return [...places, ...extras]
+  }
+
+  async function discoverNearby(lat, lng, miles = DEFAULT_RADIUS_MILES) {
+    const key = `${lat.toFixed(2)},${lng.toFixed(2)},${miles}`
+    const cached = discoveryCache.get(key)
+    if (cached && cached.expiresAt > now()) return cached.value
+    const meters = Math.round(miles * 1609.34)
+    let provider = 'openstreetmap'
+    let places = []
+    if (placesKey) {
+      try {
+        const google = await discoverGoogle(lat, lng, meters)
+        if (google?.length) {
+          places = google
+          provider = 'google'
+        }
+      } catch {
+        places = []
       }
-    }).filter((place) => place.name).slice(0, 12)
+    }
+    if (!places.length) {
+      try {
+        places = await discoverOverpass(lat, lng, meters)
+      } catch {
+        places = []
+      }
+      provider = 'openstreetmap'
+    }
+    const value = {
+      provider,
+      places: sortPlaces(lat, lng, withKnownNearby(lat, lng, miles, places)).slice(0, NEARBY_LIMIT)
+    }
+    discoveryCache.set(key, { expiresAt: now() + DISCOVERY_TTL_MS, value })
+    return value
+  }
+
+  async function geocodeQuery(query) {
+    const text = String(query || '').trim()
+    if (text.length < 2) return null
+    const response = await fetchImpl(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(text)}`, {
+      headers: { 'User-Agent': OSM_USER_AGENT, Accept: 'application/json' }
+    })
+    if (!response?.ok) return null
+    const payload = await response.json()
+    const hit = Array.isArray(payload) ? payload[0] : null
+    const latitude = finiteCoord(hit?.lat, 90)
+    const longitude = finiteCoord(hit?.lon, 180)
+    if (latitude == null || longitude == null) return null
+    return { latitude, longitude, label: hit.display_name || text }
+  }
+
+  function menuStatusFor(place) {
+    const cached = readCache(place.name)
+    if (cached?.source === 'live' && Number(cached.expiresAt) > now()) return 'ready'
+    if (cached?.source === 'unavailable' && Number(cached.expiresAt) > now()) return 'unavailable'
+    if (savedItemsFor(savedCatalog, place.name).length) return 'saved'
+    if (!(place.websites || []).length && !(place.menuUrls || []).length) return 'unavailable'
+    return 'unknown'
+  }
+
+  function publicRestaurant(place) {
+    return {
+      id: place.id,
+      name: place.name,
+      address: place.address,
+      lat: place.latitude,
+      lon: place.longitude,
+      latitude: place.latitude,
+      longitude: place.longitude,
+      website: place.websites[0] || null,
+      menuUrl: place.menuUrls[0] || null,
+      hours: place.hours,
+      rating: place.rating,
+      ratingCount: place.ratingCount,
+      photoName: place.photoName,
+      distanceMiles: place.distanceMiles,
+      menuStatus: menuStatusFor(place)
+    }
+  }
+
+  function queueMenuLoads(places) {
+    const pending = places.filter((place) => {
+      const key = foldRestaurantName(place.name)
+      if (!key || inFlightMenus.has(key)) return false
+      const status = menuStatusFor(place)
+      if (status === 'ready' || status === 'unavailable') return false
+      return (place.websites || []).length > 0 || (place.menuUrls || []).length > 0
+    }).slice(0, BACKGROUND_MENU_LIMIT)
+    for (const place of pending) {
+      const key = foldRestaurantName(place.name)
+      inFlightMenus.add(key)
+      menuChain = menuChain.then(async () => {
+        if (fetchGapMs) await new Promise((resolve) => setTimeout(resolve, fetchGapMs))
+        try {
+          await getRestaurantMenu(place.name, place)
+        } catch {
+          // A failed restaurant does not stop the queue.
+        } finally {
+          inFlightMenus.delete(key)
+        }
+      })
+    }
+    return pending.length
+  }
+
+  async function listNearby(query = {}, { loadMenus = true } = {}) {
+    const miles = radiusMiles(query.radius ?? query.radiusMiles)
+    let latitude = finiteCoord(query.lat ?? query.latitude, 90)
+    let longitude = finiteCoord(query.lng ?? query.lon ?? query.longitude, 180)
+    let label = null
+    if (latitude == null || longitude == null) {
+      const geo = await geocodeQuery(query.q || query.query || query.city || query.zip)
+      if (!geo) {
+        return { status: 400, body: { error: 'Share a location or enter a city or ZIP.' } }
+      }
+      latitude = geo.latitude
+      longitude = geo.longitude
+      label = geo.label
+    }
+    const discovered = await discoverNearby(latitude, longitude, miles)
+    const restaurants = discovered.places.map((place) => ({
+      ...publicRestaurant(place),
+      provider: discovered.provider
+    }))
+    const queued = loadMenus ? queueMenuLoads(discovered.places) : 0
+    return {
+      status: 200,
+      body: {
+        provider: discovered.provider,
+        location: { latitude, longitude, label },
+        restaurants,
+        count: restaurants.length,
+        menusLoading: queued
+      }
+    }
   }
 
   async function refreshNearby(lat, lng) {
-    const jobs = [...sources]
-    try {
-      const nearby = await discoverNearby(lat, lng)
-      for (const place of nearby) {
-        if (!sources.some((entry) => foldRestaurantName(entry.name) === foldRestaurantName(place.name))) {
-          jobs.push(place)
-        }
-      }
-    } catch {
-      // Known restaurants can still refresh when discovery fails.
-    }
-    const queue = jobs.filter((job) => {
-      const cached = readCache(job.name)
-      return !(cached && Number(cached.expiresAt) > now() && cached.source === 'live')
-    }).slice(0, 8)
-    let cursor = 0
-    async function worker() {
-      while (cursor < queue.length) {
-        const job = queue[cursor]
-        cursor += 1
-        await getRestaurantMenu(job.name, job)
-      }
-    }
-    await Promise.all([worker(), worker()])
+    const discovered = await discoverNearby(lat, lng)
+    queueMenuLoads(discovered.places)
+    await menuChain
   }
 
   function scheduleRefresh(lat, lng) {
@@ -416,7 +632,10 @@ export function createLiveMenuService(options = {}) {
           : `Could not retrieve a menu for ${named.name}.`
       }
     }
-    if (schedule && hasCoords) scheduleRefresh(lat, lng)
+    if (schedule && hasCoords) {
+      scheduleRefresh(lat, lng)
+      if (!result.message) result.message = 'Looking up menus at nearby restaurants.'
+    }
     const liveCount = result.items.filter((item) => item.source === 'live').length
     const savedCount = result.items.filter((item) => item.source === 'saved').length
     return {
@@ -464,6 +683,7 @@ export function createLiveMenuService(options = {}) {
   return {
     getRestaurantMenu,
     searchMenus,
+    listNearby,
     refreshNearby,
     coverage,
     cacheDir
@@ -510,13 +730,20 @@ export async function handleLiveSearchDishes(query) {
   }
 }
 
+export async function handleNearbyRestaurants(query) {
+  return getLiveMenuService().listNearby(query || {})
+}
+
 export async function handleRestaurantMenu(query) {
   const name = String(query.name || query.restaurant || '').trim()
   if (!name) return { status: 400, body: { error: 'name is required' } }
+  const websites = [query.website, query.menuUrl].filter((url) => typeof url === 'string' && /^https?:\/\//i.test(url))
   const menu = await getLiveMenuService().getRestaurantMenu(name, {
+    address: query.address || null,
     latitude: query.lat,
     longitude: query.lng || query.lon,
-    websites: query.website ? [query.website] : []
+    approximate: false,
+    websites
   })
   return { status: 200, body: menu }
 }

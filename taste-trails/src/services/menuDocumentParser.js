@@ -62,15 +62,16 @@ function pushItem(items, seen, raw) {
   const name = readableName(decode(raw?.name))
   if (!name || name.length < 2 || name.length > 80) return
   if (!/[a-z]/i.test(name)) return
-  if (/^(menu|home|about|contact|order|reservations?|privacy policy|gift cards?)$/i.test(name)) return
+  if (/^(get|menu|home|about|contact|order|reservations?|privacy policy|gift cards?|careers?|locations?|login|sign in)$/i.test(name)) return
   const key = name.toLowerCase()
   if (seen.has(key)) return
   seen.add(key)
   const description = decode(raw?.description)
+  const category = decode(raw?.category) || null
   items.push({
     name,
     description: description || null,
-    category: decode(raw?.category) || null,
+    category: category && /^(get|menu|home|about|contact|order|careers?|locations?|login|sign in)$/i.test(category) ? null : category,
     price: raw?.price ?? null
   })
 }

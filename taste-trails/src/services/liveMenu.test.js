@@ -100,3 +100,105 @@ test('sixty vines publishes a real dinner menu', { timeout: 30000 }, async () =>
   assert.match(margherita.description || '', /mozzarella/i)
   assert.equal(menu.items.some((item) => item.name === 'Chef Special'), false)
 })
+
+function jsonResponse(body, status = 200) {
+  const text = JSON.stringify(body)
+  return htmlResponse(text, status)
+}
+
+test('nearby discovery lists real places and does not invent dishes', async () => {
+  const calls = []
+  const service = serviceWith(async (url) => {
+    calls.push(String(url))
+    if (String(url).includes('overpass-api.de')) {
+      return jsonResponse({
+        elements: [
+          {
+            type: 'node',
+            id: 42,
+            lat: 35.228,
+            lon: -80.844,
+            tags: {
+              name: 'Real Bistro',
+              amenity: 'restaurant',
+              website: 'https://realbistro.test/menu',
+              opening_hours: 'Mo-Sa 11:00-22:00',
+              'addr:street': 'Trade St'
+            }
+          },
+          {
+            type: 'node',
+            id: 43,
+            lat: 35.229,
+            lon: -80.845,
+            tags: { name: 'No Site Cafe', amenity: 'restaurant' }
+          }
+        ]
+      })
+    }
+    if (String(url).includes('realbistro.test')) return htmlResponse(menuHtml)
+    return htmlResponse('no menu', 404)
+  }, { placesKey: '', savedCatalog: [], fetchGapMs: 0, sources: [] })
+
+  const listed = await service.listNearby({ lat: 35.2271, lng: -80.8431 }, { loadMenus: false })
+  assert.equal(listed.status, 200)
+  assert.equal(listed.body.provider, 'openstreetmap')
+  assert.equal(listed.body.restaurants[0].name, 'Real Bistro')
+  assert.equal(listed.body.restaurants[0].website, 'https://realbistro.test/menu')
+  assert.equal(listed.body.restaurants[0].hours, 'Mo-Sa 11:00-22:00')
+  assert.equal(listed.body.restaurants.some((place) => place.name === 'No Site Cafe' && place.menuStatus === 'unavailable'), true)
+  assert.equal(JSON.stringify(listed.body).includes('Chef Special'), false)
+
+  const menu = await service.getRestaurantMenu('Real Bistro', {
+    websites: ['https://realbistro.test/menu'],
+    latitude: 35.228,
+    longitude: -80.844,
+    approximate: false
+  })
+  assert.equal(menu.source, 'live')
+  assert.equal(menu.items.some((item) => item.name === 'Margherita' && item.price === 16), true)
+  const search = service.searchMenus({ q: 'margherita', lat: 35.2271, lng: -80.8431 }, { schedule: false })
+  assert.equal(search.body.items[0].restaurant.name, 'Real Bistro')
+  assert.equal(search.body.items[0].source, 'live')
+
+  const missing = await service.getRestaurantMenu('No Site Cafe', { websites: ['https://nosite.test/'] })
+  assert.equal(missing.source, 'unavailable')
+  assert.equal(missing.message, 'Menu not available online.')
+  assert.equal(missing.website, 'https://nosite.test/')
+  assert.equal(missing.items.length, 0)
+})
+
+test('a city or ZIP is geocoded and Google Places is preferred when a key is set', async () => {
+  const service = serviceWith(async (url) => {
+    const target = String(url)
+    if (target.includes('nominatim.openstreetmap.org')) {
+      return jsonResponse([{ lat: '35.2271', lon: '-80.8431', display_name: 'Charlotte, NC' }])
+    }
+    if (target.includes('places.googleapis.com')) {
+      return jsonResponse({
+        places: [{
+          id: 'place-1',
+          displayName: { text: 'Uptown Grill' },
+          formattedAddress: '100 Tryon St, Charlotte, NC',
+          location: { latitude: 35.227, longitude: -80.843 },
+          websiteUri: 'https://uptowngrill.test/',
+          rating: 4.6,
+          userRatingCount: 120,
+          regularOpeningHours: { weekdayDescriptions: ['Monday: 11:00 AM – 10:00 PM'] },
+          photos: [{ name: 'places/place-1/photos/abc' }]
+        }]
+      })
+    }
+    return htmlResponse('no menu', 404)
+  }, { placesKey: 'test-key', savedCatalog: [], fetchGapMs: 0, sources: [] })
+
+  const listed = await service.listNearby({ q: 'Charlotte, NC' }, { loadMenus: false })
+  assert.equal(listed.body.provider, 'google')
+  assert.equal(listed.body.location.label, 'Charlotte, NC')
+  assert.equal(listed.body.restaurants[0].name, 'Uptown Grill')
+  assert.equal(listed.body.restaurants[0].rating, 4.6)
+  assert.equal(listed.body.restaurants[0].photoName, 'places/place-1/photos/abc')
+  assert.equal(listed.body.restaurants[0].website, 'https://uptowngrill.test/')
+  const blank = await service.listNearby({ q: ' ' })
+  assert.equal(blank.status, 400)
+})
