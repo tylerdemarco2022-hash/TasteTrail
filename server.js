@@ -6,8 +6,7 @@ import { createRequire } from 'module';
 import { discoverRestaurants } from './services/restaurantDiscovery.js';
 import fs from 'fs';
 import path from 'path';
-import { handleFindMenuItems, handleSearchDishes } from './taste-trails/src/services/menuItemFinder.js';
-import { getNodeMenuCatalog } from './taste-trails/src/services/menuCatalogNode.js';
+import { handleLiveFindMenuItems, handleLiveSearchDishes, handleRestaurantMenu } from './taste-trails/src/services/liveMenu.js';
 
 const require = createRequire(import.meta.url);
 
@@ -316,9 +315,9 @@ app.post('/api/discover-and-ingest', async (req, res) => {
 })
 
 // POST /api/find-menu-items - accept { lat, lng, q, dietary, maxPrice, maxDistanceMiles }
-app.post('/api/find-menu-items', (req, res) => {
+app.post('/api/find-menu-items', async (req, res) => {
   try {
-    const result = handleFindMenuItems(req.body || {}, getNodeMenuCatalog())
+    const result = await handleLiveFindMenuItems(req.body || {})
     return res.status(result.status).json(result.body)
   } catch (e) {
     console.error('find-menu-items error:', e instanceof Error ? e.message : String(e))
@@ -326,10 +325,20 @@ app.post('/api/find-menu-items', (req, res) => {
   }
 })
 
-// GET /api/search-dishes
-app.get('/api/search-dishes', (req, res) => {
+app.get('/api/restaurant-menu', async (req, res) => {
   try {
-    const result = handleSearchDishes(req.query || {}, getNodeMenuCatalog())
+    const result = await handleRestaurantMenu(req.query || {})
+    return res.status(result.status).json(result.body)
+  } catch (e) {
+    console.error('restaurant-menu error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+})
+
+// GET /api/search-dishes
+app.get('/api/search-dishes', async (req, res) => {
+  try {
+    const result = await handleLiveSearchDishes(req.query || {})
     return res.status(result.status).json(result.body)
   } catch (e) {
     console.error('search-dishes error:', e instanceof Error ? e.message : String(e))

@@ -20,8 +20,7 @@ import {
 } from '../backend/services/menuQuality.js';
 import path from 'path';
 import dotenv from 'dotenv';
-import { handleFindMenuItems } from '../src/services/menuItemFinder.js';
-import { getNodeMenuCatalog } from '../src/services/menuCatalogNode.js';
+import { handleLiveFindMenuItems, handleLiveSearchDishes, handleRestaurantMenu } from '../src/services/liveMenu.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -154,15 +153,35 @@ app.get('/__debug_openai_check', async (req, res) => {
   return res.json({ ai_disabled: true });
 });
 
-function respondWithMenuItems(req, res) {
+async function respondWithMenuItems(req, res) {
   try {
-    const result = handleFindMenuItems(req.body || {}, getNodeMenuCatalog())
+    const result = await handleLiveFindMenuItems(req.body || {})
     return res.status(result.status).json(result.body)
   } catch (e) {
     console.error('find-menu-items error:', e instanceof Error ? e.message : String(e))
     return res.status(500).json({ error: 'internal server error' })
   }
 }
+
+app.get('/api/restaurant-menu', async (req, res) => {
+  try {
+    const result = await handleRestaurantMenu(req.query || {})
+    return res.status(result.status).json(result.body)
+  } catch (e) {
+    console.error('restaurant-menu error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+})
+
+app.get('/api/search-dishes', async (req, res) => {
+  try {
+    const result = await handleLiveSearchDishes(req.query || {})
+    return res.status(result.status).json(result.body)
+  } catch (e) {
+    console.error('search-dishes error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+})
 
 app.post('/api/find-menu-items', respondWithMenuItems)
 app.post('/api/find-menu-items-proxy', respondWithMenuItems)

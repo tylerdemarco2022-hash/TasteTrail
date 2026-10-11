@@ -16,7 +16,8 @@
     "server": "node server/index.js",
     "full-pipeline": "node backend/run_full_pipeline.js",
     "audit-menus": "node scripts/auditAndRefreshMenus.mjs",
-    "test": "node --test src/services/menuItemFinder.test.js",
+    "test": "node --test src/services/menuItemFinder.test.js src/services/menuDocumentParser.test.js src/services/liveMenu.test.js",
+    "menu-coverage": "node scripts/menuCoverage.mjs",
     "build:ios": "VITE_CAPACITOR=true vite build"
   },
   "dependencies": {

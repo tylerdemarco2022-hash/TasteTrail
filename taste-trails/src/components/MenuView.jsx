@@ -156,6 +156,7 @@ export default function MenuView({ post, onBack, showAI }) {
   // Menu fetching state
   const [fetchedMenu, setFetchedMenu] = useState(null)
   const [menuLoading, setMenuLoading] = useState(false)
+  const [menuNotice, setMenuNotice] = useState('')
   
   // Dish rating state
   const [dishRatings, setDishRatings] = useState({}) // dishName -> { totalRating, count, userRating }
@@ -233,14 +234,12 @@ export default function MenuView({ post, onBack, showAI }) {
         setFetchedMenu(allItems)
       } else if (data.needsOCR && data.pdfPath) {
         console.log('⚠️ PDF detected, needs OCR processing')
-        alert(`PDF menu found! Path: ${data.pdfPath}\nYou can send this to OCR for processing.`)
+        console.warn('PDF menu found:', data.pdfPath)
       } else {
         console.warn('Scrape failed:', data.error)
-        alert(`Could not fetch menu: ${data.error}`)
       }
     } catch (e) {
       console.error('Scrape error:', e.message)
-      alert(`Error scraping menu: ${e.message}`)
     }
     setMenuLoading(false)
   }
@@ -268,7 +267,7 @@ export default function MenuView({ post, onBack, showAI }) {
         console.log('✅ Auto-fetched', allItems.length, 'items from web')
         setFetchedMenu(allItems)
       } else if (data.status === 'NEEDS_OCR') {
-        alert('This restaurant has a PDF menu. Please check: ' + data.url)
+        console.warn('PDF menu found:', data.url)
       } else {
         console.warn('Auto-fetch failed:', data.status)
       }
@@ -278,60 +277,41 @@ export default function MenuView({ post, onBack, showAI }) {
     setMenuLoading(false)
   }
 
-  async function fetchMenuFromBackend({ restaurantId, restaurantName }) {
-    setMenuLoading(true);
+  async function fetchMenuFromBackend({ restaurantName }) {
+    setMenuLoading(true)
+    setMenuNotice('')
     try {
-      let data = null;
-      let normalized = { name: restaurantName || '', sections: [] };
-
-      if (restaurantId) {
-        console.log("Menu fetch by ID:", restaurantId);
-        const idUrl = `${API_BASE}/api/restaurants/${restaurantId}/full-menu`;
-        const idRes = await fetch(idUrl);
-        if (idRes.ok) {
-          data = await idRes.json();
-          normalized = normalizeMenuPayload(data);
+      const params = new URLSearchParams({ name: restaurantName || '' })
+      const res = await fetch(`${API_BASE}/api/restaurant-menu?${params}`)
+      if (res.ok) {
+        const data = await res.json()
+        const sections = Array.isArray(data.sections) ? data.sections : []
+        setMenuNotice(data.message || (data.source === 'live' ? 'Menu retrieved from the restaurant.' : ''))
+        if (data.source === 'unavailable' || sections.length === 0) {
+          setMenuData({
+            name: restaurantName || '',
+            sections: data.source === 'saved' ? sections : [],
+            unavailable: data.source !== 'saved',
+            source: data.source
+          })
         } else {
-          console.warn("ID menu fetch failed:", idRes.status);
+          setMenuData({ name: restaurantName || '', sections, source: data.source })
         }
+        setMenuLoading(false)
+        return
       }
-
-      if (normalized.sections.length === 0 && restaurantName) {
-        console.log("Menu fetch by name fallback:", restaurantName);
-        const nameUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}`;
-        const nameRes = await fetch(nameUrl);
-        if (nameRes.ok) {
-          data = await nameRes.json();
-          normalized = normalizeMenuPayload(data);
-        } else {
-          console.warn("Name menu fetch failed:", nameRes.status);
-        }
-      }
-
-      const currentCount = countSectionItems(normalized.sections);
-      if (restaurantName && currentCount < 8) {
-        console.log("Menu appears incomplete, refreshing source scrape for:", restaurantName);
-        const refreshUrl = `${API_BASE}/api/restaurants/${encodeURIComponent(restaurantName)}?refresh=1`;
-        const refreshRes = await fetch(refreshUrl);
-        if (refreshRes.ok) {
-          const refreshedData = await refreshRes.json();
-          const refreshed = normalizeMenuPayload(refreshedData);
-          const refreshedCount = countSectionItems(refreshed.sections);
-          if (refreshedCount > currentCount) {
-            normalized = refreshed;
-          }
-        } else {
-          console.warn("Refresh scrape failed:", refreshRes.status);
-        }
-      }
-
-      console.log("Normalized fetched menu:", normalized);
-      setMenuData(normalized);
     } catch (e) {
-      console.error("Menu fetch error:", e.message);
-      setMenuData({ name: restaurantName || '', sections: [], offline: true });
+      console.error('Menu fetch error:', e.message)
     }
-    setMenuLoading(false);
+    const saved = catalogSectionsForRestaurant(restaurantName)
+    if (saved.length > 0) {
+      setMenuData({ name: restaurantName || '', sections: saved, source: 'saved' })
+      setMenuNotice('Showing the saved menu on this device. The server could not be reached.')
+    } else {
+      setMenuData({ name: restaurantName || '', sections: [], unavailable: true })
+      setMenuNotice('Could not retrieve a menu for this restaurant.')
+    }
+    setMenuLoading(false)
   }
 
   useEffect(() => {
@@ -388,9 +368,8 @@ export default function MenuView({ post, onBack, showAI }) {
   }, [effectiveMenu])
 
   const displaySections = React.useMemo(() => {
-    if (Array.isArray(menuData?.sections) && menuData.sections.length > 0) {
-      return menuData.sections
-    }
+    if (menuData?.unavailable) return []
+    if (menuData && Array.isArray(menuData.sections)) return menuData.sections
     if (fallbackSections.length > 0) return fallbackSections
     return catalogSectionsForRestaurant(restaurantName)
   }, [menuData, fallbackSections, restaurantName])
@@ -1081,6 +1060,9 @@ export default function MenuView({ post, onBack, showAI }) {
           placeholder="Try caesar, margherita, or biryani"
           className="w-full px-4 py-3 border border-amber-200 rounded-xl bg-white"
         />
+        {menuNotice && (
+          <p className="mt-3 text-sm text-gray-600">{menuNotice}</p>
+        )}
         <MenuFinderControls
           dietary={menuDietary}
           onToggleDietary={(key) => setMenuDietary((current) => current.includes(key) ? current.filter((item) => item !== key) : [...current, key])}
@@ -1182,7 +1164,7 @@ export default function MenuView({ post, onBack, showAI }) {
           ))
         ) : (
           <div className="text-gray-500 text-center py-8">
-            {menuFiltersActive ? 'No dishes match this search. Clear a filter or try a different word.' : 'Could not find menu'}
+            {menuFiltersActive ? 'No dishes match this search. Clear a filter or try a different word.' : (menuNotice || 'Could not retrieve a menu for this restaurant.')}
           </div>
         )}
       </div>

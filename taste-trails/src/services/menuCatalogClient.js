@@ -1,7 +1,7 @@
 import { menuData } from '../menuData'
 import chilis from '../menus/Chilis_Menu.json'
 import { assembleCatalog } from './menuItemFinder.js'
-import { RESTAURANT_META, SEED_MENUS } from './restaurantMeta.js'
+import { RESTAURANT_META } from './restaurantMeta.js'
 
 let cached = null
 
@@ -10,7 +10,7 @@ export function getClientMenuCatalog() {
   cached = assembleCatalog({
     menusByName: { ...menuData, "Chili's": chilis },
     meta: RESTAURANT_META,
-    seeds: SEED_MENUS
+    seeds: []
   })
   return cached
 }

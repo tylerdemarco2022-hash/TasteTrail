@@ -216,41 +216,72 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
     setSearchNote(menu.message || '')
     setAllResults({ ...local, restaurants, dishes: menu.items, users })
 
-    // Optionally enhance with backend results
     const controller = new AbortController()
-    setLoading(true)
-    ;(async () => {
-      try {
-        const token = localStorage.getItem('access_token') || ''
-        let locParam = '&location=Charlotte'
-        if (userLocation?.latitude && userLocation?.longitude) {
-          locParam = `&lat=${userLocation.latitude}&lon=${userLocation.longitude}`
+    const timer = setTimeout(() => {
+      setLoading(true)
+      ;(async () => {
+        try {
+          const token = localStorage.getItem('access_token') || ''
+          let locParam = '&location=Charlotte'
+          if (userLocation?.latitude && userLocation?.longitude) {
+            locParam = `&lat=${userLocation.latitude}&lon=${userLocation.longitude}`
+          }
+          const [menuResult, searchResult] = await Promise.allSettled([
+            fetch(`${API_BASE_URL}/api/find-menu-items`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                q,
+                lat: userLocation?.latitude,
+                lng: userLocation?.longitude,
+                dietary,
+                maxPrice,
+                maxPriceLevel,
+                maxDistanceMiles,
+                limit: 12
+              }),
+              signal: controller.signal
+            }),
+            fetch(
+              `${API_BASE_URL}/api/search?q=${encodeURIComponent(q)}${locParam}`,
+              { headers: token ? { Authorization: `Bearer ${token}` } : {}, signal: controller.signal }
+            )
+          ])
+          if (menuResult.status === 'fulfilled' && menuResult.value.ok) {
+            const data = await menuResult.value.json()
+            const dishes = Array.isArray(data.items) ? data.items : []
+            setAllResults((prev) => ({ ...prev, dishes }))
+            if (data.message) setSearchNote(data.message)
+            else if (dishes.some((item) => item.source === 'saved')) setSearchNote('Some dishes are from a saved menu because a live menu could not be retrieved.')
+            else setSearchNote('')
+          }
+          if (searchResult.status === 'fulfilled' && searchResult.value.ok) {
+            const data = await searchResult.value.json()
+            const apiRestaurants = Array.isArray(data.restaurants) ? data.restaurants : []
+            const apiUsers = Array.isArray(data.users) ? data.users : []
+            setAllResults((prev) => ({
+              ...prev,
+              restaurants: apiRestaurants.length ? apiRestaurants : prev.restaurants,
+              users: apiUsers.length ? apiUsers : prev.users
+            }))
+          }
+          const menuFailed = menuResult.status === 'rejected' || (menuResult.status === 'fulfilled' && !menuResult.value.ok)
+          if (menuFailed) {
+            setSearchNote((current) => current || 'Showing saved menus on this device. The server could not be reached.')
+          }
+        } catch (error) {
+          if (error?.name === 'AbortError') return
+          setSearchNote((current) => current || 'Showing saved menus on this device. The server could not be reached.')
+        } finally {
+          setLoading(false)
         }
-        const res = await fetch(
-          `${API_BASE_URL}/api/search?q=${encodeURIComponent(q)}${locParam}`,
-          { headers: token ? { Authorization: `Bearer ${token}` } : {}, signal: controller.signal }
-        )
-        if (res.ok) {
-          const data = await res.json()
-          const apiRestaurants = Array.isArray(data.restaurants) ? data.restaurants : []
-          const apiUsers = Array.isArray(data.users) ? data.users : []
-          // Merge: prefer API results but keep local if API has nothing
-          setAllResults((prev) => ({
-            ...prev,
-            restaurants: apiRestaurants.length ? apiRestaurants : prev.restaurants,
-            users: apiUsers.length ? apiUsers : prev.users,
-          }))
-          setSearchNote('')
-        }
-      } catch (error) {
-        if (error?.name === 'AbortError') return
-        setSearchNote((current) => current || 'Showing saved menus on this device. The server could not be reached.')
-      } finally {
-        setLoading(false)
-      }
-    })()
+      })()
+    }, 400)
 
-    return () => controller.abort()
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
   }, [searchQuery, allUsers, dietary, maxPrice, maxPriceLevel, maxDistanceMiles, userLocation])
 
   const isFollowing = (userId, user = null) => {
@@ -429,6 +460,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
                       <div className="text-xs text-amber-600 font-semibold">
                         {[
                           d.priceLabel,
+                          d.source === 'live' ? 'Live menu' : d.source === 'saved' ? 'Saved menu' : null,
                           d.distanceMiles != null ? `${d.distanceMiles} mi${d.approximateLocation ? ' approx' : ''}` : null
                         ].filter(Boolean).join(' · ') || 'Price not listed'}
                       </div>

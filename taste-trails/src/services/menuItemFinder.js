@@ -92,9 +92,10 @@ export function formatItemPrice(item) {
 export function dietaryProfile(name = '', description = '') {
   const text = `${name} ${description}`.toLowerCase()
   const hasText = fold(`${name} ${description}`).length > 0
-  const hasDescription = fold(description).length > 0 || fold(name).split(' ').length > 1
+  const ingredientText = fold(description)
+  const hasDescription = ingredientText.length > 0 && ingredientText.split(' ').length >= 2
   const meat = hasAny(text, MEAT)
-  const seafood = hasAny(text, SEAFOOD)
+  const seafood = hasAny(text, SEAFOOD) || /\w*fish\b/i.test(text)
   const pork = hasAny(text, PORK)
   const shellfish = hasAny(text, SHELLFISH)
   const dairy = hasAny(text, DAIRY)
@@ -121,17 +122,17 @@ export function dietaryProfile(name = '', description = '') {
 
   const canInfer = hasDescription && hasText
   const matches = {
-    vegan: (stated.vegan || (canInfer && !meat && !seafood && !dairy && !egg && !honey)) && !(meat || seafood || dairy || egg || honey),
-    vegetarian: (stated.vegetarian || stated.vegan || (canInfer && !meat && !seafood)) && !(meat || seafood),
-    gluten_free: stated.gluten_free && !(!stated.gluten_free && gluten),
-    dairy_free: (stated.dairy_free || (canInfer && !dairy)) && !dairy,
-    nut_free: (stated.nut_free || (canInfer && !nuts)) && !nuts,
-    shellfish_free: (stated.shellfish_free || (canInfer && !shellfish)) && !shellfish,
-    egg_free: (stated.egg_free || (canInfer && !egg)) && !egg,
-    halal: (stated.halal || canInfer) && !pork && !alcohol,
-    kosher: (stated.kosher || canInfer) && !pork && !shellfish && !(meat && dairy),
-    keto: (stated.keto || (canInfer && !starch && (meat || seafood || dairy || /\bsalad\b|\bgreens\b/.test(text)))) && !starch,
-    paleo: (stated.paleo || (canInfer && !gluten && !dairy && !legumes && !starch)) && !dairy && !legumes && !hasAny(text, ['bread', 'pasta', 'rice', 'wheat', 'noodle', 'noodles', 'pizza', 'sugar', 'honey'])
+    vegan: stated.vegan && !(meat || seafood || dairy || egg || honey),
+    vegetarian: (stated.vegetarian || stated.vegan || (canInfer && !meat && !seafood && !alcohol)) && !(meat || seafood),
+    gluten_free: stated.gluten_free && !gluten,
+    dairy_free: stated.dairy_free && !dairy,
+    nut_free: stated.nut_free && !nuts,
+    shellfish_free: stated.shellfish_free && !shellfish,
+    egg_free: stated.egg_free && !egg,
+    halal: stated.halal && !pork && !alcohol,
+    kosher: stated.kosher && !pork && !shellfish && !(meat && dairy),
+    keto: stated.keto && !starch,
+    paleo: stated.paleo && !dairy && !legumes && !hasAny(text, ['bread', 'pasta', 'rice', 'wheat', 'noodle', 'noodles', 'pizza', 'sugar', 'honey'])
   }
 
   if (stated.gluten_free) matches.gluten_free = true
@@ -164,7 +165,10 @@ function normalizeRawItem(raw, restaurant) {
     longitude: numberOrNull(restaurant.longitude),
     approximate: Boolean(restaurant.approximate),
     dietary: profile.labels.map((label) => label.key),
-    dietaryLabels: profile.labels
+    dietaryLabels: profile.labels,
+    source: raw.source || restaurant.source || null,
+    sourceUrl: raw.sourceUrl || restaurant.sourceUrl || null,
+    fetchedAt: raw.fetchedAt || restaurant.fetchedAt || null
   }
 }
 
@@ -304,6 +308,7 @@ export function findMenuItems(catalog, options = {}) {
     }
     const profile = item.dietary ? null : dietaryProfile(item.name, item.description)
     const dietaryKeys = new Set(item.dietary || profile?.labels.map((label) => label.key) || [])
+    const dietaryLabels = item.dietaryLabels || profile?.labels || []
     if (dietary.some((key) => !dietaryKeys.has(key))) continue
     if (!passesPrice(item, maxPrice, maxPriceLevel)) continue
 
@@ -319,6 +324,8 @@ export function findMenuItems(catalog, options = {}) {
     if (queryTokens.length && scored.score <= 0) continue
     ranked.push({
       ...item,
+      dietary: item.dietary || dietaryLabels.map((label) => label.key),
+      dietaryLabels,
       score: scored.score,
       match: scored.reason,
       distanceMiles: distanceMiles == null ? null : Math.round(distanceMiles * 10) / 10
@@ -350,6 +357,9 @@ export function findMenuItems(catalog, options = {}) {
     priceLabel: formatItemPrice(item),
     dietary: item.dietary,
     dietaryLabels: item.dietaryLabels,
+    source: item.source || null,
+    sourceUrl: item.sourceUrl || null,
+    fetchedAt: item.fetchedAt || null,
     distanceMiles: item.distanceMiles,
     score: item.score,
     match: item.match,

@@ -25,13 +25,13 @@ export function loadMenusFromDir(dir = menusDir) {
   return menusByName
 }
 
-export function getNodeMenuCatalog(dir = menusDir) {
-  if (cached && dir === menusDir) return cached
+export function getNodeMenuCatalog(dir = menusDir, { includeSeeds = false } = {}) {
+  if (cached && dir === menusDir && !includeSeeds) return cached
   const catalog = assembleCatalog({
     menusByName: loadMenusFromDir(dir),
     meta: RESTAURANT_META,
-    seeds: SEED_MENUS
+    seeds: includeSeeds ? SEED_MENUS : []
   })
-  if (dir === menusDir) cached = catalog
+  if (dir === menusDir && !includeSeeds) cached = catalog
   return catalog
 }

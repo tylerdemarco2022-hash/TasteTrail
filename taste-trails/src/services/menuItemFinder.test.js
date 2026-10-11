@@ -3,6 +3,7 @@ import test from 'node:test'
 import { getNodeMenuCatalog } from './menuCatalogNode.js'
 import {
   assembleCatalog,
+  dietaryProfile,
   findMenuItems,
   handleFindMenuItems,
   handleSearchDishes,
@@ -33,9 +34,20 @@ test('dietary, price, and distance filters change the result set', () => {
   assert.ok(vegetarian.items.some((item) => item.name === 'Margherita Pizza'))
   assert.equal(vegetarian.items.some((item) => /pepperoni|sausage/i.test(item.name)), false)
 
-  const vegan = findMenuItems(catalog, { q: 'biryani', dietary: ['vegan'], ...uptown })
-  assert.ok(vegan.items.some((item) => item.name === 'Vegetable Biryani' || item.name === 'Chana Masala' || item.description?.toLowerCase().includes('vegan') || item.name === 'Chana Masala'))
+  const vegan = findMenuItems(assembleCatalog({ seeds: SEED_MENUS }), { q: 'biryani', dietary: ['vegan'], ...uptown })
   assert.equal(vegan.items.some((item) => item.name === 'Lamb Biryani'), false)
+  assert.equal(vegan.items.some((item) => item.name === 'Vegetable Biryani'), false)
+
+  const margheritaDiet = dietaryProfile('Margherita Pizza', 'Tomato Sauce, Mozzarella, Basil, EVOO')
+  assert.equal(margheritaDiet.matches.vegetarian, true)
+  assert.equal(margheritaDiet.matches.vegan, false)
+  assert.equal(margheritaDiet.matches.halal, false)
+  const statedHalal = dietaryProfile('Chicken plate', 'halal grilled chicken')
+  assert.equal(statedHalal.matches.halal, true)
+  assert.equal(dietaryProfile('Pork chop', 'halal pork').matches.halal, false)
+  const wine = dietaryProfile('Ridge Vineyards', '')
+  assert.equal(wine.labels.length, 0)
+  assert.equal(dietaryProfile('Pez Espada', 'Black scabbardfish with vegetables').matches.vegetarian, false)
 
   const chana = findMenuItems(assembleCatalog({ seeds: SEED_MENUS }), {
     q: 'chana',
