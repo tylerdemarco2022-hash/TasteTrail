@@ -1,187 +1,258 @@
 [
   {
-    "category": "Dinner",
     "name": "Osetra Caviar",
-    "description": "Sustainably Farmed Osetra Caviar, Creme Fraiche Egg, Chives, House Chips"
+    "category": null,
+    "description": "Creme Fraiche, Egg, Chives, House Chips",
+    "price": "$120.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Raw Oysters",
-    "description": "Charred Lemon, Mignonette, Horseradish"
+    "category": null,
+    "description": "half dozen, market price Cucumber Serrano Mignonette",
+    "price": null,
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Tuna Tartar",
-    "description": "AAA Tuna, Yuzu Aioli, Bottarga, Kataifi, Barrel Aged Shoyu, Caviar"
+    "name": "Tuna Tartare",
+    "category": null,
+    "description": "Yuzu Aioli, Kataifi, Shoyu, Caviar Starters",
+    "price": "$31.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Duck Flautas",
-    "description": "Duck Confit, Turnip and Radish Salpicon, Pico, Pecorino, Alabama White Sauce"
+    "category": null,
+    "description": "Duck Confit, Turnip, Radish, Pico de Gallo, Parmesan, Alabama White Sauce, Chili Oil",
+    "price": "$17.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Charred Oysters",
-    "description": "Chesapeake Bay Oysters, Pecorino, Blackening Spice, Charred Ciabatta"
+    "category": null,
+    "description": "half dozen Hearth-roasted, Parmesan, Blackening Spice, Charred Bread",
+    "price": "$22.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Mussels",
-    "description": "Chorizo, Hearth Charred Tomatoes, Pot Stock, Charred Ciabatta"
+    "category": null,
+    "description": "Chorizo, Charred Tomatoes, Pot Stock, Charred Bread",
+    "price": "$23.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Charred Wings",
-    "description": "House Made Hot Sauce with Celery, Carrot, and Roth Buttermilk Bleu or Dry Rubbed and topped with Alabama White Sauce, Blistered Onion Confit"
+    "category": null,
+    "description": "House Made Hot Sauce with Celery, Carrot, and Roth Buttermilk Bleu or Dry Rubbed and topped with Alabama White Sauce, Sumac Onions",
+    "price": "$19.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Wagyu Skewers",
-    "description": "Wagyu Flat Iron, Arbol Chili, Cilantro Lime Slaw, Chimichurri"
+    "category": null,
+    "description": "Arbol Chili, Cilantro Lime Slaw, Chimichurri",
+    "price": "$28.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Crab Cakes",
-    "description": "Yuzu Miso Crab Cakes, Chipotle Aioli"
+    "category": null,
+    "description": "Super Lump Crab, Green Goddess Aioli",
+    "price": "$26.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
+    "name": "Beet Carpaccio",
+    "category": null,
+    "description": "Rescaldo Chioggia Beets, Whipped Goat Cheese, Rye Pickled Mustard Seeds, Pistachios, Rosemary Citrus Vinaigrette, Charred Bread Hand-Helds Served with Parmesan, Garlic & Herb Fries",
+    "price": "$19.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "A Really Good Burger",
-    "description": "American Cheese, Lettuce, Red Onions, Sauce, Brioche"
+    "category": null,
+    "description": "American Cheese, Lettuce, Red Onions, Sauce, Brioche",
+    "price": "$19.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Wagyu Burger",
-    "description": "1/2 lb Wagyu, Aged Cheddar, Caramelized Onions, Truffle Aioli, Brioche"
+    "category": null,
+    "description": "1/2 lb Wagyu, Aged Cheddar, Caramelized Onions, Truffle Aioli, Brioche",
+    "price": "$33.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Korean Fried Chicken Sandwich",
-    "description": "Korean Fried Chicken, Gochujang Aioli, Kimchi, House Cucumber, Brioche"
+    "name": "Bourbon BBQ Fried Chicken Sandwich",
+    "category": null,
+    "description": "White Cheddar, Pickled Onions, Poblano Bacon Jam add: Grilled Bacon +4 Wild Mushrooms +4 *Sunny Side Up Egg +3",
+    "price": "$20.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "House-Made Pecan Pie",
-    "description": "Served Warm with Salted Caramel Ice Cream"
+    "category": null,
+    "description": "Served Warm with Salted Caramel Ice Cream",
+    "price": "$14.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Beignets",
-    "description": "With Cold Brew Icing"
+    "category": null,
+    "description": "Caramel and Powdered Sugar",
+    "price": "$15.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Bowl of Ice Cream",
-    "description": "Salted Caramel Ice Cream, Bourbon Caramel, Candied Pecans"
+    "category": null,
+    "description": "Salted Caramel Ice Cream, Caramel, Candied Pecans",
+    "price": "$11.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Seasonal Crumble",
-    "description": "Fruit Compote, Cinnamon Crumble, Salted Caramel Ice Cream"
+    "category": null,
+    "description": "Fruit Compote, Cinnamon Crumble, Salted Caramel Ice Cream Soups & Salads",
+    "price": "$12.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "She Crab Soup",
-    "description": "Lump Crab, Bottarga, Crab Roe Creme Fraiche, Chive Oil"
+    "name": "Cucumber Serrano Gazpacho",
+    "category": null,
+    "description": "Sumac Onions, Mint, Sunflower Praline Dust, Sumac",
+    "price": "$15.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Fig and Pear Salad",
-    "description": "Arugula, Pear, Mission Figs, Feta, Crispy Prosciutto, Fig Balsamic Vinaigrette"
+    "name": "Strawberry Salad",
+    "category": null,
+    "description": "11/18 Spring Greens, Mint, Pickled Strawberries, Manchego, Sunflower Praline, Cucumbers, Strawberry Lemonade Vinaigrette",
+    "price": null,
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Caesar Salad",
-    "description": "Romaine, Poached Egg, Parmesan, Bacon Crisp, Crispy Capers"
+    "name": "Grilled Caesar Salad",
+    "category": null,
+    "description": "10/16 Charred Little Gem Lettuce, Parmesan, Toasted Breadcrumbs",
+    "price": null,
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Wedge Salad",
-    "description": "Smoked Bacon, Blistered Tomato, Shaved Purple Onion, Sesame Seed, Roth Buttermilk Bleu"
+    "category": null,
+    "description": "10/16 Smoked Bacon, Blistered Tomato, Shaved Purple Onion, Sesame Seed, Roth Buttermilk Bleu add to any salad: Chicken +8, Blackened Shrimp +12, Beyond Burger Patty +8",
+    "price": null,
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Mediterranean Chicken Piccata",
-    "description": "Seared SMF Chicken Breast over Duck Fat Potatoes, Charred Asparagus, topped with Sundried Tomato Tapenade, Goat Cheese, and Lemon Caper Cream Sauce"
+    "category": null,
+    "description": "Springer Mountain Farms, Duck Fat Potatoes, Asparagus, Sun-Dried Tomato Tapenade, Goat cheese, Lemon Caper Cream",
+    "price": "$32.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Sea Bass",
-    "description": "Chilean Sea Bass, Green Curry, Forbidden Rice, Pickled Kumquat, Jasmine Tea Tuile"
+    "category": null,
+    "description": "Green Curry, Forbidden Rice, Pickled Pomegranate Seeds",
+    "price": "$44.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Fra Diavolo",
-    "description": "Linguini, Clams, Mussels, Jumbo Shrimp, Asparagus, Tomato Calabrian Chili Sauce"
+    "name": "Spring Pea Orzo",
+    "category": null,
+    "description": "Super Lump Crab, Pea Puree, Rehydrated Tomatoes, Asparagus, Lemon Stracciatella, Breadcrumbs From The Grill all steaks will be seasoned, hearth fired, and served sliced",
+    "price": "$34.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Lamb Shank",
-    "description": "Roz Ma’amar, Braised Lamb Shank, Roasted Carrots, Tobacco Onions, Lamb Demi"
+    "name": "Prime NY Strip",
+    "category": null,
+    "description": "14oz Boneless",
+    "price": "$74.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Dry-Aged NY Strip",
-    "description": "14oz Boneless"
-  },
-  {
-    "category": "Dinner",
     "name": "Wagyu Flat Iron",
-    "description": "8oz Boneless"
+    "category": null,
+    "description": "8oz Boneless",
+    "price": "$52.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Cowboy Pork Chop",
-    "description": "15oz Bone-In"
+    "category": null,
+    "description": "15oz Bone-In For the Table",
+    "price": "$38.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Tomahawk Steak",
-    "description": "42oz Bone-In, CAB Ribeye, served with Rescoldo Potatoes, Hearth Vegetable Board Dressing, Charred Bread"
+    "category": null,
+    "description": "market price 42oz Bone-In Ribeye, Duck Fat Potatoes, Hearth Vegetables, Charred Bread As Entree *Filet & Frites 85",
+    "price": null,
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Steak Frites",
-    "description": "8oz Hanger Steak, topped with Chimichurri, Sesame Seed, with Parmesan, Garlic, and Herb Fries"
+    "name": "Beef Tallow Fries",
+    "category": null,
+    "description": "Parmesan, Garlic and Herb",
+    "price": "$12.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Bowl of Fries",
-    "description": "House Cut, Parmesan, Garlic, Herb"
-  },
-  {
-    "category": "Dinner",
     "name": "Asparagus",
-    "description": "Miso Butter, Aleppo"
+    "category": null,
+    "description": "Miso Butter, Aleppo",
+    "price": "$13.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Duck Fat Potatoes",
-    "description": "Crispy Confit Potatoes, Lemon Caper Aioli"
+    "category": null,
+    "description": "Lemon Caper Aioli",
+    "price": "$12.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Glazed Carrots",
-    "description": "Tri-color Carrots, Sorghum Chili Crisp Glaze, Greens"
-  },
-  {
-    "category": "Dinner",
     "name": "Hearth Vegetables",
-    "description": "Local Vegetables, Benne"
-  },
-  {
-    "category": "Dinner",
-    "name": "Hearth Shishito Peppers",
-    "description": "Blistered Shishitos Peppers, Soy Honey Glaze, Spiced Peanuts, Benne"
-  },
-  {
-    "category": "Dinner",
-    "name": "7th Street Corn",
-    "description": "Grilled NC Sweet Corn, Dukes Mayo, Blackening Seasoning, Pecorino Cheese, Poblano"
-  },
-  {
-    "category": "Dinner",
-    "name": "Mac & Three Cheese Shells",
-    "description": "Cheddar, American, Parmesan"
+    "category": null,
+    "description": "Local Vegetables 7th Street Corn 13 Dukes Mayo, Poblano, Spices, Parmesan",
+    "price": "$16.00",
+    "sourceUrl": "https://thecrunkleton.com/locations/charlotte/menus/dinner-menu-charlotte/",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

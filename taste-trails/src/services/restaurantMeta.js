@@ -16,7 +16,7 @@ export const RESTAURANT_META = [
   {
     file: 'Angelines_Dinner_Menu.json',
     name: "Angeline's",
-    address: 'Uptown, Charlotte, NC',
+    address: '303 S Church St, Charlotte, NC',
     latitude: 35.2274,
     longitude: -80.8438,
     approximate: true
@@ -32,7 +32,7 @@ export const RESTAURANT_META = [
   {
     file: "Dean_s_Steakhouse_Menu.json",
     name: "Dean's Steakhouse",
-    address: 'Charlotte, NC',
+    address: '128 E. Stonewall St, Charlotte, NC 28202',
     latitude: null,
     longitude: null,
     approximate: true
@@ -56,7 +56,7 @@ export const RESTAURANT_META = [
   {
     file: 'La_Belle_Helene_Menu.json',
     name: 'La Belle Helene',
-    address: 'Charlotte, NC',
+    address: '300 S Tryon St, Suite 100, Charlotte, NC 28202',
     latitude: null,
     longitude: null,
     approximate: true
@@ -72,9 +72,9 @@ export const RESTAURANT_META = [
   {
     file: 'Postino_Menu.json',
     name: 'Postino',
-    address: 'Elizabeth, Charlotte, NC',
-    latitude: 35.2108,
-    longitude: -80.8465,
+    address: '1606 Commonwealth Ave, Suite 101, Charlotte, NC 28205',
+    latitude: null,
+    longitude: null,
     approximate: true
   },
   {
@@ -88,10 +88,10 @@ export const RESTAURANT_META = [
   {
     file: 'Sea_Grill_Diner_Menu.json',
     name: 'Sea Grill Diner',
-    address: 'Charlotte, NC',
-    latitude: null,
-    longitude: null,
-    approximate: true
+    address: '210 East Trade Street, Charlotte, NC 28202',
+    latitude: 35.2255999,
+    longitude: -80.8419128,
+    approximate: false
   },
   {
     file: 'Sixty_Vines_Menu.json',
@@ -112,7 +112,7 @@ export const RESTAURANT_META = [
   {
     file: 'Supper_Land_Menu.json',
     name: 'Supper Land',
-    address: 'Charlotte, NC',
+    address: '1212 The Plaza, Charlotte, NC',
     latitude: null,
     longitude: null,
     approximate: true
@@ -120,15 +120,15 @@ export const RESTAURANT_META = [
   {
     file: 'The_Crunkleton_Dinner_Menu.json',
     name: 'The Crunkleton',
-    address: 'NoDa, Charlotte, NC',
-    latitude: 35.2478,
-    longitude: -80.8062,
+    address: '1957 E 7th St, Charlotte, NC',
+    latitude: null,
+    longitude: null,
     approximate: true
   },
   {
     file: 'Chilis_Menu.json',
     name: "Chili's",
-    address: 'Charlotte, NC',
+    address: '5521 Westpark Dr, Charlotte, NC 28217',
     latitude: null,
     longitude: null,
     approximate: true

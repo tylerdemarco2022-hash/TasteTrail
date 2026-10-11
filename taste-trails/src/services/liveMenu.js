@@ -9,7 +9,7 @@ import { foldRestaurantName, knownRestaurantRecords } from './restaurantSources.
 
 const require = createRequire(import.meta.url)
 const defaultCacheDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../data/menu-cache')
-const USER_AGENT = 'TasteTrail/1.0 (restaurant menu cache)'
+const USER_AGENT = 'Mozilla/5.0 (compatible; TasteTrail/1.0; +https://tastetrails.app) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
 const MIN_ITEMS = 3
 
 function hours(name, fallback) {
@@ -247,16 +247,29 @@ export function createLiveMenuService(options = {}) {
     if (fresh && !fetchOptions.force) return resultFromRecord(cached, saved)
 
     const seen = new Set()
-    const candidates = [...(source.menuUrls || []), ...(source.websites || [])]
-    let best = { items: [], url: null }
-    for (const url of candidates) {
-      const parsed = await itemsFromUrl(url, seen)
-      if (parsed.items.length > best.items.length) best = parsed
-      if (best.items.length >= MIN_ITEMS) break
+    const merged = []
+    let sourceUrl = null
+    function take(parsed) {
+      if (!parsed?.items?.length) return
+      const known = new Set(merged.map((item) => item.name.toLowerCase()))
+      for (const item of parsed.items) {
+        const key = String(item.name || '').toLowerCase()
+        if (!key || known.has(key)) continue
+        known.add(key)
+        merged.push(item)
+      }
+      if (!sourceUrl) sourceUrl = parsed.url
+    }
+    for (const url of source.menuUrls || []) take(await itemsFromUrl(url, seen))
+    if (merged.length < MIN_ITEMS) {
+      for (const url of source.websites || []) {
+        take(await itemsFromUrl(url, seen))
+        if (merged.length >= MIN_ITEMS) break
+      }
     }
 
     const fetchedAt = new Date(now()).toISOString()
-    const live = best.items.length >= MIN_ITEMS
+    const live = merged.length >= MIN_ITEMS
     const record = {
       name: source.name,
       address: source.address || null,
@@ -264,10 +277,10 @@ export function createLiveMenuService(options = {}) {
       longitude: source.longitude ?? null,
       approximate: Boolean(source.approximate),
       source: live ? 'live' : 'unavailable',
-      sourceUrl: live ? best.url : null,
+      sourceUrl: live ? sourceUrl : null,
       fetchedAt,
       expiresAt: now() + (live ? cacheTtlMs() : failureTtlMs()),
-      items: live ? best.items : [],
+      items: live ? merged : [],
       message: live ? null : `Could not retrieve a menu for ${source.name}.`
     }
     writeCache(record)

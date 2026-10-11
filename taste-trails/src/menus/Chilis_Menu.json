@@ -1,617 +1,986 @@
 [
   {
-    "category": "Appetizers",
-    "name": "Triple Dipper",
-    "description": "Pick your three favorites. Served with dipping sauces."
+    "name": "Triple Dipper®",
+    "category": "Featured Items",
+    "description": "1450-3040 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers",
-    "name": "Loaded Potato Skins",
-    "description": "Topped with cheese, applewood smoked bacon, green onions and a side of sour cream"
+    "name": "The Big QP Burger",
+    "category": "Featured Items",
+    "description": "890 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers",
-    "name": "Skillet Queso",
-    "description": "Cheese dip with seasoned beef. Served with warm tostada chips and our house-made salsa"
+    "name": "Full Rack of Ribs",
+    "category": "Featured Items",
+    "description": "2160 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Cajun Pasta",
+    "category": "Featured Items",
+    "description": "1070-1390 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chips & Salsa",
+    "category": "Featured Items",
+    "description": "910 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bone-In Wings",
     "category": "Appetizers",
+    "description": "960-2010 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Boneless Wings",
+    "category": "Appetizers",
+    "description": "900-2010 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Southwestern Eggrolls™",
+    "category": "Appetizers",
+    "description": "1020 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dip Trio",
+    "category": "Appetizers",
+    "description": "970-2240 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Southwestern Queso",
+    "category": "Appetizers",
+    "description": "1360 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Skillet Beef Queso",
+    "category": "Appetizers",
+    "description": "1340 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "House-made Guacamole",
+    "category": "Appetizers",
+    "description": "1150 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fried Mozzarella",
+    "category": "Appetizers",
+    "description": "920-1790 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Honey-Chipotle Mozzarella",
+    "category": "Appetizers",
+    "description": "1410-2140 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nashville Hot Mozzarella",
+    "category": "Appetizers",
+    "description": "1430-2440 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Texas Cheese Fries",
-    "description": "With applewood smoked bacon, jalapenos and green onions. Served with ranch dressing"
-  },
-  {
     "category": "Appetizers",
-    "name": "Hot Spinach & Artichoke Dip",
-    "description": "Served with warm tostada chips"
+    "description": "1790 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Appetizers",
-    "name": "Boneless Buffalo Wings",
-    "description": "Breaded chicken breast tossed in spicy sauce. Served with cool bleu cheese and celery"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Crispy Onion String & Jalapeno Stack",
-    "description": "Served with ranch dressing"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Southwestern Eggrolls",
-    "description": "A crispy flour tortilla filled with smoked chicken, black beans, corn, jalapeno Jack cheese, red peppers and spinach. Served with avocado-ranch dressing"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Classic Nachos (Large)",
-    "description": "With melted cheese, jalapenos, beans, queso and a hint of seasoned beef. Served with house-made pico de gallo and sour cream"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Classic Nachos (Regular)",
-    "description": "With melted cheese, jalapenos, beans, queso and a hint of seasoned beef. Served with house-made pico de gallo and sour cream"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Classic Nachos (Regular) with Chicken or Fajita Beef",
-    "description": "With melted cheese, jalapenos, beans, queso and a hint of seasoned beef. Served with house-made pico de gallo and sour cream"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Classic Nachos (Large) with Chicken or Fajita Beef",
-    "description": "With melted cheese, jalapenos, beans, queso and a hint of seasoned beef. Served with house-made pico de gallo and sour cream"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Fire-Grilled Corn Guacamole",
-    "description": "With fresh avocados, cilantro, house-made pico de gallo, fire-grilled corn and jalapenos. Served with tostada chips and house-made salsa"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Texas Cheese Fries with Chili",
-    "description": "Topped with our famous chili, jalapenos, green onions and finished with applewood smoked bacon. Served with ranch dressing"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Bottomless Tostada Chips",
-    "description": "Served with our house-made salsa. Try it with ranch for $0.49"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Wings Over Buffalo",
-    "description": "Delicious chicken wings tossed in our spicy wing sauce. Served with cool bleu cheese dressing"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Fried Cheese",
-    "description": "Served with marinara sauce"
-  },
-  {
-    "category": "Salads",
-    "name": "Caribbean Salad",
-    "description": "Fresh pineapple, mandarin oranges, dried cherries, green onions, cilantro, sesame seeds and honey-lime dressing. With choice of grilled chicken or grilled shrimp"
-  },
-  {
-    "category": "Salads",
-    "name": "Quesadilla Explosion Salad",
-    "description": "Layers of flavor make this our most popular salad. Includes grilled chicken with cheese, tomatoes, corn relish, cilantro and tortilla strips. Served with our citrus-balsamic dressing and cheese quesadilla"
-  },
-  {
-    "category": "Salads",
-    "name": "Boneless Buffalo Chicken Salad",
-    "description": "With applewood smoked bacon, bleu cheese crumbles, tortilla strips, house-made pico de gallo and ranch dressing"
-  },
-  {
-    "category": "Salads",
-    "name": "Cobb Salad",
-    "description": "Grilled chicken with applewood smoked bacon, avocado, cheese, red bell peppers, eggs and avocado-ranch"
-  },
-  {
-    "category": "Salads",
-    "name": "Chicken Caesar Salad",
-    "description": "With croutons, shaved parmesan and caesar dressing"
-  },
-  {
-    "category": "Salads",
-    "name": "House Salad",
-    "description": "With croutons, tomatoes, red onions, cucumbers and cheese. Served with your choice of dressing"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Southwest Chicken & Sausage Soup",
-    "description": "Tender white beans, oven-roasted chicken, savory sausage, chunky garden veggies with garlic and chicken broth. Topped with tortilla strips"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Chicken Enchilada Soup",
-    "description": "Topped with tortilla strips, cheese and house-made pico de gallo"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Chicken Enchilada Soup Bowl with Any Entree",
-    "description": "Topped with tortilla strips, cheese and house-made pico de gallo"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Chicken Enchilada Soup Cup with Any Entree",
-    "description": "Topped with tortilla strips, cheese and house-made pico de gallo"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Loaded Baked Potato Soup",
-    "description": "Topped with applewood smoked bacon, cheese and green onions"
+  {
+    "name": "The Original Trio",
+    "category": "Fajitas",
+    "description": "1250 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Soups & Chili",
-    "name": "Terlingua Chili",
-    "description": "Slow-cooked chili with beef, onions and chiles. Topped with cheese"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Terlingua Chili Bowl with Any Entree",
-    "description": "Slow-cooked chili with beef, onions and chiles. Topped with cheese"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Terlingua Chili Cup with Any Entree",
-    "description": "Slow-cooked chili with beef, onions and chiles. Topped with cheese"
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Chili & House Salad",
-    "description": null
-  },
-  {
-    "category": "Soups & Chili",
-    "name": "Soup & House Salad",
-    "description": null
-  },
-  {
-    "category": "Sandwiches",
-    "name": "Philly Cheesesteak Sandwich",
-    "description": "Seasoned, shaved steak with peppers & onions with cheese sauce on a Philly roll."
-  },
-  {
-    "category": "Sandwiches",
-    "name": "Grilled Chicken Sandwich",
-    "description": "With applewood smoked bacon, tomato, swiss and honey-mustard dressing on a sesame seed or wheat bun"
-  },
-  {
-    "category": "Sandwiches",
-    "name": "Buffalo Chicken Ranch Sandwich",
-    "description": "Crispy chicken with spicy wing sauce and ranch dressing on a sesame seed or wheat bun"
-  },
-  {
-    "category": "Sandwiches",
-    "name": "Classic Turkey Toasted Sandwich",
-    "description": "With lettuce, tomatoes, provolone and mayo on wheat Texas toast"
-  },
-  {
-    "category": "Sandwiches",
-    "name": "California Club Toasted Sandwich",
-    "description": "With turkey, ham, applewood smoked bacon, avocado, Swiss, tomatoes, onions, lettuce and seasoned mayo on wheat Texas toast"
-  },
-  {
-    "category": "Sandwiches",
-    "name": "Grilled Ham & Swiss Toasted Sandwich",
-    "description": "With tomatoes and seasoned mayo on white Texas toast"
-  },
-  {
-    "category": "Sandwiches",
-    "name": "Santa Fe Chicken Wrap",
-    "description": "With corn, tortilla strips, cheddar, avocado and tomatoes. Served with ancho-chile ranch"
-  },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Southern Smokehouse Bacon Burger",
-    "description": "With maple bacon, smoked cheddar, mayo, crispy onion strings and ancho-chile BBQ sauce"
-  },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Shiner Bock BBQ Burger",
-    "description": "A burger to crave, topped with sweet'n tangy Shiner Bock BBQ sauce, cheddar and crispy onion strings"
-  },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Avocado Burger",
-    "description": "With fresh avocado, red onion and swiss topped with avocado-ranch on a wheat bun"
-  },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Oldtimer",
-    "description": "Mouth-watering burger with mustard and red onion"
-  },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Jalapeno Smokehouse Bacon Burger",
-    "description": "With applewood smoked bacon, smoked cheddar, tortilla strips, red onion, mayo, jalapenos and jalapeno-ranch dressing"
+  {
+    "name": "Pick Any 2",
+    "category": "Fajitas",
+    "description": "970-1230 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Classic Bacon Burger",
-    "description": "A crowd-pleasing favorite topped with applewood smoked bacon, cheddar, red onion and mayo"
-  },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Big Mouth Bites",
-    "description": "Four mini burgers topped with applewood smoked bacon, american cheese, sauteed onions and ranch. Served with crispy onion strings and ranch dressing"
+  {
+    "name": "The Classics",
+    "category": "Fajitas",
+    "description": "910-1190 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Big Mouth Burgers",
-    "name": "Mushroom-Swiss Burger",
-    "description": "With sauteed mushrooms, swiss and mayo"
+  {
+    "name": "Fajitas for 2",
+    "category": "Fajitas",
+    "description": "1760-2290 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Fajita Trio",
-    "description": "Grilled steak, chicken and spicy garlic and lime shrimp"
+  {
+    "name": "Big Smasher™ Burger",
+    "category": "Big Mouth Burgers®",
+    "description": "950 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Chicken Fajita",
-    "description": null
+  {
+    "name": "Double Big Smasher™ Burger",
+    "category": "Big Mouth Burgers®",
+    "description": "1490 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Bacon Ranch Quesadillas with Beef",
-    "description": null
+  {
+    "name": "Alex's Santa Fe Burger",
+    "category": "Big Mouth Burgers®",
+    "description": "930 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Bacon Ranch Quesadillas with Chicken",
-    "description": null
+  {
+    "name": "Double Bacon Rancher",
+    "category": "Big Mouth Burgers®",
+    "description": "1710 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Steak Fajitas",
-    "description": null
+  {
+    "name": "Big Mouth® Bites",
+    "category": "Big Mouth Burgers®",
+    "description": "1220 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Combo Fajitas",
-    "description": null
+  {
+    "name": "Bacon Cheeseburger",
+    "category": "Big Mouth Burgers®",
+    "description": "1130 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Fajitas & Quesadillas",
-    "name": "Chicken Club Quesadillas",
-    "description": "Layers of grilled chicken, applewood smoked bacon, fire-grilled corn guacamole, sauteed onions, bell peppers, Monterey jack cheese and ancho-ranch dressing. Served with sour cream and house-made pico"
+  {
+    "name": "Oldtimer® Burger W/ Cheese",
+    "category": "Big Mouth Burgers®",
+    "description": "850 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
-  {
-    "category": "Tacos",
-    "name": "Chicken Club Tacos",
-    "description": "Three flour tortillas with grilled chicken, applewood smoked bacon, tomatoes, cheese, lettuce and ancho-chile ranch dressing"
+  {
+    "name": "Mushroom Swiss Burger",
+    "category": "Big Mouth Burgers®",
+    "description": "1010 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Tacos",
-    "name": "Crispy Shrimp Tacos",
-    "description": "Three flour tortillas with tomatoes, cheese, lettuce, honey-chipotle drizzle and ranch dressing"
+    "name": "Veggie Santa Fe Burger",
+    "category": "Big Mouth Burgers®",
+    "description": "640 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Tacos",
-    "name": "Crispy Chicken Tacos",
-    "description": "Three flour tortillas with crispy chicken crispers, applewood smoked bacon, tomatoes, cheese, lettuce, honey-chipotle drizzle and ranch dressing"
+    "name": "Big Crispy® Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "880 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Monterey Chicken",
-    "description": "Topped with BBQ sauce, tomato, cheese and applewood smoked bacon. Served with mashed potatoes with black pepper gravy and seasonal veggies"
+    "name": "Spicy Big Crispy® Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "870 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Cajun Pasta with Grilled Chicken",
-    "description": "Penne pasta with creamy garlic Alfredo sauce with cajun spices and topped with tomatoes and green onions"
+    "name": "Honey-Chipotle Big Crispy® Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "840 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Cajun Pasta with Grilled Shrimp",
-    "description": "Penne pasta with creamy garlic Alfredo sauce with cajun spices and topped with tomatoes and green onions"
+    "name": "Nashville Hot Big Crispy® Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "950 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Crispy Chicken Crispers",
-    "description": "Extra crispy chicken with corn on the cob, homestyle fries and choice of black pepper gravy, BBQ sauce, honey-mustard or ranch dressing"
+    "name": "Buffalo Big Crispy® Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "710 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Margarita Grilled Chicken",
-    "description": "Classic margarita-flavored grilled chicken with hints of lime and citrus, served with rice, black beans, tortilla strips and house-made pico de gallo"
+    "name": "Deluxe Big Crispy® Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "1050 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Crispy Honey-Chipotle Chicken Crispers",
-    "description": "Tossed in our honey-chipotle sauce. Served with corn on the cob, homestyle fries and ranch dressing"
+    "name": "Deluxe Grilled Chicken Sandwich",
+    "category": "Crispy Chicken Sandwiches",
+    "description": "800 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Chicken Crispers",
-    "description": "Served with corn on the cob, homestyle fries and honey-mustard dressing"
+    "name": "Crispy Chicken Crispers® Combo",
+    "category": "Chicken Crisper® Combos",
+    "description": "870-1600 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Seafood",
-    "name": "Fried Shrimp",
-    "description": "Served with homestyle fries, cole slaw and cocktail sauce"
+    "name": "Honey-Chipotle Chicken Crispers® Combo",
+    "category": "Chicken Crisper® Combos",
+    "description": "1040-1560 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Seafood",
-    "name": "Grilled Salmon with Garlic and Herbs",
-    "description": "Served with rice and seasonal veggies"
+    "name": "Nashville Hot Chicken Crispers® Combo",
+    "category": "Chicken Crisper® Combos",
+    "description": "1140-1710 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Baby Back Ribs",
-    "name": "Full Rack",
-    "description": "With cinnamon apples and homestyle fries"
+    "name": "Smokehouse Combo Pick 3",
+    "category": "BBQ Classics",
+    "description": "1960-3850 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Baby Back Ribs",
-    "name": "Mix & Match Baby Backs",
-    "description": "Choose two half racks from our favorite flavors and choice of two sides"
+    "name": "Smokehouse Combo Pick 2",
+    "category": "BBQ Classics",
+    "description": "1580-2840 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Baby Back Ribs",
     "name": "Half Rack of Ribs",
-    "description": "With homestyle fries"
+    "category": "BBQ Classics",
+    "description": "1130 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "Fried Shrimp",
-    "description": null
+    "name": "Sausage & Chicken Cajun Pasta",
+    "category": "Pasta",
+    "description": "1540 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "Half Rack of Baby Back Ribs",
-    "description": null
+    "name": "Shrimp & Chicken Cajun Pasta",
+    "category": "Pasta",
+    "description": "1230 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "Monterey Chicken",
-    "description": null
+    "name": "Surf & Turf Ribeye*",
+    "category": "Steaks",
+    "description": "690 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "Margarita Grilled Chicken",
-    "description": null
+    "name": "Surf & Turf Sirloin* - 10oz",
+    "category": "Steaks",
+    "description": "450 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "Grilled Salmon with Garlic & Herbs",
-    "description": null
+    "name": "Classic Ribeye*",
+    "category": "Steaks",
+    "description": "620 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "Spicy Garlic & Lime Grilled Shrimp",
-    "description": null
+    "name": "Classic Sirloin* - 6oz",
+    "category": "Steaks",
+    "description": "250 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Custom Combinations",
-    "name": "6 oz. Classic Sirloin",
-    "description": null
+    "name": "Classic Sirloin* - 10oz",
+    "category": "Steaks",
+    "description": "390 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Steak",
-    "name": "Classic Sirloin - 6 oz.",
-    "description": "100% USDA choice 6 oz. sirloin topped with seasoned butter. Served with seasonal veggies and loaded mashed potatoes"
+    "name": "Guiltless Sirloin* - 6oz",
+    "category": "Steaks",
+    "description": "300 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Steak",
-    "name": "Classic Ribeye",
-    "description": "100% USDA 12 oz. steak is a tender cut, marbled for more flavor and topped with seasoned butter. Served with steamed broccoli and loaded mashed potatoes"
+    "name": "Guiltless Sirloin* - 10oz.",
+    "category": "Steaks",
+    "description": "450 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Steak",
-    "name": "Classic Sirloin - 10 oz.",
-    "description": "100% USDA choice 10 oz. sirloin topped with seasoned butter. Served with seasonal veggies and loaded mashed potatoes"
+    "name": "Ancho Salmon",
+    "category": "Guiltless Grill®",
+    "description": "590 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Chicken",
-    "name": "Country-Fried Steak",
-    "description": "Served with corn on the cob and mashed potatoes with black pepper gravy"
+    "name": "Santa Fe Salad",
+    "category": "Guiltless Grill®",
+    "description": "540 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Grilled Chicken Salad",
-    "description": "Grilled chicken with cheese, tomatoes, black beans, corn relish and honey-lime vinaigrette"
+    "name": "Margarita Grilled Chicken™",
+    "category": "Guiltless Grill®",
+    "description": "640 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Sweet & Spicy Chicken",
-    "description": "Habanero & sweet orange glaze brushed over grilled chicken with onions and peppers. Served with rice and steamed broccoli"
+    "name": "Chicken Bacon Ranch Quesadillas",
+    "category": "Bowls & Quesadillas",
+    "description": "1700 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Lighter Choice 6 oz. Classic Sirloin",
-    "description": "100% USDA choice sirloin with carne asada rub and house-made pico de gallo. Served with steamed broccoli"
+    "name": "Brisket Quesadillas",
+    "category": "Bowls & Quesadillas",
+    "description": "1620 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Lighter Choice Grilled Salmon",
-    "description": "Served with rice and steamed broccoli"
+    "name": "Chipotle Fresh Mex Bowl",
+    "category": "Bowls & Quesadillas",
+    "description": "880 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Margarita Grilled Chicken",
-    "description": "Classic margarita-flavored grilled chicken with hints of lime and citrus, served with rice, black beans, tortilla strips and house-made pico de gallo"
+    "name": "Cajun Shrimp Pasta",
+    "category": "3 For Me®",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Lighter Choice Santa Fe Chicken Wrap",
-    "description": "With corn, tortilla strips, avocado and tomatoes. Served with steamed broccoli and a side of ranch"
+    "name": "3ct Crisper® Combo",
+    "category": "3 For Me®",
+    "description": "1080-1420 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lighter Choices",
-    "name": "Lighter Choice Grilled Chicken Sandwich",
-    "description": "With tomato, lettuce and non-fat honey-mustard dressing on a wheat bun. Served with steamed broccoli"
+    "name": "3ct Honey-Chipotle Crispers® Combo",
+    "category": "3 For Me®",
+    "description": "1360 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Southwestern BLT Toasted Sandwich",
-    "description": null
+    "name": "3ct Nashville Hot Crispers® Combo",
+    "category": "3 For Me®",
+    "description": "1430 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Classic Turkey Toasted Sandwich",
-    "description": null
+    "name": "Soup & House Salad",
+    "category": "Lunch Favorites",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Grilled Ham & Swiss Toasted Sandwich",
-    "description": null
+    "name": "Santa Fe Crispers® Salad",
+    "category": "Salads & Soups",
+    "description": "780 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Big Mouth Burger Bites (2)",
-    "description": null
+    "name": "Quesadilla Explosion Crispers® Salad",
+    "category": "Salads & Soups",
+    "description": "1420 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Bacon Ranch Chicken Quesadillas",
-    "description": null
+    "name": "Quesadilla Explosion Salad",
+    "category": "Salads & Soups",
+    "description": "1180 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Over-The-Top Cobb Salad",
-    "description": null
+    "name": "Side House Salad",
+    "category": "Salads & Soups",
+    "description": "260-380 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Philly Cheesesteak Sandwich",
-    "description": null
+    "name": "Bowl of Soup",
+    "category": "Salads & Soups",
+    "description": "390-430 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "California Club Toasted Sandwich",
-    "description": null
+    "name": "Cup of Soup",
+    "category": "Salads & Soups",
+    "description": "200-220 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Lunch Combos",
-    "name": "Fajita Chicken Toasted Sandwich",
-    "description": null
+    "name": "Witches Brew Marg",
+    "category": "To-Go Alcohol",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Homestyle Fries",
-    "description": null
+    "name": "Presidente Margarita®",
+    "category": "To-Go Alcohol",
+    "description": "240-350 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Loaded Mashed Potatoes",
-    "description": null
+    "name": "Don Julio® Marg",
+    "category": "To-Go Alcohol",
+    "description": "180 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Mashed Potatoes with Black Pepper Gravy",
-    "description": null
+    "name": "Tito's Watermelon Spritz",
+    "category": "To-Go Alcohol",
+    "description": "280 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Sweet Corn on the Cob",
-    "description": null
+    "name": "Patron® Marg",
+    "category": "To-Go Alcohol",
+    "description": "300-410 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Steamed Broccoli",
-    "description": null
+    "name": "Henny Marg",
+    "category": "To-Go Alcohol",
+    "description": "320 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Rice",
-    "description": null
+    "name": "Casamigos® Marg",
+    "category": "To-Go Alcohol",
+    "description": "240 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Black Beans",
-    "description": null
+    "name": "Skinny Marg",
+    "category": "To-Go Alcohol",
+    "description": "150 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Cole Slaw",
-    "description": null
+    "name": "Spice-A-Rita",
+    "category": "To-Go Alcohol",
+    "description": "250 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Cinnamon Apples",
-    "description": null
+    "name": "Tequila Classic Marg-Go-Rita®",
+    "category": "To-Go Alcohol",
+    "description": "190 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Little Mouth Burger",
-    "description": null
+    "name": "Tequila Classic Gallon Marg-Go-Rita®",
+    "category": "To-Go Alcohol",
+    "description": "4200 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Little Mouth Cheeseburger",
-    "description": null
+    "name": "Tito's® Punch†",
+    "category": "To-Go Alcohol",
+    "description": "330 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Corn Dog",
-    "description": null
+    "name": "Premium Long Island Iced Tea",
+    "category": "To-Go Alcohol",
+    "description": "290 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Kraft Macaroni & Cheese",
-    "description": null
+    "name": "Deep Eddy® Strawberry Texas Lemonade",
+    "category": "To-Go Alcohol",
+    "description": "280 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Little Chicken Crispers",
-    "description": null
+    "name": "El Niño Marg",
+    "category": "To-Go Alcohol",
+    "description": "330 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Grilled Chicken Platter",
-    "description": null
-  },
-  {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Grilled Cheese Sandwich",
-    "description": null
-  },
-  {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Grilled Chicken Sandwich",
-    "description": null
-  },
-  {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Cheese Quesadilla",
-    "description": null
-  },
-  {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Crispy Chicken Crispers",
-    "description": null
-  },
-  {
-    "category": "Pepper Pal Kid's Menu",
-    "name": "Pepper Pals Cheese Pizza",
-    "description": null
-  },
-  {
+    "name": "Skillet Chocolate Chip Cookie",
     "category": "Desserts",
+    "description": "1210 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Molten Chocolate Cake",
-    "description": "Topped with vanilla ice cream under a hard chocolate shell"
-  },
-  {
     "category": "Desserts",
-    "name": "Brownie Sundae",
-    "description": "Warm, rich chocolate brownie topped with vanilla ice cream and hot fudge"
+    "description": "1140 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Classic Cheesecake",
     "category": "Desserts",
-    "name": "Frosty Chocolate Shake",
-    "description": "Delicious thick & frosty chocolate shake made with real ice cream"
+    "description": "870 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Chocolate Chip Paradise Pie",
-    "description": "Chewy bar of chocolate chips, walnuts and coconut. Topped with vanilla ice cream, hot fudge and caramel"
+    "name": "Sides",
+    "category": "Sides & Sauces",
+    "description": "35-1290 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Cheesecake",
-    "description": "Decadant creamy New York style cheesecake with graham cracker crust. Served over fresh strawberry puree"
+    "name": "Sauce Options (4oz)",
+    "category": "Sides & Sauces",
+    "description": "30-550 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Kids Cheeseburger Bites",
+    "category": "Kids Menu",
+    "description": "450 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Burger Bites",
+    "category": "Kids Menu",
+    "description": "420 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Crispy Crispers®",
+    "category": "Kids Menu",
+    "description": "570 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Chicken Grillers",
+    "category": "Kids Menu",
+    "description": "280 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Cheesy Chicken Pasta",
+    "category": "Kids Menu",
+    "description": "620 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Kraft® Macaroni & Cheese",
+    "category": "Kids Menu",
+    "description": "310 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Cheese Pizza",
+    "category": "Kids Menu",
+    "description": "500 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kids Cheese Quesadilla",
+    "category": "Kids Menu",
+    "description": "460 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beverages",
     "category": "Beverages",
-    "name": "Coffee",
-    "description": null
+    "description": "200 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dragonfruit Lemonade",
+    "category": "Beverages",
+    "description": "180 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Blackberry Lemonade",
+    "category": "Beverages",
+    "description": ".",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Strawberry Lemonade",
+    "category": "Beverages",
+    "description": "240 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Watermelon Lemonade",
+    "category": "Beverages",
+    "description": "270 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Blackberry Iced Tea",
+    "category": "Beverages",
+    "description": "80 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mango Iced Tea",
+    "category": "Beverages",
+    "description": "80 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Watermelon Iced Tea",
+    "category": "Beverages",
+    "description": "80 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dragonfruit Iced Tea",
+    "category": "Beverages",
+    "description": "80 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gallon of Strawberry Lemonade",
+    "category": "Beverages",
+    "description": "1910 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Bone-In Wings",
+    "category": "Party Platters",
+    "description": "3050-6000 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Boneless Wings",
+    "category": "Party Platters",
+    "description": "2780-5990 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Triple Dipper®",
+    "category": "Party Platters",
+    "description": "5050-11520 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Big Mouth® Bites - 12 Count",
+    "category": "Party Platters",
+    "description": "4370 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Chips & Salsa",
+    "category": "Party Platters",
+    "description": "5320 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Southwestern Eggrolls - 12 Count",
+    "category": "Party Platters",
+    "description": "3170 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Quesadilla Explosion Salad",
+    "category": "Party Platters",
+    "description": "5040 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter House Salad",
+    "category": "Party Platters",
+    "description": "1790-2360 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Mix & Match Fajitas",
+    "category": "Party Platters",
+    "description": "2750-3220 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Fajita Trio",
+    "category": "Party Platters",
+    "description": "3290 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Texas-Size Baby Back Ribs - Large",
+    "category": "Party Platters",
+    "description": "8490 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Chicken Crispers® - 12 Count",
+    "category": "Party Platters",
+    "description": "2370-3420 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Party Platter Cajun Chicken Pasta",
+    "category": "Party Platters",
+    "description": "2600 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gallon of Iced Tea",
+    "category": "Party Platters",
+    "description": "40 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gallon of Blackberry Iced Tea",
+    "category": "Party Platters",
+    "description": "820 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gallon of Mango Iced Tea",
+    "category": "Party Platters",
+    "description": "840 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gallon of Lemonade",
+    "category": "Party Platters",
+    "description": "1570 cal.",
+    "price": null,
+    "sourceUrl": "https://www.chilis.com/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

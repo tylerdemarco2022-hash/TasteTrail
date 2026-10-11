@@ -17,13 +17,18 @@ test('fuzzy search ranks the matching dish and tolerates a typo', () => {
   const catalog = getNodeMenuCatalog()
   assert.ok(catalog.length > 400)
 
-  const typo = findMenuItems(catalog, { q: 'margerita', ...uptown, limit: 5 })
+  const typo = findMenuItems(catalog, { q: 'margerita pizza', ...uptown, limit: 5 })
   assert.ok(typo.items.some((item) => item.name === 'Margherita Pizza'))
   assert.equal(typo.items[0].name, 'Margherita Pizza')
+  assert.equal(typo.items[0].restaurant.name, "Angeline's")
 
   const exact = findMenuItems(catalog, { q: 'tuna crudo', ...uptown, limit: 5 })
-  assert.equal(exact.items[0].name, 'Tuna Crudo')
-  assert.equal(exact.items[0].restaurant.name, 'Figtree')
+  assert.equal(exact.items[0].name, 'TUNA CRUDO*')
+  assert.equal(exact.items[0].restaurant.name, 'Sixty Vines')
+  const constance = exact.items.find((item) => item.restaurant.name === 'Restaurant Constance')
+  assert.equal(constance.name, 'Ahi Tuna Crudo*')
+  assert.equal(constance.price, 22)
+  assert.equal(constance.sourceUrl, 'https://restaurantconstance.com/food-menu')
   assert.ok(exact.tookMs === undefined)
 })
 
@@ -32,7 +37,7 @@ test('dietary, price, and distance filters change the result set', () => {
 
   const vegetarian = findMenuItems(catalog, { q: 'pizza', dietary: ['vegetarian'], ...uptown })
   assert.ok(vegetarian.items.some((item) => item.name === 'Margherita Pizza'))
-  assert.equal(vegetarian.items.some((item) => /pepperoni|sausage/i.test(item.name)), false)
+  assert.equal(vegetarian.items.some((item) => /pepperoni|sausage/i.test(`${item.name} ${item.description}`)), false)
 
   const vegan = findMenuItems(assembleCatalog({ seeds: SEED_MENUS }), { q: 'biryani', dietary: ['vegan'], ...uptown })
   assert.equal(vegan.items.some((item) => item.name === 'Lamb Biryani'), false)

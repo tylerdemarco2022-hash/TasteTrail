@@ -1,112 +1,322 @@
 [
   {
-    "category": "Soups & Salads",
-    "name": "Soup of the Day",
-    "description": ""
+    "name": "Sea Scallops* (GF)",
+    "category": "SOUP & SALADS",
+    "description": "Pumpkin Seed Crusted Sautéed Sea Scallops with Pancetta, Shaved Brussels Sprouts, and Black Truffle-Brown Butter",
+    "price": "$22.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Mixed Greens",
-    "description": "Lightly tossed in a house made herb vinaigrette"
+    "name": "Pork Belly and Oysters",
+    "category": "SOUP & SALADS",
+    "description": "Braised Pork Belly and Crispy Fried Oysters with Spicy Pepper Relish, and Barbecue Sauce",
+    "price": "$24.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Traditional Caesar Salad",
-    "description": "with Parmigiano-Reggiano and house made croutons"
+    "name": "Tuna Carpaccio* (GF)",
+    "category": "SOUP & SALADS",
+    "description": "with Shaved Fennel, Fried Capers, Hearts of Palm, and Saffron Aioli",
+    "price": "$22.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Baby Spinach with Quail Egg",
-    "description": "Warm bacon-maple vinaigrette"
+    "name": "Grilled Octopus (GF)",
+    "category": "SOUP & SALADS",
+    "description": "with Roasted Red and Poblano Peppers, Fingerling Potatoes, Grape Tomatoes, and Chimichurri",
+    "price": "$18.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers",
-    "name": "Prince Edward Island Mussels",
-    "description": "With Caramelized Fennel, Paprika Cream Broth, and Grilled Focaccia"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Roasted Bone Marrow",
-    "description": "with Red Onion Marmalade, Horseradish Cream, and Toasted Brioche"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Tuna Crudo",
-    "description": "with Cucumbers, Pickled Mustard Seeds, Green Apple -Watermelon Radish Salsa, and Blood Orange Coulis"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Grilled Octopus",
-    "description": "with Roasted Red and Poblano Peppers, Fingerling Potatoes, Grape Tomatoes, and Chimichurri"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Stuffed Calamari",
-    "description": "Chorizo and Arborio Rice stuffed Calamari with Blistered Heirloom Grape Tomatoes, Shishito Peppers, and Yellow Pepper Coulis"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Escargot",
-    "description": "Burgundy Helix Snails, Cremini Mushrooms, Creamy Gorgonzola, and Crostini"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Lobster Cakes",
-    "description": "with Fried Avocado, Corn Salsa and Poblano Cream Sauce"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Artisan Cheese Plate",
-    "description": "Chef’s Nightly Selection of Artisan Cheeses and Accompaniments"
-  },
-  {
-    "category": "Appetizers",
-    "name": "Seared Foie Gras",
-    "description": "over Apple Chutney, Bacon Praline, and Cherry Gastrique"
-  },
-  {
-    "category": "Appetizers",
     "name": "Apple Beggar’s Purse",
-    "description": "Sautéed Apples, Onions, Gorgonzola Cheese, and Walnuts in Pastry with Thyme Butter Sauce"
+    "category": "SOUP & SALADS",
+    "description": "Sautéed Apples, Onions, Walnuts, and Gorgonzola in Puff Pastry with Lemon-Thyme Beurre Blanc",
+    "price": "$17.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Sea Scallops",
-    "description": "Pumpkin Seed Crusted Sea Scallops with Butternut Squash and Shiitake Mushroom Risotto, Shaved Brussels Sprouts, and Fennel Cream Sauce"
+    "name": "Escargot",
+    "category": "SOUP & SALADS",
+    "description": "Burgundy Helix Snails, Cremini Mushrooms, Creamy Gorgonzola, and Crostini",
+    "price": "$16.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
+    "name": "Lobster Cakes",
+    "category": "SOUP & SALADS",
+    "description": "with Fried Avocado, Corn Salsa and Poblano Cream Sauce",
+    "price": "$24.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Artisan Cheese Plate",
+    "category": "SOUP & SALADS",
+    "description": "Chef’s Nightly Selection of Artisan Cheeses and Accompaniments",
+    "price": "$25.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Seared Foie Gras* (GF)",
+    "category": "SOUP & SALADS",
+    "description": "over Apple Chutney, Bacon Praline, and Cherry Gastrique",
+    "price": "$21.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Burrata",
+    "category": "SOUP & SALADS",
+    "description": "with Pistachio Pesto, Peach Salsa, Balsamic Reduction, Basil Oil, and Brioche Mixed Green Salad included with Main Course.",
+    "price": "$18.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Soup of the Day",
+    "category": "SOUP & SALADS",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mixed Greens",
+    "category": "SOUP & SALADS",
+    "description": "Lightly Tossed in a House Made Herb Vinaigrette",
+    "price": "$8.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Traditional Caesar Salad",
+    "category": "SOUP & SALADS",
+    "description": "with Parmigiano-Reggiano and House Made Croutons",
+    "price": "$8.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Baby Spinach, Quail Egg and",
+    "category": "SOUP & SALADS",
+    "description": "Warm Bacon-Maple Vinaigrette Dress up your salad with: Feta Cheese 2 Fried Calamari 5",
+    "price": "$8.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mountain Trout (GF)",
+    "category": "MAIN COURSES",
+    "description": "Sautéed NC Mountain Trout topped with Crab, Fava Beans, Leeks, and Pancetta with Asparagus and Lemon-Thyme Beurre Blanc",
+    "price": "$43.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Pan Roasted Scottish Salmon",
-    "description": "over Farro with Sautéed Spinach, Sundried Tomatoes, Capers, and Garlic Cream Sauce"
+    "category": "MAIN COURSES",
+    "description": "with Spinach, Roasted Red Bell Pepper, and Garbanzo Bean Couscous, Dijon Cream, and Dill-Hazelnut Pesto",
+    "price": "$40.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Sea Bass",
-    "description": "Sautéed Sea Bass over Black Truffle -Yukon Gold Mashed Potatoes with Maine Lobster, Prosciutto, Sweet Corn, and Tarragon Beurre Blanc"
+    "name": "Sea Bass (GF)",
+    "category": "MAIN COURSES",
+    "description": "Sautéed Sea Bass over Black Truffle-Yukon Gold Mashed Potatoes with Maine Lobster, Prosciutto, Sweet Corn, and Tarragon Beurre Blanc",
+    "price": "$68.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Elk Chop",
-    "description": "Coffee Crusted Grilled Elk Chop with Parsnip Purée, Kale, Cipollini Onions, and Wild Blueberry Agrodolce"
+    "category": "MAIN COURSES",
+    "description": "Coffee Crusted Grilled Elk Chop with Rosemary Spätzle, Kale, Cipollini Onions, and Wild Blueberry Agrodolce",
+    "price": "$58.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Filet Mignon",
-    "description": "Stilton Crusted Filet Mignon with Thyme Polenta Cake, Heirloom Baby Carrots, Oyster Mushrooms, and Madeira Demi -Glace"
+    "category": "MAIN COURSES",
+    "description": "Stilton Crusted Filet Mignon with Creamy Thyme Polenta, Heirloom Baby Carrots, Oyster Mushrooms, and Madeira Demi-Glace",
+    "price": "$62.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Duck",
-    "description": "Pan Seared Duck Breast over Fig -Apricot Couscous with Butternut Squash, Peanut -Arugula Pesto, and Port Gastrique"
+    "category": "MAIN COURSES",
+    "description": "Pan Seared Duck Breast over Portobella Mushroom-Pine Nut Farro, Fennel Chutney, Broccoli Rabe, and Fig Demi-Glace",
+    "price": "$54.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Veal Chop",
-    "description": "with Jumbo Shrimp over Smashed Fingerling Potatoes, Cremini Mushrooms, Capers, Asparagus, and Sherry -Garlic Butter Sauce"
+    "name": "Veal Chop* (GF)",
+    "category": "MAIN COURSES",
+    "description": "with Jumbo Shrimp over Smashed Fingerling Potatoes, Cremini Mushrooms, Capers, Asparagus, and Sherry-Garlic Butter Sauce",
+    "price": "$58.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
     "name": "Fettuccine",
-    "description": "House Made Fettuccine with Peas, Squash, Zucchini, Portobello Mushrooms and Roasted Bell Peppers in Roasted Garlic Cream Sauce with Basil Pesto"
+    "category": "MAIN COURSES",
+    "description": "House Made Fettuccine Pasta with Lemon Cream, Zucchini and Yellow Squash Ribbons, Oven Dried Tomatoes, Basil Pesto, and Gorgonzola",
+    "price": "$37.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.20.26-Dinner-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beignets",
+    "category": null,
+    "description": "served warm with Cinnamon Crème Anglaise and Coffee Ice Cream",
+    "price": "$13.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "S’mores Baked Alaska",
+    "category": null,
+    "description": "Caramelized Graham Crackers, S’mores Cookie, Hot Fudge, Marshmallow Fluff, Toasted Marshmallow Ice Cream, White Rum Flambé",
+    "price": "$16.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cinnamon Roll Cheesecake",
+    "category": null,
+    "description": "Snickerdoodle Crust, Maple Chantilly, Mini Cinnamon Roll, Cream Cheese Icing, and Maple Ice Cream",
+    "price": "$15.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cherry Tart",
+    "category": null,
+    "description": "Brown Butter Tart Crust, Cherry Filling, Cherry Kirsch Gastrique, Brown Sugar-Crème Fraîche Ice Cream",
+    "price": "$14.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chocolate Layer Cake",
+    "category": null,
+    "description": "Whipped Carmelia Ganache, Chocolate Liqueur, Malted Chocolate Italian Meringue, Malted Chocolate Nougat, Buttermilk-Vanilla Ice Cream",
+    "price": "$15.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Apple Shortcake",
+    "category": null,
+    "description": "Brown Butter Biscuit, Apple Pie Filling, Candied Pecans, Cinnamon Mascarpone Chantilly, Apple Butter Caramel, and Apple Butter Ice Cream Inniskillin Icewine Flight Vidal, Riesling, and Cabernet Franc 41",
+    "price": "$14.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Royal Oporto Ruby Port",
+    "category": "DESSERTS",
+    "description": "Broadbent 10 Yr Sercial Madeira 15 Broadbent 10 Yr Malmsey Madeira 15 Broadbent 10 Yr Verdelho Madeira 15",
+    "price": "$14.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Broadbent Fine Rich Sweet Madeira",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lustau East India Solera Reserva Sherry",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Revanche Cognac",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Remy Martin VSOP Cognac",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Remy Martin XO Cognac",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hennessy VS Cognac",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Courvoisier VS Cognac",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Courvoisier VSOP Cognac",
+    "category": "DESSERTS",
+    "description": "Château Les Justices 2022, Sauternes 14",
+    "price": "$20.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Inniskillin Vidal Icewine",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Inniskillin Riesling Icewine",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Inniskillin Cabernet Franc Icewine",
+    "category": "DESSERTS",
+    "description": "",
+    "price": "$27.00",
+    "sourceUrl": "https://charlottefigtree.com/wp-content/uploads/2026/10/9.30.26-Dessert-Menu.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]
