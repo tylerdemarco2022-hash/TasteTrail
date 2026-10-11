@@ -17,7 +17,9 @@ export function AuthProvider({ children }) {
     if (savedToken && savedProfile) {
       setToken(savedToken)
       try {
-        setProfile(JSON.parse(savedProfile))
+        const parsed = JSON.parse(savedProfile)
+        setProfile(parsed)
+        setUser({ id: parsed?.id, email: parsed?.email })
       } catch (e) {
         console.error('Failed to parse saved profile:', e)
         localStorage.removeItem('user_profile')
@@ -29,34 +31,35 @@ export function AuthProvider({ children }) {
   }, [])
 
   async function fetchCurrentUser(accessToken) {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 8000)
     try {
       const response = await fetch(`${API_BASE_URL}/auth/me`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
-        }
+        },
+        signal: controller.signal
       })
       
       if (response.ok) {
         const text = await response.text()
-        console.log("RAW FETCH RESPONSE:", text.slice(0, 200))
         let data
         try {
           data = JSON.parse(text)
         } catch (e) {
-          console.error("NOT JSON RESPONSE:", text.slice(0, 200))
+          console.error('Profile response was not JSON')
           throw e
         }
-        setUser(data.user)
+        setUser(data.user || { id: data.profile?.id, email: data.profile?.email })
         setProfile(data.profile)
-        localStorage.setItem('user_profile', JSON.stringify(data.profile))
-      } else {
-        // Token invalid, clear auth
+        if (data.profile) localStorage.setItem('user_profile', JSON.stringify(data.profile))
+      } else if (response.status === 401 || response.status === 403) {
         logout()
       }
     } catch (error) {
       console.error('Failed to fetch user:', error)
-      logout()
     } finally {
+      clearTimeout(timeoutId)
       setLoading(false)
     }
   }
@@ -93,6 +96,8 @@ export function AuthProvider({ children }) {
       }
       if (data.user) {
         setUser(data.user);
+      } else if (data.profile) {
+        setUser({ id: data.profile.id, email: data.profile.email });
       }
       if (data.profile) {
         setProfile(data.profile);

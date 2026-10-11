@@ -109,6 +109,16 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
         
         <div className="flex items-center gap-2">
           {onSearchClick && (
+            <button
+              type="button"
+              onClick={onSearchClick}
+              className="sm:hidden p-2 glass hover:bg-white/30 rounded-xl transition-all"
+              aria-label="Search"
+            >
+              <Search className="h-6 w-6 text-white" />
+            </button>
+          )}
+          {onSearchClick && (
             <div className="relative hidden sm:block">
               <input
                 type="text"

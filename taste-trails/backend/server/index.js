@@ -10,6 +10,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { discoverRestaurantURL } from '../services/urlDiscovery.js';
 import scrapeMenuAgent from '../scraper/menuScraperAgent.js';
+import { handleFindMenuItems } from '../../src/services/menuItemFinder.js';
+import { getNodeMenuCatalog } from '../../src/services/menuCatalogNode.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -121,19 +123,18 @@ app.get('/__debug_openai_check', (req, res) => {
   res.status(501).json({ error: 'AI disabled' });
 });
 
-// Proxy endpoint to main app's find-menu-items to avoid CORS from the frontend
-app.post('/api/find-menu-items-proxy', async (req, res) => {
+function respondWithMenuItems(req, res) {
   try {
-    const body = req.body || {}
-    // forward to main app on port 3000
-    const target = process.env.MAIN_APP_URL || 'http://localhost:3000'
-    // Axios removed. Replace with fetch or remove functionality if external call.
-    return res.status(resp.status || 200).json(resp.data)
+    const result = handleFindMenuItems(req.body || {}, getNodeMenuCatalog())
+    return res.status(result.status).json(result.body)
   } catch (e) {
-    console.error('Proxy find-menu-items error:', e && e.response ? (e.response.data || e.response.statusText) : (e.message || String(e)))
-    return res.status(500).json({ error: 'Proxy request failed', detail: e && e.response ? e.response.data : (e.message || String(e)) })
+    console.error('find-menu-items error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
   }
-})
+}
+
+app.post('/api/find-menu-items', respondWithMenuItems)
+app.post('/api/find-menu-items-proxy', respondWithMenuItems)
 // Example static route
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from TasteTrails backend!' });

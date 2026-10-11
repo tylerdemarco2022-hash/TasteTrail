@@ -5,6 +5,9 @@ import { API_BASE_URL } from '../config/api'
 import { LocationContext } from '../App'
 import Fuse from 'fuse.js'
 import { Lock } from 'lucide-react'
+import MenuFinderControls from './MenuFinderControls'
+import { findMenuItems, searchRestaurants } from '../services/menuItemFinder'
+import { getClientMenuCatalog } from '../services/menuCatalogClient'
 import {
   getActiveProfileId,
   getPrivateProfileForUser,
@@ -32,46 +35,6 @@ function buildLocalRestaurants() {
 }
 
 const LOCAL_RESTAURANTS = buildLocalRestaurants()
-
-// â”€â”€ Build a unique dish list from posts (post.dish + post.menu[]) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-function buildLocalDishes() {
-  const map = new Map()
-  for (const post of posts) {
-    // Signature dish from the post itself
-    if (post.dish) {
-      const key = post.dish.toLowerCase()
-      if (!map.has(key)) {
-        map.set(key, {
-          name: post.dish,
-          restaurant: post.restaurant,
-          restaurantId: post.restaurant_id,
-          image: post.image || null,
-          price: null,
-        })
-      }
-    }
-    // Menu items
-    if (Array.isArray(post.menu)) {
-      for (const item of post.menu) {
-        const itemName = item.name || ''
-        if (!itemName) continue
-        const key = itemName.toLowerCase()
-        if (!map.has(key)) {
-          map.set(key, {
-            name: itemName,
-            restaurant: post.restaurant,
-            restaurantId: post.restaurant_id,
-            image: post.image || null,
-            price: item.price || null,
-          })
-        }
-      }
-    }
-  }
-  return Array.from(map.values())
-}
-
-const LOCAL_DISHES = buildLocalDishes()
 
 // â”€â”€ Similarity scorer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function similarity(a, b) {
@@ -105,13 +68,7 @@ function searchLocal(q) {
 
   const restaurants = LOCAL_RESTAURANTS
     .map((r) => ({ ...r, _score: similarity(needle, r.name) }))
-    .filter((r) => r._score > 0.1)
-    .sort((a, b) => b._score - a._score)
-    .slice(0, 6)
-
-  const dishes = LOCAL_DISHES
-    .map((d) => ({ ...d, _score: similarity(needle, d.name) }))
-    .filter((d) => d._score > 0.12)
+    .filter((r) => r._score > 0.34)
     .sort((a, b) => b._score - a._score)
     .slice(0, 6)
 
@@ -133,11 +90,16 @@ function searchLocal(q) {
     }
   })()
 
-  return { restaurants, dishes, groups }
+  return { restaurants, groups }
 }
 
 // â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-export default function UserSearch({ onFollowChange, onOpenProfile }) {
+function selectedDietary(stored) {
+  if (!stored || typeof stored !== 'object') return []
+  return Object.entries(stored).filter(([, on]) => on).map(([key]) => key)
+}
+
+export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }) {
   const { profile } = useAuth()
   const activeProfileId = profile?.id || getActiveProfileId()
   const [searchQuery, setSearchQuery] = useState('')
@@ -150,7 +112,14 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
   const [privacyTick, setPrivacyTick] = useState(0)
   const [loading, setLoading] = useState(false)
   const [listFollowLoading, setListFollowLoading] = useState(null)
-  const { location: userLocation } = useContext(LocationContext)
+  const [dietary, setDietary] = useState(() => selectedDietary(loadUserScopedValue('taste-trails-dietary', {})))
+  const [maxPrice, setMaxPrice] = useState(null)
+  const [maxPriceLevel, setMaxPriceLevel] = useState(null)
+  const [maxDistanceMiles, setMaxDistanceMiles] = useState(null)
+  const [locating, setLocating] = useState(false)
+  const [locationNote, setLocationNote] = useState('Distance uses Charlotte until you share your location.')
+  const [searchNote, setSearchNote] = useState('')
+  const { location: userLocation, setLocation } = useContext(LocationContext)
 
   useEffect(() => {
     const stored = loadUserScopedValue('taste-trails-following', currentUser.following || [], activeProfileId)
@@ -210,15 +179,42 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
   // Main search effect
   useEffect(() => {
     const q = searchQuery.trim()
-    if (!q) {
+    const filtersActive = dietary.length > 0 || maxPrice != null || maxPriceLevel != null || maxDistanceMiles != null
+    if (!q && !filtersActive) {
       setAllResults({ restaurants: [], dishes: [], users: [], groups: [] })
+      setSearchNote('')
       return
     }
 
-    // Run local search immediately (no loading state needed â€” it's instant)
-    const local = searchLocal(q)
-    const users = fuzzySearchUsers(q)
-    setAllResults({ ...local, users })
+    const local = q ? searchLocal(q) : { restaurants: [], groups: [] }
+    const users = q ? fuzzySearchUsers(q) : []
+    const catalog = getClientMenuCatalog()
+    const menu = findMenuItems(catalog, {
+      q,
+      lat: userLocation?.latitude,
+      lng: userLocation?.longitude,
+      dietary,
+      maxPrice,
+      maxPriceLevel,
+      maxDistanceMiles,
+      limit: 12
+    })
+    const catalogRestaurants = searchRestaurants(catalog, q, {
+      lat: userLocation?.latitude,
+      lng: userLocation?.longitude,
+      maxDistanceMiles
+    })
+    const restaurants = []
+    const seenRestaurants = new Set()
+    for (const restaurant of [...catalogRestaurants, ...local.restaurants]) {
+      const key = String(restaurant?.name || '').toLowerCase()
+      if (!key || seenRestaurants.has(key)) continue
+      seenRestaurants.add(key)
+      restaurants.push(restaurant)
+      if (restaurants.length >= 6) break
+    }
+    setSearchNote(menu.message || '')
+    setAllResults({ ...local, restaurants, dishes: menu.items, users })
 
     // Optionally enhance with backend results
     const controller = new AbortController()
@@ -244,16 +240,18 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
             restaurants: apiRestaurants.length ? apiRestaurants : prev.restaurants,
             users: apiUsers.length ? apiUsers : prev.users,
           }))
+          setSearchNote('')
         }
-      } catch {
-        // Local results already shown â€” nothing to do
+      } catch (error) {
+        if (error?.name === 'AbortError') return
+        setSearchNote((current) => current || 'Showing saved menus on this device. The server could not be reached.')
       } finally {
         setLoading(false)
       }
     })()
 
     return () => controller.abort()
-  }, [searchQuery, allUsers])
+  }, [searchQuery, allUsers, dietary, maxPrice, maxPriceLevel, maxDistanceMiles, userLocation])
 
   const isFollowing = (userId, user = null) => {
     const targetId = String(userId || '')
@@ -328,14 +326,47 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
             autoFocus
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search restaurants, dishes, people, or groupsâ€¦"
+            placeholder="Search restaurants, dishes, people, or groups"
             className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent"
           />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">ðŸ”</div>
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">Search</div>
         </div>
+        <MenuFinderControls
+          dietary={dietary}
+          onToggleDietary={(key) => setDietary((current) => current.includes(key) ? current.filter((item) => item !== key) : [...current, key])}
+          maxPrice={maxPrice}
+          maxPriceLevel={maxPriceLevel}
+          onPriceChange={({ maxPrice: nextPrice, maxPriceLevel: nextLevel }) => {
+            setMaxPrice(nextPrice)
+            setMaxPriceLevel(nextLevel)
+          }}
+          maxDistanceMiles={maxDistanceMiles}
+          onDistanceChange={setMaxDistanceMiles}
+          onUseLocation={() => {
+            if (!navigator.geolocation) {
+              setLocationNote('This device does not share location. Results stay centered on Charlotte.')
+              return
+            }
+            setLocating(true)
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                setLocation?.({ latitude: pos.coords.latitude, longitude: pos.coords.longitude })
+                setLocationNote('Using your location for distance.')
+                setLocating(false)
+              },
+              () => {
+                setLocationNote('Location permission was denied. Results stay centered on Charlotte.')
+                setLocating(false)
+              },
+              { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+            )
+          }}
+          locating={locating}
+          locationNote={locationNote}
+        />
       </div>
 
-      {searchQuery.trim() === '' ? (
+      {searchQuery.trim() === '' && dietary.length === 0 && maxPrice == null && maxPriceLevel == null && maxDistanceMiles == null ? (
         <div className="bg-white rounded-xl p-6 shadow-sm text-center text-gray-400 text-sm">
           Search for restaurants, dishes, people, or groups
         </div>
@@ -344,25 +375,25 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
           {/* â”€â”€ Restaurants â”€â”€ */}
           {allResults.restaurants.length > 0 && (
             <div className="mb-4">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">ðŸ½ï¸ Restaurants</h3>
+              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">Restaurants</h3>
               <div className="space-y-2">
                 {allResults.restaurants.map((r) => (
                   <div
                     key={r.id}
                     className="bg-white rounded-xl shadow-sm p-3 cursor-pointer hover:shadow-md hover:bg-amber-50 transition-all flex items-center gap-3"
-                    onClick={() => window.location.href = `/#/restaurant/${r.id}`}
+                    onClick={() => onOpenMenu?.({ restaurant: r.name, name: r.name, dish: r.dish, location: r.location })}
                   >
                     <div className="w-14 h-14 rounded-lg overflow-hidden bg-amber-100 shrink-0 flex items-center justify-center">
                       {r.image
                         ? <img src={r.image} alt="" className="w-full h-full object-cover" />
-                        : <span className="text-2xl">ðŸ½ï¸</span>
+                        : <span className="text-sm font-semibold text-amber-700">Menu</span>
                       }
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold text-gray-900 truncate">{r.name}</div>
                       {r.location && <div className="text-xs text-gray-500">{r.location}</div>}
                       {r.rating > 0 && (
-                        <div className="text-xs text-gray-500">â­ {r.rating}{r.reviewCount > 0 ? ` Â· ${r.reviewCount} reviews` : ''}</div>
+                        <div className="text-xs text-gray-500">{r.rating}{r.reviewCount > 0 ? ` · ${r.reviewCount} reviews` : ''}</div>
                       )}
                     </div>
                   </div>
@@ -374,29 +405,35 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
           {/* â”€â”€ Dishes â”€â”€ */}
           {allResults.dishes.length > 0 && (
             <div className="mb-4">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">ðŸ¥˜ Dishes</h3>
+              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">Dishes</h3>
               <div className="space-y-2">
                 {allResults.dishes.map((d, idx) => (
                   <div
                     key={`${d.name}-${idx}`}
                     className="bg-white rounded-xl shadow-sm p-3 cursor-pointer hover:shadow-md hover:bg-amber-50 transition-all flex items-center gap-3"
-                    onClick={() => window.location.href = `/#/restaurant/${d.restaurantId}`}
+                    onClick={() => onOpenMenu?.({
+                      restaurant: d.restaurant?.name || d.restaurant,
+                      name: d.restaurant?.name || d.restaurant,
+                      dish: d.name,
+                      location: d.restaurant?.address || d.address || ''
+                    })}
                   >
                     <div className="w-14 h-14 rounded-lg overflow-hidden bg-amber-100 shrink-0 flex items-center justify-center">
-                      {d.image
-                        ? <img src={d.image} alt="" className="w-full h-full object-cover" />
-                        : <span className="text-2xl">ðŸ´</span>
-                      }
+                      <span className="text-sm font-semibold text-amber-700">Dish</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold text-gray-900 truncate">{d.name}</div>
-                      {d.restaurant && <div className="text-xs text-gray-500">at {d.restaurant}</div>}
-                      {d.price != null && (
-                        <div className="text-xs font-semibold text-amber-500">
-                          {typeof d.price === 'number' && d.price <= 10
-                            ? ['', '$6.99', '$9.99', '$14.99', '$19.99', '$29.99'][d.price] || `$${d.price}`
-                            : d.price}
-                        </div>
+                      {(d.restaurant?.name || d.restaurant) && (
+                        <div className="text-xs text-gray-500">at {d.restaurant?.name || d.restaurant}</div>
+                      )}
+                      <div className="text-xs text-amber-600 font-semibold">
+                        {[
+                          d.priceLabel,
+                          d.distanceMiles != null ? `${d.distanceMiles} mi${d.approximateLocation ? ' approx' : ''}` : null
+                        ].filter(Boolean).join(' · ') || 'Price not listed'}
+                      </div>
+                      {Array.isArray(d.dietaryLabels) && d.dietaryLabels.length > 0 && (
+                        <div className="text-xs text-gray-400 truncate">{d.dietaryLabels.slice(0, 3).map((tag) => tag.label).join(' · ')}</div>
                       )}
                     </div>
                   </div>
@@ -408,7 +445,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
           {/* â”€â”€ People â”€â”€ */}
           {allResults.users.length > 0 && (
             <div className="mb-4">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">ðŸ‘¤ People</h3>
+              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">People</h3>
               <div className="space-y-2">
                 {allResults.users.map((user) => {
                   const privateAccount = isUserPrivate(user)
@@ -485,7 +522,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
           {/* â”€â”€ Groups â”€â”€ */}
           {allResults.groups.length > 0 && (
             <div className="mb-4">
-              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">ðŸ‘¥ Groups</h3>
+              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">Groups</h3>
               <div className="space-y-2">
                 {allResults.groups.map((g) => (
                   <div
@@ -495,7 +532,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
                   >
                     <div className="font-semibold text-gray-900 text-sm">{g.name}</div>
                     <div className="text-xs text-gray-500">
-                      {g.desc ? `${g.desc} Â· ` : ''}{g.memberCount} member{g.memberCount !== 1 ? 's' : ''}
+                      {g.desc ? `${g.desc} · ` : ''}{g.memberCount} member{g.memberCount !== 1 ? 's' : ''}
                     </div>
                   </div>
                 ))}
@@ -505,9 +542,12 @@ export default function UserSearch({ onFollowChange, onOpenProfile }) {
 
           {/* No results */}
           {!hasAnyResults && !loading && (
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center text-gray-400 text-sm">
-              No results for "{searchQuery}" â€” try a different search
+            <div className="bg-white rounded-xl p-6 shadow-sm text-center text-gray-500 text-sm">
+              {searchNote || `No results for "${searchQuery}"`}
             </div>
+          )}
+          {searchNote && hasAnyResults && (
+            <p className="text-xs text-gray-500 px-1 mb-3">{searchNote}</p>
           )}
 
           {/* Following count footer */}

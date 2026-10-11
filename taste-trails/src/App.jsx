@@ -322,7 +322,14 @@ function App() {
                       Close
                     </button>
                   </div>
-                  <UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} />
+                  <UserSearch
+                    onFollowChange={() => {}}
+                    onOpenProfile={handleOpenProfile}
+                    onOpenMenu={(post) => {
+                      setShowSearch(false)
+                      openMenu(post)
+                    }}
+                  />
                 </div>
               </div>
             </div>

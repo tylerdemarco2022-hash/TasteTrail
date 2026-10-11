@@ -90,6 +90,7 @@ const filterBlockedRestaurants = (list = []) =>
 export default function Feed({ onOpen }) {
   const [pos, setPos] = useState({ lat: 35.2271, lon: -80.8431 })
   const [nearby, setNearby] = useState([])
+  const [nearbyError, setNearbyError] = useState('')
   const [showAIRecommendation, setShowAIRecommendation] = useState(false)
   const [aiPick, setAiPick] = useState(null)
   const [locationInput, setLocationInput] = useState('')
@@ -420,6 +421,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
     }
 
     try {
+      setNearbyError('')
       // Show loading state
       setNearby([{ name: 'Loading nearby restaurants...', loading: true }])
 
@@ -488,7 +490,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       localStorage.setItem('nearby-yelp-restaurants', JSON.stringify(filtered))
     } catch (e) {
       console.error('Failed to fetch nearby restaurants from Yelp', e)
-      alert('Error: ' + e.message)
+      setNearbyError('Nearby restaurants are unavailable right now. Search still works on saved menus.')
       setNearby([])
     }
   }
@@ -689,6 +691,9 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       )}
 
       {!pos && <div className="glass rounded-2xl p-8 text-center shadow-lg"><div className="text-4xl mb-3">📍</div><div className="text-gray-600 font-medium">Determining location…</div></div>}
+      {pos && nearbyError && (
+        <div className="glass rounded-2xl p-6 text-center shadow-lg text-sm text-gray-600">{nearbyError}</div>
+      )}
       {pos && (
         <div className="grid grid-cols-2 gap-4">
           {nearby.map((r, idx) => (
