@@ -1,177 +1,394 @@
 [
   {
-    "category": "Appetizers & Starters",
-    "name": "Crab Dip",
-    "description": "Jumbo lump crab, cream cheese, Old Bay seasoning, served with crackers"
+    "name": "Dynamite Rock Shrimp",
+    "category": "Small Plates",
+    "description": "Creamy Honey Glaze, Sesame",
+    "price": "$23.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Shrimp and Grits Cups",
-    "description": "Crispy shrimp, creamy grits, andouille sausage gravy"
+    "name": "Ahi Poke Nachos",
+    "category": "Small Plates",
+    "description": "Tuna, Wontons, Pickled Red Onions, Shaved Jalapeño, Scallions, Spicy Aioli",
+    "price": "$22.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Baked Clams",
-    "description": "littleneck clams, butter, garlic, breadcrumbs"
+    "name": "American Wagyu Short Rib Steam Buns",
+    "category": "Small Plates",
+    "description": "Cucumber Sunomono, Apple Ginger Glaze, Cilantro",
+    "price": "$21.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Calamari Fritti",
-    "description": "Tender calamari, marinara sauce, lemon"
+    "name": "Wagyu Beef Carpaccio",
+    "category": "Small Plates",
+    "description": "Parmesan Herb Aioli, Fresh Lemon, Smoked Olive Oil, Fresh Truffle",
+    "price": "$23.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Bruschetta",
-    "description": "Toasted bread, fresh tomatoes, basil, garlic, olive oil"
+    "name": "Lobster Dumplings",
+    "category": "Small Plates",
+    "description": "Cream Cheese, Scallion, Sweet Chili",
+    "price": "$23.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Mussels Steamed",
-    "description": "White wine, garlic, fresh herbs, crusty bread"
+    "name": "Edamame",
+    "category": "Small Plates",
+    "description": "Sea Salt, Served Warm",
+    "price": "$12.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Lobster Quesadilla",
-    "description": "Maine lobster, cheese, peppers, served with salsa and sour cream"
+    "name": "Spicy Tuna Crispy Rice",
+    "category": "Small Plates",
+    "description": "Seasoned Rice, Sriracha, Soy, Black Tobiko, Spicy Aioli, Unagi Sauce",
+    "price": "$22.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizers & Starters",
-    "name": "Tempura Vegetables",
-    "description": "Seasonal vegetables in light batter, sweet chili sauce"
+    "name": "Crab Cake",
+    "category": "Small Plates",
+    "description": "Habanero Lime Aioli, Charred Pearl Onions, Shredded Beets",
+    "price": "$23.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "She-Crab Soup",
-    "description": "Fresh crab, sherry cream, roe garnish"
+    "name": "Fahrenheit House Salad",
+    "category": "Salads",
+    "description": "Baby Greens, Celery, Radish, Miso Vinaigrette",
+    "price": "$16.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Lobster Bisque",
-    "description": "Maine lobster, cream, sherry, cognac"
-  },
-  {
-    "category": "Soups & Salads",
-    "name": "Tomato Basil Soup",
-    "description": "Fresh tomatoes, basil, cream, grilled cheese croutons"
-  },
-  {
-    "category": "Soups & Salads",
     "name": "Caesar Salad",
-    "description": "Romaine, Parmesan, house-made croutons, anchovy caesar dressing"
+    "category": "Salads",
+    "description": "Baby Romaine, Traditional Caesar Dressing, Parmesan, Crouton",
+    "price": "$18.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Wedge Salad",
-    "description": "Iceberg lettuce, blue cheese crumbles, crispy bacon, tomatoes"
+    "name": "Burrata Prosciutto Salad",
+    "category": "Salads",
+    "description": "Arugula, Blueberries, Strawberries, Almonds, Honey, Guava Balsamic Vinaigrette",
+    "price": "$18.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Mixed Green Salad",
-    "description": "Seasonal greens, beets, goat cheese, candied walnuts, vinaigrette"
+    "name": "Margherita",
+    "category": "Pizza",
+    "description": "Fresh Mozzarella, Roasted Tomato, Garlic Oil, Basil, Red Sauce",
+    "price": "$30.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups & Salads",
-    "name": "Grilled Shrimp Salad",
-    "description": "Chargrilled shrimp, mixed greens, avocado, tomatoes, lime vinaigrette"
+    "name": "Wild Mushroom",
+    "category": "Pizza",
+    "description": "Exotic Mushrooms, Caramelized Onions, Goat Cheese, Confit Garlic, Rosemary",
+    "price": "$32.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Entrées",
-    "name": "Pan-Seared Diver Scallops",
-    "description": "Buttered asparagus, risotto, brown butter sauce"
+    "name": "Pepperoni & Pancetta",
+    "category": "Pizza",
+    "description": "Tomato, Ricotta, Basil",
+    "price": "$35.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Entrées",
-    "name": "Grilled Atlantic Salmon",
-    "description": "Roasted potatoes, seasonal vegetables, lemon beurre blanc"
-  },
-  {
-    "category": "Entrées",
-    "name": "Lobster Tail",
-    "description": "Broiled or grilled, served with drawn butter, roasted potatoes"
-  },
-  {
-    "category": "Entrées",
-    "name": "Filet Mignon",
-    "description": "Center-cut beef, roasted garlic potatoes, seasonal vegetables, red wine reduction"
-  },
-  {
-    "category": "Entrées",
-    "name": "Ribeye Steak",
-    "description": "16 oz bone-in, hand-cut fries, compound butter"
-  },
-  {
-    "category": "Entrées",
-    "name": "Duck Breast",
-    "description": "Cherry gastrique, cauliflower purée, crispy potatoes"
-  },
-  {
-    "category": "Entrées",
-    "name": "Herb-Roasted Chicken",
-    "description": "Lemon jus, seasonal vegetables, mashed potatoes"
-  },
-  {
-    "category": "Entrées",
-    "name": "Surf and Turf",
-    "description": "Filet mignon and lobster tail, roasted vegetables, béarnaise"
-  },
-  {
-    "category": "Entrées",
-    "name": "Seafood Pasta",
-    "description": "Shrimp, scallops, clams, mussels, white wine sauce, linguine"
-  },
-  {
-    "category": "Entrées",
-    "name": "Braised Short Ribs",
-    "description": "Falls off the bone, seasonal vegetables, creamy polenta"
-  },
-  {
+    "name": "Tokyo Street Corn",
     "category": "Sides",
-    "name": "Mashed Potatoes",
-    "description": "Creamy butter and cream"
+    "description": "Charred Corn, Spicy Aioli, Parmesan Cheese, Scallions",
+    "price": "$16.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Loaded Baked Potato",
     "category": "Sides",
-    "name": "Roasted Asparagus",
-    "description": "Garlic and parmesan"
+    "description": "Cheddar Cheese, Sour Cream, Whipped Butter, Bacon, Chives",
+    "price": "$16.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Roasted Truffle Wild Mushrooms",
     "category": "Sides",
-    "name": "Hand-Cut Fries",
-    "description": "Sea salt seasoning"
+    "description": "Fresh Truffle, Olive Oil, Butter, Thyme",
+    "price": "$14.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Truffle Fries",
     "category": "Sides",
-    "name": "Seasonal Vegetables",
-    "description": "Fresh market selection"
+    "description": "Fresh Truffle, Herbs, Truffle Aioli, Parmesan",
+    "price": "$18.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Chocolate Lava Cake",
-    "description": "Warm flourless chocolate cake, vanilla ice cream, raspberry coulis"
+    "name": "Chicken Indonesian Fried Rice",
+    "category": "Sides",
+    "description": "Bell Peppers, Edamame, Scallions, Fried Egg",
+    "price": "$18.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Crème Brûlée",
-    "description": "Vanilla bean custard, caramelized sugar"
+    "name": "Yukon Gold Mashed Potatoes",
+    "category": "Sides",
+    "description": "Buttermilk, Herbs",
+    "price": "$16.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_ManiMenu2_091225.png",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "New York Cheesecake",
-    "description": "Graham cracker crust, berry compote"
+    "name": "Bar Bites",
+    "category": "Bar Bites",
+    "description": "One cocktail or mocktail, one sushi roll, and one side. Monday–Thursday 5pm–7pm and Sunday 5pm–9pm.",
+    "price": "$30.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Tiramisu",
-    "description": "Layers of espresso-soaked ladyfingers, mascarpone cream"
+    "name": "Aperol Spritz",
+    "category": "Bar Bites",
+    "description": "Aperol, Prosecco, Splash Of Soda, Orange",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Panna Cotta",
-    "description": "Silky Italian custard, seasonal berries"
+    "name": "Pineapple Paloma",
+    "category": "Bar Bites",
+    "description": "Cazadores Tequila, Pineapple, Grapefruit Soda",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Watermelon Margarita",
+    "category": "Bar Bites",
+    "description": "Cazadores Tequila, Watermelon, Lime",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cucumber Cooler",
+    "category": "Bar Bites",
+    "description": "Vodka, Cucumber, Lime, Mint",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lemon Drop Martini",
+    "category": "Bar Bites",
+    "description": "Vodka, Fresh Lemon, Simple Syrup",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Enhance Your Cocktail",
+    "category": "Bar Bites",
+    "description": "Upgrade With Espolon Tequila or Grey Goose Vodka",
+    "price": "$5.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Strawberry Cucumber Fizz",
+    "category": "Bar Bites",
+    "description": "Strawberry Purée, Cucumber, Lemon, Soda",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tropical Cooler",
+    "category": "Bar Bites",
+    "description": "Pineapple, Coconut, Lime",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "California Roll",
+    "category": "Bar Bites",
+    "description": "Crab, Avocado, Cucumber",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Spicy Tuna Roll",
+    "category": "Bar Bites",
+    "description": "Spicy Tuna, Avocado, Cucumber",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Veggie Roll",
+    "category": "Bar Bites",
+    "description": "Cucumber, Avocado, Asparagus",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tootsie Roll",
+    "category": "Bar Bites",
+    "description": "Crab, Avocado, Cucumber, Tempura Flakes, Sweet Soy",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hot Summer Roll",
+    "category": "Bar Bites",
+    "description": "Shrimp Tempura, Cream Cheese, Cucumber, Spicy Aioli, Unagi Sauce",
+    "price": "$10.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "The Icon Roll",
+    "category": "Bar Bites",
+    "description": "Lobster, Avocado, Sweet Thai Chili Aioli, Red Tobiko",
+    "price": "$10.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Classic French Fries",
+    "category": "Bar Bites",
+    "description": "Served with Ketchup",
+    "price": null,
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Japanese Fried Chicken Karaage",
+    "category": "Bar Bites",
+    "description": "Tonkatsu Aioli, Fresh Lemon",
+    "price": "$5.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wasabi Potato Croquette",
+    "category": "Bar Bites",
+    "description": "Sesame-Ginger Vegan Aioli",
+    "price": "$5.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_BarBites_051426-scaled.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Banana Pudding Sundae",
     "category": "Desserts",
-    "name": "Bread Pudding",
-    "description": "Bourbon sauce, vanilla ice cream"
+    "description": "Banana Diplomat, Brûléed Banana, Brown Butter Vanilla Wafer, Bourbon Butterscotch, Miso Vanilla Bean Gelato, Salted Pecan",
+    "price": "$18.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Coconut Chocolate Pot de Creme",
+    "category": "Desserts",
+    "description": "Dark Chocolate, Toasted Coconut, White Miso Caramel, Coconut Chantilly, Cocoa Nib",
+    "price": "$16.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Coconut Mango Sticky Rice",
+    "category": "Desserts",
+    "description": "Coconut Jasmine Rice Pudding, Fresh Mango, Papaya, Makrut Lime, Crispy Coconut Tuile",
+    "price": "$16.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pumpkin Spice Creme Brulee",
+    "category": "Desserts",
+    "description": "Five-Spice Whip, Brown Butter Cookie",
+    "price": "$18.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Soft Launch",
+    "category": "After Dinner Drinks",
+    "description": "Vodka, Disaronno Amaretto, Pistachio Bourbon Cream Liqueur, Vanilla, Oat Milk",
+    "price": "$22.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Late Checkout",
+    "category": "After Dinner Drinks",
+    "description": "Cazadores Reposado Tequila, Licor 43, Averna Amaro, Espresso, Vanilla Hojicha Syrup, Cocoa Bitters",
+    "price": "$22.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cuffing Season",
+    "category": "After Dinner Drinks",
+    "description": "Vanilla Vodka, Licor 43, RumChata, Pear Nectar, Pineapple, Vanilla, Heavy Cream",
+    "price": "$22.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "She's All Zest",
+    "category": "After Dinner Drinks",
+    "description": "Vanilla Vodka, Limoncello, Lemon, Vanilla, Egg White",
+    "price": "$22.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cockburn's Port, Tails of The Unexpected White Heights Port",
+    "category": "Dessert Wines",
+    "description": "Portugal, 4 oz",
+    "price": "$14.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cockburn's Port, Tails of The Unexpected Ruby Soho Port",
+    "category": "Dessert Wines",
+    "description": "Portugal, 4 oz",
+    "price": "$14.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Childress Vineyards, Starbound Blueberry Dessert Wine",
+    "category": "Dessert Wines",
+    "description": "North Carolina, 3 oz",
+    "price": "$20.00",
+    "sourceUrl": "https://fahrenheitrestaurants.com/wp-content/uploads/CLT_Desserts_092926_NO-FOSTERS.webp",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

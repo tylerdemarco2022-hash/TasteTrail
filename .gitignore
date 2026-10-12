@@ -1,6 +1,11 @@
 .env
+taste-trails/data/menu-cache/
+taste-trails/backend/data/social.json
 node_modules/
 dist/
 .DS_Store
 .vscode/
 .idea/
+ios/App/Pods/
+ios/DerivedData/
+**/DerivedData/

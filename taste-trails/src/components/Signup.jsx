@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { UserPlus, User, Lock, Mail, AlertCircle, CheckCircle } from 'lucide-react'
+import PrivacyPolicy from './PrivacyPolicy'
 
 export default function Signup({ onSignup, onSwitchToLogin }) {
   const [name, setName] = useState('')
@@ -8,6 +9,7 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showPrivacy, setShowPrivacy] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -202,7 +204,11 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
             Log In
           </button>
         </div>
+        <div className="mt-4 text-center text-sm text-gray-500">
+          <button type="button" onClick={() => setShowPrivacy(true)} className="underline">Privacy Policy</button>
+        </div>
       </div>
+      {showPrivacy && <PrivacyPolicy onClose={() => setShowPrivacy(false)} />}
     </div>
   )
 }

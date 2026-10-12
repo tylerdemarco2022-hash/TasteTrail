@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { X, User, Shield, Database, LogOut, Trash2, Save, Eye, EyeOff, Bell, Leaf, Palette, Info, Camera } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import NotificationSettings from './NotificationSettings'
+import PrivacyPolicy from './PrivacyPolicy'
+import TermsOfUse from './TermsOfUse'
 import { API_BASE_URL } from '../config/api'
 import {
   applyThemeToDocument,
@@ -49,6 +51,8 @@ export default function Settings({ onClose }) {
   const { profile, logout, refreshProfile } = useAuth()
   const profileId = profile?.id || getActiveProfileId()
   const [activeTab, setActiveTab] = useState('account')
+  const [showPrivacy, setShowPrivacy] = useState(false)
+  const [showTerms, setShowTerms] = useState(false)
   const avatarInputRef = useRef(null)
 
   // Account
@@ -177,6 +181,16 @@ export default function Settings({ onClose }) {
       await apiCall('DELETE', '/auth/account')
     } catch (err) {
       console.warn('Delete account API error (clearing data and logging out anyway):', err.message)
+      alert('The server could not delete the account. Data on this device will still be removed. Try again when you are online if the account remains.')
+    }
+    try {
+      const rawPosts = localStorage.getItem('community-posts')
+      const parsedPosts = rawPosts ? JSON.parse(rawPosts) : []
+      if (Array.isArray(parsedPosts)) {
+        localStorage.setItem('community-posts', JSON.stringify(parsedPosts.filter((post) => post?.userId !== profileId && post?.user_id !== profileId)))
+      }
+    } catch (err) {
+      console.warn('Could not clear community posts for deleted account', err)
     }
     // Wipe all local data before logout
     const keysToClear = [
@@ -562,7 +576,7 @@ export default function Settings({ onClose }) {
                       ))}
                     </div>
                     <p className="text-xs text-gray-400 mt-2">
-                      Dark mode coming soon — your preference is saved for when it launches
+                      Dark mode changes the page background. Individual cards still use their own colors.
                     </p>
                   </div>
 
@@ -591,7 +605,7 @@ export default function Settings({ onClose }) {
                         />
                       ))}
                     </div>
-                    <p className="text-xs text-gray-400 mt-2">Full accent theming coming soon</p>
+                    <p className="text-xs text-gray-400 mt-2">Accent color is saved on this device.</p>
                   </div>
                 </div>
               </div>
@@ -613,11 +627,9 @@ export default function Settings({ onClose }) {
 
                   <div className="space-y-2">
                     {[
-                      { label: '📋 Terms of Service',  action: () => alert('Terms of Service — coming soon')  },
-                      { label: '🔒 Privacy Policy',     action: () => alert('Privacy Policy — coming soon')    },
-                      { label: '🐛 Report a Bug',       action: () => alert('Bug reports — coming soon')       },
-                      { label: '⭐ Rate the App',       action: () => alert('Thanks for your support!')        },
-                      { label: '💬 Send Feedback',      action: () => alert('Feedback form — coming soon')     },
+                      { label: 'Terms of Use', action: () => setShowTerms(true) },
+                      { label: 'Privacy Policy', action: () => setShowPrivacy(true) },
+                      { label: 'Delete Account', action: () => { setActiveTab('account') } },
                     ].map(({ label, action }) => (
                       <button
                         key={label}
@@ -639,6 +651,8 @@ export default function Settings({ onClose }) {
           </div>
         </div>
       </div>
+      {showPrivacy && <PrivacyPolicy onClose={() => setShowPrivacy(false)} />}
+      {showTerms && <TermsOfUse onClose={() => setShowTerms(false)} />}
     </div>
   )
 }

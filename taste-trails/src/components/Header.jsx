@@ -64,7 +64,10 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
                     console.error("NOT JSON RESPONSE:", text.slice(0, 200))
                     throw e
                   }
-                  count += (Array.isArray(followRequests) ? followRequests.length : 0)
+                  const requestList = Array.isArray(followRequests)
+                    ? followRequests
+                    : (followRequests?.requests || followRequests?.followRequests || [])
+                  count += requestList.length
                 }
               }
             } catch (e) {
@@ -108,6 +111,16 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
         </button>
         
         <div className="flex items-center gap-2">
+          {onSearchClick && (
+            <button
+              type="button"
+              onClick={onSearchClick}
+              className="sm:hidden p-2 glass hover:bg-white/30 rounded-xl transition-all"
+              aria-label="Search"
+            >
+              <Search className="h-6 w-6 text-white" />
+            </button>
+          )}
           {onSearchClick && (
             <div className="relative hidden sm:block">
               <input

@@ -6,7 +6,7 @@ import express from 'express';
 import cors from 'cors';
 import menuRoutes from '../backend/server/routes/menu.js';
 import nearbyRoutes from '../backend/server/routes/nearby.js';
-import followRequestsRoutes from '../backend/server/routes/followRequests.js';
+import socialRoutes from './routes/social.js';
 import authRoutes from './routes/auth.js';
 import userPrefsRoutes from './routes/userPrefs.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
@@ -20,6 +20,7 @@ import {
 } from '../backend/services/menuQuality.js';
 import path from 'path';
 import dotenv from 'dotenv';
+import { handleLiveFindMenuItems, handleLiveSearchDishes, handleRestaurantMenu } from '../src/services/liveMenu.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -96,7 +97,7 @@ app.use((req, res, next) => {
 // Register menu API routes
 app.use('/api', menuRoutes);
 app.use('/api', nearbyRoutes);
-app.use('/api', followRequestsRoutes);
+app.use('/api', socialRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 app.use("/api", userPrefsRoutes);
@@ -152,20 +153,57 @@ app.get('/__debug_openai_check', async (req, res) => {
   return res.json({ ai_disabled: true });
 });
 
-// Proxy endpoint to main app's find-menu-items to avoid CORS from the frontend
-app.post('/api/find-menu-items-proxy', async (req, res) => {
+async function respondWithMenuItems(req, res) {
   try {
-    const body = req.body || {}
-    // forward to main app on port 3000
-    const target = process.env.MAIN_APP_URL || 'http://localhost:3000'
-    const axios = await import('axios').then(m => m.default || m)
-    const resp = await axios.post(`${target}/api/find-menu-items`, body, { timeout: 120000 })
-    return res.status(resp.status || 200).json(resp.data)
+    const result = await handleLiveFindMenuItems(req.body || {})
+    return res.status(result.status).json(result.body)
   } catch (e) {
-    console.error('Proxy find-menu-items error:', e && e.response ? (e.response.data || e.response.statusText) : (e.message || String(e)))
-    return res.status(500).json({ error: 'Proxy request failed', detail: e && e.response ? e.response.data : (e.message || String(e)) })
+    console.error('find-menu-items error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+}
+
+app.get('/api/place-photo', async (req, res) => {
+  const name = String(req.query.name || '')
+  const key = process.env.GOOGLE_PLACES_API_KEY
+  if (!key || !/^places\/[^/?#]+\/photos\/[^/?#]+$/.test(name)) {
+    return res.status(404).end()
+  }
+  try {
+    const response = await fetch(`https://places.googleapis.com/v1/${name}/media?maxHeightPx=480&skipHttpRedirect=true`, {
+      headers: { 'X-Goog-Api-Key': key }
+    })
+    if (!response.ok) return res.status(404).end()
+    const payload = await response.json()
+    if (!payload?.photoUri) return res.status(404).end()
+    return res.redirect(payload.photoUri)
+  } catch {
+    return res.status(404).end()
   }
 })
+
+app.get('/api/restaurant-menu', async (req, res) => {
+  try {
+    const result = await handleRestaurantMenu(req.query || {})
+    return res.status(result.status).json(result.body)
+  } catch (e) {
+    console.error('restaurant-menu error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+})
+
+app.get('/api/search-dishes', async (req, res) => {
+  try {
+    const result = await handleLiveSearchDishes(req.query || {})
+    return res.status(result.status).json(result.body)
+  } catch (e) {
+    console.error('search-dishes error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+})
+
+app.post('/api/find-menu-items', respondWithMenuItems)
+app.post('/api/find-menu-items-proxy', respondWithMenuItems)
 // Example static route
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from TasteTrails backend!' });
