@@ -25,10 +25,14 @@ export default function PrivacyPolicy({ onClose }) {
             <p>Dietary choices, theme, and notification settings are saved on this device and used to filter or label menu items. Dietary labels are estimates from menu text, not a guarantee from the kitchen.</p>
           </div>
           <div>
+            <h3 className="font-semibold text-gray-900">Social</h3>
+            <p>Follows, follow requests, blocks, and reports are stored with your account. Posts, ratings, lists, and activity you add are stored with your account and shown according to your public or private setting. On a private account, only approved followers can see that content and your follower lists. Other people see your name and photo, with a note that the account is private. Blocking hides both people from each other’s search and stops follow requests. Deleting your account removes these records on the server.</p>
+          </div>
+          <div>
             <h3 className="font-semibold text-gray-900">What we don’t do</h3>
             <p>TasteTrails does not sell personal information and does not use advertising tracking. The App Store listing’s privacy policy URL should point at the public copy of this policy once you host it.</p>
           </div>
-          <p className="text-xs text-gray-500">Last updated October 11, 2026.</p>
+          <p className="text-xs text-gray-500">Last updated October 12, 2026.</p>
         </div>
       </div>
     </div>

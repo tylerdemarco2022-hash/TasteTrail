@@ -2,6 +2,7 @@ import express from "express";
 import crypto from "crypto";
 import { supabase } from "../../backend/supabase.js";
 import { readJSON, writeJSON } from "../../backend/utils/localDB.js";
+import { allocateUsername, getSocialGraph, usernameFor } from "../../src/services/socialGraph.js";
 
 const router = express.Router();
 const LOCAL_SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
@@ -130,6 +131,7 @@ function toPublicProfile(record, fallbackEmail = "") {
     role: record?.role || "user",
     is_private: Boolean(record?.is_private),
     user_code: record?.user_code || null,
+    username: usernameFor(record),
     created_at: record?.created_at || null,
     updated_at: record?.updated_at || null
   };
@@ -319,13 +321,16 @@ function createLocalUser(email, password, name) {
   }
 
   const now = new Date().toISOString();
+  const userCode = generateUserCode(users);
+  const displayName = name?.trim() || normalizedEmail.split("@")[0];
   const newUser = {
     id: crypto.randomUUID(),
     email: normalizedEmail,
-    name: name?.trim() || normalizedEmail.split("@")[0],
+    name: displayName,
+    username: allocateUsername(users, displayName, userCode),
     role: "user",
     is_private: false,
-    user_code: generateUserCode(users),
+    user_code: userCode,
     passwordHash: hashPassword(password),
     created_at: now,
     updated_at: now
@@ -785,6 +790,8 @@ router.delete("/account", async (req, res) => {
     const filtered = users.filter((u) => u.id !== auth.localUser.id);
     if (filtered.length === users.length) return sendError(res, 404, "User not found");
     saveLocalUsers(filtered);
+    getSocialGraph().purge(auth.localUser.id);
+    if (auth.token) localSessions.delete(auth.token);
 
     return res.json({ success: true, message: "Account deleted" });
   } catch (error) {

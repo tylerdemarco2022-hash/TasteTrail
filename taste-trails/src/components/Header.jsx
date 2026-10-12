@@ -64,7 +64,10 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
                     console.error("NOT JSON RESPONSE:", text.slice(0, 200))
                     throw e
                   }
-                  count += (Array.isArray(followRequests) ? followRequests.length : 0)
+                  const requestList = Array.isArray(followRequests)
+                    ? followRequests
+                    : (followRequests?.requests || followRequests?.followRequests || [])
+                  count += requestList.length
                 }
               }
             } catch (e) {

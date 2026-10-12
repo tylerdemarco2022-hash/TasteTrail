@@ -6,7 +6,7 @@ import express from 'express';
 import cors from 'cors';
 import menuRoutes from '../backend/server/routes/menu.js';
 import nearbyRoutes from '../backend/server/routes/nearby.js';
-import followRequestsRoutes from '../backend/server/routes/followRequests.js';
+import socialRoutes from './routes/social.js';
 import authRoutes from './routes/auth.js';
 import userPrefsRoutes from './routes/userPrefs.js';
 import { resolveMenuSource } from './menu_source_resolver.js';
@@ -97,7 +97,7 @@ app.use((req, res, next) => {
 // Register menu API routes
 app.use('/api', menuRoutes);
 app.use('/api', nearbyRoutes);
-app.use('/api', followRequestsRoutes);
+app.use('/api', socialRoutes);
 console.log("REGISTERING /auth ROUTES");
 app.use("/auth", authRoutes);
 app.use("/api", userPrefsRoutes);

@@ -19,7 +19,7 @@ export default function Notifications() {
   }, [])
   async function loadFollowRequests() {
     try {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem('access_token') || localStorage.getItem('token')
       if (!token) {
         setLoadingRequests(false)
         return
@@ -92,7 +92,7 @@ export default function Notifications() {
 
   async function handleFollowRequest(requestId, action) {
     try {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem('access_token') || localStorage.getItem('token')
       const endpoint = action === 'approved' ? 'accept' : 'decline'
       const response = await fetch(`${API_BASE_URL}/api/follow-requests/${requestId}/${endpoint}`, {
         method: 'PUT',

@@ -1,16 +1,14 @@
 ﻿import React, { useState, useEffect, useContext } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { currentUser, users as seedUsers, posts } from '../data'
+import { currentUser, posts } from '../data'
 import { API_BASE_URL } from '../config/api'
 import { LocationContext } from '../App'
-import Fuse from 'fuse.js'
 import { Lock } from 'lucide-react'
 import MenuFinderControls from './MenuFinderControls'
 import { findMenuItems, searchRestaurants } from '../services/menuItemFinder'
 import { getClientMenuCatalog } from '../services/menuCatalogClient'
 import {
   getActiveProfileId,
-  getPrivateProfileForUser,
   loadUserScopedValue,
   saveUserScopedValue
 } from '../utils/accountStorage'
@@ -104,12 +102,10 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
   const activeProfileId = profile?.id || getActiveProfileId()
   const [searchQuery, setSearchQuery] = useState('')
   const [allResults, setAllResults] = useState({ restaurants: [], dishes: [], users: [], groups: [] })
-  const [allUsers, setAllUsers] = useState(seedUsers) // start with seed data immediately
   const [following, setFollowing] = useState(() => {
     const stored = loadUserScopedValue('taste-trails-following', currentUser.following || [], activeProfileId)
     return Array.isArray(stored) ? stored : []
   })
-  const [privacyTick, setPrivacyTick] = useState(0)
   const [loading, setLoading] = useState(false)
   const [listFollowLoading, setListFollowLoading] = useState(null)
   const [dietary, setDietary] = useState(() => selectedDietary(loadUserScopedValue('taste-trails-dietary', {})))
@@ -128,54 +124,6 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
     currentUser.following = next
   }, [activeProfileId])
 
-  useEffect(() => {
-    const handlePrivacyUpdated = () => setPrivacyTick((value) => value + 1)
-    window.addEventListener('privacyUpdated', handlePrivacyUpdated)
-    return () => window.removeEventListener('privacyUpdated', handlePrivacyUpdated)
-  }, [])
-
-  // Try to load richer user list from backend; fall back to seedUsers
-  useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        const token = localStorage.getItem('access_token') || ''
-        const res = await fetch(`${API_BASE_URL}/directory/users`, {
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        })
-        if (res.ok) {
-          const data = await res.json()
-          const users = Array.isArray(data?.users) ? data.users : []
-          if (users.length) setAllUsers(users)
-          return
-        }
-        const res2 = await fetch(`${API_BASE_URL}/api/users`)
-        if (res2.ok) {
-          const data2 = await res2.json()
-          const users2 = Array.isArray(data2?.users) ? data2.users : []
-          if (users2.length) {
-            setAllUsers(users2.map((u) => ({ id: u.id, name: u.displayName || u.username || 'Unknown', email: '' })))
-          }
-        }
-      } catch {
-        // seedUsers already set as default â€” nothing to do
-      }
-    }
-    loadUsers()
-  }, [profile?.id])
-
-  // Fuzzy user search using Fuse.js against whichever user list we have
-  function fuzzySearchUsers(q) {
-    const pool = allUsers.length > 0 ? allUsers : seedUsers
-    if (!pool.length) return []
-    const fuse = new Fuse(pool, {
-      keys: ['name', 'email'],
-      threshold: 0.4,
-      minMatchCharLength: 2,
-      includeScore: true,
-    })
-    return fuse.search(q).map((r) => r.item).slice(0, 8)
-  }
-
   // Main search effect
   useEffect(() => {
     const q = searchQuery.trim()
@@ -187,7 +135,6 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
     }
 
     const local = q ? searchLocal(q) : { restaurants: [], groups: [] }
-    const users = q ? fuzzySearchUsers(q) : []
     const catalog = getClientMenuCatalog()
     const menu = findMenuItems(catalog, {
       q,
@@ -214,7 +161,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
       if (restaurants.length >= 6) break
     }
     setSearchNote(menu.message || '')
-    setAllResults({ ...local, restaurants, dishes: menu.items, users })
+    setAllResults({ ...local, restaurants, dishes: menu.items, users: [] })
 
     const controller = new AbortController()
     const timer = setTimeout(() => {
@@ -222,11 +169,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
       ;(async () => {
         try {
           const token = localStorage.getItem('access_token') || ''
-          let locParam = '&location=Charlotte'
-          if (userLocation?.latitude && userLocation?.longitude) {
-            locParam = `&lat=${userLocation.latitude}&lon=${userLocation.longitude}`
-          }
-          const [menuResult, searchResult] = await Promise.allSettled([
+          const [menuResult, peopleResult] = await Promise.allSettled([
             fetch(`${API_BASE_URL}/api/find-menu-items`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -243,7 +186,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
               signal: controller.signal
             }),
             fetch(
-              `${API_BASE_URL}/api/search?q=${encodeURIComponent(q)}${locParam}`,
+              `${API_BASE_URL}/api/users/search?q=${encodeURIComponent(q)}`,
               { headers: token ? { Authorization: `Bearer ${token}` } : {}, signal: controller.signal }
             )
           ])
@@ -256,15 +199,10 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
             else if (data.refreshing) setSearchNote('Looking up menus at nearby restaurants.')
             else setSearchNote('')
           }
-          if (searchResult.status === 'fulfilled' && searchResult.value.ok) {
-            const data = await searchResult.value.json()
-            const apiRestaurants = Array.isArray(data.restaurants) ? data.restaurants : []
+          if (peopleResult.status === 'fulfilled' && peopleResult.value.ok) {
+            const data = await peopleResult.value.json()
             const apiUsers = Array.isArray(data.users) ? data.users : []
-            setAllResults((prev) => ({
-              ...prev,
-              restaurants: apiRestaurants.length ? apiRestaurants : prev.restaurants,
-              users: apiUsers.length ? apiUsers : prev.users
-            }))
+            setAllResults((prev) => ({ ...prev, users: apiUsers }))
           }
           const menuFailed = menuResult.status === 'rejected' || (menuResult.status === 'fulfilled' && !menuResult.value.ok)
           if (menuFailed) {
@@ -283,60 +221,56 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
       clearTimeout(timer)
       controller.abort()
     }
-  }, [searchQuery, allUsers, dietary, maxPrice, maxPriceLevel, maxDistanceMiles, userLocation])
+  }, [searchQuery, dietary, maxPrice, maxPriceLevel, maxDistanceMiles, userLocation])
 
-  const isFollowing = (userId, user = null) => {
+  const isFollowing = (userId, user = null) => Boolean(user?.isFollowing)
+
+  const isUserPrivate = (user = {}) => Boolean(user?.is_private || user?.isPrivate)
+
+  const rememberFollow = (userId, active) => {
     const targetId = String(userId || '')
-    if (!targetId) return false
-    if (following.some((id) => String(id) === targetId)) return true
-    return Boolean(user?.isFollowing)
+    const next = active
+      ? [...new Set([...following, targetId])]
+      : following.filter((id) => String(id) !== targetId)
+    setFollowing(next)
+    currentUser.following = next
+    onFollowChange?.(next)
+    saveUserScopedValue('taste-trails-following', next, activeProfileId)
   }
 
-  const isUserPrivate = (user = {}) => {
-    const override = getPrivateProfileForUser(user?.id)
-    if (typeof override === 'boolean') return override
-    return Boolean(user?.is_private || user?.isPrivate)
-  }
-
-  const handleToggleFollow = (userId) => {
-    const targetId = String(userId || '')
-    if (!targetId) return
-    const alreadyFollowing = following.some((id) => String(id) === targetId)
-    const newFollowing = alreadyFollowing
-      ? following.filter((id) => String(id) !== targetId)
-      : [...following, targetId]
-    setFollowing(newFollowing)
-    currentUser.following = newFollowing
-    onFollowChange?.(newFollowing)
-    saveUserScopedValue('taste-trails-following', newFollowing, activeProfileId)
-  }
-
-  const handleFollowUser = async (userId) => {
+  const handleFollowUser = async (user) => {
+    const userId = user?.id
+    if (!userId) return
     setListFollowLoading(userId)
     try {
       const token = localStorage.getItem('access_token') || localStorage.getItem('sb-access-token')
-      if (!token) { alert('Please log in to send a follow request'); return }
+      if (!token) { alert('Please log in to follow someone'); return }
+      const removing = Boolean(user.isFollowing) || String(user.followRequestStatus || '').toLowerCase() === 'pending'
       const res = await fetch(`${API_BASE_URL}/api/users/${userId}/follow`, {
-        method: 'POST',
+        method: removing ? 'DELETE' : 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
       })
       const data = await res.json()
-      if (res.ok) {
-        alert(data.message || 'Follow request sent')
-        setAllResults((prev) => ({
-          ...prev,
-          users: prev.users.map((u) =>
-            String(u?.id) === String(userId)
-              ? { ...u, followRequestStatus: 'pending' }
-              : u
-          )
-        }))
-      } else {
-        alert(data.error || 'Failed to send request')
+      if (!res.ok) {
+        alert(data.error || 'Could not update follow')
+        return
       }
+      const status = data.status || (removing ? 'none' : 'pending')
+      rememberFollow(userId, status === 'following')
+      setAllResults((prev) => ({
+        ...prev,
+        users: prev.users.map((u) =>
+          String(u?.id) === String(userId)
+            ? {
+                ...u,
+                isFollowing: status === 'following',
+                followRequestStatus: status === 'pending' ? 'pending' : null
+              }
+            : u
+        )
+      }))
     } catch (err) {
-      alert('Failed to send request: ' + err.message)
+      alert('Could not update follow: ' + err.message)
     } finally {
       setListFollowLoading(null)
     }
@@ -506,44 +440,31 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
                             </button>
                             {privateAccount && <Lock className="w-3.5 h-3.5 text-gray-400" />}
                           </div>
-                          {user.email && <div className="text-xs text-gray-400">{user.email}</div>}
+                          {user.username && <div className="text-xs text-gray-400">@{user.username}</div>}
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        {privateAccount ? (
-                          followingUser ? (
-                            <span className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-gray-100 text-gray-600">Following</span>
-                          ) : requestPending ? (
-                            <span className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-yellow-100 text-yellow-700">Requested</span>
-                          ) : (
-                            <button
-                              onClick={() => handleFollowUser(user.id)}
-                              disabled={listFollowLoading === user.id}
-                              className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
-                            >
-                              {listFollowLoading === user.id ? '…' : 'Request'}
-                            </button>
-                          )
-                        ) : (
-                          <>
-                            <button
-                              onClick={() => onOpenProfile?.(user)}
-                              className="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white border border-gray-200 hover:bg-gray-50"
-                            >
-                              View
-                            </button>
-                            <button
-                              onClick={() => handleToggleFollow(user.id)}
-                              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                                followingUser
-                                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                  : 'bg-amber-500 text-white hover:bg-amber-600'
-                              }`}
-                            >
-                              {followingUser ? 'Following' : 'Follow'}
-                            </button>
-                          </>
-                        )}
+                        <button
+                          onClick={() => handleFollowUser(user)}
+                          disabled={listFollowLoading === user.id}
+                          className={`px-3 py-1.5 rounded-lg text-sm font-semibold disabled:opacity-50 ${
+                            followingUser || requestPending
+                              ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                              : privateAccount
+                                ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                : 'bg-amber-500 text-white hover:bg-amber-600'
+                          }`}
+                        >
+                          {listFollowLoading === user.id
+                            ? '…'
+                            : followingUser
+                              ? 'Following'
+                              : requestPending
+                                ? 'Requested'
+                                : privateAccount
+                                  ? 'Request'
+                                  : 'Follow'}
+                        </button>
                       </div>
                     </div>
                   )
