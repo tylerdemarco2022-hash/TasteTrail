@@ -114,7 +114,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
   const [maxPriceLevel, setMaxPriceLevel] = useState(null)
   const [maxDistanceMiles, setMaxDistanceMiles] = useState(null)
   const [locating, setLocating] = useState(false)
-  const [locationNote, setLocationNote] = useState('Distance uses Charlotte until you share your location.')
+  const [locationNote, setLocationNote] = useState('')
   const [searchNote, setSearchNote] = useState('')
   const { location: userLocation, setLocation } = useContext(LocationContext)
 
@@ -311,7 +311,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
             autoFocus
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search restaurants, dishes, people, or groups"
+            placeholder="Dishes, places, people"
             className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">Search</div>
@@ -329,18 +329,18 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
           onDistanceChange={setMaxDistanceMiles}
           onUseLocation={() => {
             if (!navigator.geolocation) {
-              setLocationNote('This device does not share location. Results stay centered on Charlotte.')
+              setLocationNote('Location unavailable.')
               return
             }
             setLocating(true)
             navigator.geolocation.getCurrentPosition(
               (pos) => {
                 setLocation?.({ latitude: pos.coords.latitude, longitude: pos.coords.longitude })
-                setLocationNote('Using your location for distance.')
+                setLocationNote('')
                 setLocating(false)
               },
               () => {
-                setLocationNote('Location permission was denied. Results stay centered on Charlotte.')
+                setLocationNote('Location off.')
                 setLocating(false)
               },
               { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
@@ -352,9 +352,7 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
       </div>
 
       {searchQuery.trim() === '' && dietary.length === 0 && maxPrice == null && maxPriceLevel == null && maxDistanceMiles == null ? (
-        <div className="bg-white rounded-xl p-6 shadow-sm text-center text-gray-400 text-sm">
-          Search for restaurants, dishes, people, or groups
-        </div>
+        <div className="sr-only">Search dishes, places, or people</div>
       ) : (
         <>
           {/* â”€â”€ Restaurants â”€â”€ */}
@@ -496,21 +494,10 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
 
           {/* No results */}
           {!hasAnyResults && !loading && (
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center text-gray-500 text-sm">
-              {searchNote || `No results for "${searchQuery}"`}
-            </div>
+            <p className="text-center text-sm text-[var(--mute)]">Nothing found.</p>
           )}
-          {searchNote && hasAnyResults && (
-            <p className="text-xs text-gray-500 px-1 mb-3">{searchNote}</p>
-          )}
-
-          {/* Following count footer */}
-          <div className="mt-4 bg-white rounded-xl shadow-sm p-3 text-center">
-            <span className="text-sm text-gray-400">
-              Following <span className="font-semibold text-gray-700">{following.length}</span>{' '}
-              {following.length === 1 ? 'person' : 'people'}
-            </span>
-          </div>
+          <div className="sr-only">{searchNote}</div>
+          <p className="sr-only">Following {following.length}</p>
         </>
       )}
     </div>

@@ -62,7 +62,7 @@ export default function DishRatingSheet({ dish, restaurant, area, onClose, onSav
         <p className="text-sm text-[var(--mute)]">{restaurant}</p>
         <h3 className="font-display text-2xl">{dish}</h3>
         <p className="mt-4 text-center font-display text-7xl leading-none text-[var(--brand)]" aria-hidden="true">{Number(score).toFixed(1)}</p>
-        <label className="mt-2 block text-center text-sm font-semibold" htmlFor="dish-score">Score out of 10</label>
+        <label className="sr-only" htmlFor="dish-score">Score out of 10</label>
         <input
           id="dish-score"
           type="range"
@@ -73,9 +73,9 @@ export default function DishRatingSheet({ dish, restaurant, area, onClose, onSav
           onChange={(event) => setScore(Number(event.target.value))}
           className="mt-3 w-full accent-[var(--brand)]"
         />
-        <label className="mt-4 block text-sm font-semibold" htmlFor="dish-note">Note</label>
-        <input id="dish-note" value={note} onChange={(event) => setNote(event.target.value)} placeholder="Worth ordering?" className="field mt-1" />
-        <label className="mt-3 block text-sm font-semibold" htmlFor="dish-photo">Photo</label>
+        <label className="sr-only" htmlFor="dish-note">Note</label>
+        <input id="dish-note" value={note} onChange={(event) => setNote(event.target.value)} placeholder="Note" className="field mt-4" />
+        <label className="sr-only" htmlFor="dish-photo">Photo</label>
         <input id="dish-photo" type="file" accept="image/*" onChange={(event) => readPhoto(event.target.files?.[0])} className="mt-1 text-sm" />
         {photo && <img src={photo} alt="" className="mt-2 h-28 w-full rounded-2xl object-cover" />}
         {error && <p className="mt-2 text-sm text-red-700">{error}</p>}

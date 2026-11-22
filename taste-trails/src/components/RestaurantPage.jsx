@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Bookmark, Check, Info } from 'lucide-react'
 import { API_BASE_URL } from '../config/api'
 import { formatPublishedPrice } from '../services/menuPresentation'
 import DishRatingSheet from './DishRatingSheet'
@@ -15,6 +16,8 @@ export default function RestaurantPage({ post, onBack }) {
   const [openSections, setOpenSections] = useState({})
   const [ratingDish, setRatingDish] = useState(null)
   const [saveNote, setSaveNote] = useState('')
+  const [expanded, setExpanded] = useState({})
+  const [showSource, setShowSource] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -81,7 +84,7 @@ export default function RestaurantPage({ post, onBack }) {
       body: JSON.stringify({ kind, name: itemName, restaurant: name, status })
     })
     const data = await res.json()
-    setSaveNote(res.ok ? (status === 'visited' ? 'Saved to visited' : 'Saved to want to try') : (data.error || 'Could not save'))
+    setSaveNote(res.ok ? 'Saved' : (data.error || 'Could not save'))
   }
 
   return (
@@ -93,11 +96,7 @@ export default function RestaurantPage({ post, onBack }) {
       <div className="mx-auto max-w-lg px-4 py-4">
         <h1 className="font-display text-4xl leading-none">{name}</h1>
         <p className="mt-2 text-sm text-[var(--mute)]">
-          {[post?.cuisine, post?.neighborhood, post?.distanceMiles != null ? `${Number(post.distanceMiles).toFixed(1)} mi` : null].filter(Boolean).join(' · ') || 'Sit-down dining'}
-        </p>
-        <p className="text-sm text-gray-700 mt-1">
-          {post?.rating ? `${Number(post.rating).toFixed(1)} listing score` : 'No listing score'}
-          {menu?.worthOrdering?.length ? ` · ${menu.worthOrdering.length} dishes people rated` : ' · No dish ratings yet'}
+          {[post?.cuisine, post?.neighborhood, post?.distanceMiles != null ? `${Number(post.distanceMiles).toFixed(1)} mi` : null, post?.rating ? Number(post.rating).toFixed(1) : null].filter(Boolean).join(' · ')}
         </p>
         <div className="mt-4 flex gap-2">
           {website && <a className="btn btn-primary inline-flex items-center" href={website} target="_blank" rel="noreferrer">Website</a>}
@@ -124,39 +123,27 @@ export default function RestaurantPage({ post, onBack }) {
       {tab === 'Overview' && (
         <section className="mx-auto max-w-lg space-y-3 p-4">
           <div className="bg-white rounded-2xl p-4 border border-gray-200">
-            <h2 className="font-semibold">Visit</h2>
-            <p className="text-sm text-gray-700 mt-1">{post?.address || post?.location || 'Address not listed'}</p>
-            <p className="text-sm text-gray-700 mt-1">{post?.hours || 'Hours not listed'}</p>
-            {website && <a className="text-sm text-amber-800 underline mt-2 inline-block" href={website} target="_blank" rel="noreferrer">Restaurant site</a>}
+            <p className="text-sm">{post?.address || post?.location || 'Address not listed'}</p>
+            {post?.hours && <p className="mt-2 text-sm">{post.hours}</p>}
           </div>
-          <p className="text-sm text-gray-600">TasteTrails does not book tables. Use the restaurant’s site or phone.</p>
         </section>
       )}
 
       {tab === 'Menu' && (
         <section className="mx-auto max-w-lg space-y-3 p-4">
-          <label className="block text-sm font-semibold" htmlFor="menu-search">Search this menu</label>
-          <input id="menu-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search dishes" className="w-full min-h-11 px-3 border border-gray-300 rounded-xl" />
-          {loading && <p className="text-sm text-gray-600">Menu loading</p>}
-          {!loading && notice && <p className="text-sm text-gray-600">{notice}</p>}
-          {menu?.sourceUrl && (
-            <p className="text-xs text-gray-500">
-              {menu.fetchedAt ? `Fetched ${String(menu.fetchedAt).slice(0, 10)}. ` : ''}
-              <a className="underline text-amber-800" href={menu.sourceUrl} target="_blank" rel="noreferrer">View the restaurant’s menu page</a>
-            </p>
-          )}
+          <label className="sr-only" htmlFor="menu-search">Search this menu</label>
+          <input id="menu-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search" className="field" />
+          {loading && <div className="skeleton h-24" />}
           {!loading && menu?.source === 'unavailable' && (
-            <div className="bg-white rounded-2xl p-6 text-center border border-gray-200">
-              <p className="font-semibold">Menu not available online</p>
-              {website && <a className="text-amber-800 underline" href={website} target="_blank" rel="noreferrer">Visit the restaurant site</a>}
+            <div className="py-8 text-center">
+              <p>Menu not online.</p>
+              {website && <a className="btn btn-primary mt-3 inline-flex items-center" href={website} target="_blank" rel="noreferrer">Website</a>}
             </div>
           )}
           {(menu?.worthOrdering || []).length > 0 && !query && (
-            <div className="bg-white rounded-2xl p-4 border border-amber-200">
-              <h2 className="font-semibold">Worth ordering</h2>
-              <p className="text-xs text-gray-500">Ranked from real dish ratings, adjusted so one review does not dominate.</p>
+            <div className="space-y-2">
               {menu.worthOrdering.map((item) => (
-                <p key={item.name} className="text-sm mt-2">{item.name} · {Number(item.community.score).toFixed(1)} from {item.community.count}</p>
+                <p key={item.name} className="flex justify-between text-sm"><span>{item.name}</span><span>{Number(item.community.score).toFixed(1)}</span></p>
               ))}
             </div>
           )}
@@ -179,26 +166,43 @@ export default function RestaurantPage({ post, onBack }) {
                     <div className="flex justify-between gap-3">
                       <div>
                         <div className="font-medium text-gray-900">{item.name}</div>
-                        {item.description && <p className="text-sm text-gray-600 mt-1">{item.description}</p>}
+                        {item.description && (
+                          <button type="button" className={`mt-1 text-left text-sm text-[var(--mute)] ${expanded[item.name] ? '' : 'line-clamp-2'}`} aria-expanded={!!expanded[item.name]} onClick={() => setExpanded((current) => ({ ...current, [item.name]: !current[item.name] }))}>
+                            {item.description}
+                          </button>
+                        )}
                         {Array.isArray(item.dietaryLabels) && item.dietaryLabels.length > 0 && (
                           <p className="text-xs text-gray-500 mt-1">{item.dietaryLabels.map((tag) => tag.label).join(' · ')}</p>
                         )}
                       </div>
                       <div className="text-right shrink-0">
-                        <div className="text-sm font-semibold text-gray-900">{formatPublishedPrice(item.price) || 'Price not listed'}</div>
-                        <div className="text-xs text-gray-500">{item.community?.score != null ? `${Number(item.community.score).toFixed(1)} / 10` : 'No ratings yet'}</div>
+                        <div className="text-sm font-semibold">{formatPublishedPrice(item.price) || ''}</div>
+                        <div className="text-xs text-[var(--mute)]">{item.community?.score != null ? Number(item.community.score).toFixed(1) : ''}</div>
                       </div>
                     </div>
                     <div className="mt-2 flex gap-2">
                       <button type="button" onClick={() => setRatingDish(item.name)} className="min-h-11 px-3 rounded-full bg-amber-500 text-white text-sm font-semibold">Rate</button>
-                      <button type="button" onClick={() => save('dish', item.name, 'want')} className="min-h-11 px-3 rounded-full border border-gray-300 text-sm font-semibold">Want to try</button>
-                      <button type="button" onClick={() => save('dish', item.name, 'visited')} className="min-h-11 px-3 rounded-full border border-gray-300 text-sm font-semibold">Visited</button>
+                      <button type="button" aria-label="Want to try" onClick={() => save('dish', item.name, 'want')} className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)]"><Bookmark className="h-4 w-4" /></button>
+                      <button type="button" aria-label="Visited" onClick={() => save('dish', item.name, 'visited')} className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)]"><Check className="h-4 w-4" /></button>
                     </div>
                   </div>
                 ))}
               </div>
             )
           })}
+          {(menu?.sourceUrl || menu?.fetchedAt) && (
+            <div className="pt-6">
+              <button type="button" aria-label="Menu source" onClick={() => setShowSource((open) => !open)} className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line)]">
+                <Info className="h-4 w-4" />
+              </button>
+              {showSource && (
+                <p className="mt-2 text-xs text-[var(--mute)]">
+                  {menu.fetchedAt ? String(menu.fetchedAt).slice(0, 10) : ''}
+                  {menu.sourceUrl && <> · <a className="underline" href={menu.sourceUrl} target="_blank" rel="noreferrer">Source</a></>}
+                </p>
+              )}
+            </div>
+          )}
         </section>
       )}
 
@@ -206,8 +210,8 @@ export default function RestaurantPage({ post, onBack }) {
         <section className="p-4">
           {photos.length === 0 ? (
             <div className="bg-white rounded-2xl p-6 text-center border border-gray-200">
-              <p className="font-semibold">No photos yet</p>
-              <p className="text-sm text-gray-600">Rate a dish and add a photo. That picture shows up here.</p>
+              <p>No photos.</p>
+              <button type="button" onClick={() => setTab('Menu')} className="btn btn-primary mt-3">Rate</button>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-2">
@@ -221,8 +225,8 @@ export default function RestaurantPage({ post, onBack }) {
         <section className="p-4 space-y-2">
           {(menu?.reviews || []).length === 0 ? (
             <div className="bg-white rounded-2xl p-6 text-center border border-gray-200">
-              <p className="font-semibold">No dish ratings yet</p>
-              <button type="button" onClick={() => setTab('Menu')} className="mt-3 min-h-11 px-4 rounded-full bg-amber-500 text-white font-semibold">Be the first to rate a dish</button>
+              <p>No ratings.</p>
+              <button type="button" onClick={() => setTab('Menu')} className="btn btn-primary mt-3">Rate</button>
             </div>
           ) : menu.reviews.map((review) => (
             <article key={review.id} className="bg-white rounded-2xl p-4 border border-gray-200">
@@ -242,8 +246,7 @@ export default function RestaurantPage({ post, onBack }) {
           onClose={() => setRatingDish(null)}
           onSaved={() => {
             setRatingDish(null)
-            setNotice('Rating saved. It counts toward this dish and the neighborhood food score.')
-            window.location.hash = '#/community'
+            setNotice('')
           }}
         />
       )}

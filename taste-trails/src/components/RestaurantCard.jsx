@@ -6,23 +6,25 @@ function dollars(level) {
 
 export default function RestaurantCard({ place, onOpen }) {
   const price = dollars(place.priceLevel || priceLevelFromPrices(place.prices || []))
-  const meta = [place.cuisine, price, place.neighborhood].filter(Boolean).join(' · ')
+  const distance = place.distanceMiles != null ? `${Number(place.distanceMiles).toFixed(1)} mi` : null
+  const meta = [place.cuisine, price, distance || place.neighborhood].filter(Boolean).join(' · ')
   const rating = Number(place.communityScore ?? place.rating)
-  const ratingCount = place.communityCount ?? place.ratingCount
+  const hasRating = Number.isFinite(rating) && rating > 0
   return (
     <article className="surface overflow-hidden">
-      <button type="button" onClick={() => onOpen?.(place)} className="block w-full text-left">
-        <div className="plate h-40 w-full" aria-hidden="true" />
-        <div className="space-y-1 px-4 py-3">
+      <button
+        type="button"
+        onClick={() => onOpen?.(place)}
+        className="block w-full text-left"
+        aria-label={`${place.name}${meta ? `, ${meta}` : ''}${hasRating ? `, ${rating.toFixed(1)}` : ', no rating'}${place.menuStatus === 'unavailable' ? ', menu not available online' : ''}`}
+      >
+        <div className={`h-44 w-full ${place.image ? '' : 'plate'}`}>
+          {place.image ? <img src={place.image} alt="" className="h-full w-full object-cover" /> : null}
+        </div>
+        <div className="space-y-1 px-4 py-4">
           <h3 className="text-lg font-semibold text-[var(--ink)]">{place.name}</h3>
-          {meta && <p className="text-sm text-[var(--mute)]">{meta}</p>}
-          <p className="text-sm text-[var(--ink)]">
-            {Number.isFinite(rating) && rating > 0 ? `${rating.toFixed(1)}${ratingCount ? ` · ${ratingCount}` : ''}` : 'No ratings yet'}
-            {place.distanceMiles != null ? ` · ${Number(place.distanceMiles).toFixed(1)} mi` : ''}
-          </p>
-          <p className="text-xs text-[var(--mute)]">
-            {place.menuStatus === 'unavailable' ? 'Menu not available online' : 'Full menu'}
-          </p>
+          {meta && <p className="truncate text-sm text-[var(--mute)]">{meta}</p>}
+          {hasRating && <p className="text-sm">{rating.toFixed(1)}</p>}
         </div>
       </button>
     </article>
@@ -39,12 +41,9 @@ export function DishResult({ dish, onOpen }) {
       </span>
       <span className="shrink-0 text-right">
         {score != null ? (
-          <>
-            <span className="block text-lg font-semibold">{Number(score).toFixed(1)}</span>
-            <span className="text-xs text-[var(--mute)]">{dish.community.count} ratings</span>
-          </>
+          <span className="text-lg font-semibold" aria-label={`${Number(score).toFixed(1)} from ${dish.community.count} ratings`}>{Number(score).toFixed(1)}</span>
         ) : (
-          <span className="text-xs text-[var(--mute)]">No ratings yet</span>
+          <span className="sr-only">No rating</span>
         )}
       </span>
     </button>

@@ -28,12 +28,9 @@ export default function Login({ onLogin, onSwitchToSignup }) {
   return (
     <div className="min-h-dvh bg-[var(--paper)] px-5 py-10" style={{ paddingTop: 'max(2.5rem, env(safe-area-inset-top))' }}>
       <div className="mx-auto w-full max-w-md">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">TasteTrails</p>
-        <h1 className="font-display mt-3 text-4xl leading-tight text-[var(--ink)]">Discover food worth remembering.</h1>
-        <p className="mt-2 text-[var(--mute)]">Sign in to rate dishes, follow friends, and save what you want to try.</p>
+        <h1 className="font-display text-4xl leading-tight text-[var(--ink)]">Discover food worth remembering.</h1>
 
         <div className="surface mt-8 p-5">
-          <h2 className="text-lg font-semibold">Welcome back</h2>
 
           {error && (
             <div className="mt-4 flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm text-red-700">

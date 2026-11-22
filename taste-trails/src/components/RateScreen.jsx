@@ -27,7 +27,7 @@ export default function RateScreen() {
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Search failed')
       setItems(Array.isArray(data.items) ? data.items : [])
-      if (!data.items?.length) setError('No published dishes matched. Try another word.')
+      if (!data.items?.length) setError('Nothing found.')
     } catch (err) {
       setItems([])
       setError(err.message || 'Search failed')
@@ -38,9 +38,7 @@ export default function RateScreen() {
 
   return (
     <div className="screen">
-      <p className="text-sm font-semibold text-[var(--brand)]">Rate a dish</p>
-      <h1 className="font-display text-3xl leading-tight text-[var(--ink)]">What did you eat?</h1>
-      <p className="mt-2 text-sm text-[var(--mute)]">Pick a dish from a real menu, then score it from 1 to 10.</p>
+      <h1 className="font-display text-4xl text-[var(--ink)]">What did you eat?</h1>
       <form className="mt-4 flex gap-2" onSubmit={search}>
         <label className="sr-only" htmlFor="rate-query">Dish</label>
         <input id="rate-query" className="field" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Steak, ramen, salad" />
@@ -76,7 +74,7 @@ export default function RateScreen() {
           onClose={() => setPicked(null)}
           onSaved={(data) => {
             setPicked(null)
-            setSaved(`Saved ${data.rating?.dish_name || picked.dish} at ${Number(data.rating?.rating).toFixed(1)} / 10.`)
+            setSaved('Saved')
           }}
         />
       )}

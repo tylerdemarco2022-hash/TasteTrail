@@ -98,10 +98,7 @@ export default function MenuFinderControls({
           </button>
         )}
       </div>
-      {locationNote && <p className="text-xs text-gray-500">{locationNote}</p>}
-      <p className="text-xs text-amber-800">
-        Dietary matches are estimated from menu wording and can miss unlisted ingredients. Confirm with the restaurant.
-      </p>
+      {locationNote && <p className="sr-only">{locationNote}</p>}
     </div>
   )
 }

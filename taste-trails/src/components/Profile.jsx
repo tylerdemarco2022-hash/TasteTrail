@@ -425,7 +425,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
           )}
           {(!userPosts || userPosts.length === 0) && (!gallery || gallery.length === 0) && (
             <div className="bg-white border rounded-lg p-4 text-center text-gray-500">
-              Dish scores you save from a menu are listed under your name. Photos you add on this device show up here.
+              No posts yet.
             </div>
           )}
         </div>

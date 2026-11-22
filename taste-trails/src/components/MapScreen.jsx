@@ -32,14 +32,13 @@ export default function MapScreen({ onOpen }) {
 
   return (
     <div className="screen">
-      <h1 className="font-display text-3xl text-[var(--ink)]">Around you</h1>
-      <p className="mt-1 text-sm text-[var(--mute)]">{note}</p>
-      <div className="mt-4">
+      <h1 className="sr-only">Map</h1>
+      <p className="sr-only">{note}</p>
+      <div>
         {loading ? <div className="skeleton h-80 w-full" /> : error ? <p className="text-sm text-red-700">{error}</p> : (
           <FoodMap places={places} onOpen={(place) => onOpen?.({ ...place, restaurant: place.name })} />
         )}
       </div>
-      <p className="mt-3 text-xs text-[var(--mute)]">Pins use the restaurants returned for this area. Tap one to open its menu.</p>
     </div>
   )
 }
