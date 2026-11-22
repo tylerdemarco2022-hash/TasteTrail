@@ -12,6 +12,8 @@ import Signup from './components/Signup'
 import Notifications from './components/Notifications'
 import Settings from './components/Settings'
 import UserSearch from './components/UserSearch'
+import MapScreen from './components/MapScreen'
+import RateScreen from './components/RateScreen'
 import UserProfile from './components/UserProfile'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
 import { HashRouter as Router, Routes, Route, useParams, useLocation, useNavigate } from 'react-router-dom';
@@ -148,8 +150,10 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="glass rounded-2xl px-6 py-4 shadow-lg text-gray-700">Loading…</div>
+      <div className="screen pt-16">
+        <div className="skeleton mb-4 h-8 w-40" />
+        <div className="skeleton mb-3 h-24 w-full" />
+        <div className="skeleton h-40 w-full" />
       </div>
     )
   }
@@ -210,21 +214,25 @@ function App() {
     }, [location.pathname, menuPost])
 
     const tabFromPath = (path) => {
-      if (path.startsWith('/community')) return 'feed'
-      if (path.startsWith('/groups')) return 'groups'
+      if (path.startsWith('/search')) return 'search'
+      if (path.startsWith('/map')) return 'map'
+      if (path.startsWith('/rate')) return 'rate'
       if (path.startsWith('/profile')) return 'profile'
-      return 'restaurants'
+      if (path.startsWith('/community') || path.startsWith('/groups')) return 'discover'
+      return 'discover'
     }
 
     const pathFromTab = (tab) => {
       switch (tab) {
-        case 'feed':
-          return '/community'
-        case 'groups':
-          return '/groups'
+        case 'search':
+          return '/search'
+        case 'map':
+          return '/map'
+        case 'rate':
+          return '/rate'
         case 'profile':
           return '/profile'
-        case 'restaurants':
+        case 'discover':
         default:
           return '/'
       }
@@ -256,19 +264,26 @@ function App() {
       navigate('/')
     }
 
+    const detail = location.pathname.startsWith('/menu')
+
     return (
       <LocationContext.Provider value={{ location, setLocation }}>
         <div className="app-shell">
-          <Header
-            title="TasteTrails"
-            onNotificationsClick={() => setShowNotifications(true)}
-            onSearchClick={() => setShowSearch(true)}
-            onSettingsClick={() => setShowSettings(true)}
-          />
+          {!detail && (
+            <Header
+              title="TasteTrails"
+              onNotificationsClick={() => setShowNotifications(true)}
+              onSearchClick={() => navigate('/search')}
+              onSettingsClick={() => setShowSettings(true)}
+            />
+          )}
 
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home onOpen={openMenu} />} />
+              <Route path="/search" element={<div className="screen"><UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} onOpenMenu={openMenu} /></div>} />
+              <Route path="/map" element={<MapScreen onOpen={openMenu} />} />
+              <Route path="/rate" element={<RateScreen />} />
               <Route path="/community" element={<CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/profile" element={<Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} />} />
@@ -277,14 +292,16 @@ function App() {
             </Routes>
           </main>
 
-          <BottomTabs
-            active={activeTab}
-            setActive={(tab) => {
-              setActiveTab(tab)
-              setMenuPost(null)
-            }}
-            onTabClick={(tab) => navigate(pathFromTab(tab))}
-          />
+          {!detail && (
+            <BottomTabs
+              active={activeTab}
+              onTabClick={(tab) => {
+                setActiveTab(tab)
+                setMenuPost(null)
+                navigate(pathFromTab(tab))
+              }}
+            />
+          )}
 
           {showNotifications && (
             <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
@@ -310,30 +327,6 @@ function App() {
             </div>
           )}
 
-          {showSearch && (
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm">
-              <div className="absolute inset-0 overflow-y-auto">
-                <div className="max-w-3xl mx-auto">
-                  <div className="flex justify-end p-4">
-                    <button
-                      className="px-3 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-100"
-                      onClick={() => setShowSearch(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                  <UserSearch
-                    onFollowChange={() => {}}
-                    onOpenProfile={handleOpenProfile}
-                    onOpenMenu={(post) => {
-                      setShowSearch(false)
-                      openMenu(post)
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </LocationContext.Provider>
     )

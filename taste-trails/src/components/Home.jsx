@@ -94,69 +94,73 @@ export default function Home({ onOpen }) {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 pt-4 pb-28 space-y-4">
+    <main className="screen space-y-5">
       <header>
-        <p className="text-sm font-semibold text-amber-700">TasteTrails</p>
-        <h1 className="text-2xl font-bold text-gray-900">Discover Food Worth Remembering.</h1>
-        <p className="text-sm text-gray-600 mt-1">What should I eat, where should I go, and what’s actually worth ordering?</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">TasteTrails</p>
+        <h1 className="font-display mt-2 text-4xl leading-[1.05] text-[var(--ink)]">Discover food worth remembering.</h1>
+        <p className="mt-3 text-base text-[var(--mute)]">What should I eat, where should I go, and what’s actually worth ordering?</p>
       </header>
       <div className="grid grid-cols-2 gap-2">
         {PILLARS.map((pillar) => (
-          <div key={pillar.title} className="bg-white rounded-2xl border border-gray-200 p-3">
-            <h2 className="text-sm font-semibold text-gray-900">{pillar.title}</h2>
-            <p className="text-xs text-gray-600 mt-1">{pillar.text}</p>
+          <div key={pillar.title} className="surface p-3">
+            <h2 className="text-sm font-semibold">{pillar.title}</h2>
+            <p className="mt-1 text-xs text-[var(--mute)]">{pillar.text}</p>
           </div>
         ))}
       </div>
       <form className="flex gap-2" onSubmit={(event) => { event.preventDefault(); load(new URLSearchParams({ q: query, radius: '3' })) }}>
         <label className="sr-only" htmlFor="city-search">City or ZIP</label>
-        <input id="city-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="City or ZIP" className="flex-1 min-h-11 px-3 border border-gray-300 rounded-xl" />
-        <button type="submit" className="min-h-11 px-4 rounded-xl bg-amber-500 text-white font-semibold">Search</button>
+        <input id="city-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="City or ZIP" className="field" />
+        <button type="submit" className="btn btn-primary">Search</button>
       </form>
-      <div className="flex gap-2 overflow-x-auto">
+      <div className="flex gap-2 overflow-x-auto pb-1">
         {MARKETS.map((market) => (
-          <button key={market.q} type="button" onClick={() => { setQuery(market.q); load(new URLSearchParams({ q: market.q, radius: '3' })) }} className="shrink-0 min-h-11 px-3 rounded-full bg-white border border-gray-300 text-sm font-semibold">
+          <button key={market.q} type="button" onClick={() => { setQuery(market.q); load(new URLSearchParams({ q: market.q, radius: '3' })) }} className="btn btn-quiet shrink-0 text-sm">
             {market.label}
           </button>
         ))}
       </div>
-      <p className="text-sm text-gray-600">{note}</p>
-      {error && <p className="text-sm text-red-700 bg-white border border-red-100 rounded-xl p-3">{error}</p>}
+      <p className="text-sm text-[var(--mute)]">{note}</p>
+      {error && <p className="surface p-3 text-sm text-red-700">{error}</p>}
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-gray-900">Nearby restaurants</h2>
-        <button type="button" onClick={() => setShowMap((value) => !value)} className="min-h-11 px-3 text-sm font-semibold text-amber-800">{showMap ? 'Hide map' : 'Map'}</button>
+        <h2 className="font-display text-2xl">Nearby</h2>
+        <button type="button" onClick={() => setShowMap((value) => !value)} className="btn btn-quiet text-sm">{showMap ? 'Hide map' : 'Map'}</button>
       </div>
       {showMap && <FoodMap places={visible} onOpen={openPlace} />}
       {cuisines.length > 0 && (
         <div className="flex gap-2 overflow-x-auto">
-          <button type="button" onClick={() => setCuisine('')} className="min-h-11 px-3 rounded-full bg-white border text-sm font-semibold">All cuisines</button>
+          <button type="button" onClick={() => setCuisine('')} className="btn btn-quiet shrink-0 text-sm">All cuisines</button>
           {cuisines.map((item) => (
-            <button key={item} type="button" onClick={() => setCuisine(item)} className={`min-h-11 px-3 rounded-full border text-sm font-semibold ${cuisine === item ? 'bg-amber-500 text-white border-amber-500' : 'bg-white border-gray-300'}`}>{item}</button>
+            <button key={item} type="button" onClick={() => setCuisine(item)} className={`btn shrink-0 text-sm ${cuisine === item ? 'btn-primary' : 'btn-quiet'}`}>{item}</button>
           ))}
         </div>
       )}
-      <section className="bg-white rounded-2xl border border-gray-200 p-4">
-        <h2 className="font-semibold">Worth ordering</h2>
+      <section className="surface p-4">
+        <h2 className="font-display text-2xl">Worth ordering</h2>
         {dishHits.length === 0 ? (
-          <p className="text-sm text-gray-600 mt-1">No dish ratings here yet. Open a menu and be the first to score a meal.</p>
+          <p className="mt-1 text-sm text-[var(--mute)]">No dish ratings here yet. Open a menu and be the first to score a meal.</p>
         ) : dishHits.map((dish) => (
-          <button key={dish.key} type="button" onClick={() => openPlace({ name: dish.restaurant, neighborhood: dish.area })} className="w-full text-left mt-2 min-h-11">
+          <button key={dish.key} type="button" onClick={() => openPlace({ name: dish.restaurant, neighborhood: dish.area })} className="mt-2 flex min-h-11 w-full items-center justify-between text-left">
             <span className="font-medium">{dish.dish}</span>
-            <span className="text-sm text-gray-600"> at {dish.restaurant} · {Number(dish.score).toFixed(1)} from {dish.count}</span>
+            <span className="text-sm text-[var(--mute)]">{Number(dish.score).toFixed(1)}</span>
           </button>
         ))}
       </section>
+      <div className="flex gap-2">
+        <a href="#/community" className="btn btn-quiet inline-flex items-center text-sm">Activity</a>
+        <a href="#/groups" className="btn btn-quiet inline-flex items-center text-sm">Groups</a>
+      </div>
       {areas.length > 0 && (
-        <section className="bg-white rounded-2xl border border-gray-200 p-4">
+        <section className="surface p-4">
           <h2 className="font-semibold">Food score by area</h2>
-          <p className="text-xs text-gray-500">Adjusted so a single rating does not outrank a neighborhood with more reviews.</p>
+          <p className="text-xs text-[var(--mute)]">Adjusted so one rating does not outrank a neighborhood with more reviews.</p>
           {areas.map((area) => (
-            <p key={area.key} className="text-sm mt-2">{area.area} · {Number(area.score).toFixed(1)} from {area.count} ratings</p>
+            <p key={area.key} className="mt-2 text-sm">{area.area} · {Number(area.score).toFixed(1)} from {area.count}</p>
           ))}
         </section>
       )}
-      {loading && <p className="text-sm text-gray-600">Finding restaurants…</p>}
-      {!loading && visible.length === 0 && !error && <p className="text-sm text-gray-600">No restaurants in this search yet.</p>}
+      {loading && <div className="space-y-3"><div className="skeleton h-56" /><div className="skeleton h-56" /></div>}
+      {!loading && visible.length === 0 && !error && <p className="text-sm text-[var(--mute)]">No restaurants in this search yet.</p>}
       <div className="space-y-3">
         {visible.map((place) => <RestaurantCard key={place.id || place.name} place={place} onOpen={openPlace} />)}
       </div>

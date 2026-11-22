@@ -85,28 +85,28 @@ export default function RestaurantPage({ post, onBack }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto pb-28 bg-gray-50 min-h-screen">
-      <div className="relative h-48 bg-amber-100">
-        {post?.image ? <img src={post.image} alt="" className="w-full h-full object-cover" /> : null}
-        <button type="button" onClick={onBack} className="absolute top-3 left-3 min-h-11 px-3 rounded-full bg-white/95 font-semibold text-gray-900">Back</button>
+    <div className="min-h-screen bg-[var(--paper)] pb-10 text-[var(--ink)]">
+      <div className="plate relative h-52">
+        {post?.image ? <img src={post.image} alt="" className="h-full w-full object-cover" /> : null}
+        <button type="button" onClick={onBack} className="btn btn-quiet absolute left-4 top-[max(0.75rem,env(safe-area-inset-top))]">Back</button>
       </div>
-      <div className="bg-white px-4 py-4 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900">{name}</h1>
-        <p className="text-sm text-gray-600 mt-1">
+      <div className="mx-auto max-w-lg px-4 py-4">
+        <h1 className="font-display text-4xl leading-none">{name}</h1>
+        <p className="mt-2 text-sm text-[var(--mute)]">
           {[post?.cuisine, post?.neighborhood, post?.distanceMiles != null ? `${Number(post.distanceMiles).toFixed(1)} mi` : null].filter(Boolean).join(' · ') || 'Sit-down dining'}
         </p>
         <p className="text-sm text-gray-700 mt-1">
           {post?.rating ? `${Number(post.rating).toFixed(1)} listing score` : 'No listing score'}
           {menu?.worthOrdering?.length ? ` · ${menu.worthOrdering.length} dishes people rated` : ' · No dish ratings yet'}
         </p>
-        <div className="mt-3 flex gap-2">
-          {website && <a className="min-h-11 px-4 inline-flex items-center rounded-full bg-amber-500 text-white font-semibold" href={website} target="_blank" rel="noreferrer">Website</a>}
-          {post?.phone && <a className="min-h-11 px-4 inline-flex items-center rounded-full bg-white border border-gray-300 font-semibold" href={`tel:${post.phone}`}>Call</a>}
-          <button type="button" onClick={() => save('restaurant', name, 'want')} className="min-h-11 px-4 rounded-full bg-white border border-gray-300 font-semibold">Save</button>
+        <div className="mt-4 flex gap-2">
+          {website && <a className="btn btn-primary inline-flex items-center" href={website} target="_blank" rel="noreferrer">Website</a>}
+          {post?.phone && <a className="btn btn-quiet inline-flex items-center" href={`tel:${post.phone}`}>Call</a>}
+          <button type="button" onClick={() => save('restaurant', name, 'want')} className="btn btn-quiet">Save</button>
         </div>
         {saveNote && <p className="text-sm text-amber-800 mt-2">{saveNote}</p>}
       </div>
-      <div className="sticky top-0 z-20 bg-white border-b border-gray-200 flex" role="tablist" aria-label="Restaurant">
+      <div className="sticky top-0 z-20 mx-auto flex max-w-lg border-b border-[var(--line)] bg-[var(--paper)]" role="tablist" aria-label="Restaurant">
         {TABS.map((item) => (
           <button
             key={item}
@@ -114,7 +114,7 @@ export default function RestaurantPage({ post, onBack }) {
             role="tab"
             aria-selected={tab === item}
             onClick={() => setTab(item)}
-            className={`flex-1 min-h-11 text-sm font-semibold ${tab === item ? 'text-amber-700 border-b-2 border-amber-500' : 'text-gray-600'}`}
+            className={`min-h-11 flex-1 text-sm font-semibold ${tab === item ? 'border-b-2 border-[var(--brand)] text-[var(--brand)]' : 'text-[var(--mute)]'}`}
           >
             {item}
           </button>
@@ -122,7 +122,7 @@ export default function RestaurantPage({ post, onBack }) {
       </div>
 
       {tab === 'Overview' && (
-        <section className="p-4 space-y-3">
+        <section className="mx-auto max-w-lg space-y-3 p-4">
           <div className="bg-white rounded-2xl p-4 border border-gray-200">
             <h2 className="font-semibold">Visit</h2>
             <p className="text-sm text-gray-700 mt-1">{post?.address || post?.location || 'Address not listed'}</p>
@@ -134,7 +134,7 @@ export default function RestaurantPage({ post, onBack }) {
       )}
 
       {tab === 'Menu' && (
-        <section className="p-4 space-y-3">
+        <section className="mx-auto max-w-lg space-y-3 p-4">
           <label className="block text-sm font-semibold" htmlFor="menu-search">Search this menu</label>
           <input id="menu-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search dishes" className="w-full min-h-11 px-3 border border-gray-300 rounded-xl" />
           {loading && <p className="text-sm text-gray-600">Menu loading</p>}

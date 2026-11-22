@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Send, Heart, Search, LogOut, User, Settings } from 'lucide-react'
+import { Bell, LogOut, Settings } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { API_BASE_URL } from '../config/api'
 
@@ -93,61 +93,36 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
   }, [])
 
   return (
-    <header className="px-4 py-4 bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 shadow-lg">
-      <div className="max-w-3xl mx-auto flex items-center justify-between">
-        <button 
-          onClick={() => {
-            setNotificationCount(0) // Immediately clear badge
-            onNotificationsClick()
-          }} 
-          className="p-2 glass hover:bg-white/30 rounded-xl relative transition-all"
-        >
-          <Heart className={`h-6 w-6 text-white ${notificationCount > 0 ? 'fill-white' : ''}`} />
-          {notificationCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-gradient-to-br from-red-600 to-red-700 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg animate-pulse">
-              {notificationCount > 9 ? '9+' : notificationCount}
-            </span>
-          )}
-        </button>
-        
-        <div className="flex items-center gap-2">
-          {onSearchClick && (
+    <header className="sticky top-0 z-30 border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
+        <p className="font-display text-lg text-[var(--ink)]">{title || 'TasteTrails'}</p>
+        <div className="flex items-center">
+          <button
+            type="button"
+            aria-label="Notifications"
+            onClick={() => {
+              setNotificationCount(0)
+              onNotificationsClick()
+            }}
+            className="relative flex h-11 w-11 items-center justify-center rounded-full text-[var(--ink)]"
+          >
+            <Bell className="h-5 w-5" />
+            {notificationCount > 0 && (
+              <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--brand)] px-1 text-[10px] font-bold text-white">
+                {notificationCount > 9 ? '9+' : notificationCount}
+              </span>
+            )}
+          </button>
+          <div className="relative">
             <button
               type="button"
-              onClick={onSearchClick}
-              className="sm:hidden p-2 glass hover:bg-white/30 rounded-xl transition-all"
-              aria-label="Search"
-            >
-              <Search className="h-6 w-6 text-white" />
-            </button>
-          )}
-          {onSearchClick && (
-            <div className="relative hidden sm:block">
-              <input
-                type="text"
-                readOnly
-                onFocus={onSearchClick}
-                onClick={onSearchClick}
-                placeholder="Search for restaurants, people, groups, or cities..."
-                className="w-72 px-4 py-2 pr-10 rounded-xl bg-white/90 text-sm text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-white/70"
-              />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
-                <Search className="h-4 w-4" />
-              </div>
-            </div>
-          )}
-          
-          {/* User Profile Menu */}
-          <div className="relative">
-            <button 
+              aria-label="Account"
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center gap-2 p-2 glass hover:bg-white/30 rounded-xl transition-all"
+              className="flex h-11 w-11 items-center justify-center"
             >
-              <div className="w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md">
-                <span className="bg-gradient-to-br from-orange-600 to-red-600 bg-clip-text text-transparent text-sm font-bold">
-                  {profile?.name?.charAt(0)?.toUpperCase() || 'U'}
-                </span>
-              </div>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-soft)] text-sm font-semibold text-[var(--brand-deep)]">
+                {profile?.name?.charAt(0)?.toUpperCase() || 'T'}
+              </span>
             </button>
 
             {showProfileMenu && (
@@ -156,35 +131,32 @@ export default function Header({ title, onNotificationsClick, onSearchClick, onS
                   className="fixed inset-0 z-40" 
                   onClick={() => setShowProfileMenu(false)}
                 />
-                <div className="absolute right-0 mt-3 w-64 glass rounded-2xl shadow-2xl border border-white/30 py-2 z-50 overflow-hidden">
-                  <div className="px-4 py-4 border-b border-gray-200/50">
-                    <p className="text-base font-bold text-gray-900">{profile?.name}</p>
-                    <p className="text-xs text-gray-600 mt-1">{profile?.email}</p>
-                    {profile?.role === 'admin' && (
-                      <span className="inline-block mt-2 px-3 py-1 bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-semibold rounded-full shadow-md">
-                        ✨ Admin
-                      </span>
-                    )}
+                <div className="surface absolute right-0 z-50 mt-2 w-64 overflow-hidden py-1">
+                  <div className="border-b border-[var(--line)] px-4 py-3">
+                    <p className="font-semibold text-[var(--ink)]">{profile?.name}</p>
+                    <p className="mt-0.5 text-xs text-[var(--mute)]">{profile?.email}</p>
                   </div>
                   <button
+                    type="button"
                     onClick={() => {
                       onSettingsClick()
                       setShowProfileMenu(false)
                     }}
-                    className="w-full px-4 py-3 text-left text-sm font-medium text-gray-700 hover:bg-white/50 flex items-center gap-3 transition-all"
+                    className="flex min-h-11 w-full items-center gap-3 px-4 text-left text-sm text-[var(--ink)]"
                   >
-                    <Settings className="w-5 h-5 text-gray-600" />
+                    <Settings className="h-4 w-4" />
                     Settings
                   </button>
                   <button
+                    type="button"
                     onClick={() => {
                       logout()
                       setShowProfileMenu(false)
                     }}
-                    className="w-full px-4 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50 flex items-center gap-3 transition-all"
+                    className="flex min-h-11 w-full items-center gap-3 px-4 text-left text-sm text-red-700"
                   >
-                    <LogOut className="w-5 h-5 text-red-500" />
-                    Log Out
+                    <LogOut className="h-4 w-4" />
+                    Log out
                   </button>
                 </div>
               </>

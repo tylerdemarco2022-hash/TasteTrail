@@ -3,80 +3,112 @@
 @tailwind utilities;
 
 :root {
-  --gradient-primary: linear-gradient(135deg, #ff6b35 0%, #e63946 100%);
-  --gradient-secondary: linear-gradient(135deg, #f77f00 0%, #d62828 100%);
-  --gradient-warm: linear-gradient(135deg, #ff9e00 0%, #ff6b6b 100%);
-  --gradient-cool: linear-gradient(135deg, #ff8c42 0%, #ff3c38 100%);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --paper: #f6f3ef;
+  --surface: #ffffff;
+  --ink: #1c1917;
+  --mute: #78716c;
+  --line: #e7e5e4;
+  --brand: #c2410c;
+  --brand-deep: #9a3412;
+  --brand-soft: #fff4eb;
+  color-scheme: light;
 }
 
-html {
-  scroll-behavior: smooth;
+[data-theme="dark"] {
+  --paper: #1c1917;
+  --surface: #292524;
+  --ink: #fafaf9;
+  --mute: #a8a29e;
+  --line: #44403c;
+  --brand: #fb923c;
+  --brand-deep: #fdba74;
+  --brand-soft: #3f2a1d;
+  color-scheme: dark;
 }
 
-html, body, #root { 
-  height: 100%;
-  background: linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%);
+html, body, #root {
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
 }
 
-/* App-level tweaks */
-.app-shell { 
-  min-height: 100vh; 
-  display: flex; 
-  flex-direction: column; 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Smooth transitions */
-* {
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+.app-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
 }
 
-/* Glass morphism utility */
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+.screen {
+  width: min(100%, 32rem);
+  margin: 0 auto;
+  padding: 1rem 1rem calc(5.75rem + env(safe-area-inset-bottom));
 }
 
-/* Modern card hover effect */
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.surface {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
 }
 
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+.field {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0 0.9rem;
+  font-size: 1rem;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.field:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.btn {
+  min-height: 44px;
+  border-radius: 999px;
+  padding: 0 1.1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.2s ease-out;
+.btn-primary {
+  background: var(--brand);
+  color: white;
 }
 
-.animate-slideUp {
-  animation: slideUp 0.3s ease-out;
+.btn-quiet {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--line) 25%, var(--brand-soft) 37%, var(--line) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease infinite;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+.plate {
+  background:
+    radial-gradient(circle at 50% 58%, var(--brand-soft) 0 34%, transparent 35%),
+    radial-gradient(circle at 50% 58%, transparent 0 38%, var(--line) 39% 42%, transparent 43%),
+    linear-gradient(160deg, var(--brand-soft), var(--surface));
 }

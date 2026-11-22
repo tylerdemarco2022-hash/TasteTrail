@@ -32,7 +32,6 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
       
       if (result?.success) {
         // Account created successfully - redirect to login
-        alert('Account created successfully! Please log in with your credentials.')
         onSwitchToLogin()
       } else {
         setError(result?.error || 'Signup failed')
