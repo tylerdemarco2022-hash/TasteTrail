@@ -1,9 +1,8 @@
-import { Compass, Search, Map, Plus, UserRound } from 'lucide-react'
+import { Compass, Search, Plus, UserRound } from 'lucide-react'
 
 const TABS = [
   { id: 'discover', label: 'Discover', icon: Compass },
   { id: 'search', label: 'Search', icon: Search },
-  { id: 'map', label: 'Map', icon: Map },
   { id: 'rate', label: 'Rate', icon: Plus },
   { id: 'profile', label: 'Profile', icon: UserRound }
 ]

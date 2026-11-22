@@ -12,7 +12,6 @@ import Signup from './components/Signup'
 import Notifications from './components/Notifications'
 import Settings from './components/Settings'
 import UserSearch from './components/UserSearch'
-import MapScreen from './components/MapScreen'
 import RateScreen from './components/RateScreen'
 import UserProfile from './components/UserProfile'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
@@ -215,7 +214,6 @@ function App() {
 
     const tabFromPath = (path) => {
       if (path.startsWith('/search')) return 'search'
-      if (path.startsWith('/map')) return 'map'
       if (path.startsWith('/rate')) return 'rate'
       if (path.startsWith('/profile')) return 'profile'
       if (path.startsWith('/community') || path.startsWith('/groups')) return 'discover'
@@ -226,8 +224,6 @@ function App() {
       switch (tab) {
         case 'search':
           return '/search'
-        case 'map':
-          return '/map'
         case 'rate':
           return '/rate'
         case 'profile':
@@ -282,7 +278,6 @@ function App() {
             <Routes>
               <Route path="/" element={<Home onOpen={openMenu} />} />
               <Route path="/search" element={<div className="screen"><UserSearch onFollowChange={() => {}} onOpenProfile={handleOpenProfile} onOpenMenu={openMenu} /></div>} />
-              <Route path="/map" element={<MapScreen onOpen={openMenu} />} />
               <Route path="/rate" element={<RateScreen />} />
               <Route path="/community" element={<CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} />} />
               <Route path="/groups" element={<Groups />} />
