@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { API_BASE_URL } from '../config/api'
 import PostCard from './PostCard'
 import { currentUser } from '../data'
 import { getActiveProfileId, getPrivateProfileForUser, loadUserScopedValue } from '../utils/accountStorage'
@@ -17,6 +18,23 @@ function loadGroups() {
 }
 
 export default function CommunityFeed({ posts = [], onAddComment, onUserClick, onRestaurantClick }) {
+  const [serverPosts, setServerPosts] = useState([])
+  useEffect(() => {
+    const token = localStorage.getItem('access_token')
+    if (!token) return
+    fetch(`${API_BASE_URL}/api/feed`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => res.ok ? res.json() : { posts: [] })
+      .then((data) => {
+        const rows = Array.isArray(data.posts) ? data.posts : []
+        setServerPosts(rows.map((post) => ({
+          ...post,
+          user_id: post.userId,
+          user: post.user || { name: 'Diner', avatar: '' },
+          caption: post.caption || post.dish
+        })))
+      })
+      .catch(() => setServerPosts([]))
+  }, [])
   const activeProfileId = getActiveProfileId()
   const scopedFollowing = loadUserScopedValue('taste-trails-following', currentUser.following || [], activeProfileId)
   const following = Array.isArray(scopedFollowing) ? scopedFollowing : []
@@ -31,7 +49,7 @@ export default function CommunityFeed({ posts = [], onAddComment, onUserClick, o
   // Filter posts to show:
   // 1. Posts from people user follows
   // 2. Posts from groups user is a member of
-  const filteredPosts = posts.filter(post => {
+  const localPosts = posts.filter(post => {
     const postUserId = post.userId || post.user_id
     const normalizedPostUserId = String(postUserId || '')
     const isMyOwnPost = normalizedPostUserId === String(activeProfileId) || normalizedPostUserId === String(currentUser.id)
@@ -42,6 +60,7 @@ export default function CommunityFeed({ posts = [], onAddComment, onUserClick, o
     const isFromMyGroup = post.groupId && myGroupIds.includes(Number(post.groupId))
     return isFromFollowedUser || isFromMyGroup || isMyOwnPost
   })
+  const filteredPosts = [...serverPosts, ...localPosts]
 
   if (!filteredPosts || filteredPosts.length === 0) {
     return (
@@ -50,7 +69,7 @@ export default function CommunityFeed({ posts = [], onAddComment, onUserClick, o
           <div className="text-6xl mb-4">👥</div>
           <div className="text-gray-900 font-bold text-lg mb-2">No posts yet.</div>
           <div className="text-sm text-gray-600">
-            Follow people and join groups to see their food adventures here!
+            Rate a dish from a menu. Your photo and score show up here for people who follow you.
           </div>
         </div>
       </div>

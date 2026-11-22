@@ -4,6 +4,7 @@ import { currentUser, posts } from '../data'
 import { API_BASE_URL } from '../config/api'
 import { LocationContext } from '../App'
 import { Lock } from 'lucide-react'
+import { DishResult } from './RestaurantCard'
 import MenuFinderControls from './MenuFinderControls'
 import { findMenuItems, searchRestaurants } from '../services/menuItemFinder'
 import { getClientMenuCatalog } from '../services/menuCatalogClient'
@@ -192,7 +193,25 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
           ])
           if (menuResult.status === 'fulfilled' && menuResult.value.ok) {
             const data = await menuResult.value.json()
-            const dishes = Array.isArray(data.items) ? data.items : []
+            let dishes = Array.isArray(data.items) ? data.items : []
+            try {
+              const scoreRes = await fetch(`${API_BASE_URL}/api/food-scores`, {
+                headers: token ? { Authorization: `Bearer ${token}` } : {},
+                signal: controller.signal
+              })
+              if (scoreRes.ok) {
+                const scores = await scoreRes.json()
+                const byKey = new Map((scores.dishes || []).map((row) => [String(row.key), row]))
+                const fold = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+                dishes = dishes.map((dish) => {
+                  const restaurant = dish.restaurant?.name || dish.restaurant
+                  const community = byKey.get(`${fold(restaurant)}|${fold(dish.name)}`) || null
+                  return community ? { ...dish, community } : dish
+                }).sort((a, b) => (b.community?.score ?? -1) - (a.community?.score ?? -1))
+              }
+            } catch {
+              // Dish text still shows when scores are unavailable.
+            }
             setAllResults((prev) => ({ ...prev, dishes }))
             if (data.message) setSearchNote(data.message)
             else if (dishes.some((item) => item.source === 'saved')) setSearchNote('Some dishes are from a saved menu because a live menu could not be retrieved.')
@@ -374,36 +393,17 @@ export default function UserSearch({ onFollowChange, onOpenProfile, onOpenMenu }
               <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 px-1">Dishes</h3>
               <div className="space-y-2">
                 {allResults.dishes.map((d, idx) => (
-                  <div
+                  <DishResult
                     key={`${d.name}-${idx}`}
-                    className="bg-white rounded-xl shadow-sm p-3 cursor-pointer hover:shadow-md hover:bg-amber-50 transition-all flex items-center gap-3"
-                    onClick={() => onOpenMenu?.({
+                    dish={d}
+                    onOpen={() => onOpenMenu?.({
                       restaurant: d.restaurant?.name || d.restaurant,
                       name: d.restaurant?.name || d.restaurant,
                       dish: d.name,
-                      location: d.restaurant?.address || d.address || ''
+                      location: d.restaurant?.address || d.address || '',
+                      address: d.restaurant?.address || d.address || ''
                     })}
-                  >
-                    <div className="w-14 h-14 rounded-lg overflow-hidden bg-amber-100 shrink-0 flex items-center justify-center">
-                      <span className="text-sm font-semibold text-amber-700">Dish</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-gray-900 truncate">{d.name}</div>
-                      {(d.restaurant?.name || d.restaurant) && (
-                        <div className="text-xs text-gray-500">at {d.restaurant?.name || d.restaurant}</div>
-                      )}
-                      <div className="text-xs text-amber-600 font-semibold">
-                        {[
-                          d.priceLabel,
-                          d.source === 'live' ? 'Live menu' : d.source === 'saved' ? 'Saved menu' : null,
-                          d.distanceMiles != null ? `${d.distanceMiles} mi${d.approximateLocation ? ' approx' : ''}` : null
-                        ].filter(Boolean).join(' · ') || 'Price not listed'}
-                      </div>
-                      {Array.isArray(d.dietaryLabels) && d.dietaryLabels.length > 0 && (
-                        <div className="text-xs text-gray-400 truncate">{d.dietaryLabels.slice(0, 3).map((tag) => tag.label).join(' · ')}</div>
-                      )}
-                    </div>
-                  </div>
+                  />
                 ))}
               </div>
             </div>

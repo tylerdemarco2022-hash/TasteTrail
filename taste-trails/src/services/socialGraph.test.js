@@ -89,6 +89,25 @@ test('a blocked user cannot find the account or send a follow request', () => {
   assert.equal(JSON.stringify(profile.body).includes('Secret tasting note'), false)
 })
 
+test('a private rating stays hidden and a public 9.2 is a real score', () => {
+  const { social, addUser } = harness()
+  const casey = addUser({ id: 'casey', name: 'Casey', username: 'casey' })
+  const blair = addUser({ id: 'blair', name: 'Blair', username: 'blair', is_private: true })
+  const hidden = social.addRating(blair.id, { dish_name: 'Secret steak', restaurant_name: 'Blair Kitchen', rating: 10 })
+  assert.equal(hidden.status, 201)
+  assert.equal(social.foodScores(casey.id).body.dishes.some((row) => row.dish === 'Secret steak'), false)
+  const review = social.rateDish(casey.id, { dish: 'Ribeye', restaurant: "Dean's Steakhouse", rating: 9.2, area: 'Charlotte', note: 'Worth ordering' })
+  assert.equal(review.status, 201)
+  assert.equal(review.body.rating.rating, 9.2)
+  assert.equal(review.body.post.dish, 'Ribeye')
+  const scores = social.foodScores(null).body
+  assert.equal(scores.dishes[0].dish, 'Ribeye')
+  assert.equal(scores.dishes[0].average, 9.2)
+  assert.equal(scores.areas[0].area, 'Charlotte')
+  const bad = social.addRating(casey.id, { dish_name: 'Ribeye', restaurant_name: "Dean's Steakhouse", rating: 11 })
+  assert.equal(bad.status, 400)
+})
+
 test('public follow is instant and search cards omit private content', () => {
   const { social, addUser } = harness()
   const casey = addUser({ id: 'casey', name: 'Casey Public', username: 'casey', email: 'casey@example.com' })

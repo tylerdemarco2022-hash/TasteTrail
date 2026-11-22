@@ -1,5 +1,6 @@
 import crypto from 'crypto'
 import { readJSON, writeJSON } from '../../backend/utils/localDB.js'
+import { scoreGroups } from './foodScore.js'
 
 export function emptyGraph() {
   return {
@@ -10,7 +11,8 @@ export function emptyGraph() {
     posts: [],
     ratings: [],
     lists: [],
-    activity: []
+    activity: [],
+    saves: []
   }
 }
 
@@ -49,7 +51,8 @@ function normalizeGraph(raw) {
     posts: Array.isArray(raw.posts) ? raw.posts : [],
     ratings: Array.isArray(raw.ratings) ? raw.ratings : [],
     lists: Array.isArray(raw.lists) ? raw.lists : [],
-    activity: Array.isArray(raw.activity) ? raw.activity : []
+    activity: Array.isArray(raw.activity) ? raw.activity : [],
+    saves: Array.isArray(raw.saves) ? raw.saves : []
   }
 }
 
@@ -384,6 +387,7 @@ export function createSocialGraph({
       restaurant: String(payload.restaurant || payload.restaurant_name || '').slice(0, 120),
       caption: String(payload.caption || payload.content || '').slice(0, 500),
       rating: payload.rating ?? null,
+      photo: typeof payload.photo === 'string' && payload.photo.startsWith('data:image/') ? payload.photo.slice(0, 500000) : null,
       createdAt: now()
     }
     g.posts.push(post)
@@ -392,22 +396,160 @@ export function createSocialGraph({
     return { status: 201, body: { post } }
   }
 
+  function cleanRating(value) {
+    const rating = Math.round(Number(value) * 10) / 10
+    if (!Number.isFinite(rating) || rating < 1 || rating > 10) return null
+    return rating
+  }
+
+  function cleanPhoto(value) {
+    const photo = String(value || '')
+    if (!photo) return null
+    if (!/^data:image\/(?:jpeg|jpg|png|webp);base64,/i.test(photo) || photo.length > 500000) {
+      return { error: 'Use a photo under 500KB.' }
+    }
+    return photo
+  }
+
   function addRating(userId, payload = {}) {
     if (!userId) return { status: 401, body: { error: 'Sign in required' } }
+    const ratingValue = cleanRating(payload.rating)
+    if (ratingValue == null) return { status: 400, body: { error: 'Rate the dish from 1 to 10' } }
+    const dish = String(payload.dish_name || payload.dish || '').trim().slice(0, 120)
+    const restaurant = String(payload.restaurant_name || payload.restaurant || '').trim().slice(0, 120)
+    if (!dish || !restaurant) return { status: 400, body: { error: 'Choose a dish from the menu' } }
+    const photo = cleanPhoto(payload.photo)
+    if (photo?.error) return { status: 400, body: { error: photo.error } }
     const g = graph()
     const rating = {
       id: id(),
       userId,
       dish_id: payload.dish_id || null,
-      dish_name: String(payload.dish_name || payload.dish || '').slice(0, 120),
-      restaurant_name: String(payload.restaurant_name || payload.restaurant || '').slice(0, 120),
-      rating: Number(payload.rating) || null,
+      dish_name: dish,
+      restaurant_name: restaurant,
+      rating: ratingValue,
+      note: String(payload.note || payload.caption || '').trim().slice(0, 280),
+      photo: photo || null,
+      area: String(payload.area || payload.neighborhood || '').trim().slice(0, 80) || null,
       rated_at: now()
     }
     g.ratings.push(rating)
-    g.activity.push({ id: id(), userId, type: 'rating', text: rating.dish_name || 'Rating', refId: rating.id, createdAt: rating.rated_at })
+    g.activity.push({ id: id(), userId, type: 'rating', text: rating.dish_name, refId: rating.id, createdAt: rating.rated_at })
     save(g)
     return { status: 201, body: { rating } }
+  }
+
+  function rateDish(userId, payload = {}) {
+    const rated = addRating(userId, payload)
+    if (rated.status !== 201) return rated
+    const posted = addPost(userId, {
+      dish: rated.body.rating.dish_name,
+      restaurant: rated.body.rating.restaurant_name,
+      caption: rated.body.rating.note,
+      rating: rated.body.rating.rating,
+      photo: rated.body.rating.photo
+    })
+    return { status: 201, body: { rating: rated.body.rating, post: posted.body.post } }
+  }
+
+  function foodKey(restaurant, dish) {
+    return `${String(restaurant || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()}|${String(dish || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()}`
+  }
+
+  function visibleRatings(viewerId) {
+    return graph().ratings.filter((rating) => {
+      const author = userById(rating.userId)
+      return author && canView(viewerId, author)
+    })
+  }
+
+  function foodScores(viewerId) {
+    const visible = visibleRatings(viewerId)
+    const dishes = scoreGroups(visible.map((rating) => ({
+      key: foodKey(rating.restaurant_name, rating.dish_name),
+      restaurant: rating.restaurant_name,
+      dish: rating.dish_name,
+      area: rating.area,
+      rating: rating.rating
+    })))
+    const restaurants = scoreGroups(visible.map((rating) => ({
+      key: String(rating.restaurant_name || '').toLowerCase(),
+      restaurant: rating.restaurant_name,
+      area: rating.area,
+      rating: rating.rating
+    })))
+    const areas = scoreGroups(visible.filter((rating) => rating.area).map((rating) => ({
+      key: rating.area,
+      area: rating.area,
+      rating: rating.rating
+    })))
+    return { status: 200, body: { dishes, restaurants, areas } }
+  }
+
+  function decorateMenu(menu, viewerId) {
+    const scores = foodScores(viewerId).body
+    const byDish = new Map(scores.dishes.map((row) => [row.key, row]))
+    const sections = (menu?.sections || []).map((section) => ({
+      ...section,
+      items: (section.items || []).map((item) => {
+        const community = byDish.get(foodKey(menu.name, item.name)) || null
+        return community ? { ...item, community } : item
+      })
+    }))
+    const worthOrdering = sections
+      .flatMap((section) => section.items)
+      .filter((item) => item.community?.count)
+      .sort((a, b) => b.community.score - a.community.score)
+      .slice(0, 5)
+    const reviews = visibleRatings(viewerId)
+      .filter((rating) => foodKey(rating.restaurant_name, '') === foodKey(menu?.name, ''))
+      .map((rating) => {
+        const author = userById(rating.userId)
+        return {
+          id: rating.id,
+          dish: rating.dish_name,
+          rating: rating.rating,
+          note: rating.note || '',
+          photo: rating.photo || null,
+          rated_at: rating.rated_at,
+          user: author ? { id: author.id, name: author.name || 'User' } : null
+        }
+      })
+    return { ...menu, sections, worthOrdering, reviews }
+  }
+
+  function listSaves(userId) {
+    if (!userId) return { status: 401, body: { error: 'Sign in required' } }
+    const saves = graph().saves.filter((row) => row.userId === userId)
+    return { status: 200, body: { saves } }
+  }
+
+  function savePlace(userId, payload = {}) {
+    if (!userId) return { status: 401, body: { error: 'Sign in required' } }
+    const kind = payload.kind === 'restaurant' ? 'restaurant' : 'dish'
+    const name = String(payload.name || payload.dish || '').trim().slice(0, 120)
+    const restaurant = String(payload.restaurant || '').trim().slice(0, 120)
+    if (!name || (kind === 'dish' && !restaurant)) return { status: 400, body: { error: 'Choose something from the menu to save' } }
+    const status = payload.status === 'visited' ? 'visited' : 'want'
+    const g = graph()
+    const existing = g.saves.find((row) => row.userId === userId && row.kind === kind && row.name === name && row.restaurant === restaurant)
+    if (existing) {
+      existing.status = status
+      save(g)
+      return { status: 200, body: { save: existing } }
+    }
+    const entry = { id: id(), userId, kind, name, restaurant, status, createdAt: now() }
+    g.saves.push(entry)
+    save(g)
+    return { status: 201, body: { save: entry } }
+  }
+
+  function removeSave(userId, saveId) {
+    if (!userId) return { status: 401, body: { error: 'Sign in required' } }
+    const g = graph()
+    g.saves = g.saves.filter((row) => !(row.userId === userId && row.id === saveId))
+    save(g)
+    return { status: 200, body: { ok: true } }
   }
 
   function addList(userId, payload = {}) {
@@ -463,6 +605,7 @@ export function createSocialGraph({
     g.ratings = g.ratings.filter((row) => row.userId !== userId)
     g.lists = g.lists.filter((row) => row.userId !== userId)
     g.activity = g.activity.filter((row) => row.userId !== userId)
+    g.saves = g.saves.filter((row) => row.userId !== userId)
     save(g)
     return { status: 200, body: { ok: true } }
   }
@@ -478,6 +621,7 @@ export function createSocialGraph({
     g.ratings = g.ratings.filter((row) => row.userId !== userId)
     g.lists = g.lists.filter((row) => row.userId !== userId)
     g.activity = g.activity.filter((row) => row.userId !== userId)
+    g.saves = g.saves.filter((row) => row.userId !== userId)
     save(g)
   }
 
@@ -496,7 +640,13 @@ export function createSocialGraph({
     feed,
     addPost,
     addRating,
+    rateDish,
+    foodScores,
+    decorateMenu,
     addList,
+    listSaves,
+    savePlace,
+    removeSave,
     listRatings,
     purge,
     clearOwn,

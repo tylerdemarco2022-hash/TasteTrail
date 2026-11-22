@@ -2,11 +2,11 @@ import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './context/AuthContext'
 import Header from './components/Header'
 import BottomTabs from './components/BottomTabs'
-import Feed from './components/Feed'
+import Home from './components/Home'
 import CommunityFeed from './components/CommunityFeed'
 import Groups from './components/Groups'
 import Profile from './components/Profile'
-import MenuView from './components/MenuView'
+import RestaurantPage from './components/RestaurantPage'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Notifications from './components/Notifications'
@@ -268,12 +268,12 @@ function App() {
 
           <main className="flex-1">
             <Routes>
-              <Route path="/" element={<Feed onOpen={openMenu} />} />
+              <Route path="/" element={<Home onOpen={openMenu} />} />
               <Route path="/community" element={<CommunityFeed posts={communityPosts} onAddComment={handleAddComment} onRestaurantClick={openMenu} />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/profile" element={<Profile userPosts={myPosts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} />} />
               <Route path="/profile/:userId" element={<UserProfileRoute />} />
-              <Route path="/menu" element={<MenuView post={menuPost} onBack={closeMenu} showAI />} />
+              <Route path="/menu" element={<RestaurantPage post={menuPost} onBack={closeMenu} />} />
             </Routes>
           </main>
 

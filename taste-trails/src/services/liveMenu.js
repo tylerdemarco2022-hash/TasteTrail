@@ -3,6 +3,7 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { dietaryProfile, findMenuItems } from './menuItemFinder.js'
+import { groupPublishedSections } from './menuPresentation.js'
 import { getNodeMenuCatalog } from './menuCatalogNode.js'
 import { menuLinksFromHtml, parseMenuHtml, parseMenuText } from './menuDocumentParser.js'
 import { foldRestaurantName, knownRestaurantRecords } from './restaurantSources.js'
@@ -47,18 +48,17 @@ function savedItemsFor(savedCatalog, name) {
 }
 
 function sectionsFromItems(items) {
-  const groups = new Map()
-  for (const item of items || []) {
-    const name = item.category || 'Menu'
-    if (!groups.has(name)) groups.set(name, { name, items: [] })
-    groups.get(name).items.push({
+  return groupPublishedSections((items || []).map((item) => {
+    const profile = dietaryProfile(item.name || '', item.description || '')
+    return {
       name: item.name,
       description: item.description || '',
-      category: item.category || name,
-      price: item.price ?? null
-    })
-  }
-  return [...groups.values()]
+      category: item.category || null,
+      price: item.price ?? null,
+      sourceUrl: item.sourceUrl || null,
+      dietaryLabels: profile.labels
+    }
+  }))
 }
 
 function catalogFromRecords(records) {
@@ -239,12 +239,14 @@ export function createLiveMenuService(options = {}) {
       }
     }
     if (saved.length > 0) {
+      const dated = saved.find((item) => item.fetchedAt)
+      const sourced = saved.find((item) => item.sourceUrl)
       return {
         name: record?.name,
         source: 'saved',
-        sourceUrl: null,
+        sourceUrl: sourced?.sourceUrl || null,
         website: record?.website || null,
-        fetchedAt: null,
+        fetchedAt: dated?.fetchedAt || null,
         message: `Could not retrieve a live menu for ${record?.name || 'this restaurant'}. Showing the saved menu, which may be out of date.`,
         items: saved.map((item) => ({
           name: item.name,
@@ -351,7 +353,10 @@ export function createLiveMenuService(options = {}) {
       hours: place.hours || null,
       rating: Number.isFinite(Number(place.rating)) ? Number(place.rating) : null,
       ratingCount: Number.isFinite(Number(place.ratingCount)) ? Number(place.ratingCount) : null,
-      photoName: place.photoName || null
+      photoName: place.photoName || null,
+      cuisine: place.cuisine || null,
+      phone: place.phone || null,
+      neighborhood: place.neighborhood || null
     }
   }
 
@@ -375,7 +380,7 @@ export function createLiveMenuService(options = {}) {
       headers: {
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': placesKey,
-        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.websiteUri,places.rating,places.userRatingCount,places.regularOpeningHours,places.photos'
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.websiteUri,places.rating,places.userRatingCount,places.regularOpeningHours,places.photos,places.nationalPhoneNumber,places.primaryTypeDisplayName,places.priceLevel'
       },
       body: JSON.stringify({
         includedTypes: ['restaurant'],
@@ -401,7 +406,9 @@ export function createLiveMenuService(options = {}) {
       hours: hoursText(place.regularOpeningHours),
       rating: place.rating,
       ratingCount: place.userRatingCount,
-      photoName: place.photos?.[0]?.name || null
+      photoName: place.photos?.[0]?.name || null,
+      phone: place.nationalPhoneNumber || null,
+      cuisine: place.primaryTypeDisplayName?.text || null
     }))
   }
 
@@ -441,7 +448,10 @@ export function createLiveMenuService(options = {}) {
         longitude: element.lon ?? element.center?.lon,
         menuUrls: menu ? [menu] : [],
         websites: website ? [website] : [],
-        hours: tags.opening_hours || null
+        hours: tags.opening_hours || null,
+        cuisine: tags.cuisine ? String(tags.cuisine).replace(/_/g, ' ') : null,
+        phone: tags.phone || tags['contact:phone'] || null,
+        neighborhood: tags['addr:suburb'] || tags['addr:neighbourhood'] || tags['addr:city'] || null
       })
   }
 
@@ -528,6 +538,9 @@ export function createLiveMenuService(options = {}) {
       rating: place.rating,
       ratingCount: place.ratingCount,
       photoName: place.photoName,
+      cuisine: place.cuisine,
+      phone: place.phone,
+      neighborhood: place.neighborhood,
       distanceMiles: place.distanceMiles,
       menuStatus: menuStatusFor(place)
     }

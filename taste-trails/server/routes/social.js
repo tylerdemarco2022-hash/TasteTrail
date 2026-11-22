@@ -169,6 +169,36 @@ router.post('/ratings', async (req, res) => {
   return send(res, getSocialGraph().addRating(viewer.id, req.body || {}))
 })
 
+router.post('/dish-reviews', async (req, res) => {
+  const viewer = await viewerFrom(req, res, { required: true })
+  if (!viewer) return
+  return send(res, getSocialGraph().rateDish(viewer.id, req.body || {}))
+})
+
+router.get('/food-scores', async (req, res) => {
+  const viewer = await viewerFrom(req, res)
+  if (!viewer) return
+  return send(res, getSocialGraph().foodScores(viewer.id))
+})
+
+router.get('/saves', async (req, res) => {
+  const viewer = await viewerFrom(req, res, { required: true })
+  if (!viewer) return
+  return send(res, getSocialGraph().listSaves(viewer.id))
+})
+
+router.post('/saves', async (req, res) => {
+  const viewer = await viewerFrom(req, res, { required: true })
+  if (!viewer) return
+  return send(res, getSocialGraph().savePlace(viewer.id, req.body || {}))
+})
+
+router.delete('/saves/:id', async (req, res) => {
+  const viewer = await viewerFrom(req, res, { required: true })
+  if (!viewer) return
+  return send(res, getSocialGraph().removeSave(viewer.id, req.params.id))
+})
+
 router.get('/ratings', async (req, res) => {
   const viewer = await viewerFrom(req, res)
   if (!viewer) return

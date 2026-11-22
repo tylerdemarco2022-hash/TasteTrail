@@ -190,6 +190,7 @@ function htmlToMenuText(html) {
   return String(html || '')
     .replace(/<script[\s\S]*?<\/script>/gi, '\n')
     .replace(/<style[\s\S]*?<\/style>/gi, '\n')
+    .replace(/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/gi, (_, inner) => `\n${decode(inner).toUpperCase()}\n`)
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/(p|div|li|h[1-6]|tr|section|article)>/gi, '\n')
     .replace(/<[^>]+>/g, ' ')
@@ -236,7 +237,7 @@ function isSectionHeader(line) {
   if (!SECTION_HEADER.test(line)) return false
   if (numberCount(line) > 0 || isDietaryMarker(line)) return false
   const words = headerWords(line)
-  return words.length >= 1 && words.length <= 2
+  return words.length >= 1 && words.length <= 4
 }
 
 function dishCore(line) {

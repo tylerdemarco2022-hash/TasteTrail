@@ -21,6 +21,8 @@ import {
 import path from 'path';
 import dotenv from 'dotenv';
 import { handleLiveFindMenuItems, handleLiveSearchDishes, handleRestaurantMenu } from '../src/services/liveMenu.js';
+import { getSocialGraph } from '../src/services/socialGraph.js';
+import { resolveAuth } from './routes/auth.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -88,7 +90,7 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   console.log("INCOMING REQUEST:", req.method, req.path);
@@ -185,7 +187,15 @@ app.get('/api/place-photo', async (req, res) => {
 app.get('/api/restaurant-menu', async (req, res) => {
   try {
     const result = await handleRestaurantMenu(req.query || {})
-    return res.status(result.status).json(result.body)
+    let viewerId = null
+    if (req.headers.authorization) {
+      const auth = await resolveAuth(req)
+      if (auth.ok) viewerId = auth.profile?.id || null
+    }
+    const body = result.status === 200 && result.body
+      ? getSocialGraph().decorateMenu(result.body, viewerId)
+      : result.body
+    return res.status(result.status).json(body)
   } catch (e) {
     console.error('restaurant-menu error:', e instanceof Error ? e.message : String(e))
     return res.status(500).json({ error: 'internal server error' })
