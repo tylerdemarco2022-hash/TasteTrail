@@ -1,152 +1,5594 @@
 [
   {
-    "category": "Appetizer",
+    "name": "Steel Cut Oatmeal",
+    "category": "A Lighter Start",
+    "description": "Granola, Fresh Berries, Lavender Honey",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Avocado Toast",
+    "category": "A Lighter Start",
+    "description": "Smashed Avocado, Everything Spice, Pickled Onions, Tomato, Lemon Agrumato Oil",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cinnamon Zeppoles",
+    "category": "A Lighter Start",
+    "description": "House Made Italian-Style Doughnuts, Apple Butter, Caramel Sauce",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lemon Mascarpone Parfait",
+    "category": "A Lighter Start",
+    "description": "Fresh Berries, Lemon Curd, Vanilla Whipped Mascarpone",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angeline's Breakfast*",
+    "category": "Entrees",
+    "description": "Two Eggs Your Style, Choice of Breakfast Meat, Crispy Potatoes, Toast",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amaretto Italian Toast",
+    "category": "Entrees",
+    "description": "Amaretto Vanilla Custard, Chocolate Chantilly, Pure Maple Syrup",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Eggs in Purgatory*",
+    "category": "Entrees",
+    "description": "Farm Fresh Eggs, Simmered in Pepperoncini Pomodoro, House Bread",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bacon and Egg Panini",
+    "category": "Entrees",
+    "description": "Applewood Smoked Bacon, Fontina, Rustic Potatoes",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balsamic Glazed Steak*",
+    "category": "Entrees",
+    "description": "Flat Iron, Two Eggs Your Style, Rustic Potatoes, Toast",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Country Frittata",
+    "category": "Entrees",
+    "description": "Crumbled Sausage, Peppers, Onions, Fontina",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lemon Ricotta Pancakes",
+    "category": "Entrees",
+    "description": "Lemon Whipped Ricotta, Pure Maple Syrup",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rustic Potatoes",
+    "category": "Sides",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Seasonal Fruit",
+    "category": "Sides",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fruit & Yogurt Parfait",
+    "category": "Sides",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Double Shot Espresso",
+    "category": "Beverage",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tea",
+    "category": "Beverage",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Drip",
+    "category": "Beverage",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Americano",
+    "category": "Beverage",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Espresso",
+    "category": "Beverage",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Affogato",
+    "category": "Beverage",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Latte",
+    "category": "Beverage",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Caesar Salad",
-    "description": "Romaine, Focaccia Crisps, Parmesan"
+    "category": "Soup and Salads",
+    "description": "Crisp Romaine, Croutons, Parmesan Frico",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizer",
-    "name": "Citrus Salad",
-    "description": "Citrus, Ricotta Salata, Winter Chicories, Pistachio, Roasted Beets, Citrus Vinaigrette"
+    "name": "Tri Color Salad",
+    "category": "Soup and Salads",
+    "description": "Baby Arugula, Endive, Radicchio, Pine Nuts, Gorgonzola, Herbed Lemon Vinaigrette",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizer",
+    "name": "Vegetable & Farro Salad",
+    "category": "Soup and Salads",
+    "description": "Cucumber, Tomato, Asparagus, Red Onions, Roasted Red Peppers, Feta Cheese, Red Wine Vinaigrette",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grilled Cheese",
+    "category": "Soup and Salads",
+    "description": "Smoked Fontina Grilled Cheese",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Tomato Bisque",
-    "description": "Pistachio Gremolata"
+    "category": "Soup and Salads",
+    "description": "Pistachio Gremolata",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizer",
-    "name": "Margherita Pizza",
-    "description": "Tomato Sauce, Mozzarella, Basil, EVOO"
+    "name": "Chicken Parmesan",
+    "category": "Lunch",
+    "description": "Crispy Chicken Breast, Mozzarella, Parmigiano Reggiano, Tomato Sauce, Sourdough",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizer",
-    "name": "Pepperoni Pizza",
-    "description": "Tomato Sauce, Spicy Pepperoni, Mozzarella, Basil"
+    "name": "Balsamic Steak Sandwich*",
+    "category": "Lunch",
+    "description": "Flat Iron Steak, Fontina, Caramelized Onions, Baby Arugula, Ciabatta Bun",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizer",
-    "name": "Calabrian Pizza",
-    "description": "Tomato Sauce, House Spicy Sausage, Red Onions, Calabrian Chili Oil, Mozzarella, Basil"
+    "name": "Grilled Chicken Caprese",
+    "category": "Lunch",
+    "description": "Basil Pesto, Fresh Mozzarella, Roasted Tomato, Sourdough",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Appetizer",
-    "name": "Mushroom Pizza",
-    "description": "Truffle Ricotta, Mozzarella, Roasted Garlic, Arugula, Lemon"
+    "name": "Porchetta Sandwich",
+    "category": "Lunch",
+    "description": "Slow Roasted Porchetta, Broccoli, Garlic and Provolone, Jus, Tuscan Loaf",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Pasta",
-    "name": "Bolognese",
-    "description": "Tagliatelle, Spiced Beef and Pork, Parmesan"
-  },
-  {
-    "category": "Pasta",
-    "name": "Amatriciana",
-    "description": "Spaghetti, Bacon Lardon, D.O.P Tomatoes, Pecorino Romano"
-  },
-  {
-    "category": "Pasta",
-    "name": "Chicken Sugo",
-    "description": "Strozzapreti, Chicken Bolognese, Spinach, Roasted Mushroom"
-  },
-  {
-    "category": "Pasta",
-    "name": "Cacio e Pepe",
-    "description": "Spaghetti, Pecorino, Toasted Black Pepper"
-  },
-  {
-    "category": "Pasta",
-    "name": "Butternut Squash Ravioli",
-    "description": "Sage Brown Butter, Balsamico Modena, Chestnut Muchrooms, Walnuts"
-  },
-  {
+    "name": "Whipped Ricotta",
     "category": "For the Table",
-    "name": "#Whipped Ricotta",
-    "description": "Lavender Honey, Lemon Oil, Pistachio, House Bread"
+    "description": "Lavender Honey, Lemon Oil, Pistachio, House Bread",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "For the Table",
-    "name": "Meatballs",
-    "description": "Local Beef and Pork, Rustic Tomato, Whipped Ricotta"
-  },
-  {
-    "category": "For the Table",
     "name": "Fried Artichokes",
-    "description": "Lemon Aioli"
-  },
-  {
     "category": "For the Table",
-    "name": "Crispy Brussels",
-    "description": "Balsamic Apples, Pickled Mustard Seed, Pecorino"
+    "description": "Lemon Aioli",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "For the Table",
-    "name": "Calamari Semolina",
-    "description": "Pickled Peppers, Pomodoro"
+    "name": "Cacio e Pepe",
+    "category": "Pastas & Pizzas",
+    "description": "House Made Pasta, Pecorino, Toasted Black Pepper",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "For the Table",
-    "name": "Fire Roasted Shrimp",
-    "description": "Spicy Arrabbiata, Lemon, Pangrattato, House Bread"
+    "name": "Calabrian Vodka Sauce",
+    "category": "Pastas & Pizzas",
+    "description": "Rigatoni, Calabrian Chili, Parmigiano Reggiano",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Mains",
-    "name": "Chicken Scarpariello",
-    "description": "Italian Sausage, Fingerling Potatoes, Cherry Peppers, Jus"
+    "name": "Pepperoni",
+    "category": "Pastas & Pizzas",
+    "description": "Tomato Sauce, Mozzarella, Spicy Pepperoni, Basil",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Mains",
-    "name": "Grilled New York Strip*",
-    "description": "Braised Local Greens, Fingerling Potatoes, Truffle Jus"
+    "name": "Margherita",
+    "category": "Pastas & Pizzas",
+    "description": "Tomato Sauce, Mozzarella, Basil, EVOO",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Mains",
-    "name": "Seared Salmon*",
-    "description": "Butternut Squash Puree, Roasted Root Vegetable, Honey Glaze"
-  },
-  {
-    "category": "Mains",
-    "name": "Gnocchi",
-    "description": "Braised Duck Ragu, Black Truffle Ricotta, Lemon"
-  },
-  {
-    "category": "Mains",
-    "name": "Veal Ossobuco",
-    "description": "Braised Veal Shank, Pistachio Gremolata, Creamy Polenta"
-  },
-  {
-    "category": "Signature Cuts",
-    "name": "Market White Fish*",
-    "description": "Lemon Butter Sauce, Confit Tomatoes"
-  },
-  {
-    "category": "Signature Cuts",
-    "name": "Florentine Steak*",
-    "description": "Bone-in Ribeye, Balsamic, Greens"
-  },
-  {
-    "category": "Signature Cuts",
-    "name": "Grilled Pork Chop*",
-    "description": "Apple Cider Glaze, Parsnip Double Cream, Brown Butter Root Vegetables, Fresh Herbs"
-  },
-  {
-    "category": "Sides",
-    "name": "Grilled Broccolini",
-    "description": "Chili and Garlic Oil, Lemon"
-  },
-  {
-    "category": "Sides",
     "name": "Crispy Potatoes",
-    "description": "Smashed Fingerling, Pickles Cippolini Onions, Lemon Crema"
+    "category": "Sides",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Local Mushrooms",
-    "description": "Mushroom Ragu, Balsamic"
+    "name": "Italian Margarita",
+    "category": "Seasonal",
+    "description": "Don Julio Reposado, Amaretto Disaronno, Orange Juice, Lime",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
+    "name": "Tryon Park Old Fashioned",
+    "category": "Seasonal",
+    "description": "High West Bourbon, Blood Orange, Vanilla, Bitters",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angie's Sangria",
+    "category": "Seasonal",
+    "description": "Burgundy Wine, Tuaca Brandy, Dry Curacao, Lemon",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Up All Night",
+    "category": "Seasonal",
+    "description": "Citadel Gin, Cocchi Rosa, Blood orange, Vanilla, Grapefruit",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "(NA) Bee's Knees",
+    "category": "Zero Proof Cocktails",
+    "description": "Seedlip Garden N/A Spirit, Lemon, Honey, Club Soda",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Avissi, IT",
+    "category": "Bubbles & Rose",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brut, Roederer, CA",
+    "category": "Bubbles & Rose",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rosé, Mirabeau \"X\", FR",
+    "category": "Bubbles & Rose",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Grigio, Lunardi, IT",
+    "category": "White",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, Sean Minor, CA",
+    "category": "White",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Riesling, Selbach, GER",
+    "category": "White",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moscato Provincia, Caposaldo, IT",
+    "category": "White",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grüner Veltliner, Pfaffl, AT",
+    "category": "White",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Argiano, IT",
+    "category": "Red",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Montepulciano, Cora, IT",
+    "category": "Red",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chianti, Tenuta di Arceno, IT",
+    "category": "Red",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbera d'Asti, Viberti, IT",
+    "category": "Red",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Malbec, Salentein, ARG",
+    "category": "Red",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cotes du Rhone, Perrin, FR",
+    "category": "Red",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tempranillo, 12 Linejas, ESP",
+    "category": "Red",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Four Graces, OR",
+    "category": "Red",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Zardetto, IT",
+    "category": "Wines on Tap",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Loveblock, NZ",
+    "category": "Wines on Tap",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Daou, Paso Robles, CA",
+    "category": "Wines on Tap",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Peroni, Euro Pale Ale, IT 5% ABV",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Stella Artois, Euro Pale Lager, BE 5% ABV",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bud Light, USA 5% ABV",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Guinness Draught, Stout, Ireland 4.5% ABV",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angry Orchard, Crisp Apple Cider, NY 5% ABV",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Best Day Brewing, Electro-Lime, CA",
+    "category": "Bottles and Cans",
+    "description": "Non-Alcoholic",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Best Day Brewing, Hazy IPA, CA",
+    "category": "Bottles and Cans",
+    "description": "Non-Alcoholic",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Legion, Juicy Jay Hazy IPA, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Modelo Especial, Lager, Mexico",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fat Tire, Belgian White, CO",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Southern Range, Carolina Pilsner, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Birdsong, Higher Ground, IPA, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wooden Robot, Good Morning Vietnam, Blonde Ale, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bolognese",
+    "category": "Pasta and Pizza",
+    "description": "House Made Pasta, Signature Beef, Pork and Veal Ragu, Parmigiano Reggiano",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Carbonara",
+    "category": "Pasta and Pizza",
+    "description": "Spaghetti, Guanciale, Pecorino, Black Pepper",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pepperoni Pizza",
+    "category": "Pasta and Pizza",
+    "description": "Tomato Sauce, Spicy Pepperoni, Mozzarella, Basil",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Calabrian Pizza",
+    "category": "Pasta and Pizza",
+    "description": "Tomato Sauce, House Spicy Sausage, Red Onions, Calabrian Chili Oil, Mozzarella, Basil",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Margherita Pizza",
+    "category": "Pasta and Pizza",
+    "description": "Tomato Sauce, Mozzarella, Basil, EVOO",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mushroom Pizza",
+    "category": "Pasta and Pizza",
+    "description": "Truffle Ricotta, Mozzarella, Roasted Garlic, Arugula, Lemon",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Calamari Fritti",
+    "category": "For the Table",
+    "description": "Shishito and Peppadew Peppers, Fresh Herbs, Pomodoro",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Meatballs Pomodoro",
+    "category": "For the Table",
+    "description": "Veal, Beef and Pork Blend, Pomodoro, Parmigiano Reggiano",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grilled Cheese & Soup",
+    "category": "Soups and Salad",
+    "description": "Smoked Fontina Grilled Cheese, Cup of Tomato Bisque",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balsamic Steak Sandwich",
+    "category": "Sandwiches",
+    "description": "Flat Iron Steak, Fontina, Caramelized Onions, Baby Arugula, Ciabatta Bun",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Salmon Burger",
+    "category": "Sandwiches",
+    "description": "Lemon Basil Aioli, Crunchy Vegetable Slaw, Ciabatta Bun",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angeline's Burger",
+    "category": "Sandwiches",
+    "description": "Two 4oz Wagyu Patties, Fontina Cheese, Tomato Jam, Ciabatta Bun",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Vegetable and Farro Salad",
+    "category": "Appetizers",
+    "description": "Cucumber, Tomato, Asparagus, Red Onion, Roasted Peppers, Feta Cheese, Red Wine Vinaigrette",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Truffle Mushroom Bisque",
+    "category": "Appetizers",
+    "description": "Pistachio Gremolata",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tuscan Chicken",
+    "category": "Pastas",
+    "description": "Strozzapreti, Baby Spinach, Local Mushroom, Lemon Cream, Pecorino",
+    "price": "$27.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shrimp Fra Diavola",
+    "category": "Pastas",
+    "description": "Bucatini, Spiced Pomodoro Sauce, NC Shrimp",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crispy Zucchini",
+    "category": "For the Table",
+    "description": "Lemon Basil Aioli",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fire Roasted Shrimp",
+    "category": "For the Table",
+    "description": "Tomato Confit, Calabrian Chili Butter, Focaccia",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chicken Scarpariello",
+    "category": "Mains",
+    "description": "Half Chicken, Potato, Sausage, Peppadew Peppers",
+    "price": "$36.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grilled New York Strip*",
+    "category": "Mains",
+    "description": "Roasted Mushroom, Onion, Potato, Salsa Verde",
+    "price": "$48.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Salmon Barigoule*",
+    "category": "Mains",
+    "description": "Artichoke, Mushroom, Carrot, Pinot Grigio Broth",
+    "price": "$36.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gnocchi Alla Norcina",
+    "category": "Mains",
+    "description": "Spiced Sausage, Local Mushrooms, Sun-Dried Tomato, Truffle Cream",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Market White Fish*",
+    "category": "Signature Cuts",
+    "description": "Eggplant Caponata, Asparagus, Salsa Verde",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Porcini Crusted Bone In Ribeye*",
+    "category": "Signature Cuts",
+    "description": "Parmesan Potatoes, Aged Balsamic",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Seared Sea Scallops*",
+    "category": "Signature Cuts",
+    "description": "Cauliflower Puree, Sungold Tomato, Toasted Hazelnuts, Crispy Prosciutto",
+    "price": "$42.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crispy Cheshire Pork Shank*",
+    "category": "Signature Cuts",
+    "description": "Hot and Sweet Peppers, Roasted Potato",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Roasted Asparagus",
     "category": "Sides",
-    "name": "Creamy Polenta",
-    "description": "Grated Parmesan and Herbs"
+    "description": "Garlic Oil, Lemon",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cacio e Pepe Potatoes",
+    "category": "Sides",
+    "description": "Smashed Fingerling, Pecorino, Black Pepper",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauteed Spinach",
+    "category": "Sides",
+    "description": "Garlic & Oil",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Farroto",
+    "category": "Sides",
+    "description": "Wheat Farro, Parmesan, Fresh Herbs",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tiramisu Classico",
+    "category": "Desserts",
+    "description": "Whipped Mascarpone Mousse, Espresso Soaked Ladyfinger, Cold Brew Chantilly",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hazelnut Torte",
+    "category": "Desserts",
+    "description": "Hazelnut Cake, Dark Chocolate and Hazelnut Mousse, Praline Crunch, Raspberry Sauce, Chocolate Gelato",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Caramel Budino",
+    "category": "Desserts",
+    "description": "Brown Butter Caramel Sauce, Vanilla Chantilly, Spiced Apple Compote",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Coffee Cake",
+    "category": "Desserts",
+    "description": "Warm Blueberry Coffee Cake with Cinnamon Crumble, Gelato",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Assorted Gelato & Sorbetto",
+    "category": "Desserts",
+    "description": "Chef's Daily Selection",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Espresso Concoction",
+    "category": "La Colombe",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Twinings of London",
+    "category": "Tea",
+    "description": "Darjeeling Tea, Earl Gray, English Breakfast, Chamomile, Green Tea with Mint, Jasmin Green Tea, Orange Pekoe / Ceylon",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "G. D. Vajra, Barolo Chinato",
+    "category": "Late Harvest Glasses",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cappellano, Barolo Chinato",
+    "category": "Late Harvest Glasses",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Borgo Scopeto, Vin Santo del Chianti",
+    "category": "Late Harvest Glasses",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Equipo Navazos, Fino en Rama, Half Bottle, Andalusia",
+    "category": "Bottle Selections",
+    "description": "",
+    "price": "$44.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Radikon, Jakot, Biodynamic Friulano, Friuli",
+    "category": "Bottle Selections",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Emotions, Sauternes",
+    "category": "Bottle Selections",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Niepoort 10yr",
+    "category": "Port",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Niepoort 30yr",
+    "category": "Port",
+    "description": "",
+    "price": "$34.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sandeman 20yr Tawny Porto",
+    "category": "Port",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Broadbent Maidera Rich",
+    "category": "Port",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hennessey Paradis",
+    "category": "Cognac",
+    "description": "",
+    "price": "$390.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Courvoisier VSOP",
+    "category": "Cognac",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hennessey VSOP",
+    "category": "Cognac",
+    "description": "",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "A New Bergamotto",
+    "category": "Seasonal",
+    "description": "Absolut Vodka, Italicus, Lemon, Basil, Cucumber",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Birds of a Feather",
+    "category": "Seasonal",
+    "description": "Planteray Dark Rum, Campari, Pineapple, Apple, Lime, Hibiscus Syrup",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "(NA) Bees Knees",
+    "category": "Zero Proof",
+    "description": "Non-Alcoholic Seedlip Garden 108, Lemon, Honey, Club Soda",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Caposaldo, IT",
+    "category": "Bubbles & Rose",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rose, Mirabeau \"X\", FR",
+    "category": "Bubbles & Rose",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Grigio, Attems, IT",
+    "category": "White Wine",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, J Vineyards CA",
+    "category": "White Wine",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moscato di Asti, Saracco, IT",
+    "category": "White Wine",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chianti, Banfi, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbera d'Alba, Viberti, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Malbec, Amalaya, ARG",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cotes du Rhone, Famille Perrin, FR",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Hahn Arroyo, CA",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Zardetto, Brut, IT",
+    "category": "Wines on Tap",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Resident Culture, Lightning Drops Hazy IPA, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Southern Range Carolina Pilsner, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Birdsong, Higher Ground IPA, NC",
+    "category": "Drafts",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Peroni, Euro Pale Ale, IT",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Stella Artois, Euro Pale Lager, BE",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bud Light, USA",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Guinness Draught, Stout, Ireland",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angry Orchard, Crisp Apple Cider, NY",
+    "category": "Bottles and Cans",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Bisson, Glera Frizzante, Marca Trevigiana, Liguria",
+    "category": "Italian Sparkling Wine",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Cleto Chiarli, Vecchia Modena, Lambrusco, Emilia-Romagna",
+    "category": "Italian Sparkling Wine",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Ferrari, Brut, Trentino",
+    "category": "Italian Sparkling Wine",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Ferrari, Brut Rosato, Trentino",
+    "category": "Italian Sparkling Wine",
+    "description": "",
+    "price": "$148.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Lini 910, Lambrusco, Bianco, Emilia-Romagna",
+    "category": "Italian Sparkling Wine",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Lini 910, Lambrusco, Rosso, Emilia-Romagna",
+    "category": "Italian Sparkling Wine",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Caposaldo",
+    "category": "Prosecco",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Zonin, Brut Gran Cuvee",
+    "category": "Prosecco",
+    "description": "",
+    "price": "$56.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Ruggeri, Rosé Brut",
+    "category": "Prosecco",
+    "description": "",
+    "price": "$70.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Billecart-Salmon, Rosé Brut Reserve",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$320.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Domaine Laurent & Celine Notton, Brut",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Domaine Laurent & Celine Notton, Brut, Rosé",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Dom Pérignon, Brut, Reims",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$860.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Heidsieck, Monopole, Champagne",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Les Cordeliers, Cremant de Bordeaux Brut, France",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Louis Roederer, Cristal, Brut",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$975.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Marguet, Shaman Rosé, Ambonnay",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Moet & Chandon, Imperial, Nectar, Brut, Demi Sec",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Mumm Napa, Brut Prestige, Napa Valley, CA",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Savart, l'Accomplie, Brut, 1er Cru, Ecueil",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$185.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Taittinger, Brut, La Francaise, Reims",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$190.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2005 Taittinger, Comtes de Champagne, Rosé, Reims",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$755.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Veuve Clicquot, Yellow Label, Brut, Reims",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$232.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Zahringer, Blanc de Blancs, Baden, Germany",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Zahringer, Cuvee Edelgrafler, Baden, Germany",
+    "category": "Champagne / Sparkling",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Borgo del Tiglio, Bianco, Collio",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Borgo del Tiglio, Milleuve, Collio",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$112.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Borgo del Tiglio, Studio Bianco, Collio",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$360.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Tiefenbrunner, Chardonnay, Alto Adige",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Tenuta Mazzolino, Chardonnay, Blanc, Lombardy",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Via Alpina Colli Orientali del Friuli, Sauvignon Blanc",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$96.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Tramin, Gewurtztraminer, Nussbaumer, Alto Adige",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$180.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Tramin, Chardonnay, Alto Adige",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Tiberio Colline Pescaresi Pecorino, Abruzzo",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Ceretto Arneis, Lange",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Coffele, Castel Cerino, Soave Classico",
+    "category": "Veneto",
+    "description": "",
+    "price": "$48.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Jermann, Vinna, Ribolla Gialla",
+    "category": "Veneto",
+    "description": "",
+    "price": "$112.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Inama, Soave, du Lot",
+    "category": "Veneto",
+    "description": "",
+    "price": "$52.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Michele Chiarlo, Cortese, La Marne, Gavi",
+    "category": "Veneto",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Pieropan, Soave Classico",
+    "category": "Veneto",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 I Prandi Soave",
+    "category": "Veneto",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Arrigo Bidoli, Friuli, Italy",
+    "category": "Pinot Grigio",
+    "description": "",
+    "price": "$71.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Di Bruno, Santa Barbara County, California",
+    "category": "Pinot Grigio",
+    "description": "",
+    "price": "$116.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Jermann, Friuli, Italy",
+    "category": "Pinot Grigio",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Tiefenbruner, Vigneti delle Dolomiti",
+    "category": "Pinot Grigio",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Venica, Jesera, Collio",
+    "category": "Pinot Grigio",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Laimburg, Alto Adige",
+    "category": "Pinot Grigio",
+    "description": "",
+    "price": "$67.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Casa alle Vacche, Sangiovese B. Bianco",
+    "category": "Tuscany",
+    "description": "",
+    "price": "$76.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Montenidoli, Vernaccia di San Gimignano",
+    "category": "Tuscany",
+    "description": "",
+    "price": "$62.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Guado Al Melo Toscana Vermentino L'Airone",
+    "category": "Tuscany",
+    "description": "",
+    "price": "$62.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Banfi, La Pettegola Vermentino IGT",
+    "category": "Tuscany",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Antonio Mazzella, Ischiba Biancolella",
+    "category": "Campania",
+    "description": "",
+    "price": "$62.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Cantina del Taburno, Fiano Benevetano",
+    "category": "Campania",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Ca' Del Sarto Trebbiano d'Abruzzo",
+    "category": "Campania",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Cantina Trabucco, Paradosso",
+    "category": "Campania",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Manimurci Falanghina di Sannio DOC",
+    "category": "Campania",
+    "description": "",
+    "price": "$52.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Cos, Terre Siciliane Bianco, Orange, Rami, Sicily",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Olianas, Vermintino, Sardinia",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Tenuta Tascante, Buonara, Etna Bianco, Sicily",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Tornatore, Etna Bianco, Sicily",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Regaleali, Bianco, Sicily",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Domaine Gabriel et Paul Jouard, Chassagne-Montrachet",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$198.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine Prebende, Beaujolais Blanc",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$87.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Domaine Servin, Chablis, Les Clos Grand Cru",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$265.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine Tatraux, Givry 1er Cru \"Crausot\"",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$162.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Chateau Lagruger, Sauvignon Blanc",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Famille Guegen, Bourgogne, Côtes Salines",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Jean Francoise Quenard, Savoie Chignin",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$54.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Joseph Drouhin, Saint Veran",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$64.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Louis Latour Mâcon-Lugny Les Genievres",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Patrick Piuze, Vaillons, Les Minots, 1er Cru",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Chateau Montcour, Chenin Blanc, Vouvray, Demi-Sec, Loire",
+    "category": "France",
+    "description": "",
+    "price": "$54.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine du val Lamartinien, Saint-Veran",
+    "category": "France",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine Sick Dreyer, \"Yahrpfifel\", Riesling, Alsace",
+    "category": "France",
+    "description": "",
+    "price": "$75.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine Sick Dreyer, \"Yahrpfifel\", Gewurtztraminer, Alsace",
+    "category": "France",
+    "description": "",
+    "price": "$63.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Chateau de Campuget 1753 Vermentino, Loire",
+    "category": "France",
+    "description": "",
+    "price": "$62.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Louis Latour Grand Ardeche, Chardonnay",
+    "category": "France",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine de la Pepiere, Muscadet, Loire",
+    "category": "France",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 J. de Villebois, Touraine, Sauvignon Blanc",
+    "category": "France",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Valery Renaudat \"Le Ptit Renaudat\", Sauvignon Blanc",
+    "category": "France",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Les Godons Sancerre, Philippe Raimbault",
+    "category": "France",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine de Saint-Pierre Prieur et Fils, Sancerre, Loire Valley",
+    "category": "France",
+    "description": "",
+    "price": "$75.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Lesimple Fils, Sancerre, Loire Valley",
+    "category": "France",
+    "description": "",
+    "price": "$155.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Chateau La Grave Orange, Loire Valley",
+    "category": "France",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Michel Vittan \"OP\", Sancerre",
+    "category": "France",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Dopff & Iron, Crustaces, Alsace",
+    "category": "France",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2011 Rolly Gassman, Riesling Silberberg, Alsace",
+    "category": "France",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Le Jade, Picpoul de Pinet, Picpoul France",
+    "category": "France",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Bengoetxe, Getariako Txakolina, Basque, ES",
+    "category": "World Whites",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Bow and Arrow, Melon de Bourgogne, OR",
+    "category": "World Whites",
+    "description": "",
+    "price": "$74.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Craggy Range, Sauvignon Blanc, Martinborough, NZ",
+    "category": "World Whites",
+    "description": "",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Saint Claire, Sauvignon Blanc, New Zealand",
+    "category": "World Whites",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Kim Crawford, Sauvignon Blanc, New Zealand",
+    "category": "World Whites",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Pfaffl, Vom Haus, Gruner Veltliner, Austria",
+    "category": "World Whites",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Stefan Rosner, Hauswein Weiss, Gruner Veltiner Austria",
+    "category": "World Whites",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Rafael Palacios, As Sortes, Godello, Valdeorras, ES",
+    "category": "World Whites",
+    "description": "",
+    "price": "$146.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 State of Mind Riesling, Columbia Valley, WA",
+    "category": "World Whites",
+    "description": "",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Pazo Gilleiro, Albarino, Rias Baixas, ES",
+    "category": "World Whites",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Shaya, Verdejo, Castilla y Leon, ES",
+    "category": "World Whites",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Zahringer, Weissburgunder Trocken, Pinot Blanc, Baden, Germany",
+    "category": "World Whites",
+    "description": "",
+    "price": "$124.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Cakebread, Napa Valley",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$135.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Paul Hobbs, Crossbarn, Napa Valley",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Chateau Montelena, Napa Valley",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$172.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Failla, Sonoma Coast",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Copain Tous Ensemble, Sonoma Coast",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Far Niente, Napa Valley",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Jordan, RRV",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Sean Minor, Sonoma Coast",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Joseph Phelps, Freestone Vineyard, Sonoma Coast",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$98.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Mayacamas, Mount Veeder, Napa Valley",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$148.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Mer Soleil, Silver, Santa Lucia Highlands",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$67.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Neyers Vineyards, Carneros",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Orin Swift, Mannequin, Napa Valley",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Simi, Sonoma Coast",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Sonoma-Cutrer, RRV",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Staglin Family, Rutherford",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$225.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 State of Mind, Willamette, OR",
+    "category": "United States Chardonnay",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Birichino, Chenin Blanc, Jurassic Park Vineyard",
+    "category": "California",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Orin Swift \"Blank Stare\", Sauvignon Blanc, RRV",
+    "category": "California",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Pine Ridge, Chenin Blanc/Viognier, Napa",
+    "category": "California",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Cep, Hopkins Ranch, Russian River Valley, Sonoma",
+    "category": "Rose",
+    "description": "",
+    "price": "$64.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Jean Luc Colombo, Cape Bleue",
+    "category": "Rose",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Le Fete du Rose, Cotes du Provence, France",
+    "category": "Rose",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Mirabeau Coteaux d'Aix-en-Provence X Rose, France",
+    "category": "Rose",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Tenuta Mazzolino, Terraze, Pinot Nero, Lombardy",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$96.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Monsecco Barbatasso Vespolina Colline Novaresi",
+    "category": "Northern Italy",
+    "description": "",
+    "price": "$75.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Allegrini, Palazzo della Torre, Corvina Blend",
+    "category": "Veneto",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Marchesi Biscardo, Corvina Rosso Verona",
+    "category": "Veneto",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Marchesi Biscardo, Amarone della Valpolicella",
+    "category": "Veneto",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Masi Costasera Amarone della Valpolicella Classico",
+    "category": "Veneto",
+    "description": "",
+    "price": "$222.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Speri, Amarone della Valpolicella",
+    "category": "Veneto",
+    "description": "",
+    "price": "$275.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Zenato, Amarone della Valpolicella Classico",
+    "category": "Veneto",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Zenato, Ripassa Valpolicella Ripasso Superiore",
+    "category": "Veneto",
+    "description": "",
+    "price": "$85.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Cordero di Montezemolo, Barbera d'Alba, Monfalleto",
+    "category": "Barbera",
+    "description": "",
+    "price": "$112.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Vietti, Barbera d'Alba, Scarrone",
+    "category": "Barbera",
+    "description": "",
+    "price": "$144.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Pertinance, Barbera d'Alba, Treiso",
+    "category": "Barbera",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 La Spinetta Barbera d'Asti Ca' Di Pian",
+    "category": "Barbera",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Bruno Giacosa Barbera d'Alba Falletto",
+    "category": "Barbera",
+    "description": "",
+    "price": "$152.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Abbona, Papa Celso",
+    "category": "Dolcetto",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Ceretto Rossana, Dolcetto D'Alba",
+    "category": "Dolcetto",
+    "description": "",
+    "price": "$85.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Alessandro Rivetto, Nebbiolo Langhe DOC",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Deforville, Langhe",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Renato Ratti, Ochetti, Langhe",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Vajra, Langhe",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$96.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Vietti, Perbacco, Langhe",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$107.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Villadoria, Bricco Magno",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Marchesi di Barolo, Sbirolo, Nebbiolo",
+    "category": "Nebbiolo",
+    "description": "",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2011 Bruno Giacosa, Santo Stefano",
+    "category": "Barbaresco",
+    "description": "",
+    "price": "$705.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Germano Ettore Barolo Serralunga",
+    "category": "Barolo",
+    "description": "",
+    "price": "$207.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Abbona",
+    "category": "Barolo",
+    "description": "",
+    "price": "$147.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Ceretto",
+    "category": "Barolo",
+    "description": "",
+    "price": "$264.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Cordero di Montezemolo, Monfalleto",
+    "category": "Barolo",
+    "description": "",
+    "price": "$254.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Elio Altare, Arborina",
+    "category": "Barolo",
+    "description": "",
+    "price": "$375.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Palladino Parafada",
+    "category": "Barolo",
+    "description": "",
+    "price": "$251.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Virna Classico \"Noi\"",
+    "category": "Barolo",
+    "description": "",
+    "price": "$329.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Fontanafredda",
+    "category": "Barolo",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2012 Giuseppe Mascarello, Monprivato",
+    "category": "Barolo",
+    "description": "",
+    "price": "$915.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Antinori, Solaia, Cabernet Blend",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$972.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Argiano, Non-Confunditur, Cabernet Blend",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Gagnon-Kennedy, La Caccia di San Giovanni",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$215.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Gaja, Ca'Marcanda, Promis",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$144.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Guado al Melo \"Rute\", Bolgheri Rosso",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Felsina, Fontalloro, Sangiovese Blend",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$193.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Le Macchiole, Paleo, Cabernet Franc",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$480.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Tenuta dell'Ornellaia, Le Volte, Merlot Blend",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Tenuta di Arceno, Il Fauno di Arcanum, Merlot Blend",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$106.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Tenuta San Guido, Sassicaia, Cabernet Blend",
+    "category": "Super Tuscans",
+    "description": "",
+    "price": "$814.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Argiano, Rosso di Montalcino",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$91.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Armilla Rosso di Montalcino",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 San Polo Rubio",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Avignonesi, Vino Nobile di Montepulciano",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Dei, Rosso di Montepulciano",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Le Filigare, Germoglio Rosso",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Ca'Del Sarto Terre di Chieti",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$70.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Moris Farms, Morellino di Scansano",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 La Gerla Birba Vino della Toscana",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 La Gerla Poggio gli Angeli IGT",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Ucceliera, Rosso di Montalcino",
+    "category": "Sangiovese",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Labellum Aglianico del Vulture DOC",
+    "category": "Campania",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2012 Montevetrano, Montevetrano Rosso",
+    "category": "Campania",
+    "description": "",
+    "price": "$191.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Nicola Trabucco, Falerno del Massico",
+    "category": "Campania",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Argiano",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$145.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Castello BANFI",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$224.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Il Marroneto",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$335.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Poggio della' Aquila",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$180.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Ciacci Piccolomini",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$194.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Frescobaldi Castelgiocondo",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$260.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 La Mannella",
+    "category": "Brunello di Montalcino",
+    "description": "",
+    "price": "$230.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Antinori, Marchese Antinori, Classico Riserva",
+    "category": "Chianti",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Tenuta di Arceno, Classico",
+    "category": "Chianti",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Badia a Coltusboni, Classico RS",
+    "category": "Chianti",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Cecchi, Chianti",
+    "category": "Chianti",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Le Filigare, Classico",
+    "category": "Chianti",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Il Vescovado, Chianti",
+    "category": "Chianti",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Collazzi \"Bastioni\", Classico",
+    "category": "Chianti",
+    "description": "",
+    "price": "$103.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Tenuta di Nozzole, Classico",
+    "category": "Chianti",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Tenuta di Carleone, Il Guercio",
+    "category": "Chianti",
+    "description": "",
+    "price": "$192.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Cora, Montepulciano d'Abruzzo",
+    "category": "Central Italy",
+    "description": "",
+    "price": "$52.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Domus Vitae, Dragone Toscana Rosso",
+    "category": "Central Italy",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Fattoria, Spelt, Montepulciano d'Abruzzo",
+    "category": "Central Italy",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Paolo Bea Rosso De Véo Umbria",
+    "category": "Central Italy",
+    "description": "",
+    "price": "$185.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Regaleali, Nero d'Avola",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Calea, Nero d'Avola",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Cantina Mesa Buio Carignano del Sulcis",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Masseria Furfante, Nero di Troia, Puglia",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$58.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Pietradolce, Nerello Mascalese, Etna Rosso",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$74.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Planeta, La Segreta Rosso",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 COS Frappato, Sicily",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Surrau Naracu Cannonau di Sardegna",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Tornatore, Nerello Mascalese, Etna Rosso",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$70.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Varvaglione, Papale Primitivo di Manduria, Puglia",
+    "category": "Southern Italy & The Islands",
+    "description": "",
+    "price": "$85.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Acentor, Garnacha, Calatayud",
+    "category": "Spain",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Bodegas Finca Nueva, Rioja Crianza",
+    "category": "Spain",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2024 Blai Ferra Ona, Priorat DOQ",
+    "category": "Spain",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Estenas Bobal, Utiel-Requena",
+    "category": "Spain",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 La Rioja Alta, Vina Alberdi, Tempranillo, Rioja",
+    "category": "Spain",
+    "description": "",
+    "price": "$71.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Combel la Serre, Le Pur Fruit du Causse, Malbec, Cahors",
+    "category": "France",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Domaine Lafage, Tesselae, Carignan, Languedoc",
+    "category": "France",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Domaine Sick Dreyer, Pinot Noir, Alsace, France",
+    "category": "France",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Domaine Philippe Raimbault, Sariacum, Sancerre",
+    "category": "France",
+    "description": "",
+    "price": "$93.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Marie & Florqian Curtet, Savoie Mondeuse",
+    "category": "France",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Marquis d'Angerville, 1er Cru,Champans Volnay",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$475.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Domaine le Chapon, Julienas, Beaujolais",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Domaine Rollin, Pernand-Vergelesses, Rouge",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$112.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Domaine Vieille Fontaine, Mercurey",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Gachot-Monot, Cotes de Nuits Villages",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Olivier Minot, La Boutanche, Beaujolais",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$140.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Maison Chanzy Beaune 1er Cru Close Marconnets",
+    "category": "Burgundy",
+    "description": "",
+    "price": "$227.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Chateau de Pez, St. Estephe",
+    "category": "Bordeaux",
+    "description": "",
+    "price": "$116.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2011 Chateau Lassegue, St. Emilion Grand Cru",
+    "category": "Bordeaux",
+    "description": "",
+    "price": "$245.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2006 Chateau Mouton-Rothschild, 1er Cru, Paulliac",
+    "category": "Bordeaux",
+    "description": "",
+    "price": "$1750.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Chateau Plince, Pomerol",
+    "category": "Bordeaux",
+    "description": "",
+    "price": "$158.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Famille J.M. Cazes Pauillac",
+    "category": "Bordeaux",
+    "description": "",
+    "price": "$185.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2013 Domaine d'Ampuis, Cote-Rotie",
+    "category": "Northern Rhone Valley",
+    "description": "",
+    "price": "$248.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Guigal la Landonne, Cote-Rotie",
+    "category": "Northern Rhone Valley",
+    "description": "",
+    "price": "$1280.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Guigal la Mouline, Cote-Rotie",
+    "category": "Northern Rhone Valley",
+    "description": "",
+    "price": "$1280.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2013 Jean - Louis Chave, L'Hermitage",
+    "category": "Northern Rhone Valley",
+    "description": "",
+    "price": "$740.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Delas Freres, Chateauneuf-du-Pape Haute Pierre",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Domaine de la Solitude, Chateauneuf-du-Pape",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$166.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Famille Perrin, Cotes du Rhone",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Delas Freres, Cotes du Rhone Saint Esprit Rouge",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Jean-Louis Chave, Mon Coeur, Cotes-du-Rhone",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Roger Sabon, Chateauneuf-du-Pape",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$202.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Domaine Giraud, Chateauneuf-du-Pape Les Gallimardes",
+    "category": "Southern Rhone Valley",
+    "description": "",
+    "price": "$395.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Black Cabra, Malbec, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Clos de los Siete, Valle du Uco, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$74.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Concristo Malbec Gran Reserva, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$275.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Durigutti, Proyecto Las Compuertas Malbec, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Enrique Foster \"IQUE\", Los Barrancos Malbec, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Marchiori & Barraud Malbec, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Matetic, EQ Pinot Noir, Casablanca Valley, Chile",
+    "category": "South America",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 La Posta Paulucci, Malbec, Mendoza",
+    "category": "South America",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Lapostolle Clos du Lican Apalta, Syrah, Chile",
+    "category": "South America",
+    "description": "",
+    "price": "$390.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 D'Arenburg 'The Footbolt', Mclaren Vale",
+    "category": "Australia",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Hickenbotham, Brooks Road, Shiraz, Mclaren Vale",
+    "category": "Australia",
+    "description": "",
+    "price": "$168.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2013 John Duval, Entity, Barossa Valley",
+    "category": "Australia",
+    "description": "",
+    "price": "$128.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Kaesler, Old Vine Shiraz, Barossa Valley",
+    "category": "Australia",
+    "description": "",
+    "price": "$154.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Molly Dooker, Blue Eyed Boy, Shiraz, McLaren Vale",
+    "category": "Australia",
+    "description": "",
+    "price": "$245.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Two Hands, Bella's Garden, Barossa Valley",
+    "category": "Australia",
+    "description": "",
+    "price": "$198.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Molly Dooker, Gigglepot, Shiraz, McLaren Vale",
+    "category": "Australia",
+    "description": "",
+    "price": "$245.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2011 Penfolds, Grange, Shiraz, Barossa Valley/McLaren Vale",
+    "category": "Australia",
+    "description": "",
+    "price": "$2094.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Belle Glos, Las Alturas, Santa Lucia Highlands",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$142.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Siduri Wines, Santa Barbara County",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$150.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Copain, Les Voisins, Sonoma Coast",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$98.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Diora, La Petite Grace, Monterey",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 EnRoute Les Pommiers, Russian River Valley",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$155.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Failla, Sonoma Coast",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Foxen, \"Julia's Vineyard\", Santa Maria Valley",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$182.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 La Crema, Monterrey",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Littorai, Savoy Vineyard, Anderson Valley",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$200.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Merry Edwards, Sonoma Coast",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$170.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Orin Swift, Slander",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Papapietro Perry, Sonoma Coast",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$135.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Peake Ranch, Sta. Rita Hills, Monterey",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Peay, Savoy Vineyard, Anderson Valley",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$178.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Shokrian, Santa Barbara County",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$112.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Sonoma-Cutrer, Sonoma Coast",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Domaine Serene, Evenstad Reserve",
+    "category": "Oregon Pinot Noir",
+    "description": "",
+    "price": "$202.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Elk Cove, La Boheme, Yamhill-Carlton District",
+    "category": "Oregon Pinot Noir",
+    "description": "",
+    "price": "$144.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 J.K. Carriere, Provocateur, Willamette Valley",
+    "category": "Oregon Pinot Noir",
+    "description": "",
+    "price": "$134.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Gothic Nevermore, Willamette Valley",
+    "category": "Oregon Pinot Noir",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Sokol Blosser, Willamette Valley",
+    "category": "Oregon Pinot Noir",
+    "description": "",
+    "price": "$58.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2012 Element Winery, Syrah, Finger Lakes, NY",
+    "category": "World Red",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Rickety Bridge, Paulina's Reserve Cabernet, Franschoek, South Africa",
+    "category": "World Red",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Copain, \"Les Voisins\" Yorkville Highlands, Syrah",
+    "category": "World Red",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2013 Colgin, Cariad Red, Napa Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$987.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Lail, J. Daniel Cuvee, Napa Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$721.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Opus One, Oakville, Napa Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$987.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "MV Overture by Opus One, Oakville, Napa Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$395.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Peter Michael, Les Pavots, Knight's Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$614.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Rodney Strong, Symmetry, Alexander Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$166.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2015 Rowen, Cooley Ranch Vineyard, Sonoma County",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$134.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Stag's Leap Wine Cellars, Artemis, Napa Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$188.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2013 Vineyard 29, Aida, Napa Valley",
+    "category": "Proprietary / Meritage",
+    "description": "",
+    "price": "$847.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Domaine de la Terre Rouge, Garrigue, Syrah/Cab, Sierra Foothills, Mendocino",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$102.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Decoy Merlot, Sonoma County",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$81.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Duckhorn Merlot, Napa Valley",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$165.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Ehren Jordan, Day, Zinfandel, Dry Creek Valley",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$97.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Favia, Quarzo, Syrah, Amadour County",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$252.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Foxen, Cabernet Franc, Tinaquaic Vineyard",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$168.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Marietta, Christo, Grenache Blend, Sonoma County",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$74.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Orin Swift, 8 Years in the Dessert, Blend, Napa",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Orin Swift, Abstract, Rhone Blend, Saint Helena",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Orin Swift, You Had Me At Hell No, Advice From John, Merlot",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Orin Swift, Machete, Petite Sirah Blend, Napa Valley",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$192.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Orin Swift, Mercury Head",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$549.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Orin Swift, Papillon, Napa Valley",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$296.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 Orin Swift, Sign of the Times, Cabernet Blend, Napa",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2013 Paloma, Merlot",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$170.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 The Prisoner, Red Blend, Napa Valley",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$145.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2017 Sbragia, Petite Syrah, Dry Creek, Sonoma County",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$138.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Seghesio, Zinfandel, Sonoma County",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Shokrian, Syrah, Santa Barbara County",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$112.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Double Eagle, Cabernet Blend, Napa",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$248.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Smith Wooten, Petite Sirah, Napa Valley",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Donati Family Vineyard Claret, Blend, Paso Robles",
+    "category": "California Favorites",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Amulet Estate, AE 230 Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2012 Andrew Geoffrey, Diamond Mountain, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$280.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Cardinale, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$740.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Caymus, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$245.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Chateau Montelena, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$168.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Component, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$447.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Convexity, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$150.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2023 DAOU, Paso Robles",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 DAOU, Soul of a Lion, Paso Robles",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$425.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Far Niente, Oakville, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$555.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Frank Family, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$155.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Gagnon - Kennedy, Becksgoffer Georges III, Napa V.",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$346.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Goldshmidt Vineyards, Hilary, Oakville",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$124.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Heitz Cellar, Lot C-91, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$255.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Hess Collection, Allomi",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Hill Family Estate, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$290.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 J. Lohr, Hilltop, Paso Robles",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Jordan, Alexander Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$174.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Justin, Isosceles, Paso Robles",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$246.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Louis Martini, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$198.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2019 Mt. Brave, Mt. Veeder, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$260.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Double Eagle, Napa",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$630.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Napa Cellars, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$98.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Rodney Strong, Alexander's Crown, Alexander Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$215.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Mount Veeder, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$198.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Shafer, Hillside Select, Stag's Leap District",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$802.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2021 Silver Oak, Alexander Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$296.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2020 Silver Oak, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$518.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Zeitgeist, Napa Valley",
+    "category": "California Cabernet Sauvignon",
+    "description": "",
+    "price": "$260.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2018 Lower East, Cabernet Sauvignon, Columbia Valley",
+    "category": "Washington State",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2022 Seven Hills, Merlot, Walla Walla",
+    "category": "Washington State",
+    "description": "",
+    "price": "$58.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Bohigas, Cava, Brut, Special Edition",
+    "category": "Sparkling",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NV Cantina Montelliana, Prosecco Treviso, Extra Dry",
+    "category": "Sparkling",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2016 Pico Maccario, Rose di Barbera, Lavignone",
+    "category": "Rose",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Cambria, Estate Vineyard & Winery",
+    "category": "California Pinot Noir",
+    "description": "",
+    "price": "$225.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "2014 Tenuta dell'Ornellaia, Ornellaia, Cabernet Blend",
+    "category": "Italian Red",
+    "description": "",
+    "price": "$898.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cardamaro",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Carpano Antica Formula",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cinzano Bianco",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cocchi Rosa",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cocchi Torino Sweet",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cocchi Americano",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dolin Blanc",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dolin Dry",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dolin Rouge",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lillet Blanc",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lillet Rose",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mancino Dry",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Martini & Rossi Sweet",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Noilly Prat Dry",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Punt e Mes",
+    "category": "Vermouth",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amaro Nonino",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Aperol",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Averna",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Campari",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cappelletti",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cynar",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fernet Branca / Coffee",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Montenegro Amaro",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Romana Black Sambuca",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sambuca di Amore",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zucca Rabarbaro",
+    "category": "Aperitivi & Digestivi",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Martell VS",
+    "category": "Brandy",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hennessey XO",
+    "category": "Brandy",
+    "description": "",
+    "price": "$70.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hennessey VS",
+    "category": "Brandy",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Absenthe",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bailey's",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Benedictine",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brothers Vilgalys Krupnikas",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chartreuse Green",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chartreuse Yellow",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cointreau",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Disaronno Amaretto",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Drambuie",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pallini Limoncello",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Frangelico",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mozart Chocolate",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grand Marnier",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kahlua",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Licor 43",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Luxardo Maraschino",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pernod",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pimms",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St. Germaine",
+    "category": "Liqueurs & Cordials",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Avion 44 Reserva",
+    "category": "Tequila",
+    "description": "",
+    "price": "$74.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casamigos Blanco",
+    "category": "Tequila",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casamigos Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casamigos Anejo",
+    "category": "Tequila",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Clase Azul Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Fulano Blanco",
+    "category": "Tequila",
+    "description": "",
+    "price": "$27.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Julio Blanco",
+    "category": "Tequila",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Julio Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Julio 1942",
+    "category": "Tequila",
+    "description": "",
+    "price": "$75.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Julio Primavera",
+    "category": "Tequila",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Julio \"70\"",
+    "category": "Tequila",
+    "description": "",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "El Jimador Blanco",
+    "category": "Tequila",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "El Jimador Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "El Tesoro Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": "$36.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Espolon Blanco",
+    "category": "Tequila",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Espolon Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Milagro Silver",
+    "category": "Tequila",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Milagro Reposado",
+    "category": "Tequila",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Milagro Crystalino",
+    "category": "Tequila",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Absolut",
+    "category": "Vodka",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Belvedere",
+    "category": "Vodka",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chopin",
+    "category": "Vodka",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grey Goose",
+    "category": "Vodka",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ketel One",
+    "category": "Vodka",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Smirnoff",
+    "category": "Vodka",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Stolichnaya",
+    "category": "Vodka",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tito's",
+    "category": "Vodka",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casamigos Joven Mezcal",
+    "category": "Mezcal",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Del Maguey Vida Mezcal",
+    "category": "Mezcal",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ilegal",
+    "category": "Mezcal",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Montelobos Mezcal",
+    "category": "Mezcal",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beefeater",
+    "category": "Gin",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bombay Sapphire",
+    "category": "Gin",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Botanist",
+    "category": "Gin",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cardinal, Barrel Aged Gin",
+    "category": "Gin",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Conniption, Navy Strength",
+    "category": "Gin",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Empress 1908",
+    "category": "Gin",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hendricks",
+    "category": "Gin",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Malfy",
+    "category": "Gin",
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nolet's Dry Gin Silver",
+    "category": "Gin",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Plymouth",
+    "category": "Gin",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sipsmith London Dry",
+    "category": "Gin",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sutler's",
+    "category": "Gin",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tanqueray",
+    "category": "Gin",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Appleton Estate",
+    "category": "Rum",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bacardi Superior",
+    "category": "Rum",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brugal Anejo",
+    "category": "Rum",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brugal 1888",
+    "category": "Rum",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Diplomatico Reserva",
+    "category": "Rum",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Leblon Cachaça",
+    "category": "Rum",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sailor Jerry Spiced",
+    "category": "Rum",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Plantation Pineapple",
+    "category": "Rum",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Plantation 5 Year",
+    "category": "Rum",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Plantation Dark",
+    "category": "Rum",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ron Zacapa 23 Year",
+    "category": "Rum",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Uncle Nearest",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balcones Texas Single Malt",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Parker's Heritage 11 Year",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$41.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Great Wagon Road, Rua",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jack Daniels",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balcones Brimstone",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "George Dickel",
+    "category": "American Whiskey",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angel's Envy",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Baker's 7 Year",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Basil Hayden",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Basil Hayden Toast",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Blade and Bow",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bomberger's",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Booker's",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Buffalo Trace",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bulleit",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Eagle Rare 10 Year SB",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Elijah Craig Single Barrel",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Evan Williams",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Four Roses Single Barrel",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Four Roses Small Batch",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "High West, American Prairie",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Isaac Bowman Port Finished",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jefferson's Ocean Aged",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$34.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jim Beam White Label",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Larceny",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Little Book The Easy",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Makers Mark",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Makers Mark Cellar Aged",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Makers 46",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Noble Oak Double",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester 100 Proof",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Fitzgerald 9y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Stagg",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Widow Jane 10yr",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wild Turkey 101",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Woodford Reserve",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Woodford Reserve Double-Oaked",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Basil Dark Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bulleit Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "High West Double Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "High West Rendezvous Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek Rye Cask Strength",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek Rye Single Barrel",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek Rye Twice Barreled",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Michter's Straight Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Redemption Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rittenhouse Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Southern Star Double Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Templeton Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig Rye",
+    "category": "Rye Whiskey",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bushmills 10yr",
+    "category": "World Whiskey",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crown Royal",
+    "category": "World Whiskey",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jameson",
+    "category": "World Whiskey",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Red Breast 12yr",
+    "category": "World Whiskey",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Aberfeldy 12yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg 21yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$170.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg 23yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$185.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg An Oa",
+    "category": "Scotch",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg Corryvrecken",
+    "category": "Scotch",
+    "description": "",
+    "price": "$34.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg Grooves",
+    "category": "Scotch",
+    "description": "",
+    "price": "$36.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg Kelpie",
+    "category": "Scotch",
+    "description": "",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg Uigeadail",
+    "category": "Scotch",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balvenie 12yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balvenie 21yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$64.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bowmore 12yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dewars White Label",
+    "category": "Scotch",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenfiddich 12yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenlivet 12 Year",
+    "category": "Scotch",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie Original",
+    "category": "Scotch",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie Astar",
+    "category": "Scotch",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie Spios",
+    "category": "Scotch",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie Vintage 1989",
+    "category": "Scotch",
+    "description": "",
+    "price": "$200.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Johnnie Walker Black Label",
+    "category": "Scotch",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Johnnie Walker Blue Label",
+    "category": "Scotch",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Johnnie Walker Gold Label",
+    "category": "Scotch",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jura 10yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lagavulin 16yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Laphroaig 10yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Macallan 12yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Macallan 18yr",
+    "category": "Scotch",
+    "description": "",
+    "price": "$98.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Monkey Shoulder",
+    "category": "Scotch",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Naked Malt",
+    "category": "Scotch",
+    "description": "",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Calabrian",
+    "category": "Pizzas",
+    "description": "Tomato Sauce, House Spicy Sausage, Red Onions, Calabrian Chili Oil, Mozzarella, Basil",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mushroom",
+    "category": "Pizzas",
+    "description": "Truffle Ricotta, Mozzarella, Roasted Garlic, Arugula, Lemon",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet, Daou, Paso Robles, CA",
+    "category": "Red",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Meatballs",
+    "category": "First Course",
+    "description": "Veal, Beef and Pork Blend, Parmigiano Reggiano",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zeppoles",
+    "category": "Third Course",
+    "description": "House Made Italian-Style Doughnuts, Apple Butter, Caramel Sauce",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chicken Parmesan Sandwich",
+    "category": "Second Course",
+    "description": "Crispy Chicken Breast, Mozzarella, Parmigiano Reggiano, Tomato Sauce, Sourdough",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bag of Zeppoles to-go Served with Caramel Sauce",
+    "category": "Dessert",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Heirloom Tomato & Basil Caprese",
+    "category": "Appetizers & Salad",
+    "description": "Hand Pulled Mozzarella, Aged Balsamic, EVOO",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "House Chopped Salad",
+    "category": "Appetizers & Salad",
+    "description": "Salami, Tomatoes, Cucumbers, Cherry Peppers, Mozzarella, Oregano Vinaigrette",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angeline's Spaghetti and Meatballs",
+    "category": "Pastas & Pizza",
+    "description": "Pomodoro, Beef and Pork Meatballs, House Spaghetti",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Penne alla Vodka",
+    "category": "Pastas & Pizza",
+    "description": "House Vodka Sauce, Fresh Basil",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosciutto and Pistachio Pizza",
+    "category": "Pastas & Pizza",
+    "description": "Prosciutto, Pistachio, Dried Herbs, Arugula, Homemade Hot Honey",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Assorted Cannoli's",
+    "category": "Desserts",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/angelines/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

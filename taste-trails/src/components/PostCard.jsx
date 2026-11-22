@@ -36,10 +36,14 @@ export default function PostCard({ post, onOpen, onComment, onEdit, onDelete, on
           className="flex items-center gap-3 cursor-pointer group mb-2"
         >
           <div className="w-12 h-12 rounded-full overflow-hidden shadow-md ring-2 ring-white group-hover:ring-orange-500 transition-all">
-            <img src={post.user.avatar} alt="avatar" className="w-full h-full object-cover" />
+            {post.user?.avatar ? (
+              <img src={post.user.avatar} alt="" className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-amber-100 flex items-center justify-center font-bold text-amber-800">{(post.user?.name || 'T').charAt(0)}</div>
+            )}
           </div>
           <div className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors">
-            {post.user.name}
+            {post.user?.name || 'Diner'}
           </div>
         </div>
         <div>
@@ -52,7 +56,7 @@ export default function PostCard({ post, onOpen, onComment, onEdit, onDelete, on
             {post.restaurant}
           </div>
           <div className="text-xs text-gray-500 flex items-center gap-1">
-            <span>🍴</span> {post.dish}
+            <span>🍴</span> {post.dish}{post.rating != null ? ` · ${Number(post.rating).toFixed(1)}/10` : ''}
           </div>
         </div>
       </div>
@@ -88,9 +92,11 @@ export default function PostCard({ post, onOpen, onComment, onEdit, onDelete, on
           </div>
         )}
 
-      <button onClick={() => onOpen(post)} className="block w-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-inset transition-all">
-        <img src={post.image} alt={post.dish} className="w-full h-72 object-cover" />
-      </button>
+      {post.image ? (
+        <button onClick={() => onOpen?.(post)} className="block w-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-inset transition-all">
+          <img src={post.image} alt={post.dish || 'Dish photo'} className="w-full h-72 object-cover" />
+        </button>
+      ) : null}
 
       <div className="p-5">
         <div className="mb-3 text-gray-800">{post.caption}</div>

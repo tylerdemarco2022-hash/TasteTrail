@@ -1,112 +1,5274 @@
 [
   {
-    "category": "Fresh Pressed Juice",
     "name": "Ginger Sunrise",
-    "description": "Carrot, golden beet, orange, ginger, turmeric"
+    "category": "Fresh Pressed Juice",
+    "description": "Carrot, golden beet, orange, ginger, turmeric",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Fresh Pressed Juice",
     "name": "Lean Green",
-    "description": "Kale, spinach, cucumber, green apple, lemon"
-  },
-  {
     "category": "Fresh Pressed Juice",
+    "description": "Kale, spinach, cucumber, green apple, lemon",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Melon Berry Cooler",
-    "description": "Strawberry, watermelon"
+    "category": "Fresh Pressed Juice",
+    "description": "Strawberry, watermelon",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Start Your Day",
     "name": "Steel Cut Oatmeal",
-    "description": "Dried cherries, brown sugar, toasted pecans"
+    "category": "Start Your Day",
+    "description": "Dried cherries, brown sugar, toasted pecans",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Start Your Day",
     "name": "Smoked Salmon Bruschetta*",
-    "description": "Caper-whipped cream cheese, pickled onion, arugula, thick-cut brioche"
+    "category": "Start Your Day",
+    "description": "Caper-whipped cream cheese, pickled onion, arugula, thick-cut brioche",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Start Your Day",
     "name": "Greek Yogurt Parfait",
-    "description": "Granola, berries, jam, vanilla greek yogurt"
+    "category": "Start Your Day",
+    "description": "Granola, berries, jam, vanilla greek yogurt",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Start Your Day",
     "name": "Lobster Avocado Toast",
-    "description": "Butter poached lobster, blistered citrus, smashed avocado"
-  },
-  {
     "category": "Start Your Day",
+    "description": "Butter poached lobster, blistered citrus, smashed avocado",
+    "price": "$23.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Bomboloni",
-    "description": "Italian doughnut, seasonal berry jam filling"
+    "category": "Start Your Day",
+    "description": "Italian doughnut, seasonal berry jam filling",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Eggs Your Way*",
-    "description": "Choice of chicken sausage, pork sausage or bacon, crispy potatoes, choice of toast"
+    "category": "Plates",
+    "description": "Choice of chicken sausage, pork sausage or bacon, crispy potatoes, choice of toast",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Bacon, Egg & Fontina Sandwich*",
-    "description": "English muffin, fried egg, peppered bacon, fontina cheese"
+    "category": "Plates",
+    "description": "English muffin, fried egg, peppered bacon, fontina cheese",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Truffle Monte Cristo",
-    "description": "Prosciutto di parma, smoked turkey, taleggio cheese, egg custard, raspberry jam, shaved truffle"
+    "category": "Plates",
+    "description": "Prosciutto di parma, smoked turkey, taleggio cheese, egg custard, raspberry jam, shaved truffle",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Egg White Frittata",
-    "description": "Grilled mushroom, asparagus, fontina, arugula, spinach"
+    "category": "Plates",
+    "description": "Grilled mushroom, asparagus, fontina, arugula, spinach",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Smoked Ham & Fontina Omelet",
-    "description": "Crispy potatoes, choice of toast"
+    "category": "Plates",
+    "description": "Crispy potatoes, choice of toast",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Nutella Waffle",
-    "description": "Whipped cream, berries, maple syrup"
+    "category": "Plates",
+    "description": "Whipped cream, berries, maple syrup",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Plates",
     "name": "Lobster & Crab Omelet",
-    "description": "Baby spinach, fresh herbs, capers, baby arugula"
-  },
-  {
     "category": "Plates",
+    "description": "Baby spinach, fresh herbs, capers, baby arugula",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
     "name": "Steak & Eggs*",
-    "description": "Flat iron steak, eggs your way, crispy potatoes"
+    "category": "Plates",
+    "description": "Flat iron steak, eggs your way, crispy potatoes",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
     "name": "Peppered Bacon",
-    "description": null
+    "category": "Sides",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
     "name": "Chicken Sausage",
-    "description": null
+    "category": "Sides",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
     "name": "Pork Sausage Links",
-    "description": null
+    "category": "Sides",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
     "name": "Crispy Potatoes",
-    "description": null
+    "category": "Sides",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
     "name": "Choice of Toast or Croissant",
-    "description": null
+    "category": "Sides",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
     "name": "Fresh Berries",
-    "description": null
+    "category": "Sides",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "East Coast Oysters*",
+    "category": "Small Plates",
+    "description": "Daily selection, mignonette, cocktail sauce, lemon - priced ea",
+    "price": "$4.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Petite Plateau*",
+    "category": "Small Plates",
+    "description": "8 oysters, 6 jumbo Gulf shrimp, 4 oz. tuna crudo",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bacon Caviar Deviled Eggs*",
+    "category": "Small Plates",
+    "description": "Applewood-smoked bacon, California caviar, cornichon, secret sauce",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Baked Crab Cake",
+    "category": "Small Plates",
+    "description": "Jumbo lump blue crab, remoulade, lemon",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Short Rib & Mushroom Toast*",
+    "category": "Small Plates",
+    "description": "Sunny-side eggs, red wine jus, herbs",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Burrata Cheese",
+    "category": "Small Plates",
+    "description": "Apricot mostarda, truffle honey, marcona almond, grilled rustic bread",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Little Gem Caesar",
+    "category": "Small Plates",
+    "description": "Parmesan croutons, roasted garlic dressing, white anchovy",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cheesy Truffle Eggs*",
+    "category": "Small Plates",
+    "description": "Soft scrambled, fontina, parmesan, rustic bread",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wild Mushroom",
+    "category": "Classic Neapolitan Pizza",
+    "description": "Mornay, black truffle, herbs",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Carbonara",
+    "category": "Classic Neapolitan Pizza",
+    "description": "Thick-cut bacon, parmesan cheese sauce, egg",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pepperoni",
+    "category": "Classic Neapolitan Pizza",
+    "description": "San Marzano, parmesan",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sausage & Peppers",
+    "category": "Classic Neapolitan Pizza",
+    "description": "Italian sausage, sweet peppers, olives",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Margherita",
+    "category": "Classic Neapolitan Pizza",
+    "description": "Fior di latte, basil, San Marzano",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Eggs in Purgatory*",
+    "category": "Brunch Plates",
+    "description": "Roasted garlic, crushed tomato, braised eggs, grilled rustic bread",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lobster Avocado Salad",
+    "category": "Brunch Plates",
+    "description": "Delicate greens, Hass avocado, cucumber, heirloom tomato, ancho chile vinaigrette",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brush Creek Ranch Brunch Burger*",
+    "category": "Brunch Plates",
+    "description": "Wagyu, tomato jam, grilled onions, fried egg, provolone, shoestring fries",
+    "price": "$23.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crab Cake Benedict*",
+    "category": "Brunch Plates",
+    "description": "Grilled asparagus, roasted tomato, brioche, spicy hollandaise",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Scottish Salmon*",
+    "category": "Brunch Plates",
+    "description": "Farro, golden beets, citrus butter, arugula",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oven Roasted Chicken Picatta",
+    "category": "Brunch Plates",
+    "description": "Airline chicken breast, lemon, caper, white wine, garlic, crispy potatoes",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amaro Connection",
+    "category": "The Signatures",
+    "description": "Rye, Amaro, House Juniper Dram, Warm Seasonal Spices",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Café Forte",
+    "category": "The Signatures",
+    "description": "Vodka, Italian Amaro, Espresso, Vanilla",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Spiced Apple Mule",
+    "category": "The Signatures",
+    "description": "Vodka, Lime, Ginger, Apple",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Watermelon Guava Margarita",
+    "category": "The Signatures",
+    "description": "Tequila Plata, Guava, Watermelon, Mezcal Mist",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Aperol Spritz",
+    "category": "The Signatures",
+    "description": "Prosecco, Blood Orange + Guava, Sparkling Water",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Passionfruit Paloma",
+    "category": "The Signatures",
+    "description": "Tequila Plata, Passionfruit, Lime, Grapefruit Soda",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "S+B Boulevardier",
+    "category": "The Signatures",
+    "description": "Bourbon, Strawberry-Infused Campari, Banana Liqueur",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dean's Manhattan",
+    "category": "The Signatures",
+    "description": "Rye, Vermouth, Transatlantic Bitters",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Signature Old Fashioned",
+    "category": "The Old Fashioned",
+    "description": "Small Batch Bourbon, Vanilla Demerara, Black Walnut Bitters",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pecan Old Fashioned",
+    "category": "The Old Fashioned",
+    "description": "Pecan-Infused Bourbon, Maple Demerara, Angostura Bitters",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Seasonal Old Fashioned",
+    "category": "The Old Fashioned",
+    "description": "Rye, Pumpkin Spiced Brown Sugar, Walnut Bitters",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oaxacan Old Fashioned",
+    "category": "The Old Fashioned",
+    "description": "Mezcal, Blue Agave Tequila, Oleo Saccharum, Angostura Bitters, Flamed Orange Peel",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tide & Tempest",
+    "category": "Mocktails",
+    "description": "Guilt free aperitif, Pineapple, Guava, NA Bubbles",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Universal Sound",
+    "category": "Mocktails",
+    "description": "Giffard Pineapple NA, Guava Oleo, Lime",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Miller Lite, Lager, 4.2%, Milwaukee, WI",
+    "category": "Draft Beer",
+    "description": "",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Peroni, Lager, 4.7%, Roma, Italy",
+    "category": "Draft Beer",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Olde Mecklenburg Brewery, Copper, Altbier, 4.8%, Charlotte, NC",
+    "category": "Draft Beer",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Birdsong, Paradise City IPA, 5.3%, Charlotte, NC",
+    "category": "Draft Beer",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Legion, Juicy Jay IPA, 6.3%, Charlotte, NC",
+    "category": "Draft Beer",
+    "description": "",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chimay, Blue, Dark, 9%, Belgium",
+    "category": "Draft Beer",
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Giuliana, Veneto, IT",
+    "category": "Sparkling Wine",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Lovo Millesimato Brut Rose, Veneto, IT",
+    "category": "Sparkling Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Champagne, Taittinger 'La Francaise' Brut, Champagne, FR 375ml",
+    "category": "Sparkling Wine",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rose, Calafuria, Tormoresca, 2024, Salento, IT",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Riesling, The Seeker, 2023, Mosel, GER",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Grigio, Terlato, 2023, Friuli, IT",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Honig, 2024, Napa, CA",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Bianco, Kettmeir, 2022, Alto Aldige, IT",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, Sean Minor, Central Coast, CA",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, Hartford Court, 2023, Russian River, CA",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Ken Wright, 2024, Willamette, OR",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sangiovese, La Spinetta 'Il Nero di Casanova', 2020, Tuscany, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Montepeloso 'A Quo', 2023, Tuscany, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bordeaux Blend, Argentiera 'Poggio ai Ginepri', 2023, Bolgheri, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tempranillo, LAN Gran Reserva, 2018, Rioja, SP",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Sean Minor, 2022, Paso Robles, CA",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Justin, 2022, Paso Robles, CA",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Napa Cellars, 2022, Napa Valley, CA",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Stonestreet Estate, 2019, Sonoma, CA",
+    "category": "Premium Pours",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Penner Ash, 2022, Willamette, OR",
+    "category": "Premium Pours",
+    "description": "",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Argentiera 'Superiore', 2021, Bolgheri, IT",
+    "category": "Premium Pours",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crudo Trio*",
+    "category": "Small Plates",
+    "description": "Ahi tuna, king salmon, halibut, truffle ponzu, smoked roe",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Classic Shrimp Cocktail",
+    "category": "Small Plates",
+    "description": "Horseradish, cocktail sauce, lemon",
+    "price": "$27.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oven-Roasted Wagyu Meatballs",
+    "category": "Small Plates",
+    "description": "Brush Creek Ranch 100% Wagyu, garlic toast, pomodoro, reggiano",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dean's Onion Soup",
+    "category": "Soups & Salads",
+    "description": "Red onion, sweet onion, provolone, taleggio, Grana Padano",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lobster Bisque",
+    "category": "Soups & Salads",
+    "description": "Crème fraiche, chive",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Steakhouse Wedge",
+    "category": "Soups & Salads",
+    "description": "Thick-cut bacon, tomato, cucumber, gorgonzola, hard-boiled egg, pickled onion, buttermilk dressing",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Insalata di Mare",
+    "category": "Soups & Salads",
+    "description": "Lump crab, lobster, shrimp, calamari, castelvetrano, lemon dressing",
+    "price": "$23.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Our Italian Salad",
+    "category": "Soups & Salads",
+    "description": "Romaine, red onion, prosciutto, Calabrian pepperoni, salami, olives, fontina, red wine vinaigrette",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beefsteak Tomato & Stracciatella",
+    "category": "Soups & Salads",
+    "description": "Basil, extra virgin olive oil, 12yr Reggio Emilia balsamic",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bone-In Ribeye",
+    "category": "Signature Cuts*",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "New York Strip",
+    "category": "Signature Cuts*",
+    "description": "",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Petite Filet",
+    "category": "Signature Cuts*",
+    "description": "",
+    "price": "$66.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Garlic Butter Shrimp",
+    "category": "Surf & Turf",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Italian \"Oscar\" Style",
+    "category": "Surf & Turf",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wagyu Bolognese",
+    "category": "House-Made Pasta",
+    "description": "Burrata, basil, San Marzano, tagliatelle, grilled fennel",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Spicy Shrimp Strozzapreti",
+    "category": "House-Made Pasta",
+    "description": "Heirloom tomato, basil, parmesan, Calabrian chile oil",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Truffled Bucatini",
+    "category": "House-Made Pasta",
+    "description": "Truffle, garlic herb butter, Grana Padano",
+    "price": "$27.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosciutto",
+    "category": "Classic Neapolitan Pizza",
+    "description": "Baby arugula, lemon",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brush Creek Ranch Wagyu Burger*",
+    "category": "House Specialties",
+    "description": "Grilled onion, tomato jam, dijonnaise",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Alaskan Halibut*",
+    "category": "House Specialties",
+    "description": "Wilted spinach, crispy prosciutto, artichoke cream",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oven-Roasted Chicken Picatta",
+    "category": "House Specialties",
+    "description": "Airline chicken breast, lemon, caper, white wine, garlic, rapini",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Italian \"Oscar\" Filet*",
+    "category": "House Specialties",
+    "description": "8 oz. petite filet, king crab, asparagus, taleggio cream",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wagyu Flat Iron Fritte*",
+    "category": "House Specialties",
+    "description": "Roasted garlic butter, red wine jus, shoestring fries",
+    "price": "$38.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Broccolini",
+    "category": "Sides",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Parmesan Fries",
+    "category": "Sides",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Asparagus",
+    "category": "Sides",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Italian Roasted Potatoes",
+    "category": "Sides",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Caesar Salad",
+    "category": "1st Course",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Meatballs",
+    "category": "1st Course",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Vesper",
+    "category": "The Classics",
+    "description": "Vodka, Gin, French Wine-Based Apéritif, Lemon",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sazerac",
+    "category": "The Classics",
+    "description": "Rye, Absinthe, Peychaud's Bitters",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brandy Alexander",
+    "category": "The Classics",
+    "description": "Cognac, Coffee-Infused Chocolate Liqueur, Tiramisu Cream",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "1786 Negroni",
+    "category": "The Classics",
+    "description": "Gin, Italian Apéritif, Vermouth",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "East & Gulf Coast Oysters*",
+    "category": "Raw Bar*",
+    "description": "Mignonette, cocktail sauce, lemon",
+    "price": "$4.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jumbo Shrimp",
+    "category": "Raw Bar*",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Alaskan King Crab*",
+    "category": "Raw Bar*",
+    "description": "Dijonnaise",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Seafood Plateau*",
+    "category": "Raw Bar*",
+    "description": "Petite - 8 oysters, 6 jumbo gulf shrimp, 4 oz tuna crudo; Dean's - 16 oysters, 8 jumbo gulf shrimp, 16oz king crab, 4oz tuna crudo; Build Your Own",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grilled Madagascar Shrimp",
+    "category": "Small Plates",
+    "description": "Herb marinade, drawn butter, charred lemon",
+    "price": "$23.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Steak Tartare*",
+    "category": "Small Plates",
+    "description": "Traditional accompaniments, slow-cooked egg yolk",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wagyu Bone Marrow*",
+    "category": "Small Plates",
+    "description": "Brush Creek Ranch 100% Wagyu, tomato jam, horseradish gremolata, grilled rustic bread",
+    "price": "$23.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hot Stone A5 Wagyu*",
+    "category": "Small Plates",
+    "description": "Thinly sliced, red chile agrodolce, cured cucumber",
+    "price": "$46.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lobster Rigatoni",
+    "category": "House-Made Pasta",
+    "description": "Lobster claw, vodka sauce, rapini, cippolini",
+    "price": "$39.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Short Rib Gnocchi",
+    "category": "House-Made Pasta",
+    "description": "Red wine braised short rib, rosemary, gorgonzola cream",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tomahawk Ribeye",
+    "category": "Wagyu",
+    "description": "",
+    "price": "$260.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chateaubriand",
+    "category": "Wagyu",
+    "description": "",
+    "price": "$300.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Strip Loin",
+    "category": "Japanese A5 Wagyu",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Delmonico",
+    "category": "Japanese A5 Wagyu",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barrel-Cut Filet",
+    "category": "USDA Prime",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bone-In Filet",
+    "category": "USDA Prime",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Italian \"Oscar\" Filet",
+    "category": "Signatures",
+    "description": "8oz petite filet, king crab, asparagus, tallegio cream",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dean's Style Filet",
+    "category": "Signatures",
+    "description": "8oz petite filet, lobster, truffle bearnaise, bordelaise",
+    "price": "$83.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "The Mint",
+    "category": "Signatures",
+    "description": "8oz petite filet, romesco sauce, grilled collosal prawn",
+    "price": "$82.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Queen City Style",
+    "category": "Signatures",
+    "description": "8oz petite filet, broiled lobster, bone marrow butter",
+    "price": "$83.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bone-In Strip",
+    "category": "'35 Day' Dry Aged",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Petite Lobster Tail",
+    "category": "Surf & Turf",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Butter Poached Lobster Claw",
+    "category": "Surf & Turf",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bone Marrow",
+    "category": "Surf & Turf",
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Grilled Colossal Prawn",
+    "category": "Surf & Turf",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bone Marrow Butter",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Romesco Sauce",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hollandaise*",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$4.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Black Truffle Béarnaise",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lobster Butter",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Red Wine Jus",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mushroom Bordelaise",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dolce Gorgonzola Crust",
+    "category": "Crown Your Steak",
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oven-Roasted Whole Branzino",
+    "category": "House Specialties",
+    "description": "Fennel, lemon, heirloom tomato, herbs",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cold Water Lobster Tail \"Scampi Style\"",
+    "category": "House Specialties",
+    "description": "Oven roasted, lemon, butter, campari tomato",
+    "price": "$62.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tomahawk \"Belly-On\" Porkchop Fiorentina",
+    "category": "House Specialties",
+    "description": "Pancetta, spinach, artichoke, polenta",
+    "price": "$46.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oven Roasted Chicken Piccata",
+    "category": "House Specialties",
+    "description": "Half chicken, lemon, caper, white wine, garlic, rapini",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Billionaires Potato",
+    "category": "Sides",
+    "description": "Twice baked, taleggio, fontina, shaved black truffle",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Baked Mac-N-Cheese",
+    "category": "Sides",
+    "description": "Cavatappi, fontina, Grana Padano, taleggio, herb breadcrumb",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whipped Yukon Gold Potatoes",
+    "category": "Sides",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Roasted Asparagus",
+    "category": "Sides",
+    "description": "Black truffle bearnaise",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oven-Roasted Broccoli",
+    "category": "Sides",
+    "description": "Lemon aioli",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Creamed Spinach",
+    "category": "Sides",
+    "description": "Taleggio cream",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Roasted Marsala Mushrooms",
+    "category": "Sides",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Thick Cut Onion Rings",
+    "category": "Sides",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lobster Mac-n-Cheese",
+    "category": "Sides",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Limoncello Pie",
+    "category": "Desserts",
+    "description": "Toasted meringue, shortbread",
+    "price": "$11.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tiramisu",
+    "category": "Desserts",
+    "description": "Lady fingers, espresso, mascarpone",
+    "price": "$11.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zeppoles",
+    "category": "Desserts",
+    "description": "Nutella, ricotta, berry preserves",
+    "price": "$10.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gianduja Mousse",
+    "category": "Desserts",
+    "description": "Hazelnut, praline, dark chocolate",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bread Pudding",
+    "category": "Desserts",
+    "description": "Vanilla gelato, amaretto caramel",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brachetto d'Acqui, Cantina Sant'Evasio, 2022, IT",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moscato d'Asti, La Spinetta 'Biancospino', 2022, IT",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ice Wine, Inniskillin, 2021, CAN (375ml)",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Late Harvest Blend, Far Niente 'Dolce', 2015 CA (375ml)",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Vin Santo, Capezzana, 2010, IT (375ml)",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Recioto Valpolicella, Secondo Marco, 2015, IT (500ml)",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Late Harvest 'Trione' - Sauvignon Blanc, 2015, CA (375ml)",
+    "category": "Dessert Wines",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Madeira, d'Oliveiras Malvasia, 1994",
+    "category": "Fortified Wine",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Port, Taylor Fladgate 10 Year Tawny",
+    "category": "Fortified Wine",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Port, Taylor Fladgate 20 Year Tawny",
+    "category": "Fortified Wine",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Port, Taylor Fladgate 30 Year Tawny",
+    "category": "Fortified Wine",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Averna Amaro",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moletto Grappa di Barbera",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Montenegro Amaro",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nonino Quintessentia Amaro",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fernet Branca",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Il Tramonto Limoncello",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zucca Rabarbaro Amaro",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cynar Amaro",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Braulio Amaro",
+    "category": "Digestivos & Grappa",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Drip Coffee",
+    "category": "Drinks",
+    "description": "",
+    "price": "$3.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cappuccino",
+    "category": "Drinks",
+    "description": "",
+    "price": "$5.45",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Espresso",
+    "category": "Drinks",
+    "description": "",
+    "price": "$3.25",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Double Espresso",
+    "category": "Drinks",
+    "description": "",
+    "price": "$5.25",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Latte",
+    "category": "Drinks",
+    "description": "",
+    "price": "$6.25",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chai Latte",
+    "category": "Drinks",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Americano",
+    "category": "Drinks",
+    "description": "",
+    "price": "$3.45",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Caffe Macchiato",
+    "category": "Drinks",
+    "description": "",
+    "price": "$4.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hot Tea",
+    "category": "Drinks",
+    "description": "",
+    "price": "$3.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bottled Water",
+    "category": "Drinks",
+    "description": "",
+    "price": "$4.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chocolate Espresso",
+    "category": "Dean's Signature Drinks",
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Espresso Bianco",
+    "category": "Dean's Signature Drinks",
+    "description": "",
+    "price": "$7.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fresh Pressed Juice",
+    "category": "Dean's Signature Drinks",
+    "description": "Ginger Sunrise, Lean Green, Melon Berry Cooler",
+    "price": "$8.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosciutto Breakfast Ciabatta",
+    "category": "Featured Items",
+    "description": "",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Burrata",
+    "category": "On the Lighter Side",
+    "description": "Apricot agrodolce, truffle honey, Marcona almond, grilled rustic bread",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brush Creek Ranch Wagyu Burger",
+    "category": "Hand Helds",
+    "description": "Tomato jam, grilled onions, provolone",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Margherita Pizza",
+    "category": "Hand Helds",
+    "description": "Fresh mozzarella, basil, San Marzano tomato sauce",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pepperoni Pizza",
+    "category": "Hand Helds",
+    "description": "San Marzano tomato sauce, parmesan",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ora King Salmon",
+    "category": "Entrées",
+    "description": "Sweet pepper bruschetta, rapini",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chicken Picatta",
+    "category": "Entrées",
+    "description": "Airline chicken breast, lemon, caper, white wine, rapini",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Braised Short Rib Gnocchi",
+    "category": "Entrées",
+    "description": "Red-wine-braised short rib, rosemary, gorgonzola cream",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Wagyu Flat Iron Fritte",
+    "category": "Entrées",
+    "description": "Roasted garlic butter, red wine jus, shoestring fries",
+    "price": "$36.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tuscan White Bean & Truffle Soup",
+    "category": "Starter",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Roasted Prime Rib",
+    "category": "Main",
+    "description": "Roasted Garlic, Rosemary Butter",
+    "price": "$58.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Williamette Lamb Rack",
+    "category": "Main",
+    "description": "Fresh Ramps, Wild Huckleberries, Double Solera Sherry, Whole Rack",
+    "price": "$128.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mero Seabass",
+    "category": "Main",
+    "description": "Crema di Pomodoro, Colatura, Shiso Rissoto",
+    "price": "$49.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Italian Cream Cake",
+    "category": "Dessert",
+    "description": "Cream Cheese, Pecans, Coconut",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Arugula & Shaved Parmesan Salad",
+    "category": "Starters",
+    "description": "Peppery arugula, shaved parmesan, cherry tomatoes, balsamic vinaigrette drizzle",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pollo al Limone",
+    "category": "Entree",
+    "description": "Whole roasted chicken, lemon, garlic, fresh herbs",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pasta al Forno",
+    "category": "Entree",
+    "description": "Baked Rigatoni, house-made tomato sauce, ricotta, mozzarella, fresh basil",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Taglio da Macellaio",
+    "category": "Entree",
+    "description": "Flat Iron Steak, sauteed tomatoes, wild mushrooms, fennel, cipollini onions",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "10 oz Filet",
+    "category": "Cut Enhancements",
+    "description": "",
+    "price": "$31.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "18 oz Bone-In Strip",
+    "category": "Cut Enhancements",
+    "description": "",
+    "price": "$44.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "22 oz Bone-In Ribeye",
+    "category": "Cut Enhancements",
+    "description": "",
+    "price": "$57.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rapini with Garlic",
+    "category": "Sides",
+    "description": "Sauteed broccolini, garlic, chili flakes",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cast Iron Orange Olive Oil Cake",
+    "category": "Dessert",
+    "description": "Citrus Glaze",
+    "price": null,
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Lovo Millesimato Brut Rose, 2022, Veneto, IT",
+    "category": "Sparkling Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Champagne, Taittinger 'La Francaise' Brut, Champagne, FR, 375ml",
+    "category": "Sparkling Wine",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rose, Calafuria Tormoresca, 2023, Salento, IT",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$13.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Riesling, The Seeker, 2022, Mosel, GER",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$12.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Honig, 2023, Napa, CA",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, Hartford Court, 2023, Russian River Valley, CA",
+    "category": "White Wine / Rosé",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Ken Wright, 2023, Willamette, OR",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sangiovese, La Spinetta 'Il Nero di Casanova', 2020. Tuscany, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bordeaux Blend, Argentiera 'Poggio ai Ginepri', 2022, Bolgheri, IT",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Justin, 2021, Paso Robles, CA",
+    "category": "Red Wine",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Stonestreet, Estate 2018, Sonoma, CA",
+    "category": "Premium Pours",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Penner Ash, 2021, Willamette Valley, OR",
+    "category": "Premium Pours",
+    "description": "",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Argentiera 'Superiore', 2019, Bolgheri, IT",
+    "category": "Premium Pours",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amarone della Valpolicella Classico, Allegrini, 2018",
+    "category": "Italy",
+    "description": "",
+    "price": "$92.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Corison, 2020, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Groth, 2019, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$77.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, La Crema, 2019, Sonoma",
+    "category": "Domestic",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Merry Edwards, 2021, Sonoma",
+    "category": "Domestic",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Noir, Ken Wright 'Latchkey', 2023, Willamette",
+    "category": "Domestic",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Proprietary Blend, Blackbird 'Arise', 2021, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Proprietary Blend, Continuum, 2021, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$208.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Proprietary Blend, Opus One, 2021, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$350.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zinfandel, Grgich Hills, 2018, Rutherford",
+    "category": "Domestic",
+    "description": "",
+    "price": "$47.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gaja 'Costa Russi', 2017, Piedmont, 3L",
+    "category": "Italy",
+    "description": "",
+    "price": "$4750.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Chimney Rock, 2019, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$425.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Alexander Valley, 2020, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$460.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Daou 'Soul of a Lion, 2021, Paso Robles, 3L",
+    "category": "Domestic",
+    "description": "",
+    "price": "$1500.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Heitz, 2018, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$390.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Proprietary Blend, Opus One, 2017, Napa Valley",
+    "category": "Domestic",
+    "description": "",
+    "price": "$1700.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Franciacorta, Ca' del Bosco Extra Brut, NV, Lombardy",
+    "category": "Italy",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Prosecco, Adami 'Giardino Rive di Colbertaldo Asciutto', 2022, Veneto",
+    "category": "Italy",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Metodo Classico, Contratto Pas Dose, 2020, Lombardy",
+    "category": "Italy",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Metodo Classico, Contratto Pas Dose Brut Rose, 2018, Alta Langa",
+    "category": "Italy",
+    "description": "",
+    "price": "$129.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gosset 'Grand Reserve' Brut, NV",
+    "category": "France",
+    "description": "",
+    "price": "$150.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Krug 'Grande Cuvée' Brut, NV",
+    "category": "France",
+    "description": "",
+    "price": "$419.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Louis Roederer 'Cristal' Brut, 2014",
+    "category": "France",
+    "description": "",
+    "price": "$625.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moët & Chandon 'Dom Pérignon' Brut, 2015",
+    "category": "France",
+    "description": "",
+    "price": "$548.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moët & Chandon 'Dom Pérignon' Brut Rose, 2008",
+    "category": "France",
+    "description": "",
+    "price": "$900.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Moët & Chandon Brut Imperial Reserve, NV",
+    "category": "France",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nicolas Feuillatte Brut, NV",
+    "category": "France",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Perrier-Jouet, Belle Époque Brut, 2016",
+    "category": "France",
+    "description": "",
+    "price": "$295.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ruinart Brut Rose, NV",
+    "category": "France",
+    "description": "",
+    "price": "$248.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Taittinger 'La Française' Brut, NV",
+    "category": "France",
+    "description": "",
+    "price": "$140.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Veuve Clicquot 'La Grande Dame' Brut, 2015",
+    "category": "France",
+    "description": "",
+    "price": "$340.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Veuve Clicquot 'Yellow Label', NV",
+    "category": "France",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sea Smoke 'Sea Spray' Blanc de Noirs, 2016, Sta. Rita Hills",
+    "category": "Domestic",
+    "description": "",
+    "price": "$199.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Soter 'Mineral Springs' Brut Rose, 2018, Yamhill - Carlton",
+    "category": "Domestic",
+    "description": "",
+    "price": "$150.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beaux Freres, 2019, Willamette Valley, OR",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$165.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cakebread, 2023, Napa Valley",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chalk Hill Winery, 2023, Chalk Hill",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Domaine Drouhin 'Arthur', 2023, Dundee Hills, OR",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$96.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Far Niente, 2023, Napa Valley",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Flowers, 2023, Sonoma Coast",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$107.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jordan, 2021, Russian River",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$79.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lynmar Estate 'Quail Hill', 2016, Russian River",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$119.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mt. Eden Estate, 2017, Santa Cruz",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$137.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pahlmeyer, 2022, Sonoma Coast",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$158.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Radio Coteau 'Savoy', 2018, Anderson Valley",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rombauer, 2023, Carneros",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$119.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sea Smoke, 2019, Sta. Rita Hills",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$179.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sequoia Grove, 2022, Carneros",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$53.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sonoma Cutrer, 'The Cutrer', 2022, Russian River",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Signorello 'Hopes Cuvee', 2019, Napa Valley",
+    "category": "Domestic - Chardonnay",
+    "description": "",
+    "price": "$140.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Blanc, Ken Wright, 2022, Willamette Valley, OR",
+    "category": "Domestic - White Wines of Distinction",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pinot Gris, Alexana, 2023, Willamette, OR",
+    "category": "Domestic - White Wines of Distinction",
+    "description": "",
+    "price": "$49.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Duckhorn, 2023, Napa Valley",
+    "category": "Domestic - White Wines of Distinction",
+    "description": "",
+    "price": "$69.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Illumination by Quintessa, 2023, Napa Valley",
+    "category": "Domestic - White Wines of Distinction",
+    "description": "",
+    "price": "$114.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Merry Edwards, 2023, Russian River",
+    "category": "Domestic - White Wines of Distinction",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Riesling, Elk Cove, 2022, Willamette, OR",
+    "category": "Domestic - White Wines of Distinction",
+    "description": "",
+    "price": "$51.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chablis, Fevre 'Champs Royaux', 2023",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chablis 'Vaudesir', Joseph Drouhin, 2023",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$250.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Corton, Domaine Parent Grand Cru, 2022",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$425.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Meursault, Joseph Drouhin, 2022",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$273.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Montrachet, Bouchard Grand Cru, 2017",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$1970.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pouilly Fuisse, Bouchard, 2021",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Condrieu, E. Guigal 'La Doriane', 2022, Rhone",
+    "category": "France - Alsace, Loire & Rhone",
+    "description": "",
+    "price": "$240.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Riesling, Trimbach, 2021, Alsace",
+    "category": "France - Alsace, Loire & Rhone",
+    "description": "",
+    "price": "$61.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sancerre, La Garenne, 2024, Loire",
+    "category": "France - Alsace, Loire & Rhone",
+    "description": "",
+    "price": "$87.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Albarino, Columna, 2023, Rias Baixas, SPA",
+    "category": "White Wines from Around the World",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, El Enemigo, 2022, Mendoza, ARG",
+    "category": "White Wines from Around the World",
+    "description": "",
+    "price": "$68.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, Vina Cobos 'Felino', 2019, Mendoza, ARG",
+    "category": "White Wines from Around the World",
+    "description": "",
+    "price": "$61.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chardonnay, Antinori 'Bramito', 2023, Umbria, IT",
+    "category": "White Wines from Around the World",
+    "description": "",
+    "price": "$56.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sauvignon Blanc, Huia, 2024, Marlborough, NZ",
+    "category": "White Wines from Around the World",
+    "description": "",
+    "price": "$50.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Belle Glos 'Balade', 2023, Santa Rita Hills",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Domaine Carneros, 2023, Carneros",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dutton Goldfield, 2022, Russian River",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "EnRoute, 2023, Russian River",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Goldeneye, 2022, Anderson Valley",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gran Moraine, 2021, Yamhill-Carlton, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$98.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ken Wright 'Carter', 2023, Eola-Amity Hills, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$175.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ken Wright 'Shea', 2023, Yamhill-Carlton, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$175.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "L'Usine, 2019, Santa Rita Hills",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Merry Edwards, 2023, Russian River",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$148.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Patricia Green 'Old Vine Estate', 2022, Ribbon Ridge, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$99.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Patz & Hall 'Hyde Vineyard', 2021, Carneros",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$151.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Siduri, 2022, Willamette Valley, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$85.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Soter 'Mineral Springs', 2022, Yamhill-Carlton, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St. Innocent 'Freedom Hill', 2021, Willamette Valley, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$102.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Violin, 2022, Willamette Valley, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Willakenzie, 2021, Willamette Valley, OR",
+    "category": "Domestic - Pinot Noir",
+    "description": "",
+    "price": "$89.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Altagracia, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$299.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Austin Hope, 2023, Paso Robles",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$132.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bella Union, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$131.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cade, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$230.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cakebread, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$214.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Caymus, 2023, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chappellet 'Pritchard Hill', 2018, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$450.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chateau Montelena, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$165.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chimney Rock, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Colgin 'Jubilation' 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$450.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Colgin 'Tychson Hill', 2017, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$950.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crossbarn, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Daou 'Soul of a Lion', 2021, Paso Robles",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$285.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Daou 'Patrimony', 2020, Paso Robles",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$538.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Daou Reserve, 2022, Paso Robles",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$145.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dominus, 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$670.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Duckhorn, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$148.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Far Niente, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$250.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Faust, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$140.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Feather, 2020, Columbia Valley, WA",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$139.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Freemark Abbey, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Groth, 2022, Oakville, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Groth 'Reserve', 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$270.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Heitz, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Heitz 'Martha's Vineyard', 2016, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$550.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Honig, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hundred Acre 'Wraith', 2016, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$1000.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jordan, 2020, Alexander Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Joseph Phelps, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$165.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kathryn Hall, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$345.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lail 'J. Daniel Cuvee', 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$490.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "La Jota 'Howell Mt.', 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$250.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lokoya 'Mount Veeder', 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$699.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lokoya 'Spring Mountain', 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$625.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Louis Martini 'Monte Rosso Vineyard', 2020, Sonoma",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$210.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mt. Brave, 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$200.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Mullan Road by Cakebread, 2020, Columbia Valley, WA",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nickel & Nickel 'State Ranch', 2023, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$230.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nickel & Nickel 'Vaca Vista', 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$230.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Northstar, 2021, Columbia Valley, WA",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$84.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "O'Shaughnessy, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$185.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Paradigm, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$192.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Paul Hobbs 'Coombsville', 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$210.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pine Ridge, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Plumpjack, 2021, Oakville",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$386.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Post & Beam, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ramey, 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Round Pond 'Kith & Kin', 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sequoia Grove, 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shafer 'Hillside Select', 2018, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$599.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shafer 'One Point Five', 2023, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Silver Oak , 2021, Alexander Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$210.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Silver Oak , 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$210.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Silver Oak, 2019, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$340.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Spottswoode , 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$517.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Stags' Leap 'Artemis', 2022, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "he Calling, 2021, Alexander Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Vaso by Dana Estates, 2021, Napa Valley",
+    "category": "Domestic - Cabernet Sauvignon",
+    "description": "",
+    "price": "$159.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Blackbird 'Arise', 2022, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Blackbird 'Paramour', 2016, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$240.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bond 'Quella', 2017, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$1199.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bond 'St. Eden', 2017, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$1199.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cain 'Cain Five', 2018, Spring Mountain District",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$270.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chester Kidder, 2018, Columbia Valley, WA",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$150.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Colgin 'IX', 2017, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$925.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Daou 'Patrimony' Caves Des Lions, 2020, Paso Robles",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$600.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Harlan Estate, 2017, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$2400.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hess 'Lion Tamer', 2021, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$136.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Inglenook Rubicon, 2013, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$715.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jayson by Pahlmeyer, 2022, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$135.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jonata 'El Desafio de Jonata', 2019, Santa Ynez",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$275.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jonata 'Fenix', 2019, Santa Ynez",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$158.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Joseph Phelps 'Insignia', 2021, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$525.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Justin 'Isosceles', 2021, Paso Robles",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$165.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Opus One, 2022, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$700.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Opus One, 2021, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$725.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Orin Swift 'Papillon', 2022, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$141.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Overture by Opus One, NV, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$299.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pahlmeyer, 2022, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$360.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Paraduxx, 2021, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$114.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Peake Ranch 'Bellis Noir', 2022, Santa Rita Hills",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$108.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Robert Sinskey 'POV', 2018, Carneros",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shafer 'TD-9', 2022, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "To Kalon 'Eliza's Vineyard', 2019, Napa Valley",
+    "category": "Domestic - Proprietary Blends",
+    "description": "",
+    "price": "$349.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "K Vintners 'Royal City', 2019, Columbia Valley, WA",
+    "category": "Domestic - Syrah & Syrah Blends",
+    "description": "",
+    "price": "$264.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Orin Swift 'Abstract', 2023, California",
+    "category": "Domestic - Syrah & Syrah Blends",
+    "description": "",
+    "price": "$86.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Orin Swift 'Machete', 2022, California",
+    "category": "Domestic - Syrah & Syrah Blends",
+    "description": "",
+    "price": "$135.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Radio Coteau 'Las Colinas', 2021, Sonoma Coast",
+    "category": "Domestic - Syrah & Syrah Blends",
+    "description": "",
+    "price": "$119.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Revelry 'Block 19', 2019, Walla Walla, WA",
+    "category": "Domestic - Syrah & Syrah Blends",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shafer, Relentless, 2022, Napa Valley",
+    "category": "Domestic - Syrah & Syrah Blends",
+    "description": "",
+    "price": "$190.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Franc, Daou Patrimony, 2020, Paso Robles",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$600.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Malbec Blend, Trefethen 'Dragon's Tooth', 2020, Oak Knoll District",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Merlot, Duckhorn, 2022, Napa Valley",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$107.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Merlot, Frog's Leap, 2022, Napa Valley",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$89.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Merlot, Miner 'Stagecoach Vineyard', 2021, Napa Valley",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$114.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Petite Syrah, Stags' Leap, 2020, Napa Valley",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$89.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zinfandel, Frog's Leap, 2022, Napa Valley",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zinfandel, Hartford, 2023, Russian River",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Zinfandel Blend, Orin Swift '8 Years in the Desert', 2023, Napa Valley",
+    "category": "Domestic - Red Wines of Distinction",
+    "description": "",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Gaja, 2021",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$500.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Gaja, 2022",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$550.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Gaja 'Costa Russi', 2016",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$1100.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Gaja 'Sori San Lorenzo', 2016",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$1100.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Gaja 'Sori San Lorenzo', 2017",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$1100.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Gaja 'Sori Tilden', 2016",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$1100.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Marchesi di Gresy 'Martinenga', 2020",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$121.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbaresco, Moccagatta, 2022",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$135.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbera d'Alba, Bruno Giacosa, 2021",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barbera d'Asti, La Spinetta 'Ca' Di Pian', 2022",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$81.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Alessandro Rivetto 'Serralunga d'Alba', 2018",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Alessandro Rivetto 'Lazzarito', 2018",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$150.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Bruno Giacosa 'Falletto', 2019",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$375.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Gaja 'Conteisa', 2020",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$1000.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Giulia Negri 'La Tartufaia', 2021",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$135.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Marchesi di Barolo 'Cannubi', 2019",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$232.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Michele Chiarlo 'Tortoniano', 2021",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Renato Ratti 'Marcenasco', 2020",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$118.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barolo, Vietti 'Lazzarito', 2020",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$335.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dolcetto d'Alba, Bruno Giacosa, 2021",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gattinara, Nervi Conterno, 2021",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$158.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Langhe, Gaja 'Sperss', 2011",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$535.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Monferrato Rosso, La Spinetta 'Pin', 2017",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nebbiolo, Marziano Abbona, 2022",
+    "category": "Italy - Piedmont",
+    "description": "",
+    "price": "$100.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brunello di Montalcino, Ciacci Piccolomini, 2020",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$170.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brunello di Montalcino, Ciacci Piccolomini 'Pianrosso', 2020",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$199.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Brunello di Montalcino Riserva, Ciacci Piccolomini 'Pianrosso', 2019",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$310.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chianti Classico Riserva, Nozzole, 2020",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$70.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rosso di Montalcino, Altesino, 2023",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$60.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rosso di Montalcino, Ciacci Piccolomini 'Rossofonte', 2022",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Antinori 'Guado Al Tasso', 2021",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$235.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Arceno 'Il Fauno di Arcanum', 2022",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$104.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Cabreo 'Il Borgo', 2020",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Castellare 'I Sodi di S. Niccolo', 2019",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$189.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Gaja Ca' Marcanda 'Promis', 2023",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$146.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, La Spinetta 'Sassontino', 2006",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$199.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, La Spinetta 'Sezzana', 2009",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$199.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Antinori 'Tignanello' 2022",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$280.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Sette Ponti 'Oreno', 2022",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$180.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Tenuta di Biserno 'Bibbona', 2019",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$336.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Tenuta di Biserno 'Il Pino', 2022",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$180.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Tenuta San Guido 'Guidalberto', 2022",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$145.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan Sassicaia, 2021, Bolgheri",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$480.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan Valadorna Toscana IGT, 2018",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Tua Rita 'Giusto di Notri', 2021",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$195.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Super Tuscan, Tua Rita 'Redigaffi', 2020",
+    "category": "Italy - Tuscany",
+    "description": "",
+    "price": "$555.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amarone della Valpolicella Classico, Allegrini, 2020",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$183.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amarone della Valpolicella Classico, Bertani, 2012",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$245.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amarone della Valpolicella Classico, Bolla, 2019",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amarone della Valpolicella, Dal Forno Romano, 2013",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$599.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Amarone della Valpolicella Classico, Masi 'Costasera', 2020",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$160.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Valpolicella Ripasso, Bertani, 2020",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$89.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Veronese, Allegrini 'La Grola', 2020",
+    "category": "Italy - Veneto",
+    "description": "",
+    "price": "$89.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Etna Rosso, Tenuta delle Terre Nere, 2023, Sicily",
+    "category": "Italy - Sicily, Abruzzo",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Etna Rosso, Tenuta Tascante 'Ghiaia Nera', 2021, Sicily",
+    "category": "Italy - Sicily, Abruzzo",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Margaux, Ch. La Petite Tour de Bessan, 2021",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$96.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pauillac, Ch. Mouton Rothschild Premiers Cru, 2010",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$2750.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pauillac, Ch. Pichon Longueville 'Comtesse' Deuxiemes Cru, 2018",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$807.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pessac-Leognan, Ch. La Mission Haut Brion, 2016",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$1440.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Estephe, Ch. Cos d'Estournel Deuxiemes Cru, 2020",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$670.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Estephe, Ch. Montrose Deuxiemes Cru, 2010",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$850.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Estephe, Ch. Montrose Deuxiemes Cru, 2019",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$715.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Estephe, Ch. Phelan Segur, 2019",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$218.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Julien. Ch. Ducru Beaucaillou Deuxiemes Cru, 2018",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$725.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Julien, Ch. Les Ormes, 2018",
+    "category": "France - Bordeaux (Left Bank)",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pomerol, Ch. Lafleur Gazin, 2018",
+    "category": "France - Bordeaux (Right Bank)",
+    "description": "",
+    "price": "$175.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pomerol, Ch. Mazeyres, 2018",
+    "category": "France - Bordeaux (Right Bank)",
+    "description": "",
+    "price": "$185.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Emilion, Ch. Les Cadrans des Lassegue, 2022",
+    "category": "France - Bordeaux (Right Bank)",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Emilion, Melka, 2016",
+    "category": "France - Bordeaux (Right Bank)",
+    "description": "",
+    "price": "$330.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St.-Emilion, Ch. Pavie, 2016",
+    "category": "France - Bordeaux (Right Bank)",
+    "description": "",
+    "price": "$1140.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beaujolais-Villages, Alex Foillard, 2024",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$63.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bourgogne Rouge, Olivier Leflaive, 2021",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chambertin, Joseph Drouhin 'Clos de Beze' Grand Cru, 2020",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$1375.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chambolle-Musigny, Thibault Liger-Belair 'Vieilles Vignes, 2021",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$269.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Clos Vougeot, Thibault Liger-Belair Grand Cru, 2021",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$720.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Corton, Joseph Drouhin Grand Cru, 2020",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$515.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Côtes de Nuits-Villages, Domaine Gachot-Monot, 2023",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chambolle-Musigny, Joseph Drouhin, 2022",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$295.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gevrey-Chambertin, Joseph Drouhin , 2020",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$256.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pommard, Jean-Marc Boillot 'Les Jarollières' 1er Cru, 2020",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$215.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Vosne Romanee, Joseph Drouhin, 2022",
+    "category": "France - Burgundy",
+    "description": "",
+    "price": "$316.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chateauneuf-du-Pape, Ch. Beaucastel, 2021",
+    "category": "France - Rhone",
+    "description": "",
+    "price": "$250.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Châteauneuf-du-Pape, Brunel 'Les Cailloux', 2021",
+    "category": "France - Rhone",
+    "description": "",
+    "price": "$165.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Côte Rôtie, E. Guigal 'Château d'Ampuis', 2020",
+    "category": "France - Rhone",
+    "description": "",
+    "price": "$265.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Côtes du Rhône, E. Guigal, 2021",
+    "category": "France - Rhone",
+    "description": "",
+    "price": "$53.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crozes-Hermitage, Delas Freres 'Les Launes', 2021",
+    "category": "France - Rhone",
+    "description": "",
+    "price": "$78.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "St. Joseph, Chave 'Offerus', 2022",
+    "category": "France - Rhone",
+    "description": "",
+    "price": "$85.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Garnacha, Alto Moncayo 'Veraton', 2020, Campo de Borja",
+    "category": "Spain",
+    "description": "",
+    "price": "$88.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tempranillo, Emilio Moro, 2021, Ribera del Duero",
+    "category": "Spain",
+    "description": "",
+    "price": "$75.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tempranillo, Vega Sicilia 'Valbueno 5', 2019, Ribera del Duero",
+    "category": "Spain",
+    "description": "",
+    "price": "$400.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Lapostolle 'Alexandre', 2021, Colchagua, CL",
+    "category": "Argentina & Chili",
+    "description": "",
+    "price": "$79.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Malbec, Bramare, 2022, Mendoza, ARG",
+    "category": "Argentina & Chili",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Malbec, El Enemigo, 2021, Mendoza, ARG",
+    "category": "Argentina & Chili",
+    "description": "",
+    "price": "$81.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Syrah, Clos du Lican 'Apalta', 2021, Colchagua, CL",
+    "category": "Argentina & Chili",
+    "description": "",
+    "price": "$347.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Mollydooker 'The Maître D', 2020, S.Aus., Aus.",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$76.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Cabernet Sauvignon, Penfold's 'Quantum Bin 98', 2018, Napa/S. Aus.",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$1000.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shiraz, Mollydooker 'The Boxer', 2021, S. Australia, Aus.",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$76.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shiraz, Penfold's 'Grange', 2014, S. Australia",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$1150.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shiraz, Two Hands 'Gnarly Dudes', 2020, Barossa Valley, Aus.",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Shiraz/Cab, Mollydooker 'Enchanted Path', 2021, McLaren Vale, Aus.",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$159.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Syrah/Grenache, The Chocolate Block, 2022, Boekenhoutskloof, SA",
+    "category": "Australia & South Africa",
+    "description": "",
+    "price": "$75.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angel's Envy",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angel's Envy Single Barrel",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$46.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Baker's 7y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bardstown Bourbon Co., Collaborative Series, Plantation Rum",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$72.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bardstown Bourbon Co., Discovery Series #10",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bardstown Bourbon Co., Fusion Series #7",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barrell",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barrell Infinite",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$27.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Basil Hayden's",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Booker's 7y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$46.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Buffalo Trace",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bulleit",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Bulleit Single Barrel",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Calumet 8y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Calumet 15y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$42.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Chicken Cock",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Eagle Rare 10y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Four Roses Small Batch",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Four Roses Single Barrel, Barrel Strength",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Isaac Bowman Port Finish",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jefferson's Ocean",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jefferson's Twin Oak",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kentucky Owl Batch #12",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$145.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kentucky Owl Confiscated",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$40.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kentucky Owl St. Patrick's",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Kentucky Owl Takumi",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$55.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek 9y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek Single Barrel",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Larceny",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Larceny Barrel Proof",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Maker's Mark",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Maker's Mark Cask Strength",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Michter's US 1",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester 1870",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester 1897",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester 1910",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester 1920",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester Single Barrel, Barrel Proof",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Forester Statesman",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rabbit Hole, Dareringer, Kentucky",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rabbit Hole, Heigold, Kentucky",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Russell's Reserve 10y",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Thomas Moore Cognac Cask",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Woodford Reserve",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Woodford Reserve Double Oaked",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Woodford Reserve Batch Proof",
+    "category": "Bourbon",
+    "description": "",
+    "price": "$42.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Green Spot",
+    "category": "Irish Whiskey",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Midleton Very Rare 2022",
+    "category": "Irish Whiskey",
+    "description": "",
+    "price": "$70.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Redbreast 12y",
+    "category": "Irish Whiskey",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hibiki Harmony",
+    "category": "Japanese Whiskey",
+    "description": "",
+    "price": "$40.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nikka Coffey Grain",
+    "category": "Japanese Whiskey",
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Nikka Taketsuru",
+    "category": "Japanese Whiskey",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Suntory Toki",
+    "category": "Japanese Whiskey",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tenjaku",
+    "category": "Japanese Whiskey",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Angel's Envy Rye, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balcones Single Malt, Texas",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Barrell Rye 7y, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Basil Hayden's Dark Rye, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Black Maple Hill, Oregon",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Garrison Brothers Balmorhea, Texas",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$64.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "George Dickel 15y, Tennessee",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "George Dickel Rye, Tennessee",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "High West American Prairie, Utah",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "High West Campfire, Utah",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$26.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "High West Double Rye, Utah",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Holland's Blade Rummer, Virginia",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$42.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hudson Bright Lights Big Bourbon, New York",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jefferson's Rye, Cognac Cask, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Knob Creek Rye, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Michter's Toasted Sour Mash, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Michter's US 1 Rye, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Elk, Colorado",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Old Elk Infinity, Colorado",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$47.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Pikesville Rye, Maryland",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Rabbit Hole Boxergrail, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sagamore Rye, Maryland",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Sazerac 6y Rye, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Templeton 6y Rye, Iowa",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Templeton 10y Rye, Iowa",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$59.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Weldon Mills The all Malt Bourbon Whiskey, North Carolina",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$37.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig Piggyback 6y Rye, Vermont",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig Roadstock Rye, Vermont",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig 10y Rye, Vermont",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig 12y Rye, Vermont",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig 15y Rye, Vermont",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$95.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Whistle Pig 18y Rye, Vermont",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Widow Jane 10y, New York",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$33.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Woodford Reserve Rye, Kentucky",
+    "category": "American Whiskey & Rye",
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg An Oa, Islay",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ardbeg 10y, Islay",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$19.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Balvenie 14y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$32.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dalmore 12y, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dalmore 15y, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Dalwhinnie 15y, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$23.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenfiddich 12y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenfiddich 15y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenlivet 12y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenlivet 18y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$42.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie 10y, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie 12y Lasanta, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie 18y, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Glenmorangie Signet, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$67.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Highland Park 12y, Orkney",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$15.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Highland Park 18y, Orkney",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lagavulin 16y, Islay",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$30.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Laphroaig 10y, Islay",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Macallan 12y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Macallan 15y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$53.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Macallan 18y, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$110.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Macallan Harmony, Speyside",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$65.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Oban 14y, Highlands",
+    "category": "Single Malt Scotch",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Avion 44",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$45.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casa Dragones Blanco",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$29.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casa Dragones 16 Joven",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Clase Azul Gold",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$125.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Clase Azul Reposado",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$80.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Don Julio 1942",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$67.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "El Alto Patron",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$130.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "El Cielo Patron",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$40.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Gran Patron",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$67.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Tears of Llorona Extra Anejo",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$90.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Casamigos Mezcal",
+    "category": "Tequila & Mezcal",
+    "description": "",
+    "price": "$20.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Beet & Arugula Salad",
+    "category": "Starter",
+    "description": "Candy Hazelnut, Prosciutto, Gorgonzola Dulce, Champagne Vinaigrette",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Jumbo Lump Crab Cavatelli",
+    "category": "Starter",
+    "description": "Ricotta, Lemon, Tarragon, Prosecco Beurre Blanc and Caviar",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Lobster Risotto",
+    "category": "Main",
+    "description": "Fennel, Mascarpone, Parmesan, Chanterelles, Lobster Nage",
+    "price": "$52.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Roasted Heirloom Carrots",
+    "category": "Sides",
+    "description": "Hazelnut & Herb Butter",
+    "price": "$14.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Apple Cinnamon Roll Skillet",
+    "category": "Starter",
+    "description": "Vanilla Bourbon Cream",
+    "price": "$16.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Hawaiian Big Eye Tuna",
+    "category": "Starter",
+    "description": "Blood Orange Oil, Shoyu, Sour Cherries, Avocado",
+    "price": "$22.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Butchers Board",
+    "category": "Curated Cuts",
+    "description": "Choice of Butchers Cut Steak, Three Over Easy Eggs, Crisp Potatoes, Roasted Red Peppers, Bearnaise, Chimichurri",
+    "price": "$115.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Crispy Rösti",
+    "category": "Entrée",
+    "description": "Smoked Salmon, Crème Fraiche, Caviar, Micro Salad. Served in a smoke cloche",
+    "price": "$24.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Fritelle",
+    "category": "Entrée",
+    "description": "Fried Chicken, Poached Egg, Calabrian Chile, Honey, Arugula, Fennel, PNW Huckleberries, Pollen Sabayon",
+    "price": "$28.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Deep Dish Pumpkin Pancakes",
+    "category": "Entrée",
+    "description": "Cinnamon Butter, Pecan Croquant Pour-Over Ginger Crème Anglaise",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Stuffed Brioche French Toast",
+    "category": "Entrée",
+    "description": "Mascarpone Cream, Orange Zest, Lemon Curd, Fresh Blueberries, Strawberries, Toasted Pistachios",
+    "price": "$21.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "La Pera Rosa Martini",
+    "category": "Cocktails",
+    "description": "Gin, Prickly Pear, Nutmeg, Lime",
+    "price": "$17.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Ember Maria",
+    "category": "Cocktails",
+    "description": "Calabrian Chili-Infused Vodka, House-Made Bloody Mary, Lemon",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Spritz di Mercato",
+    "category": "Cocktails",
+    "description": "Chandon Market Spritz, Tequila, Lime, Soda",
+    "price": "$18.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "NA Mimosa",
+    "category": "Cocktails",
+    "description": "Non-Alcoholic Sparkling Wine, Fresh Orange Juice",
+    "price": "$9.00",
+    "sourceUrl": "https://places.singleplatform.com/deans-italian-steakhouse/menu",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

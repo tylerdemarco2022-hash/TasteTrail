@@ -2,15 +2,6 @@ import { useEffect, useState, useContext } from 'react'
 import { LocationContext } from '../App'
 import { API_BASE_URL } from '../config/api'
 
-function generateSampleMenu(restaurantName = 'This Place') {
-	const base = restaurantName.replace(/[^a-zA-Z0-9 ]/g, '') || 'Place'
-	return [
-		{ name: `${base} Signature Dish`, price: 9.99, description: 'House specialty' },
-		{ name: 'House Special', price: 7.99, description: 'Chef recommendation' },
-		{ name: 'Side Salad', price: 3.99, description: 'Fresh greens' }
-	]
-}
-
 export function useRestaurantMenu(restaurantName, location = null) {
 	const [menuItems, setMenuItems] = useState([])
 	const [loading, setLoading] = useState(false)
@@ -52,19 +43,19 @@ export function useRestaurantMenu(restaurantName, location = null) {
 							category: cat.category
 						}))
 					)
-					setMenuItems(items.length ? items : generateSampleMenu(restaurantName))
+					setMenuItems(items)
+					if (!items.length) setError('No menu items found')
 				} else if (data && data.needsOCR) {
-					setError('Menu is a PDF/image and needs OCR')
-					setMenuItems(generateSampleMenu(restaurantName))
+					setError('Menu is a PDF or image and could not be read')
+					setMenuItems([])
 				} else {
-					// Fallback to a small sample menu
-					setError(data && data.error ? data.error : null)
-					setMenuItems(generateSampleMenu(restaurantName))
+					setError(data && data.error ? data.error : 'No menu items found')
+					setMenuItems([])
 				}
 			} catch (err) {
 				if (!cancelled) {
 					setError(err.message || 'Failed to load menu')
-					setMenuItems(generateSampleMenu(restaurantName))
+					setMenuItems([])
 				}
 			} finally {
 				if (!cancelled) setLoading(false)

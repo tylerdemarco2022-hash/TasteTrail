@@ -88,14 +88,17 @@ const filterBlockedRestaurants = (list = []) =>
   list.filter((r) => !isBlockedRestaurant(r?.name || r?.restaurant || ''))
 
 export default function Feed({ onOpen }) {
-  const [pos, setPos] = useState({ lat: 35.2271, lon: -80.8431 })
+  const [pos, setPos] = useState(null)
   const [nearby, setNearby] = useState([])
+  const [nearbyError, setNearbyError] = useState('')
   const [showAIRecommendation, setShowAIRecommendation] = useState(false)
   const [aiPick, setAiPick] = useState(null)
   const [locationInput, setLocationInput] = useState('')
   const [searchingLocation, setSearchingLocation] = useState(false)
   const [opening, setOpening] = useState(false)
   const [topPicks, setTopPicks] = useState([])
+  const [nearbyLoading, setNearbyLoading] = useState(false)
+  const [locationNote, setLocationNote] = useState('Finding restaurants near you.')
 
   // Calculate top picks based on user ratings
   const calculateTopPicks = () => {
@@ -159,7 +162,7 @@ export default function Feed({ onOpen }) {
   }
 
   async function openWithMenu(r) {
-    if (!r) return;
+    if (!r || r.loading) return;
     setOpening(true);
     const restaurantId = r.id || r.restaurantId || r.yelpId;
     const isUuidLike = (value) => typeof value === 'string' && value.length === 36;
@@ -199,7 +202,14 @@ export default function Feed({ onOpen }) {
         }
       }
       // Pass the fetched menu data to the onOpen prop
-      const updatedRestaurant = { ...r, menu };
+      const updatedRestaurant = {
+        ...r,
+        menu,
+        restaurant: r.restaurant || r.name,
+        website: r.website || null,
+        lat: r.lat,
+        lon: r.lon
+      };
       onOpen(updatedRestaurant);
     } catch (error) {
       console.error('Error in openWithMenu:', error);
@@ -216,165 +226,80 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
 }
 
   useEffect(() => {
-    // Default to Charlotte unless the user explicitly changes location in the UI.
-    setPos({ lat: 35.2271, lon: -80.8431 })
+    if (!navigator.geolocation) {
+      setPos(null)
+      setLocationNote('Location is unavailable. Enter a city or ZIP.')
+      return
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocationNote('Using your location.')
+        setPos({ lat: position.coords.latitude, lon: position.coords.longitude })
+      },
+      () => {
+        setPos(null)
+        setLocationNote('Location permission was denied. Enter a city or ZIP.')
+      },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 }
+    )
   }, [])
 
   useEffect(() => {
-    if (pos) {
-      fetchNearbyYelp()
-    }
+    if (!pos || pos.fromSearch) return
+    loadNearby(pos)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pos])
 
   async function searchLocation(address) {
     if (!address.trim()) return
-    
     setSearchingLocation(true)
+    setNearbyError('')
     try {
-      // Use Nominatim (OpenStreetMap) geocoding service
-      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`
-      const res = await fetch(url, {
-        headers: { 'User-Agent': 'TasteTrails-App' }
-      })
-      const data = await res.json()
-      
-      if (data && data.length > 0) {
-        const { lat, lon } = data[0]
-        const newPos = { lat: parseFloat(lat), lon: parseFloat(lon) }
-        setPos(newPos)
-        setLocationInput('')
-        
-        // Fetch restaurants in the searched area
-        await fetchRestaurantsNearLocation(newPos)
-      } else {
-        alert('Location not found. Try a different address or city name.')
-      }
+      await loadNearby(null, address.trim())
     } catch (e) {
       console.error('Geocoding error:', e)
-      alert('Failed to search location. Please try again.')
+      setNearbyError('That city or ZIP could not be found.')
     } finally {
       setSearchingLocation(false)
     }
   }
 
-  async function fetchRestaurantsNearLocation(location) {
+  async function loadNearby(location, query) {
+    setNearbyLoading(true)
+    setNearbyError('')
     try {
-      setNearby([{ name: 'Loading nearby restaurants...', loading: true, lat: location.lat, lon: location.lon }])
-
-      // Fetch nearby restaurants from backend
-      const res = await fetch(`${API_BASE_URL}/api/nearby-restaurants?lat=${location.lat}&lon=${location.lon}&radius=25`)
-      if (!res.ok) {
-        const errorData = await res.json()
-        console.warn('API error:', errorData)
-        throw new Error(errorData.error || 'Failed to fetch nearby restaurants')
+      const params = new URLSearchParams({ radius: '3' })
+      if (query) params.set('q', query)
+      else {
+        params.set('lat', String(location.lat))
+        params.set('lon', String(location.lon))
       }
-
+      const res = await fetch(`${API_BASE_URL}/api/nearby-restaurants?${params}`)
       const data = await res.json()
-      let foundRestaurants = data.restaurants || []
-
-      // Fetch menu for each restaurant
-      const restaurantsWithMenus = await Promise.all(
-        foundRestaurants.slice(0, 30).map(async (r) => {
-          try {
-            // Use Google Place Details if we have a place_id
-            const menuRes = await fetch(`${API_BASE_URL}/api/google/place/${r.id}`)
-            const menuData = await menuRes.json()
-            
-            // Generate menu items with AI
-            let menu = []
-            try {
-              const aiMenuRes = await fetch(`${API_BASE_URL}/api/generate-menu`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                  restaurantName: r.name,
-                  address: r.address || 'unknown',
-                  primaryType: r.primaryType,
-                  priceLevel: r.price_level,
-                  rating: r.rating,
-                  types: r.types || []
-                })
-              })
-              const aiMenuData = await aiMenuRes.json()
-              menu = aiMenuData.menu || []
-            } catch (aiError) {
-              console.warn('Failed to generate menu with AI for', r.name)
-            }
-            
-            return {
-              ...r,
-              menu,
-              googlePlaceId: r.id,
-              menu_url: menuData.menu,
-              photos: menuData.photos || [r.image].filter(Boolean),
-              review_count: menuData.review_count || r.review_count || 0,
-              url: menuData.url
-            }
-          } catch (e) {
-            console.error('Failed to fetch details for', r.name, e)
-            return {
-              ...r,
-              menu: [],
-              googlePlaceId: r.id,
-              photos: [r.image].filter(Boolean)
-            }
-          }
-        })
-      )
-
-      // Calculate ratings and wait times
-      const withDist = restaurantsWithMenus.map((r) => {
-        const distance = haversine(location.lat, location.lon, r.lat, r.lon)
-        const itemRatings = (r.menu || []).map((i) => i.rating).filter(Boolean)
-        const postRatings = (communityPosts || []).filter(p => (p.restaurant || '').toLowerCase() === (r.name || '').toLowerCase()).map(p => p.rating).filter(Boolean)
-        const all = [...itemRatings, ...postRatings]
-        const avgRating = all.length ? (all.reduce((s, v) => s + v, 0) / all.length) : (r.rating || 0)
-        const waitTime = calculateWaitTime({ ...r, avgRating })
-        return { ...r, distance, avgRating, waitTime }
-      })
-
-      withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
-      setNearby(filtered)
-
-      // Cache results
-      localStorage.setItem('nearby-restaurants-cache', JSON.stringify(filtered))
+      if (!res.ok) throw new Error(data.error || 'Failed to fetch nearby restaurants')
+      const rows = (data.restaurants || []).map((restaurant) => ({
+        ...restaurant,
+        image: restaurant.photoName ? `${API_BASE_URL}/api/place-photo?name=${encodeURIComponent(restaurant.photoName)}` : null,
+        distance: restaurant.distanceMiles == null ? null : restaurant.distanceMiles * 1.60934
+      }))
+      if (query && data.location?.latitude != null && data.location?.longitude != null) {
+        setPos({ lat: data.location.latitude, lon: data.location.longitude, fromSearch: true })
+      }
+      if (data.location?.label) setLocationNote(data.location.label)
+      else if (location) setLocationNote('Using your location.')
+      setNearby(filterBlockedRestaurants(rows))
     } catch (e) {
       console.error('Failed to fetch nearby restaurants:', e)
-      alert('Error fetching restaurants: ' + e.message)
-      // Fall back to seed data
-      const withDist = restaurants.map((r) => {
-        const distance = haversine(location.lat, location.lon, r.lat, r.lon)
-        const itemRatings = (r.menu || []).map((i) => i.rating).filter(Boolean)
-        const postRatings = (communityPosts || []).filter(p => (p.restaurant || '').toLowerCase() === (r.name || r.restaurant || '').toLowerCase()).map(p => p.rating).filter(Boolean)
-        const all = [...itemRatings, ...postRatings]
-        const avgRating = all.length ? (all.reduce((s, v) => s + v, 0) / all.length) : null
-        const waitTime = calculateWaitTime({ ...r, avgRating })
-        return ({ ...r, distance, avgRating, waitTime })
-      })
-      withDist.sort((a, b) => a.distance - b.distance)
-      const filtered = filterBlockedRestaurants(withDist)
-      setNearby(filtered)
+      setNearbyError(e.message || 'Nearby restaurants are unavailable right now.')
+      setNearby([])
+    } finally {
+      setNearbyLoading(false)
     }
   }
 
-  useEffect(() => {
-    if (!pos) return
-    const withDist = restaurants.map((r) => {
-      const distance = haversine(pos.lat, pos.lon, r.lat, r.lon)
-      // collect ratings from menu items and community posts
-      const itemRatings = (r.menu || []).map((i) => i.rating).filter(Boolean)
-      const postRatings = (communityPosts || []).filter(p => (p.restaurant || '').toLowerCase() === (r.name || r.restaurant || '').toLowerCase()).map(p => p.rating).filter(Boolean)
-      const all = [...itemRatings, ...postRatings]
-      const avgRating = all.length ? (all.reduce((s, v) => s + v, 0) / all.length) : null
-      const waitTime = calculateWaitTime({ ...r, avgRating })
-      return ({ ...r, distance, avgRating, waitTime })
-    })
-    withDist.sort((a, b) => a.distance - b.distance)
-    const filtered = filterBlockedRestaurants(withDist)
-    setNearby(filtered)
-  }, [pos])
+  async function fetchRestaurantsNearLocation(location) {
+    return loadNearby(location)
+  }
 
   // Load OSM restaurants for Charlotte (cached)
   async function fetchCharlotte() {
@@ -420,6 +345,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
     }
 
     try {
+      setNearbyError('')
       // Show loading state
       setNearby([{ name: 'Loading nearby restaurants...', loading: true }])
 
@@ -488,7 +414,7 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       localStorage.setItem('nearby-yelp-restaurants', JSON.stringify(filtered))
     } catch (e) {
       console.error('Failed to fetch nearby restaurants from Yelp', e)
-      alert('Error: ' + e.message)
+      setNearbyError('Nearby restaurants are unavailable right now. Search still works on saved menus.')
       setNearby([])
     }
   }
@@ -688,30 +614,64 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
         </div>
       )}
 
-      {!pos && <div className="glass rounded-2xl p-8 text-center shadow-lg"><div className="text-4xl mb-3">📍</div><div className="text-gray-600 font-medium">Determining location…</div></div>}
-      {pos && (
+      <form
+        className="glass rounded-2xl p-4 shadow-lg space-y-2"
+        onSubmit={(event) => {
+          event.preventDefault()
+          searchLocation(locationInput)
+        }}
+      >
+        <div className="text-sm text-gray-600">{locationNote}</div>
+        <div className="flex gap-2">
+          <input
+            value={locationInput}
+            onChange={(event) => setLocationInput(event.target.value)}
+            placeholder="City or ZIP"
+            className="flex-1 px-3 py-2 border border-gray-200 rounded-xl"
+            aria-label="City or ZIP"
+          />
+          <button
+            type="submit"
+            disabled={searchingLocation}
+            className="px-4 py-2 rounded-xl bg-orange-500 text-white font-semibold disabled:opacity-60"
+          >
+            {searchingLocation ? 'Searching' : 'Search'}
+          </button>
+        </div>
+      </form>
+      {nearbyLoading && (
+        <div className="glass rounded-2xl p-6 text-center shadow-lg text-sm text-gray-600">Finding restaurants…</div>
+      )}
+      {nearbyError && (
+        <div className="glass rounded-2xl p-6 text-center shadow-lg text-sm text-gray-600">{nearbyError}</div>
+      )}
+      {!nearbyLoading && nearby.length > 0 && (
         <div className="grid grid-cols-2 gap-4">
           {nearby.map((r, idx) => (
             <div key={r.id || `${r.name}-${idx}`} className="card-hover glass rounded-2xl shadow-lg overflow-hidden flex flex-col">
               <div className="relative">
-                <img
-                  src={resolveImage(r, idx)}
-                  alt={r.name}
-                  className="w-full h-36 object-cover"
-                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80' }}
-                />
-                {r.avgRating != null && (
+                {r.image ? (
+                  <img src={r.image} alt="" className="w-full h-36 object-cover" />
+                ) : (
+                  <div className="w-full h-36 bg-amber-100 flex items-center justify-center text-amber-800 font-semibold">Restaurant</div>
+                )}
+                {r.rating != null && (
                   <div className="absolute top-2 right-2 glass rounded-full px-3 py-1 shadow-lg">
-                    <span className="text-xs font-bold flex items-center gap-1">
-                      ⭐ {Number(r.avgRating.toFixed(1))}
-                    </span>
+                    <span className="text-xs font-bold">⭐ {Number(r.rating).toFixed(1)}</span>
                   </div>
                 )}
               </div>
               <div className="p-4 space-y-3 flex-1 flex flex-col">
                 <div className="font-bold text-base text-gray-900 leading-tight">{r.name}</div>
+                {r.address && <div className="text-xs text-gray-500">{r.address}</div>}
                 <div className="flex flex-wrap gap-2 text-xs">
-                  {r.distance != null && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium flex items-center gap-1">📍 {r.distance.toFixed(1)} km</span>}
+                  {r.distanceMiles != null && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">📍 {r.distanceMiles.toFixed(1)} mi</span>}
+                  {r.menuStatus === 'unknown' && <span className="px-2 py-1 bg-amber-100 text-amber-800 rounded-full font-medium">Menu loading</span>}
+                  {r.menuStatus === 'unavailable' && <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full font-medium">Menu not available online</span>}
+                  {r.menuStatus === 'unavailable' && r.website && (
+                    <a href={r.website} target="_blank" rel="noreferrer" className="px-2 py-1 text-amber-700 underline">Restaurant site</a>
+                  )}
+                  {r.menuStatus === 'ready' && <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">Menu ready</span>}
                   {r.waitTime != null && (
                     <span className={`px-2 py-1 rounded-full font-medium flex items-center gap-1 ${
                       r.waitTime === 'Closed' ? 'bg-red-100 text-red-700' :
@@ -724,19 +684,18 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
                   )}
                 </div>
                 <div className="mt-auto flex gap-2">
-                  {r.yelpId && r.review_count >= 10 ? (
-                    <button
-                      onClick={() => {
-                        const restaurantName = encodeURIComponent(r.name)
-                        window.open(`https://www.opentable.com/s?term=${restaurantName}`, '_blank')
-                      }}
-                      className="flex-1 px-3 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                  {r.website ? (
+                    <a
+                      href={r.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 px-3 py-2.5 text-sm font-bold text-center text-orange-700 bg-orange-50 rounded-xl"
                     >
-                      📅 Book
-                    </button>
+                      Site
+                    </a>
                   ) : (
                     <div className="flex-1 px-3 py-2.5 text-xs font-medium text-gray-500 bg-gray-100 rounded-xl text-center flex items-center justify-center">
-                      Not Available
+                      No website
                     </div>
                   )}
                   <button

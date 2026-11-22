@@ -1,0 +1,12 @@
+{
+  "appId": "com.tastetrails.app",
+  "appName": "TasteTrails",
+  "webDir": "dist",
+  "server": {
+    "iosScheme": "https",
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "automatic"
+  }
+}

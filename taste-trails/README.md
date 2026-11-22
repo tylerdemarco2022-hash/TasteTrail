@@ -151,6 +151,20 @@ taste-trails/
 - **Auth**: Supabase Auth (JWT)
 - **APIs**: Yelp, Google Places, OpenAI
 
+## Live menus
+
+Dish search reads real menu items from restaurant websites and menu PDFs. Results are cached per restaurant (`MENU_CACHE_TTL_HOURS`, default 12) so typing does not start a new scrape. Prices are shown only when the page or PDF lists them. If a menu cannot be retrieved, the app says so and can show a previously saved menu for that restaurant.
+
+`npm run menu-coverage` checks every restaurant the app already knows.
+
+| Variable | Required for | Notes |
+| --- | --- | --- |
+| `GOOGLE_PLACES_API_KEY` | Richer nearby restaurants (website, hours, rating, photo) | Places API (New). Leave unset to use OpenStreetMap, which needs no key. This key does not contain menu items. Nearby Search Enterprise is about $35 per 1,000 requests after 1,000 free requests each month. A photo image is a separate request, about $7 per 1,000 after 1,000 free. A few dozen lookups a day stays at $0 or a few dollars. |
+| `MENU_CACHE_TTL_HOURS` | No | How long a fetched menu is reused. |
+| `MENU_CACHE_DIR` | No | Cache directory. Defaults to `data/menu-cache` and is not committed. |
+
+`YELP_API_KEY` does not return dish lists. It is not used for live menus.
+
 ## 📝 Notes
 
 This repository now includes a backend scaffold to fetch restaurant data from Yelp, perform OCR on menu photos, parse menus via OpenAI, and persist results to Supabase.

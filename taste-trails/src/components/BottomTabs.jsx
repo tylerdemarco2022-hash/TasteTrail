@@ -16,11 +16,11 @@ export default function BottomTabs({ active, setActive, onTabClick }){
           const Icon = t.icon
           const isActive = active === t.id
           return (
-            <button key={t.id} onClick={() => { 
+            <button key={t.id} type="button" aria-label={t.label} aria-current={isActive ? 'page' : undefined} onClick={() => { 
               setActive(t.id); 
               window.scrollTo(0, 0);
               if (onTabClick) onTabClick(t.id);
-            }} className={`flex flex-col items-center px-4 py-2 rounded-xl transition-all duration-300 ${
+            }} className={`flex flex-col items-center min-h-11 min-w-11 px-4 py-2 rounded-xl transition-all duration-300 ${
               isActive 
                 ? 'bg-gradient-to-br from-orange-500 to-red-600 text-white shadow-lg scale-105' 
                 : 'hover:bg-white/50'

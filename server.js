@@ -2,10 +2,13 @@ import dotenv from 'dotenv';
 import express from 'express';
 import axios from 'axios';
 import { createClient } from '@supabase/supabase-js';
+import { createRequire } from 'module';
 import { discoverRestaurants } from './services/restaurantDiscovery.js';
 import fs from 'fs';
 import path from 'path';
-// import supabaseInstance from './services/supabaseClient';
+import { handleLiveFindMenuItems, handleLiveSearchDishes, handleRestaurantMenu } from './taste-trails/src/services/liveMenu.js';
+
+const require = createRequire(import.meta.url);
 
 // Load environment variables
 dotenv.config();
@@ -15,6 +18,7 @@ console.log("FILE PATH:", import.meta.url);
 
 // Initialize Express app
 const app = express();
+app.use(express.json({ limit: '1mb' }));
 
 // Export necessary functions
 export default {
@@ -126,7 +130,23 @@ app.get('/', (req, res) => {
       <h3>Nearby Menu Search</h3>
       <div>
         <label for="dish">Dish / Query:</label>
-        <input id="dish" placeholder="e.g. 'margherita' or 'chicken tikka'" />
+        <input id="dish" placeholder="e.g. margherita, caesar, biryani" />
+        <label for="dietary">Dietary:</label>
+        <select id="dietary">
+          <option value="">Any</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="gluten_free">Gluten-free</option>
+          <option value="dairy_free">Dairy-free</option>
+        </select>
+        <label for="miles">Within:</label>
+        <select id="miles">
+          <option value="">Any distance</option>
+          <option value="2">2 miles</option>
+          <option value="5">5 miles</option>
+          <option value="10">10 miles</option>
+          <option value="25">25 miles</option>
+        </select>
         <button id="find-nearby">Find Nearby Items (use my location)</button>
     </div>
     <h3>Response</h3>
@@ -155,14 +175,21 @@ app.get('/', (req, res) => {
           const lat = pos.coords.latitude
           const lng = pos.coords.longitude
           const q = document.getElementById('dish').value || ''
+          const dietary = document.getElementById('dietary').value
+          const miles = document.getElementById('miles').value
           setStatus('Searching nearby menus...')
           out('')
           try{
-            const res = await fetch('/api/find-menu-items', { method: 'POST', headers: {'content-type':'application/json'}, body: JSON.stringify({ lat, lng, q }) })
+            const payload = { lat, lng, q }
+            if (dietary) payload.dietary = [dietary]
+            if (miles) payload.maxDistanceMiles = Number(miles)
+            const res = await fetch('/api/find-menu-items', { method: 'POST', headers: {'content-type':'application/json'}, body: JSON.stringify(payload) })
             const json = await res.json()
+            if (!res.ok) { out(json); setStatus('HTTP '+res.status+' '+res.statusText); return }
+            if (!json.items || !json.items.length) { out(json.message || 'No matching dishes.'); setStatus('No results'); return }
             out(json)
-            setStatus('HTTP '+res.status+' '+res.statusText)
-          }catch(e){ setStatus('Error'); out(String(e)) }
+            setStatus('Found '+json.found+' in '+(json.tookMs || 0)+'ms')
+          }catch(e){ setStatus('Offline or network error'); out('Could not reach the menu search. Check your connection and try again.') }
         }, (err) => { setStatus('Location error: '+err.message) }, { enableHighAccuracy: true, timeout: 10000 })
       }
       document.getElementById('discover').addEventListener('click', ()=>call('/api/discover'))
@@ -287,45 +314,23 @@ app.post('/api/discover-and-ingest', async (req, res) => {
   }
 })
 
-// POST /api/find-menu-items - accept { lat, lng, q }
+// POST /api/find-menu-items - accept { lat, lng, q, dietary, maxPrice, maxDistanceMiles }
 app.post('/api/find-menu-items', async (req, res) => {
   try {
-    const { lat, lng, q } = req.body || {}
-    if (typeof lat !== 'number' || typeof lng !== 'number') return res.status(400).json({ error: 'lat and lng are required as numbers' })
-    const query = (q || '').toString().trim().toLowerCase()
-    const { discoverNearbyCoords } = require('./services/restaurantDiscovery')
-    const { fetchMenu } = require('./services/menuFetcher')
-    const { extractFullMenu } = require('./services/menuExtractor')
-    const { normalizeMenu } = require('./services/menuNormalizer')
-
-    const restaurants = await discoverNearbyCoords(lat, lng)
-    const candidates = restaurants.slice(0, 30)
-    const results = []
-    for (const r of candidates) {
-      if (!r.website) continue
-      try {
-        const fetched = await fetchMenu(r)
-        if (!fetched || !fetched.rawMenuText) continue
-        const extracted = await extractFullMenu(fetched.rawMenuText)
-        const normalized = normalizeMenu(extracted)
-        for (const cat of normalized.categories || []) {
-          for (const it of cat.items || []) {
-            const name = (it.dish_name || '').toString()
-            const desc = (it.description || '').toString()
-            const hay = (name + ' ' + desc).toLowerCase()
-            if (!query || hay.includes(query)) {
-              results.push({ restaurant: { name: r.name, address: r.address, website: r.website, place_id: r.place_id }, category: cat.category, dish_name: name, description: desc || null, price: it.price || null })
-            }
-          }
-        }
-      } catch (e) {
-        console.warn('Menu find error for', r.name, e instanceof Error ? e.message : String(e))
-        continue
-      }
-    }
-    return res.json({ found: results.length, items: results.slice(0, 200) })
+    const result = await handleLiveFindMenuItems(req.body || {})
+    return res.status(result.status).json(result.body)
   } catch (e) {
     console.error('find-menu-items error:', e instanceof Error ? e.message : String(e))
+    return res.status(500).json({ error: 'internal server error' })
+  }
+})
+
+app.get('/api/restaurant-menu', async (req, res) => {
+  try {
+    const result = await handleRestaurantMenu(req.query || {})
+    return res.status(result.status).json(result.body)
+  } catch (e) {
+    console.error('restaurant-menu error:', e instanceof Error ? e.message : String(e))
     return res.status(500).json({ error: 'internal server error' })
   }
 })
@@ -333,38 +338,8 @@ app.post('/api/find-menu-items', async (req, res) => {
 // GET /api/search-dishes
 app.get('/api/search-dishes', async (req, res) => {
   try {
-    const { q } = req.query || {}
-    if (!q || String(q).trim().length === 0) return res.status(400).json({ error: 'Missing search query' })
-
-    const term = `%${String(q).trim()}%`
-    try {
-      const { data, error } = await supabaseInstance
-        .from('dishes')
-        .select('dish_name, description, price, restaurants(name, address, latitude, longitude)')
-        .ilike('dish_name', term)
-        .limit(50)
-
-      if (error) throw error
-
-      const results = (data || []).map((row) => {
-        const r = row.restaurants && Array.isArray(row.restaurants) ? row.restaurants[0] : row.restaurants || {}
-        return {
-          dish_name: row.dish_name || null,
-          description: row.description || null,
-          price: row.price != null ? row.price : null,
-          restaurant_name: r && r.name ? r.name : null,
-          address: r && r.address ? r.address : null,
-          latitude: r && (r.latitude != null) ? r.latitude : null,
-          longitude: r && (r.longitude != null) ? r.longitude : null
-        }
-      })
-
-      return res.json({ results })
-    } catch (dbErr) {
-      const detail = dbErr && dbErr.message ? dbErr.message : (typeof dbErr === 'object' ? JSON.stringify(dbErr) : String(dbErr))
-      console.error('search-dishes db error:', detail)
-      return res.status(500).json({ error: 'internal server error' })
-    }
+    const result = await handleLiveSearchDishes(req.query || {})
+    return res.status(result.status).json(result.body)
   } catch (e) {
     console.error('search-dishes error:', e instanceof Error ? e.message : String(e))
     return res.status(500).json({ error: 'internal server error' })

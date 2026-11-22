@@ -1,117 +1,650 @@
 [
   {
-    "category": "Dinner",
-    "name": "Frutti di Mare",
-    "description": "Dish for 2 guests celebrating the bounty of the ocean with black squid ink pasta and vibrant red sauce."
+    "name": "BEEF CARPACCIO* GF",
+    "category": null,
+    "description": "Delicate prime filet slices served with parmesan, mustard, kalamata aioli, arugula, pine nuts, olive oil, and balsamic drizzle",
+    "price": "$21.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Charcuterie tower",
-    "description": "An exquisite mix of premium cheeses, berries, grapes, nuts, jam, crackers, and honey, perfect to share for 2-6 guests."
+    "name": "BRANZINO CRUDO",
+    "category": null,
+    "description": "Branzino with fennel and sun-dried tomatoes, complemented by lemon emulsion, basil oil, honey-yuzu kosho, and caper powder",
+    "price": "$23.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Fried avocado with crab and shrimp",
-    "description": "Crispy avocado slices paired with blue crab meat, shrimp, diced tomatoes, and fresh cucumber, drizzled with chili mayo."
+    "name": "TUNA TARTARE* GF",
+    "category": null,
+    "description": "Japanese Akami, cucumber, shallot, jalapeño, Chef’s dressing with olive and sesame oil, honey, yuzu, and Tabasco",
+    "price": "$22.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Imperial Ice cream",
-    "description": "A decadent ice cream creation made with champagne, cream, condensed milk, lemon zest, and fresh basil, topped with black caviar and crawfish."
+    "name": "VIP IMPERIAL CAVIAR & VODKA",
+    "category": null,
+    "description": "3 oz of Premium Royal Imperial caviar served with handcrafted blinis, silky crème fraîche mousse, and traditional garnishes, paired with six ultra-chilled pours of top-tier vodka. Finished with luxury accents and presented in a striking, tableside ceremony.",
+    "price": "$618.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Royal Catch Tasting",
-    "description": "6 oz lobster tail, tiger shrimp, scallop, Au gratin potato, served with white wine saffron velouté and topped with black caviar."
+    "name": "BOUILLABAISSE FRENCH SOUP",
+    "category": null,
+    "description": "Half a lobster tail, shrimp, mussels, fish, scallops, calamari, tomato, onion, garlic, celery",
+    "price": "$32.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Chef’s Sashimi Set",
-    "description": "A symphony of the finest cuts including tuna, chu-toro, o-toro, salmon, hamachi, madai, shimaanji, ikura, and Japanese scallops, perfect to share for 3-6 guests."
+    "name": "TOM KHA SOUP GF",
+    "category": null,
+    "description": "Shrimp, scallops, mussels, mushrooms, cherry tomatoes, lemongrass, lime, coconut milk, cilantro, served with rice",
+    "price": "$24.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Salmon Royale",
-    "description": "Premium salmon belly sashimi and artisan-crafted nigiri, crowned with black caviar and shaved fresh truffle."
+    "name": "LOBSTER & SHRIMP SALAD",
+    "category": null,
+    "description": "½ lobster tail, tender lobster meat, and shrimp served over spring mix with cherry tomatoes and marinated apple, finished with Chef’s signature citrus-sweet glaze of teriyaki, soy, sweet chili, lime, honey mustard, and garlic.",
+    "price": "$27.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Dinner",
-    "name": "Salt-Baked Branzino",
-    "description": "A whole large branzino baked in a salt crust, served with sautéed vegetables and lemon-butter sauce, perfect to share for 2-4 guests."
+    "name": "GREEK SALAD GF",
+    "category": null,
+    "description": "Tomato, cucumber, bell pepper, radish, onion, Kalamata olives, Feta cheese, mint, Citrus Vinaigrette",
+    "price": "$15.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Oysters Rockefeller",
-    "category": "Appetizers",
-    "description": "Fresh oysters topped with spinach and hollandaise"
+    "name": "CAESAR SALAD",
+    "category": null,
+    "description": "Tender romaine, croutons, cherry tomatoes, quail eggs. Caesar dressing: egg yolk, capers, anchovies",
+    "price": "$14.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Shrimp Saganaki",
-    "category": "Appetizers",
-    "description": "Pan seared shrimp with feta cheese"
+    "name": "CRAB SALAD",
+    "category": null,
+    "description": "Blue crab, arugula, tobiko, butter-toasted panko, finished with a citrus yuzu emulsion",
+    "price": "$22.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Crab Cake",
-    "category": "Appetizers",
-    "description": "Jumbo lump crab cake with remoulade"
+    "name": "SEA GRILL SALAD",
+    "category": null,
+    "description": "Shrimp, mussels, and calamari over crisp spring greens with basil-marinated tomatoes, tossed in a bright citrus-herb vinaigrette.",
+    "price": "$22.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Foie Gras",
-    "category": "Appetizers",
-    "description": "Seared foie gras with cherry gastrique"
+    "name": "FRIED AVOCADO WITH CRAB AND SHRIMP",
+    "category": null,
+    "description": "Panko-breaded avocado, blue crab meat, shrimp, tomato, cucumber, chili aioli",
+    "price": "$24.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Chilean Sea Bass",
-    "category": "Main Courses",
-    "description": "Pan seared sea bass with seasonal vegetables"
+    "name": "KING'S GRATIN",
+    "category": null,
+    "description": "Pulled King crab meat, Blue crab meat, shrimp, Au gratin potatoes, and creamy coconut Tom Yum sauce, topped with fresh basil",
+    "price": "$41.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Lobster Tail",
-    "category": "Main Courses",
-    "description": "Butter poached lobster tail with drawn butter"
+    "name": "MUSSELS",
+    "category": null,
+    "description": "Mussels in white wine with parsley, garlic, butter, olive oil, chili, and Kalamata olives, garlic baguette",
+    "price": "$21.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Filet Mignon",
-    "category": "Main Courses",
-    "description": "Prime dry aged filet with house sauce"
+    "name": "TIGER SHRIMP TEMPURA",
+    "category": null,
+    "description": "Shrimp, tempura mix, vegetables, sweet wasabi sauce",
+    "price": "$18.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Rack of Lamb",
-    "category": "Main Courses",
-    "description": "Herb crusted rack of lamb with mint jus"
+    "name": "VEGETABLE TEMPURA",
+    "category": null,
+    "description": "Seasonal vegetables, tempura mix, Asian citrus sauce with sesame",
+    "price": "$15.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Branzino",
-    "category": "Main Courses",
-    "description": "Whole branzino baked in sea salt crust"
+    "name": "FRIED CALAMARI",
+    "category": null,
+    "description": "Calamari, buttermilk, seasoned flour, chili aioli",
+    "price": "$22.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Asparagus",
-    "category": "Sides",
-    "description": "Grilled asparagus with hollandaise"
+    "name": "IMPERIAL ICE CREAM",
+    "category": null,
+    "description": "Ice cream made with champagne, cream, condensed milk, lemon zest, basil, and topped with black caviar and crawfish",
+    "price": "$25.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Truffle Mac and Cheese",
-    "category": "Sides",
-    "description": "Creamy mac and cheese with black truffle"
+    "name": "BAKED OYSTERS",
+    "category": null,
+    "description": "Fresh Oysters, baked to perfection with artichokes, spinach, lemon, cream, parmesan, mozzarella, and Panko crumbs",
+    "price": "$24.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Caviar Potatoes",
-    "category": "Sides",
-    "description": "Au gratin potatoes topped with caviar"
+    "name": "ESCARGOT GF",
+    "category": null,
+    "description": "Garlic Buttered Snails with Fresh Herbs",
+    "price": "$22.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Chocolate Lava Cake",
-    "category": "Desserts",
-    "description": "Warm chocolate cake with molten center"
+    "name": "MIXED CEVICHE GF",
+    "category": null,
+    "description": "Octopus, shrimp, mussels, calamari, house-made tiger milk sauce, shallots, chives, citrus",
+    "price": "$25.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Crème Brûlée",
-    "category": "Desserts",
-    "description": "Classic vanilla bean crème brûlée"
+    "name": "CRAB CROQUETTES",
+    "category": null,
+    "description": "Jumbo lump crab, onion, garlic, mustard, bell pepper, breadcrumbs, chili aioli, parmesan cheese",
+    "price": "$28.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "name": "Cheesecake",
-    "category": "Desserts",
-    "description": "New York style cheesecake with fruit coulis"
+    "name": "CRUNCHY CUCUMBERS",
+    "category": null,
+    "description": "Cucumber, Yuzu, pine nuts, sesame oil, soy sauce",
+    "price": "$14.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "COCKTAIL SHRIMP GF",
+    "category": null,
+    "description": "Jumbo Tiger shrimp, Chef’s signature cocktail sauce, chili pepper",
+    "price": "$28.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "OCTOPUS CARPACCIO GF",
+    "category": null,
+    "description": "Thin-sliced octopus, seaweed with sesame, lemon emulsion, Chef’s aioli, Tobiko",
+    "price": "$23.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "BURRATA & TOMATOES GF",
+    "category": null,
+    "description": "Creamy burrata, seasonal tomatoes, olive oil, sea salt",
+    "price": "$18.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "WAGYU GYOZA",
+    "category": null,
+    "description": "Wagyu beef, gyoza wrappers, green onion, shallot, garlic, ginger, oyster sauce, soy sauce, sesame, yuzu",
+    "price": "$24.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SEA GRILL PLATTER GF",
+    "category": null,
+    "description": "King crab 16 oz, 1 whole lobster, 4 wild-caught Ecuadorian colossal prawns, 4 tiger shrimp, garlic butter",
+    "price": "$179.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SALT-BAKED BRANZINO GF",
+    "category": null,
+    "description": "Whole large branzino, baked in salt. Served with sautéed vegetables and golden butter-caper sauce",
+    "price": "$114.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "PASTA ALLA RUOTA",
+    "category": null,
+    "description": "Homemade pasta, cooked in creamy cheese sauce, served in a whole wheel of Parmigiano Reggiano, topped with fresh truffles",
+    "price": "$102.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "TOMAHAWK SURF & TURF* GF",
+    "category": null,
+    "description": "30 oz Prime Tomahawk, 1.5 lb whole lobster, baby potatoes, sautéed vegetables, pearl onions, cognac au poivre sauce, and chimichurri sauce",
+    "price": "$162.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "THE GRAND LOBSTER EXPERIENCE GF",
+    "category": null,
+    "description": "Our signature giant 7 lb whole lobster experience served with 4 wild-caught Ecuadorian colossal prawns, lobster risotto and accompanied by garlic butter and Chef’s signature sauce. Crafted for celebrations, sharing, and unforgettable dining moments",
+    "price": "$298.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "ROYAL CATCH TASTING",
+    "category": null,
+    "description": "6 oz lobster tail, tiger shrimp, scallop, Au gratin potato, served with white wine saffron velouté and topped with black caviar",
+    "price": "$59.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "LOBSTER RISOTTO WITH SCALLOPS* GF",
+    "category": null,
+    "description": "Risotto with lobster meat, langoustines, jumbo scallops, topped with black caviar, spinach, and parmesan",
+    "price": "$67.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "GRAND BRODETTO",
+    "category": null,
+    "description": "Octopus, ½ lobster tail, wild-caught Ecuadorian colossal prawn, mussels, calamari in saffron tomato broth, finished with lemon",
+    "price": "$59.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "CHILEAN SEA BASS* GF",
+    "category": null,
+    "description": "8 oz Chilean sea bass, celery root puree, broccolini",
+    "price": "$59.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SHRIMP STUFFED SALMON",
+    "category": null,
+    "description": "10 oz Scottish Salmon, shrimp, asparagus, Cajun spice, teriyaki, sweet chili, served medium-well on a bed of parsley risotto",
+    "price": "$44.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "MEDITERRANEAN GRILLED BRANZINO GF",
+    "category": null,
+    "description": "Deboned Mediterranean branzino, expertly grilled and served with sautéed seasonal vegetables, house tartar sauce, and a golden butter-caper finish.",
+    "price": "$47.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "GRILLED VERMILION SNAPPER GF",
+    "category": null,
+    "description": "Grilled whole fish, delicately charred and paired with tender broccolini, rich garlic butter, and our signature tartar sauce.",
+    "price": "$49.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "HALIBUT À LA CHEF* GF",
+    "category": null,
+    "description": "8 oz halibut filet, mashed potatoes, sautéed vegetables, Chef’s sauce",
+    "price": "$49.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "KING CRAB LEGS GF",
+    "category": null,
+    "description": "16 oz King crab leg, sautéed vegetables, garlic butter",
+    "price": "$116.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "LOBSTER ROYALE",
+    "category": null,
+    "description": "Lobster tail, mixed seafood, mussels, shrimp, calamari, broccolini, spinach, cherry tomatoes in a rich shellfish cream",
+    "price": "$51.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SHRIMP AND LANGOUSTINE PASTA",
+    "category": null,
+    "description": "Shrimp, langoustine, spaghetti, cream, spinach, pesto sauce, and garlic",
+    "price": "$40.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SALMON PASTA",
+    "category": null,
+    "description": "Salmon, Rigatoni pasta, creamy lobster and shrimp sauce, spinach, parmesan, white wine, lemon zest, cherry tomatoes, and red caviar on top",
+    "price": "$36.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "FRUTTI DI MARE PASTA",
+    "category": null,
+    "description": "Lobster tail, shrimp, scallops, mussels, black squid ink pasta, red sauce, basil PASTAS PASTAS PASTAS",
+    "price": "$49.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "WILD-CAUGHT COLOSSAL PRAWNS",
+    "category": null,
+    "description": "",
+    "price": "$36.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SHRIMP STUFFED SALMON 10 OZ",
+    "category": null,
+    "description": "",
+    "price": "$28.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "PRIME TOMAHAWK 30 OZ",
+    "category": null,
+    "description": "",
+    "price": "$120.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "FRESH BLACK TRUFFLE 2 G",
+    "category": null,
+    "description": "WHOLE LOBSTER 1.5 LBS 60",
+    "price": "$40.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "KING CRAB LEGS 16 OZ",
+    "category": null,
+    "description": "",
+    "price": "$105.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "GARLIC SAUTÉ SHRIMP",
+    "category": null,
+    "description": "",
+    "price": "$17.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "FILET MIGNON 8 OZ",
+    "category": null,
+    "description": "",
+    "price": "$58.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "LAMB CHOPS* 12 OZ",
+    "category": null,
+    "description": "",
+    "price": "$49.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "6 OZ LOBSTER TAIL",
+    "category": null,
+    "description": "",
+    "price": "$25.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "JUMBO SHRIMP",
+    "category": null,
+    "description": "",
+    "price": "$23.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SCALLOPS",
+    "category": null,
+    "description": "ADD-ONS ADD-ONS ADD-ONS SIDES SIDES SIDES",
+    "price": "$34.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SEAFOOD MASHED POTATOES",
+    "category": null,
+    "description": "",
+    "price": "$24.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "TRUFFLE FRENCH FRIES",
+    "category": null,
+    "description": "",
+    "price": "$21.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SAUTÉED VEGETABLES",
+    "category": null,
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "CAULIFLOWER STEAK",
+    "category": null,
+    "description": "",
+    "price": "$14.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "MASHED POTATOES",
+    "category": null,
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "LOBSTER RISOTTO",
+    "category": null,
+    "description": "",
+    "price": "$43.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "PARSLEY RISOTTO",
+    "category": null,
+    "description": "",
+    "price": "$16.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "BABY POTATO",
+    "category": null,
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "GARLIC BREAD",
+    "category": null,
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "BROCCOLINI",
+    "category": null,
+    "description": "",
+    "price": "$10.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "ASPARAGUS",
+    "category": null,
+    "description": "",
+    "price": "$11.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "WHITE WINE SAFFRON VELOUTÉ",
+    "category": null,
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "GOLDEN BUTTER-CAPER SAUCE",
+    "category": null,
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "COGNAC AU POIVRE SAUCE",
+    "category": null,
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "CREAM DEMI-GLACE SAUCE",
+    "category": null,
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "TRUFFLE SPICY AIOLI",
+    "category": null,
+    "description": "",
+    "price": "$4.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "GARLIC BUTTER",
+    "category": null,
+    "description": "",
+    "price": "$5.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SPICY VEGGIE LINGUINI ARRABBIATA",
+    "category": null,
+    "description": "Linguine pasta with garlic, chili pepper, sweet bell peppers, olive oil, Kalamata olives, rosemary, asparagus, broccolini, cherry tomatoes, and fresh basil with house-made tomato sauce infused with fresh herbs",
+    "price": "$24.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SAUTÉED VEGETABLES GF",
+    "category": null,
+    "description": "Seasonal sautéed vegetables, balsamic glaze",
+    "price": "$19.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "CAULIFLOWER STEAK GF",
+    "category": null,
+    "description": "Grilled cauliflower steak served on top of sautéed vegetables",
+    "price": "$26.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "BEEF WELLINGTON",
+    "category": null,
+    "description": "8 oz filet, puff pastry, mushroom duxelles, mashed potato, mustard, demi-glace sauce, served medium rare",
+    "price": "$69.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "FILET WITH COGNAC AU POIVRE SAUCE* GF",
+    "category": null,
+    "description": "8 oz filet mignon, shrimp, asparagus, mustard, cognac au poivre sauce",
+    "price": "$62.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "BEEF MEDALLIONS WITH MOREL* GF",
+    "category": null,
+    "description": "6 oz filet mignon medallions, morel mushrooms, rosemary-infused baby potatoes, finished with a luscious cream demi-glace sauce",
+    "price": "$58.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "HERB LAMB CHOPS* GF",
+    "category": null,
+    "description": "12 oz lamb chops, baby potatoes, pearl onion jam, chimichurri sauce",
+    "price": "$58.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "TRUFFLE DUCK BREAST* GF",
+    "category": null,
+    "description": "Medium-rare duck breast, creamy truffle risotto, honey-caramelized pear, savory pear-honey glaze, and freshly shaved truffle",
+    "price": "$52.00",
+    "sourceUrl": "https://www.seagrillnc.com/_files/ugd/3e8ab8_edc6bd5448294802906373705c0d28f9.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

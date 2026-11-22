@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react'
 import { posts as allPosts, restaurants as dataRestaurants } from '../data'
-import MenuView from './MenuView'
+import RestaurantPage from './RestaurantPage'
 import AddPost from './AddPost'
 
 const STORAGE_KEY = 'taste-trails-groups'
@@ -773,7 +773,7 @@ export default function Groups() {
       {selectedPost && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="w-full max-w-3xl">
-            <MenuView post={selectedPost} onBack={() => setSelectedPost(null)} />
+            <RestaurantPage post={selectedPost} onBack={() => setSelectedPost(null)} />
           </div>
         </div>
       )}

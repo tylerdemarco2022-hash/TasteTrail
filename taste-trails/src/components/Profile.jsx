@@ -14,6 +14,36 @@ import {
   setPrivateProfileForUser
 } from '../utils/accountStorage'
 
+function MyDishes() {
+  const { profile } = useAuth()
+  const [ratings, setRatings] = useState([])
+  const [saves, setSaves] = useState([])
+  useEffect(() => {
+    const token = localStorage.getItem('access_token')
+    if (!token || !profile?.id) return
+    const headers = { Authorization: `Bearer ${token}` }
+    fetch(`${API_BASE_URL}/api/ratings?userId=${encodeURIComponent(profile.id)}`, { headers })
+      .then((res) => res.ok ? res.json() : { ratings: [] })
+      .then((data) => setRatings(Array.isArray(data.ratings) ? data.ratings : []))
+      .catch(() => setRatings([]))
+    fetch(`${API_BASE_URL}/api/saves`, { headers })
+      .then((res) => res.ok ? res.json() : { saves: [] })
+      .then((data) => setSaves(Array.isArray(data.saves) ? data.saves : []))
+      .catch(() => setSaves([]))
+  }, [profile?.id])
+  if (!ratings.length && !saves.length) return null
+  return (
+    <div className="mt-3 space-y-1 text-sm text-gray-700">
+      {ratings.slice(0, 5).map((rating) => (
+        <p key={rating.id}>{rating.dish_name} at {rating.restaurant_name} · {Number(rating.rating).toFixed(1)} / 10</p>
+      ))}
+      {saves.slice(0, 5).map((save) => (
+        <p key={save.id}>{save.status === 'visited' ? 'Visited' : 'Want to try'}: {save.name}{save.restaurant ? ` at ${save.restaurant}` : ''}</p>
+      ))}
+    </div>
+  )
+}
+
 /**
  * Profile Component - User's Own Profile with Privacy Toggle
  * 
@@ -221,6 +251,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
             </div>
             <div className="text-sm text-gray-500">{userEmail}</div>
             <p className="mt-2 text-gray-700">{bio}</p>
+            <MyDishes />
             
             {/* Privacy Toggle - Instagram Style */}
             <div className="mt-3 flex items-center gap-3">
@@ -394,7 +425,7 @@ export default function Profile({ userPosts = [], onEditPost, onDeletePost }) {
           )}
           {(!userPosts || userPosts.length === 0) && (!gallery || gallery.length === 0) && (
             <div className="bg-white border rounded-lg p-4 text-center text-gray-500">
-              You haven't posted or rated anything yet.
+              Dish scores you save from a menu are listed under your name. Photos you add on this device show up here.
             </div>
           )}
         </div>

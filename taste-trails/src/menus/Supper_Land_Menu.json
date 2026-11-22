@@ -1,212 +1,378 @@
 [
   {
-    "category": "Starters",
-    "name": "Fried Green Tomatoes",
-    "description": "Crispy fried green tomatoes, remoulade, fresh greens"
+    "name": "Bone Marrow Broccoli",
+    "category": null,
+    "description": "grilled with bone marrow butter, toasted benne",
+    "price": "$15.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Deviled Eggs",
-    "description": "Paprika, bacon crumbles, chives"
+    "name": "Creamed Spinach",
+    "category": null,
+    "description": "wood-fired with nutmeg & parmigiano reggiano",
+    "price": "$15.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Shrimp and Grits",
-    "description": "Stone-ground grits, andouille sausage, creamy sauce"
+    "name": "Braised & Charred Carrots",
+    "category": null,
+    "description": "carrot cream, sorghum glaze, carolina gold puffed rice, carrot crisp, herbs",
+    "price": "$17.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Pork Belly Bites",
-    "description": "Caramelized pork belly, apple gastrique"
+    "name": "Wood-Oven Brussels",
+    "category": null,
+    "description": "lavender duck fat, local honey, thyme, lemon",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Duck Confit Fries",
-    "description": "Hand-cut fries topped with duck confit, crispy onions"
+    "name": "Blackened Onions",
+    "category": null,
+    "description": "long-roasted vidalia onions, extra virgin olive oil",
+    "price": "$12.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Spinach Artichoke Dip",
-    "description": "Creamy dip with spinach, artichokes, served with crostini"
+    "name": "Miso Mac & Cheese",
+    "category": null,
+    "description": "north carolina miso mornay, topped with miso cream add poached lobster +35",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Crispy Calamari",
-    "description": "Tender squid, marinara sauce, lemon"
+    "name": "Ambrosia Salad",
+    "category": null,
+    "description": "housemade whip, cream cheese, charred pineapple, marshmallows, brown sugar pecans, toasted coconut, brandied cherry",
+    "price": "$10.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Starters",
-    "name": "Brussels Sprout Hash",
-    "description": "Roasted Brussels sprouts, crispy bacon, balsamic glaze"
+    "name": "Mushroom Risotto",
+    "category": null,
+    "description": "carolina gold rice, cremini, maitake, trumpet, housemade ricotta, balsamic glaze",
+    "price": "$18.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups",
-    "name": "She-Crab Soup",
-    "description": "Fresh local crab, cream, sherry, crab roe garnish"
+    "name": "Cast Iron Corn Salad",
+    "category": null,
+    "description": "bell pepper, chimichurri, red onion, serrano cream",
+    "price": "$15.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups",
-    "name": "Butternut Squash Bisque",
-    "description": "Roasted squash, sage, cream, crispy sage leaves"
+    "name": "Crispy Smashed Potatoes",
+    "category": null,
+    "description": "gold creamer potatoes, smoked paprika aioli, chives",
+    "price": "$15.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups",
-    "name": "Lobster Bisque",
-    "description": "Maine lobster, sherry cream, cognac"
+    "name": "Whipped Potatoes",
+    "category": null,
+    "description": "smoked ember cream, mounted butter",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Soups",
-    "name": "French Onion Soup",
-    "description": "Caramelized onions, beef stock, Gruyère, crusty bread"
+    "name": "Glazed Covington Sweet Potato",
+    "category": null,
+    "description": "coal-baked, tamarind hot honey, local cultured butter, savory cashew ice cream",
+    "price": "$20.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Salads",
-    "name": "House Salad",
-    "description": "Mixed greens, seasonal vegetables, house vinaigrette"
+    "name": "Potluck Potatoes",
+    "category": null,
+    "description": "warm potato salad, benton’s bacon, smoked duke’s mayo, summer herbs Sweets",
+    "price": "$14.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Salads",
-    "name": "Wedge Salad",
-    "description": "Iceberg lettuce, blue cheese crumbles, bacon, tomatoes, ranch"
+    "name": "CHOCOLATE CHIP COOKIES",
+    "category": null,
+    "description": "four large biscuit cookies, baked fresh with chunks of chocolate, benne seeds, and pecans *Items are served raw, undercooked, or contain (or may contain) raw or undercooked ingredients. Consuming",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Salads",
-    "name": "Warm Beet Salad",
-    "description": "Roasted beets, arugula, goat cheese, candied walnuts, balsamic"
+    "name": "Raspberry Cream Cake",
+    "category": null,
+    "description": "raspberry cake, white chocolate mousse, raspberry fluid gel, vanilla bean chantilly",
+    "price": "$17.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Salads",
-    "name": "Grilled Salmon Salad",
-    "description": "Atlantic salmon, mixed greens, cucumber, tomatoes, lemon vinaigrette"
+    "name": "S’mores Cobbler",
+    "category": null,
+    "description": "chocolate cobbler, graham cracker pretzel crumble, toasted marshmallow, burnt ember ice cream",
+    "price": "$15.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Salads",
-    "name": "Cobb Salad",
-    "description": "Turkey, bacon, egg, avocado, blue cheese, ranch dressing"
+    "name": "Walnut Pie",
+    "category": null,
+    "description": "apple cider meringue, candied apple chips",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Pan-Seared Diver Scallops",
-    "description": "Lemon beurre blanc, risotto, microgreens"
+    "name": "Pumpkin Pie",
+    "category": null,
+    "description": "gingersnap pie crust, cream cheese chantilly",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Cedar-Plank Salmon",
-    "description": "Maple glaze, roasted vegetables, wild rice"
+    "name": "Banana Split Sundae",
+    "category": null,
+    "description": "toasted vanilla ice cream, charred pineapple sauce, strawberry milk crumble, hot fudge, brûléed banana, chantilly cream, lux cherry",
+    "price": "$17.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Filet Mignon",
-    "description": "Center-cut beef, roasted garlic mashed potatoes, red wine jus"
+    "name": "Whole Shelled Lobster",
+    "category": null,
+    "description": "a la plancha, roasted corn & brown butter, fried tarragon, saffron oil",
+    "price": "$125.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Prime Ribeye",
-    "description": "14 oz, hand-cut fries, compound butter, seasonal vegetables"
+    "name": "Grilled Poulet Rouge",
+    "category": null,
+    "description": "joyce farms chicken, served sliced, mushroom & pea conserva, cultured butter cream",
+    "price": "$47.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Herb-Roasted Chicken",
-    "description": "Half chicken, lemon jus, roasted potatoes, seasonal vegetables"
+    "name": "SPATCHCOCKED BRANZINO",
+    "category": null,
+    "description": "whole fish, romesco, charred lemon",
+    "price": "$79.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Duck Breast",
-    "description": "Cherry-port reduction, creamed corn, crispy skin"
+    "name": "Pork Can Can",
+    "category": null,
+    "description": "grilled berkshire bone-in pork belly and loin, cherry-mustard compote",
+    "price": "$62.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Braised Short Ribs",
-    "description": "Tender beef short ribs, root vegetables, burgundy reduction"
+    "name": "Wagyu Pot Roast",
+    "category": null,
+    "description": "slow-cooked wagyu roast, vegetable gravy, pickled veggies",
+    "price": "$42.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Lobster Tail",
-    "description": "Broiled or grilled, drawn butter, roasted potatoes, asparagus"
+    "name": "Carolina Gold Rice Skillet",
+    "category": null,
+    "description": "blistered tomatoes, seasonal roasted vegetables, sweet pepper sofrito",
+    "price": "$32.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Pecan-Crusted Flounder",
-    "description": "Panko-pecan crust, lemon butter sauce, seasonal vegetables"
+    "name": "10oz PRIME FILET",
+    "category": null,
+    "description": "salt, pepper, fire",
+    "price": "$91.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Surf and Turf",
-    "description": "Filet mignon and lobster tail, béarnaise, roasted vegetables"
+    "name": "16oz WAGYU NY STRIP",
+    "category": null,
+    "description": "MS 7-8, salt, pepper, fire",
+    "price": "$120.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Pasta Carbonara",
-    "description": "Guanciale, egg yolk, Pecorino Romano, fresh pasta"
+    "name": "16oz PRIME RIBEYE",
+    "category": null,
+    "description": "salt, pepper, fire",
+    "price": "$89.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Main Courses",
-    "name": "Seafood Paella",
-    "description": "Saffron rice, shrimp, scallops, clams, mussels, saffron broth"
+    "name": "32oz BONE-IN PRIME RIBEYE",
+    "category": null,
+    "description": "salt-cured & fire-grilled, served with shiso chimichurri, dill cream, & housemade steak sauce",
+    "price": "$140.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Truffle Mac and Cheese",
-    "description": "Creamy three-cheese sauce, shaved truffles"
+    "name": "Poached Lobster",
+    "category": null,
+    "description": "",
+    "price": "$35.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Creamed Corn",
-    "description": "Fresh corn, cream, butter"
+    "name": "Jumbo Lump Crab",
+    "category": null,
+    "description": "",
+    "price": "$18.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Garlic Mashed Potatoes",
-    "description": "Roasted garlic, butter, cream"
+    "name": "Grilled Shrimp",
+    "category": null,
+    "description": "",
+    "price": "$6.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Seasonal Vegetables",
-    "description": "Fresh market selection"
+    "name": "Dill Cream",
+    "category": null,
+    "description": "",
+    "price": "$4.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Sides",
-    "name": "Wild Rice Pilaf",
-    "description": "Toasted wild rice, dried cranberries, pecans"
+    "name": "Shiso Chimichurri",
+    "category": null,
+    "description": "",
+    "price": "$4.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Chocolate Lava Cake",
-    "description": "Warm flourless chocolate cake, ice cream, berries"
+    "name": "Cultured Butter",
+    "category": null,
+    "description": "topped with housemade steak sauce",
+    "price": "$11.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Crème Brûlée",
-    "description": "Vanilla bean custard, torched sugar"
+    "name": "Baked Brie Bites",
+    "category": null,
+    "description": "house puff pastry, melty brie, orange jezebel",
+    "price": "$16.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Pecan Pie",
-    "description": "Classic Southern pecan pie, vanilla ice cream"
+    "name": "Sausage Gravy Croquettes",
+    "category": null,
+    "description": "panko-fried, black pepper & sage gravy, house sausage, pickled onion",
+    "price": "$14.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Bread Pudding",
-    "description": "Bourbon sauce, whipped cream"
+    "name": "Warm Onion Dip",
+    "category": null,
+    "description": "caramelized vidalia onions, creamed cheese, housemade potato chips add jumbo lump crab +18",
+    "price": "$13.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Cheesecake",
-    "description": "New York style, graham cracker crust, berry compote"
+    "name": "Roasted Oysters",
+    "category": null,
+    "description": "lightly grilled, smoking ember butter",
+    "price": "$20.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Tiramisu",
-    "description": "Espresso, mascarpone, cocoa powder"
+    "name": "Coal-Roasted Beets",
+    "category": null,
+    "description": "toasted benne seed, banyuls reduction, powdered bacon fat, truffle sour cream, arugula, chives",
+    "price": "$20.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Key Lime Pie",
-    "description": "Tart and sweet, whipped cream, graham cracker crust"
+    "name": "Charred Wedge",
+    "category": null,
+    "description": "charred iceberg & tomato, blue cheese crumble, dry-aged bacon lardons, local buttermilk herb dressing",
+    "price": "$15.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   },
   {
-    "category": "Desserts",
-    "name": "Chocolate Mousse",
-    "description": "Rich dark chocolate, fresh berries, whipped cream"
+    "name": "Caesar Salad",
+    "category": null,
+    "description": "romaine, pecorino romano, white anchovy caesar dressing, rosemary saltine crumble, charred lemon",
+    "price": "$20.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SEAFOOD TOWER",
+    "category": null,
+    "description": "shrimp cocktail, dressed lump crab, ceviche, raw oysters, lobster salad",
+    "price": "$145.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "SHRIMP COCKTAIL",
+    "category": null,
+    "description": "three shrimp, house cocktail sauce EAST COAST OYSTERS*",
+    "price": "$18.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "Blue Point",
+    "category": null,
+    "description": "19 | Rotating Selection MP served raw, seasonal mignonette",
+    "price": null,
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "PORRIDGE BREAD",
+    "category": null,
+    "description": "housemade with anson mill grits, seasonal butter flight chilled seafoodchilled seafood",
+    "price": "$9.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
+  },
+  {
+    "name": "OSETRA CLASSIC",
+    "category": null,
+    "description": "housemade potato chips, crème fraîche, egg salad, chives sustainably farmed in marshallberg, nc",
+    "price": "$146.00",
+    "sourceUrl": "https://supper.land/wp-content/uploads/11-x-17-size-menu-GENERIC-SPECIALS-1.pdf",
+    "fetchedAt": "2026-10-11T21:50:56.722Z"
   }
 ]

@@ -419,7 +419,7 @@ router.get('/users/me/ratings', getUser, async (req, res) => {
 });
 
 // Add POST /ratings endpoint
-router.post('/ratings', async (req, res) => {
+router.post('/ratings', async (req, res, next) => {
   try {
     console.log('Incoming rating body:', req.body);
 
@@ -437,6 +437,7 @@ router.post('/ratings', async (req, res) => {
       .select();
 
     if (result.error) {
+      if (String(result.error.message || '').includes('Supabase disabled')) return next();
       console.error('Supabase insert error:', result.error);
       return res.status(500).json({ error: result.error.message });
     }
