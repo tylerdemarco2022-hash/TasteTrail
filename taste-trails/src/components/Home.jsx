@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { API_BASE_URL } from '../config/api'
 import RestaurantCard from './RestaurantCard'
+import { pickFeatured } from '../services/featuredRestaurant'
 
 const MARKETS = [
   { label: 'Charlotte', q: 'Charlotte, NC' },
@@ -14,13 +15,17 @@ export default function Home({ onOpen }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [scores, setScores] = useState([])
+  const [restaurantScores, setRestaurantScores] = useState([])
   const [cuisine, setCuisine] = useState('')
 
   useEffect(() => {
     const token = localStorage.getItem('access_token')
     fetch(`${API_BASE_URL}/api/food-scores`, { headers: token ? { Authorization: `Bearer ${token}` } : {} })
       .then((res) => res.ok ? res.json() : { dishes: [] })
-      .then((data) => setScores(Array.isArray(data.dishes) ? data.dishes : []))
+      .then((data) => {
+        setScores(Array.isArray(data.dishes) ? data.dishes : [])
+        setRestaurantScores(Array.isArray(data.restaurants) ? data.restaurants : [])
+      })
       .catch(() => setScores([]))
   }, [])
 
@@ -56,6 +61,7 @@ export default function Home({ onOpen }) {
   const visible = places.filter((place) => !cuisine || place.cuisine === cuisine)
   const nearbyNames = new Set(visible.map((place) => String(place.name || '').toLowerCase()))
   const dishHits = scores.filter((row) => !nearbyNames.size || nearbyNames.has(String(row.restaurant || '').toLowerCase())).slice(0, 5)
+  const featured = pickFeatured(visible, restaurantScores)
 
   function openPlace(place) {
     onOpen?.({
@@ -81,6 +87,18 @@ export default function Home({ onOpen }) {
   return (
     <main className="screen space-y-8">
       <h1 className="font-display text-4xl leading-[1.05] text-[var(--ink)]">Discover food worth remembering.</h1>
+      {featured && (
+        <button type="button" onClick={() => openPlace(featured)} className="surface block w-full overflow-hidden text-left" aria-label={`Featured restaurant ${featured.name}`}>
+          <div className={`h-56 w-full ${featured.image ? '' : 'plate'}`}>
+            {featured.image ? <img src={featured.image} alt="" className="h-full w-full object-cover" /> : null}
+          </div>
+          <div className="space-y-1 px-4 py-4">
+            <h2 className="text-2xl font-semibold">{featured.name}</h2>
+            <p className="text-sm text-[var(--mute)]">{[featured.cuisine, featured.distanceMiles != null ? `${Number(featured.distanceMiles).toFixed(1)} mi` : featured.neighborhood].filter(Boolean).join(' · ')}</p>
+            {featured.foodScore != null && <p className="text-sm">{Number(featured.foodScore).toFixed(1)}</p>}
+          </div>
+        </button>
+      )}
       <form className="flex gap-2" onSubmit={(event) => { event.preventDefault(); if (query.trim()) load(new URLSearchParams({ q: query, radius: '3' })) }}>
         <label className="sr-only" htmlFor="city-search">City or ZIP</label>
         <input id="city-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="City or ZIP" className="field" />

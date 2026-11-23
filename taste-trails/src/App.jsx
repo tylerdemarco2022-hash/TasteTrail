@@ -13,6 +13,7 @@ import Notifications from './components/Notifications'
 import Settings from './components/Settings'
 import UserSearch from './components/UserSearch'
 import RateScreen from './components/RateScreen'
+import Onboarding from './components/Onboarding'
 import UserProfile from './components/UserProfile'
 import { posts as seedPosts, users as seedUsers, restaurants as seedRestaurants } from './data'
 import { HashRouter as Router, Routes, Route, useParams, useLocation, useNavigate } from 'react-router-dom';
@@ -43,6 +44,9 @@ function App() {
   const { isAuthenticated, loading, login, signup, profile } = useAuth()
   const activeProfileId = profile?.id || getActiveProfileId()
   const [authView, setAuthView] = useState('login')
+  const [showIntro, setShowIntro] = useState(() => {
+    try { return localStorage.getItem('tastetrails-intro-seen') !== '1' } catch { return false }
+  })
   const [activeTab, setActiveTab] = useState('restaurants')
   const [menuPost, setMenuPost] = useState(null)
   const [showNotifications, setShowNotifications] = useState(false)
@@ -158,6 +162,9 @@ function App() {
   }
 
   if (!isAuthenticated) {
+    if (showIntro) {
+      return <Onboarding onDone={(view) => { setShowIntro(false); setAuthView(view === 'signup' ? 'signup' : 'login') }} />
+    }
     return authView === 'signup' ? (
       <Signup onSignup={signup} onSwitchToLogin={() => setAuthView('login')} />
     ) : (

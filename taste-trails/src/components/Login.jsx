@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { LogIn, User, Lock, Mail, AlertCircle } from 'lucide-react'
+import { LogIn, Lock, Mail, AlertCircle } from 'lucide-react'
 import PrivacyPolicy from './PrivacyPolicy'
+import { useAuth } from '../context/AuthContext'
+import { requestProviderToken } from '../services/socialSignIn'
 
 export default function Login({ onLogin, onSwitchToSignup }) {
   const [email, setEmail] = useState('')
@@ -8,6 +10,21 @@ export default function Login({ onLogin, onSwitchToSignup }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [showPrivacy, setShowPrivacy] = useState(false)
+  const { signInWithProvider } = useAuth()
+
+  async function social(provider) {
+    setError('')
+    setLoading(true)
+    try {
+      const result = await requestProviderToken(provider)
+      const signedIn = await signInWithProvider(provider, result.idToken, result.name)
+      if (!signedIn.success) setError(signedIn.error || 'Sign-in failed')
+    } catch (err) {
+      setError(err.message || 'Sign-in failed')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -39,7 +56,12 @@ export default function Login({ onLogin, onSwitchToSignup }) {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="mt-4 space-y-2">
+            <button type="button" className="btn btn-quiet w-full" onClick={() => social('google')} disabled={loading}>Continue with Google</button>
+            <button type="button" className="btn btn-quiet w-full" onClick={() => social('apple')} disabled={loading}>Continue with Apple</button>
+          </div>
+
+          <form onSubmit={handleSubmit} className="mt-4 space-y-4">
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">

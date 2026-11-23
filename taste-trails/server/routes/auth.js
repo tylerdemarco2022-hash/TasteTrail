@@ -3,10 +3,11 @@ import crypto from "crypto";
 import { supabase } from "../../backend/supabase.js";
 import { readJSON, writeJSON } from "../../backend/utils/localDB.js";
 import { allocateUsername, getSocialGraph, usernameFor } from "../../src/services/socialGraph.js";
+import { getSessionStore } from "../../src/services/sessionStore.js";
+import { verifyAppleIdToken, verifyGoogleIdToken } from "../../src/services/oauthProviders.js";
 
 const router = express.Router();
-const LOCAL_SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
-const localSessions = new Map();
+const sessions = getSessionStore();
 const SUPABASE_TIMEOUT_MS = Number(process.env.SUPABASE_TIMEOUT_MS || 5000);
 const supabaseUrl = String(process.env.SUPABASE_URL || "").trim();
 const supabaseKey = String(
@@ -145,24 +146,11 @@ function toPublicUser(profile) {
 }
 
 function createLocalSession(userId) {
-  const token = crypto.randomBytes(32).toString("hex");
-  localSessions.set(token, {
-    userId,
-    expiresAt: Date.now() + LOCAL_SESSION_TTL_MS
-  });
-  return token;
+  return sessions.issue(userId);
 }
 
 function getLocalSession(token) {
-  const session = localSessions.get(token);
-  if (!session) return null;
-
-  if (session.expiresAt <= Date.now()) {
-    localSessions.delete(token);
-    return null;
-  }
-
-  return session;
+  return sessions.readAccess(token);
 }
 
 function validateCredentials(email, password) {
@@ -300,11 +288,13 @@ function buildLocalLoginResponse(email, password) {
   if (!verifyPassword(password, localUser.passwordHash)) return null;
 
   ensureLocalUserHasCode(localUser, users);
-  const token = createLocalSession(localUser.id);
+  const issued = createLocalSession(localUser.id);
   const profile = toPublicProfile(localUser, localUser.email);
 
   return {
-    token,
+    token: issued.token,
+    refreshToken: issued.refreshToken,
+    expiresAt: issued.expiresAt,
     user: toPublicUser(profile),
     profile
   };
@@ -392,7 +382,7 @@ async function resolveAuth(req) {
   const users = listLocalUsers();
   const localUser = users.find((candidate) => candidate.id === session.userId);
   if (!localUser) {
-    localSessions.delete(token);
+    sessions.revoke(token);
     return { ok: false, status: 401, message: "Invalid or expired token" };
   }
 
@@ -537,6 +527,8 @@ router.post("/login", async (req, res) => {
         return res.json({
           success: true,
           token: localLogin.token,
+          refreshToken: localLogin.refreshToken,
+          expiresAt: localLogin.expiresAt,
           user: localLogin.user,
           profile: localLogin.profile
         });
@@ -553,6 +545,8 @@ router.post("/login", async (req, res) => {
     return res.json({
       success: true,
       token: localLogin.token,
+      refreshToken: localLogin.refreshToken,
+      expiresAt: localLogin.expiresAt,
       user: localLogin.user,
       profile: localLogin.profile
     });
@@ -708,7 +702,7 @@ router.post("/logout", async (req, res) => {
   const token = getBearerToken(req);
 
   if (token) {
-    localSessions.delete(token);
+    sessions.revoke(token);
   }
 
   return res.json({
@@ -791,12 +785,105 @@ router.delete("/account", async (req, res) => {
     if (filtered.length === users.length) return sendError(res, 404, "User not found");
     saveLocalUsers(filtered);
     getSocialGraph().purge(auth.localUser.id);
-    if (auth.token) localSessions.delete(auth.token);
+    sessions.purgeUser(auth.localUser.id);
 
     return res.json({ success: true, message: "Account deleted" });
   } catch (error) {
     console.error("Auth /account delete error:", error);
     return sendError(res, 500, "Failed to delete account");
+  }
+});
+
+function clientIdList(name) {
+  return String(process.env[name] || "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+}
+
+function linkOAuthUser({ provider, sub, email, name }) {
+  const users = listLocalUsers();
+  let user = users.find((candidate) =>
+    (candidate.providers || []).some((entry) => entry.provider === provider && entry.sub === sub)
+  );
+  if (!user && email) {
+    user = users.find((candidate) => normalizeEmail(candidate.email) === normalizeEmail(email));
+    if (user) {
+      user.providers = [...(user.providers || []), { provider, sub }];
+      user.updated_at = new Date().toISOString();
+      saveLocalUsers(users);
+    }
+  }
+  if (!user) {
+    if (!email) return { ok: false, status: 400, message: "That sign-in did not include an email" };
+    const userCode = generateUserCode(users);
+    const displayName = String(name || "").trim() || email.split("@")[0];
+    const now = new Date().toISOString();
+    user = {
+      id: crypto.randomUUID(),
+      email: normalizeEmail(email),
+      name: displayName,
+      username: allocateUsername(users, displayName, userCode),
+      role: "user",
+      is_private: false,
+      user_code: userCode,
+      providers: [{ provider, sub }],
+      created_at: now,
+      updated_at: now
+    };
+    users.push(user);
+    saveLocalUsers(users);
+  }
+  const issued = createLocalSession(user.id);
+  const profile = toPublicProfile(user, user.email);
+  return {
+    ok: true,
+    token: issued.token,
+    refreshToken: issued.refreshToken,
+    expiresAt: issued.expiresAt,
+    user: toPublicUser(profile),
+    profile
+  };
+}
+
+router.post("/refresh", (req, res) => {
+  const refreshed = sessions.refresh(req.body?.refreshToken);
+  if (!refreshed) return sendError(res, 401, "Session expired");
+  const users = listLocalUsers();
+  const localUser = users.find((candidate) => candidate.id === refreshed.userId);
+  if (!localUser) return sendError(res, 401, "Session expired");
+  const profile = toPublicProfile(localUser, localUser.email);
+  return res.json({
+    success: true,
+    token: refreshed.token,
+    refreshToken: refreshed.refreshToken,
+    expiresAt: refreshed.expiresAt,
+    user: toPublicUser(profile),
+    profile
+  });
+});
+
+router.post("/oauth", async (req, res) => {
+  try {
+    const provider = String(req.body?.provider || "");
+    const idToken = String(req.body?.idToken || "");
+    const verified = provider === "google"
+      ? await verifyGoogleIdToken(idToken, { clientIds: clientIdList("GOOGLE_OAUTH_CLIENT_IDS") })
+      : provider === "apple"
+        ? await verifyAppleIdToken(idToken, { clientIds: clientIdList("APPLE_OAUTH_CLIENT_IDS") })
+        : { ok: false, error: "Unknown sign-in provider" };
+    if (!verified.ok) return sendError(res, 401, verified.error);
+    const linked = linkOAuthUser({
+      provider,
+      sub: verified.sub,
+      email: verified.email,
+      name: req.body?.name || verified.name
+    });
+    if (!linked.ok) return sendError(res, linked.status, linked.message);
+    return res.json({ success: true, ...linked });
+  } catch (error) {
+    console.error("Auth /oauth error:", error);
+    return sendError(res, 500, "Sign-in failed");
   }
 });
 
