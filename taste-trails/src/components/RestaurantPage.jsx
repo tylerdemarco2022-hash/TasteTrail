@@ -3,6 +3,7 @@ import { Bookmark, Check, Info } from 'lucide-react'
 import { API_BASE_URL } from '../config/api'
 import { formatPublishedPrice } from '../services/menuPresentation'
 import DishRatingSheet from './DishRatingSheet'
+import { PlacePhoto } from './RestaurantCard'
 
 const TABS = ['Overview', 'Menu', 'Photos', 'Reviews']
 
@@ -89,8 +90,8 @@ export default function RestaurantPage({ post, onBack }) {
 
   return (
     <div className="min-h-screen bg-[var(--paper)] pb-10 text-[var(--ink)]">
-      <div className="plate relative h-52">
-        {post?.image ? <img src={post.image} alt="" className="h-full w-full object-cover" /> : null}
+      <div className="relative h-52">
+        <PlacePhoto src={post?.image} attribution={post?.photoAttribution} className="h-52" />
         <button type="button" onClick={onBack} className="btn btn-quiet absolute left-4 top-[max(0.75rem,env(safe-area-inset-top))]">Back</button>
       </div>
       <div className="mx-auto max-w-lg px-4 py-4">

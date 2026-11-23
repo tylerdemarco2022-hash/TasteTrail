@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { API_BASE_URL } from '../config/api'
-import RestaurantCard from './RestaurantCard'
+import RestaurantCard, { PlacePhoto } from './RestaurantCard'
 import { pickFeatured } from '../services/featuredRestaurant'
 
 const MARKETS = [
@@ -36,10 +36,14 @@ export default function Home({ onOpen }) {
       const res = await fetch(`${API_BASE_URL}/api/nearby-restaurants?${params}`)
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Nearby restaurants are unavailable right now.')
-      setPlaces((data.restaurants || []).map((place) => ({
-        ...place,
-        image: place.photoName ? `${API_BASE_URL}/api/place-photo?name=${encodeURIComponent(place.photoName)}` : null
-      })))
+      setPlaces((data.restaurants || []).map((place) => {
+        const url = place.photo?.url || null
+        return {
+          ...place,
+          image: url ? (url.startsWith('/') ? `${API_BASE_URL}${url}` : url) : null,
+          photoAttribution: place.photo?.source === 'google' || place.photo?.source === 'wikimedia' ? place.photo.attribution : null
+        }
+      }))
     } catch (err) {
       setPlaces([])
       setError(err.message || 'Nearby restaurants are unavailable right now.')
@@ -80,6 +84,7 @@ export default function Home({ onOpen }) {
       rating: place.rating,
       ratingCount: place.ratingCount,
       image: place.image,
+      photoAttribution: place.photoAttribution,
       distanceMiles: place.distanceMiles
     })
   }
@@ -89,9 +94,7 @@ export default function Home({ onOpen }) {
       <h1 className="font-display text-4xl leading-[1.05] text-[var(--ink)]">Discover food worth remembering.</h1>
       {featured && (
         <button type="button" onClick={() => openPlace(featured)} className="surface block w-full overflow-hidden text-left" aria-label={`Featured restaurant ${featured.name}`}>
-          <div className={`h-56 w-full ${featured.image ? '' : 'plate'}`}>
-            {featured.image ? <img src={featured.image} alt="" className="h-full w-full object-cover" /> : null}
-          </div>
+          <PlacePhoto src={featured.image} attribution={featured.photoAttribution} className="h-56 w-full" />
           <div className="space-y-1 px-4 py-4">
             <h2 className="text-2xl font-semibold">{featured.name}</h2>
             <p className="text-sm text-[var(--mute)]">{[featured.cuisine, featured.distanceMiles != null ? `${Number(featured.distanceMiles).toFixed(1)} mi` : featured.neighborhood].filter(Boolean).join(' · ')}</p>

@@ -1,4 +1,16 @@
+import { useState } from 'react'
 import { priceLevelFromPrices } from '../services/menuPresentation'
+
+export function PlacePhoto({ src, attribution, className = '' }) {
+  const [failed, setFailed] = useState(false)
+  const show = Boolean(src) && !failed
+  return (
+    <div className={`relative overflow-hidden ${className} ${show ? '' : 'plate'}`}>
+      {show ? <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" onError={() => setFailed(true)} /> : null}
+      {show && attribution ? <p className="absolute inset-x-0 bottom-0 truncate bg-black/50 px-2 py-1 text-[10px] text-white">{attribution}</p> : null}
+    </div>
+  )
+}
 
 function dollars(level) {
   return level ? '$'.repeat(level) : null
@@ -18,9 +30,7 @@ export default function RestaurantCard({ place, onOpen }) {
         className="block w-full text-left"
         aria-label={`${place.name}${meta ? `, ${meta}` : ''}${hasRating ? `, ${rating.toFixed(1)}` : ', no rating'}${place.menuStatus === 'unavailable' ? ', menu not available online' : ''}`}
       >
-        <div className={`h-44 w-full ${place.image ? '' : 'plate'}`}>
-          {place.image ? <img src={place.image} alt="" className="h-full w-full object-cover" /> : null}
-        </div>
+        <PlacePhoto src={place.image} attribution={place.photoAttribution} className="h-44 w-full" />
         <div className="space-y-1 px-4 py-4">
           <h3 className="text-lg font-semibold text-[var(--ink)]">{place.name}</h3>
           {meta && <p className="truncate text-sm text-[var(--mute)]">{meta}</p>}

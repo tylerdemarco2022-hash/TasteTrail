@@ -279,7 +279,8 @@ if (typeof window !== 'undefined' && window.DEV_SEED && restaurants && restauran
       if (!res.ok) throw new Error(data.error || 'Failed to fetch nearby restaurants')
       const rows = (data.restaurants || []).map((restaurant) => ({
         ...restaurant,
-        image: restaurant.photoName ? `${API_BASE_URL}/api/place-photo?name=${encodeURIComponent(restaurant.photoName)}` : null,
+        image: restaurant.photo?.url ? (restaurant.photo.url.startsWith('/') ? `${API_BASE_URL}${restaurant.photo.url}` : restaurant.photo.url) : null,
+        photoAttribution: restaurant.photo?.source === 'google' || restaurant.photo?.source === 'wikimedia' ? restaurant.photo.attribution : null,
         distance: restaurant.distanceMiles == null ? null : restaurant.distanceMiles * 1.60934
       }))
       if (query && data.location?.latitude != null && data.location?.longitude != null) {
