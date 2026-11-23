@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { LogIn, User, Lock, Mail, AlertCircle } from 'lucide-react'
+import { LogIn, Lock, Mail, AlertCircle } from 'lucide-react'
 import PrivacyPolicy from './PrivacyPolicy'
+import { useAuth } from '../context/AuthContext'
+import { requestProviderToken } from '../services/socialSignIn'
 
 export default function Login({ onLogin, onSwitchToSignup }) {
   const [email, setEmail] = useState('')
@@ -8,6 +10,21 @@ export default function Login({ onLogin, onSwitchToSignup }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [showPrivacy, setShowPrivacy] = useState(false)
+  const { signInWithProvider } = useAuth()
+
+  async function social(provider) {
+    setError('')
+    setLoading(true)
+    try {
+      const result = await requestProviderToken(provider)
+      const signedIn = await signInWithProvider(provider, result.idToken, result.name)
+      if (!signedIn.success) setError(signedIn.error || 'Sign-in failed')
+    } catch (err) {
+      setError(err.message || 'Sign-in failed')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -26,42 +43,25 @@ export default function Login({ onLogin, onSwitchToSignup }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo/Brand */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full mb-4 shadow-lg">
-            <span className="text-3xl">🍽️</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">TasteTrails</h1>
-          <p className="text-gray-600">Discover. Rate. Share.</p>
-        </div>
+    <div className="min-h-dvh bg-[var(--paper)] px-5 py-10" style={{ paddingTop: 'max(2.5rem, env(safe-area-inset-top))' }}>
+      <div className="mx-auto w-full max-w-md">
+        <h1 className="font-display text-4xl leading-tight text-[var(--ink)]">Discover food worth remembering.</h1>
 
-        {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome Back</h2>
+        <div className="surface mt-8 p-5">
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
-              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <p className="text-sm text-red-600">{error}</p>
-                {error.includes('database not configured') && (
-                  <div className="mt-2 text-xs text-gray-600 bg-white p-2 rounded border border-gray-200">
-                    <p className="font-semibold mb-1">Setup Required:</p>
-                    <ol className="list-decimal list-inside space-y-1">
-                      <li>Create a Supabase account at supabase.com</li>
-                      <li>Update .env with your Supabase URL and key</li>
-                      <li>Run SQL scripts in backend/sql/ folder</li>
-                      <li>Restart the backend server</li>
-                    </ol>
-                  </div>
-                )}
-              </div>
+            <div className="mt-4 flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm text-red-700">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <p>{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="mt-4 space-y-2">
+            <button type="button" className="btn btn-quiet w-full" onClick={() => social('google')} disabled={loading}>Continue with Google</button>
+            <button type="button" className="btn btn-quiet w-full" onClick={() => social('apple')} disabled={loading}>Continue with Apple</button>
+          </div>
+
+          <form onSubmit={handleSubmit} className="mt-4 space-y-4">
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -75,7 +75,7 @@ export default function Login({ onLogin, onSwitchToSignup }) {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
+                  className="field pl-10"
                 />
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function Login({ onLogin, onSwitchToSignup }) {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
+                  className="field pl-10"
                 />
               </div>
             </div>
@@ -102,7 +102,7 @@ export default function Login({ onLogin, onSwitchToSignup }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="btn btn-primary w-full disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -131,7 +131,7 @@ export default function Login({ onLogin, onSwitchToSignup }) {
           {/* Sign Up Link */}
           <button
             onClick={onSwitchToSignup}
-            className="w-full py-3 border-2 border-gray-300 rounded-lg font-semibold text-gray-700 hover:border-orange-500 hover:text-orange-500 transition-all"
+            className="btn btn-quiet mt-3 w-full"
           >
             Create Account
           </button>

@@ -132,21 +132,43 @@ test('nearby discovery lists real places and does not invent dishes', async () =
             lat: 35.229,
             lon: -80.845,
             tags: { name: 'No Site Cafe', amenity: 'restaurant' }
+          },
+          {
+            type: 'node',
+            id: 44,
+            lat: 35.226,
+            lon: -80.842,
+            tags: { name: "McDonald's", amenity: 'fast_food', website: 'https://mcdonalds.test/' }
+          },
+          {
+            type: 'node',
+            id: 45,
+            lat: 35.2265,
+            lon: -80.8425,
+            tags: { name: 'Lakeside Buffet', amenity: 'restaurant', cuisine: 'buffet', website: 'https://buffet.test/' }
           }
         ]
       })
     }
     if (String(url).includes('realbistro.test')) return htmlResponse(menuHtml)
     return htmlResponse('no menu', 404)
-  }, { placesKey: '', savedCatalog: [], fetchGapMs: 0, sources: [] })
+  }, {
+    placesKey: '',
+    fetchGapMs: 0,
+    sources: [],
+    savedCatalog: [
+      { name: 'Fries', restaurant: "McDonald's", description: 'salted fries', price: 3 },
+      { name: 'Catfish', restaurant: 'Lakeside Buffet', description: 'fried catfish', price: 14 }
+    ]
+  })
 
-  const listed = await service.listNearby({ lat: 35.2271, lng: -80.8431 }, { loadMenus: false })
+  const listed = await service.listNearby({ lat: 35.2271, lng: -80.8431 })
   assert.equal(listed.status, 200)
   assert.equal(listed.body.provider, 'openstreetmap')
-  assert.equal(listed.body.restaurants[0].name, 'Real Bistro')
+  assert.deepEqual(listed.body.restaurants.map((place) => place.name), ['Real Bistro'])
   assert.equal(listed.body.restaurants[0].website, 'https://realbistro.test/menu')
   assert.equal(listed.body.restaurants[0].hours, 'Mo-Sa 11:00-22:00')
-  assert.equal(listed.body.restaurants.some((place) => place.name === 'No Site Cafe' && place.menuStatus === 'unavailable'), true)
+  assert.equal(listed.body.restaurants.some((place) => place.name === 'No Site Cafe'), false)
   assert.equal(JSON.stringify(listed.body).includes('Chef Special'), false)
 
   const menu = await service.getRestaurantMenu('Real Bistro', {
@@ -185,19 +207,38 @@ test('a city or ZIP is geocoded and Google Places is preferred when a key is set
           rating: 4.6,
           userRatingCount: 120,
           regularOpeningHours: { weekdayDescriptions: ['Monday: 11:00 AM – 10:00 PM'] },
-          photos: [{ name: 'places/place-1/photos/abc' }]
+          photos: [{ name: 'places/place-1/photos/abc', authorAttributions: [{ displayName: 'A Guest' }] }],
+          primaryType: 'restaurant',
+          types: ['restaurant']
+        }, {
+          id: 'place-2',
+          displayName: { text: "McDonald's" },
+          formattedAddress: '200 Tryon St, Charlotte, NC',
+          location: { latitude: 35.228, longitude: -80.844 },
+          primaryType: 'fast_food_restaurant',
+          types: ['fast_food_restaurant']
         }]
       })
     }
     return htmlResponse('no menu', 404)
-  }, { placesKey: 'test-key', savedCatalog: [], fetchGapMs: 0, sources: [] })
+  }, {
+    placesKey: 'test-key',
+    fetchGapMs: 0,
+    sources: [],
+    savedCatalog: [
+      { name: 'Steak', restaurant: 'Uptown Grill', description: 'grilled steak', price: 42 },
+      { name: 'Burger', restaurant: "McDonald's", description: 'beef burger', price: 6 }
+    ]
+  })
 
   const listed = await service.listNearby({ q: 'Charlotte, NC' }, { loadMenus: false })
   assert.equal(listed.body.provider, 'google')
   assert.equal(listed.body.location.label, 'Charlotte, NC')
-  assert.equal(listed.body.restaurants[0].name, 'Uptown Grill')
+  assert.deepEqual(listed.body.restaurants.map((place) => place.name), ['Uptown Grill'])
   assert.equal(listed.body.restaurants[0].rating, 4.6)
   assert.equal(listed.body.restaurants[0].photoName, 'places/place-1/photos/abc')
+  assert.equal(listed.body.restaurants[0].photo.source, 'google')
+  assert.equal(listed.body.restaurants[0].photo.attribution, 'A Guest')
   assert.equal(listed.body.restaurants[0].website, 'https://uptowngrill.test/')
   const blank = await service.listNearby({ q: ' ' })
   assert.equal(blank.status, 400)

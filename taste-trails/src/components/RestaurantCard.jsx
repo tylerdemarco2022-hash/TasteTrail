@@ -1,41 +1,40 @@
-import { formatPublishedPrice, priceLevelFromPrices } from '../services/menuPresentation'
+import { useState } from 'react'
+import { priceLevelFromPrices } from '../services/menuPresentation'
+
+export function PlacePhoto({ src, attribution, className = '' }) {
+  const [failed, setFailed] = useState(false)
+  const show = Boolean(src) && !failed
+  return (
+    <div className={`relative overflow-hidden ${className} ${show ? '' : 'plate'}`}>
+      {show ? <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" onError={() => setFailed(true)} /> : null}
+      {show && attribution ? <p className="absolute inset-x-0 bottom-0 truncate bg-black/50 px-2 py-1 text-[10px] text-white">{attribution}</p> : null}
+    </div>
+  )
+}
 
 function dollars(level) {
-  if (!level) return null
-  return '$'.repeat(level)
+  return level ? '$'.repeat(level) : null
 }
 
 export default function RestaurantCard({ place, onOpen }) {
   const price = dollars(place.priceLevel || priceLevelFromPrices(place.prices || []))
-  const meta = [place.cuisine, price, place.neighborhood].filter(Boolean).join(' · ')
+  const distance = place.distanceMiles != null ? `${Number(place.distanceMiles).toFixed(1)} mi` : null
+  const meta = [place.cuisine, price, distance || place.neighborhood].filter(Boolean).join(' · ')
   const rating = Number(place.communityScore ?? place.rating)
-  const ratingCount = place.communityCount ?? place.ratingCount
+  const hasRating = Number.isFinite(rating) && rating > 0
   return (
-    <article className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-      <button type="button" onClick={() => onOpen?.(place)} className="w-full text-left">
-        <div className="flex gap-3 p-3">
-          <div className="w-24 h-24 rounded-xl bg-amber-50 overflow-hidden shrink-0 flex items-center justify-center">
-            {place.image ? (
-              <img src={place.image} alt="" className="w-full h-full object-cover" />
-            ) : (
-              <span className="text-xs font-semibold text-amber-800 px-2 text-center">No photo</span>
-            )}
-          </div>
-          <div className="min-w-0 flex-1">
-            <h3 className="font-semibold text-gray-900 text-base leading-tight">{place.name}</h3>
-            {meta && <p className="text-sm text-gray-600 mt-1 truncate">{meta}</p>}
-            <p className="text-sm text-gray-700 mt-1">
-              {Number.isFinite(rating) && rating > 0 ? (
-                <span>{rating.toFixed(1)}{ratingCount ? ` (${ratingCount})` : ''}</span>
-              ) : (
-                <span className="text-gray-500">No ratings yet</span>
-              )}
-              {place.distanceMiles != null && <span> · {Number(place.distanceMiles).toFixed(1)} mi</span>}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              {place.menuStatus === 'unavailable' ? 'Menu not available online' : place.menuStatus === 'unknown' ? 'Menu loads when you open it' : 'Full menu'}
-            </p>
-          </div>
+    <article className="surface overflow-hidden">
+      <button
+        type="button"
+        onClick={() => onOpen?.(place)}
+        className="block w-full text-left"
+        aria-label={`${place.name}${meta ? `, ${meta}` : ''}${hasRating ? `, ${rating.toFixed(1)}` : ', no rating'}${place.menuStatus === 'unavailable' ? ', menu not available online' : ''}`}
+      >
+        <PlacePhoto src={place.image} attribution={place.photoAttribution} className="h-44 w-full" />
+        <div className="space-y-1 px-4 py-4">
+          <h3 className="text-lg font-semibold text-[var(--ink)]">{place.name}</h3>
+          {meta && <p className="truncate text-sm text-[var(--mute)]">{meta}</p>}
+          {hasRating && <p className="text-sm">{rating.toFixed(1)}</p>}
         </div>
       </button>
     </article>
@@ -43,31 +42,20 @@ export default function RestaurantCard({ place, onOpen }) {
 }
 
 export function DishResult({ dish, onOpen }) {
-  const price = dish.priceLabel || formatPublishedPrice(dish.price)
   const score = dish.community?.score
   return (
-    <button
-      type="button"
-      onClick={() => onOpen?.(dish)}
-      className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-3 text-left"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="font-semibold text-gray-900">{dish.name}</div>
-          <div className="text-sm text-gray-600 truncate">{dish.restaurant?.name || dish.restaurant}</div>
-          <div className="text-sm text-amber-800 mt-1">{price || 'Price not listed'}</div>
-        </div>
-        <div className="text-right shrink-0">
-          {score != null ? (
-            <>
-              <div className="text-lg font-bold text-gray-900">{Number(score).toFixed(1)}</div>
-              <div className="text-xs text-gray-500">{dish.community.count} rating{dish.community.count === 1 ? '' : 's'}</div>
-            </>
-          ) : (
-            <div className="text-xs text-gray-500 max-w-24">No ratings yet</div>
-          )}
-        </div>
-      </div>
+    <button type="button" onClick={() => onOpen?.(dish)} className="surface flex min-h-16 w-full items-center justify-between px-4 py-3 text-left">
+      <span className="min-w-0">
+        <span className="block truncate font-semibold">{dish.name}</span>
+        <span className="block truncate text-sm text-[var(--mute)]">{dish.restaurant?.name || dish.restaurant}</span>
+      </span>
+      <span className="shrink-0 text-right">
+        {score != null ? (
+          <span className="text-lg font-semibold" aria-label={`${Number(score).toFixed(1)} from ${dish.community.count} ratings`}>{Number(score).toFixed(1)}</span>
+        ) : (
+          <span className="sr-only">No rating</span>
+        )}
+      </span>
     </button>
   )
 }

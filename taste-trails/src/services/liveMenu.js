@@ -4,6 +4,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { dietaryProfile, findMenuItems } from './menuItemFinder.js'
 import { groupPublishedSections } from './menuPresentation.js'
+import { hasPublishedMenu, isQuickService } from './restaurantEligibility.js'
+import { choosePhoto, imageFromHtml, validatedImage, wikimediaPhoto } from './restaurantPhotos.js'
 import { getNodeMenuCatalog } from './menuCatalogNode.js'
 import { menuLinksFromHtml, parseMenuHtml, parseMenuText } from './menuDocumentParser.js'
 import { foldRestaurantName, knownRestaurantRecords } from './restaurantSources.js'
@@ -20,6 +22,8 @@ const MIN_ITEMS = 3
 const DEFAULT_RADIUS_MILES = 3
 const MAX_RADIUS_MILES = 8
 const NEARBY_LIMIT = 20
+const CANDIDATE_LIMIT = 50
+const PHOTO_TTL_MS = 7 * 24 * 60 * 60 * 1000
 const BACKGROUND_MENU_LIMIT = 8
 const DISCOVERY_TTL_MS = 30 * 60 * 1000
 
@@ -143,10 +147,29 @@ export function createLiveMenuService(options = {}) {
     writeFileSync(cachePath(record.name), JSON.stringify(record, null, 2))
   }
 
+  function photoPath(name) {
+    const slug = foldRestaurantName(name).replace(/\s+/g, '-') || 'unknown'
+    return path.join(cacheDir, `${slug}.photo.json`)
+  }
+
+  function readPhoto(name) {
+    try {
+      return JSON.parse(readFileSync(photoPath(name), 'utf8'))
+    } catch {
+      return null
+    }
+  }
+
+  function writePhoto(name, photo) {
+    if (!name || !photo?.url) return
+    mkdirSync(cacheDir, { recursive: true })
+    writeFileSync(photoPath(name), JSON.stringify({ name, ...photo }, null, 2))
+  }
+
   function readCachedRecords() {
     try {
       return readdirSync(cacheDir)
-        .filter((file) => file.endsWith('.json'))
+        .filter((file) => file.endsWith('.json') && !file.endsWith('.photo.json'))
         .map((file) => {
           try {
             return JSON.parse(readFileSync(path.join(cacheDir, file), 'utf8'))
@@ -191,17 +214,22 @@ export function createLiveMenuService(options = {}) {
     return parseMenuHtml(document.html)
   }
 
+  function imageOnPage(document, url) {
+    return document?.kind === 'html' ? imageFromHtml(document.html, url) : null
+  }
+
   async function itemsFromUrl(url, seen) {
-    if (!url || seen.has(url)) return { items: [], url }
+    if (!url || seen.has(url)) return { items: [], url, image: null }
     seen.add(url)
     let document = null
     try {
       document = await fetchBuffer(url)
     } catch {
-      return { items: [], url }
+      return { items: [], url, image: null }
     }
+    let image = imageOnPage(document, url)
     let items = itemsFromDocument(document)
-    if (items.length >= MIN_ITEMS) return { items, url }
+    if (items.length >= MIN_ITEMS) return { items, url, image }
     if (document?.kind === 'html') {
       for (const link of menuLinksFromHtml(document.html, url)) {
         if (seen.has(link)) continue
@@ -212,14 +240,15 @@ export function createLiveMenuService(options = {}) {
           if (parsed.length > items.length) {
             items = parsed
             url = link
+            image = imageOnPage(next, link) || image
           }
-          if (items.length >= MIN_ITEMS) return { items, url: link }
+          if (items.length >= MIN_ITEMS) return { items, url: link, image }
         } catch {
           continue
         }
       }
     }
-    return { items, url }
+    return { items, url, image }
   }
 
   function resultFromRecord(record, saved) {
@@ -290,7 +319,9 @@ export function createLiveMenuService(options = {}) {
     const seen = new Set()
     const merged = []
     let sourceUrl = null
+    let websiteImage = null
     function take(parsed) {
+      if (parsed?.image && !websiteImage) websiteImage = parsed.image
       if (!parsed?.items?.length) return
       const known = new Set(merged.map((item) => item.name.toLowerCase()))
       for (const item of parsed.items) {
@@ -326,6 +357,18 @@ export function createLiveMenuService(options = {}) {
       message: live ? null : `Could not retrieve a menu for ${source.name}.`
     }
     writeCache(record)
+    const existingPhoto = readPhoto(source.name)
+    const googlePhotoFresh = existingPhoto?.source === 'google' && Number(existingPhoto.expiresAt) > now()
+    if (websiteImage && !googlePhotoFresh && await validatedImage(websiteImage, fetchImpl)) {
+      let host = 'the restaurant site'
+      try { host = new URL(websiteImage).host } catch { host = 'the restaurant site' }
+      writePhoto(source.name, {
+        url: websiteImage,
+        source: 'website',
+        attribution: host,
+        expiresAt: now() + PHOTO_TTL_MS
+      })
+    }
     return resultFromRecord(record, saved)
   }
 
@@ -356,7 +399,14 @@ export function createLiveMenuService(options = {}) {
       photoName: place.photoName || null,
       cuisine: place.cuisine || null,
       phone: place.phone || null,
-      neighborhood: place.neighborhood || null
+      neighborhood: place.neighborhood || null,
+      amenity: place.amenity || null,
+      brand: place.brand || null,
+      primaryType: place.primaryType || null,
+      types: Array.isArray(place.types) ? place.types : [],
+      wikidata: place.wikidata || null,
+      wikimediaCommons: place.wikimediaCommons || null,
+      photoAttribution: place.photoAttribution || null
     }
   }
 
@@ -380,7 +430,7 @@ export function createLiveMenuService(options = {}) {
       headers: {
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': placesKey,
-        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.websiteUri,places.rating,places.userRatingCount,places.regularOpeningHours,places.photos,places.nationalPhoneNumber,places.primaryTypeDisplayName,places.priceLevel'
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.websiteUri,places.rating,places.userRatingCount,places.regularOpeningHours,places.photos,places.nationalPhoneNumber,places.primaryTypeDisplayName,places.primaryType,places.types,places.priceLevel'
       },
       body: JSON.stringify({
         includedTypes: ['restaurant'],
@@ -407,13 +457,16 @@ export function createLiveMenuService(options = {}) {
       rating: place.rating,
       ratingCount: place.userRatingCount,
       photoName: place.photos?.[0]?.name || null,
+      photoAttribution: place.photos?.[0]?.authorAttributions?.map((author) => author.displayName).filter(Boolean).join(', ') || null,
       phone: place.nationalPhoneNumber || null,
-      cuisine: place.primaryTypeDisplayName?.text || null
+      cuisine: place.primaryTypeDisplayName?.text || null,
+      primaryType: place.primaryType || null,
+      types: place.types || []
     }))
   }
 
   async function discoverOverpass(lat, lng, meters) {
-    const query = `[out:json][timeout:25];(node["amenity"="restaurant"](around:${meters},${lat},${lng});way["amenity"="restaurant"](around:${meters},${lat},${lng});node["amenity"="fast_food"](around:${meters},${lat},${lng});way["amenity"="fast_food"](around:${meters},${lat},${lng}););out center tags;`
+    const query = `[out:json][timeout:25];(node["amenity"="restaurant"](around:${meters},${lat},${lng});way["amenity"="restaurant"](around:${meters},${lat},${lng}););out center tags;`
     for (const endpoint of OVERPASS_ENDPOINTS) {
       try {
         const response = await fetchImpl(endpoint, {
@@ -451,7 +504,11 @@ export function createLiveMenuService(options = {}) {
         hours: tags.opening_hours || null,
         cuisine: tags.cuisine ? String(tags.cuisine).replace(/_/g, ' ') : null,
         phone: tags.phone || tags['contact:phone'] || null,
-        neighborhood: tags['addr:suburb'] || tags['addr:neighbourhood'] || tags['addr:city'] || null
+        neighborhood: tags['addr:suburb'] || tags['addr:neighbourhood'] || tags['addr:city'] || null,
+        amenity: tags.amenity || null,
+        brand: tags.brand || null,
+        wikidata: tags.wikidata || null,
+        wikimediaCommons: tags.wikimedia_commons || null
       })
   }
 
@@ -493,7 +550,7 @@ export function createLiveMenuService(options = {}) {
     }
     const value = {
       provider,
-      places: sortPlaces(lat, lng, withKnownNearby(lat, lng, miles, places)).slice(0, NEARBY_LIMIT)
+      places: sortPlaces(lat, lng, withKnownNearby(lat, lng, miles, places)).slice(0, CANDIDATE_LIMIT)
     }
     discoveryCache.set(key, { expiresAt: now() + DISCOVERY_TTL_MS, value })
     return value
@@ -538,6 +595,7 @@ export function createLiveMenuService(options = {}) {
       rating: place.rating,
       ratingCount: place.ratingCount,
       photoName: place.photoName,
+      photo: null,
       cuisine: place.cuisine,
       phone: place.phone,
       neighborhood: place.neighborhood,
@@ -586,11 +644,52 @@ export function createLiveMenuService(options = {}) {
       label = geo.label
     }
     const discovered = await discoverNearby(latitude, longitude, miles)
-    const restaurants = discovered.places.map((place) => ({
-      ...publicRestaurant(place),
-      provider: discovered.provider
-    }))
-    const queued = loadMenus ? queueMenuLoads(discovered.places) : 0
+    const candidates = discovered.places.filter((place) => !isQuickService(place))
+    function published(place) {
+      const cached = readCache(place.name)
+      const liveCount = cached?.source === 'live' && Number(cached.expiresAt) > now() ? (cached.items || []).length : 0
+      return hasPublishedMenu(place, { savedCount: savedItemsFor(savedCatalog, place.name).length, liveCount })
+    }
+    if (loadMenus) {
+      const missing = candidates.filter((place) => !published(place) && ((place.websites || []).length || (place.menuUrls || []).length)).slice(0, 6)
+      for (const place of missing) {
+        try { await getRestaurantMenu(place.name, place) } catch { /* keep looking */ }
+      }
+    }
+    const kept = candidates.filter(published).slice(0, NEARBY_LIMIT)
+    const restaurants = []
+    for (const place of kept) {
+      const cachedPhoto = readPhoto(place.name)
+      const freshPhoto = cachedPhoto && Number(cachedPhoto.expiresAt) > now() ? cachedPhoto : null
+      const google = place.photoName ? {
+        url: `/api/place-photo?name=${encodeURIComponent(place.photoName)}`,
+        source: 'google',
+        attribution: place.photoAttribution || 'Google'
+      } : null
+      let wiki = null
+      if (!google && (place.wikidata || place.wikimediaCommons)) {
+        try { wiki = await wikimediaPhoto(place, fetchImpl) } catch { wiki = null }
+      }
+      let photo = choosePhoto([google, freshPhoto?.url ? freshPhoto : null, wiki].filter(Boolean))
+      const site = (place.websites || [])[0] || null
+      if (!photo && !freshPhoto && site) {
+        try {
+          const page = await fetchBuffer(site)
+          const image = imageOnPage(page, site)
+          if (image && await validatedImage(image, fetchImpl)) {
+            let host = 'the restaurant site'
+            try { host = new URL(image).host } catch { host = 'the restaurant site' }
+            photo = { url: image, source: 'website', attribution: host }
+          }
+        } catch {
+          photo = null
+        }
+        if (!photo) writePhoto(place.name, { url: '', source: 'none', attribution: null, expiresAt: now() + PHOTO_TTL_MS })
+      }
+      if (photo) writePhoto(place.name, { ...photo, expiresAt: freshPhoto?.url === photo.url ? freshPhoto.expiresAt : now() + PHOTO_TTL_MS })
+      restaurants.push({ ...publicRestaurant(place), provider: discovered.provider, photo })
+    }
+    const queued = loadMenus ? queueMenuLoads(candidates.filter((place) => !kept.some((item) => item.name === place.name))) : 0
     return {
       status: 200,
       body: {
@@ -605,7 +704,7 @@ export function createLiveMenuService(options = {}) {
 
   async function refreshNearby(lat, lng) {
     const discovered = await discoverNearby(lat, lng)
-    queueMenuLoads(discovered.places)
+    queueMenuLoads(discovered.places.filter((place) => !isQuickService(place)))
     await menuChain
   }
 
@@ -635,6 +734,7 @@ export function createLiveMenuService(options = {}) {
       restaurant: body.restaurant,
       limit: body.limit
     })
+    result.items = result.items.filter((item) => !isQuickService({ name: item.restaurant?.name || item.restaurant }))
     const named = findSource(body.restaurant || body.q || '')
     if (named && !result.items.some((item) => foldRestaurantName(item.restaurant?.name || item.restaurant) === foldRestaurantName(named.name))) {
       const cached = readCache(named.name)

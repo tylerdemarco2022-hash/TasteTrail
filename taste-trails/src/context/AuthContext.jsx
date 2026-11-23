@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '../config/api'
 import React, { createContext, useState, useContext, useEffect } from 'react'
+import { readSessionValue, removeSessionValue, writeSessionValue } from '../services/sessionClient'
 
 const AuthContext = createContext(null)
 
@@ -7,27 +8,69 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [token, setToken] = useState(localStorage.getItem('access_token'))
+  const [token, setToken] = useState(null)
+
+  function rememberSession(data) {
+    if (data?.token) {
+      writeSessionValue('access_token', data.token)
+      localStorage.setItem('access_token', data.token)
+      setToken(data.token)
+    }
+    if (data?.refreshToken) {
+      writeSessionValue('refresh_token', data.refreshToken)
+      localStorage.setItem('refresh_token', data.refreshToken)
+    }
+    if (data?.profile) {
+      setProfile(data.profile)
+      const stored = JSON.stringify(data.profile)
+      writeSessionValue('user_profile', stored)
+      localStorage.setItem('user_profile', stored)
+    }
+    if (data?.user) setUser(data.user)
+    else if (data?.profile) setUser({ id: data.profile.id, email: data.profile.email })
+  }
+
+  async function refreshSession() {
+    const refreshToken = localStorage.getItem('refresh_token') || await readSessionValue('refresh_token')
+    if (!refreshToken) return false
+    const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refreshToken })
+    })
+    if (!response.ok) return false
+    rememberSession(await response.json())
+    return true
+  }
 
   // Check if user is logged in on mount
   useEffect(() => {
-    const savedToken = localStorage.getItem('access_token')
-    const savedProfile = localStorage.getItem('user_profile')
-    
-    if (savedToken && savedProfile) {
-      setToken(savedToken)
-      try {
-        const parsed = JSON.parse(savedProfile)
-        setProfile(parsed)
-        setUser({ id: parsed?.id, email: parsed?.email })
-      } catch (e) {
-        console.error('Failed to parse saved profile:', e)
-        localStorage.removeItem('user_profile')
+    let cancelled = false
+    async function restore() {
+      const savedToken = localStorage.getItem('access_token') || await readSessionValue('access_token')
+      const savedProfile = localStorage.getItem('user_profile') || await readSessionValue('user_profile')
+      if (cancelled) return
+      if (savedToken) {
+        if (savedToken) localStorage.setItem('access_token', savedToken)
+        setToken(savedToken)
+        if (savedProfile) {
+          try {
+            const parsed = JSON.parse(savedProfile)
+            setProfile(parsed)
+            setUser({ id: parsed?.id, email: parsed?.email })
+          } catch {
+            localStorage.removeItem('user_profile')
+          }
+        }
+        await fetchCurrentUser(savedToken)
+      } else if (await refreshSession()) {
+        setLoading(false)
+      } else {
+        setLoading(false)
       }
-      fetchCurrentUser(savedToken)
-    } else {
-      setLoading(false)
     }
+    restore()
+    return () => { cancelled = true }
   }, [])
 
   async function fetchCurrentUser(accessToken) {
@@ -54,7 +97,8 @@ export function AuthProvider({ children }) {
         setProfile(data.profile)
         if (data.profile) localStorage.setItem('user_profile', JSON.stringify(data.profile))
       } else if (response.status === 401 || response.status === 403) {
-        logout()
+        const refreshed = await refreshSession()
+        if (!refreshed) logout()
       }
     } catch (error) {
       console.error('Failed to fetch user:', error)
@@ -90,19 +134,7 @@ export function AuthProvider({ children }) {
       }
 
       // Store token and user/profile in localStorage and state
-      if (data.token) {
-        localStorage.setItem('access_token', data.token);
-        setToken(data.token);
-      }
-      if (data.user) {
-        setUser(data.user);
-      } else if (data.profile) {
-        setUser({ id: data.profile.id, email: data.profile.email });
-      }
-      if (data.profile) {
-        setProfile(data.profile);
-        localStorage.setItem('user_profile', JSON.stringify(data.profile));
-      }
+      rememberSession(data)
       return { success: true };
     } catch (error) {
       if (error?.name === 'AbortError') {
@@ -159,12 +191,32 @@ export function AuthProvider({ children }) {
     }
   }
 
+  async function signInWithProvider(provider, idToken, name) {
+    const response = await fetch(`${API_BASE_URL}/auth/oauth`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider, idToken, name })
+    })
+    const data = await response.json()
+    if (!response.ok || !data.success) {
+      return { success: false, error: data.error || data.message || 'Sign-in failed' }
+    }
+    rememberSession(data)
+    return { success: true }
+  }
+
   function logout() {
+    const current = localStorage.getItem('access_token')
+    if (current) {
+      fetch(`${API_BASE_URL}/auth/logout`, { method: 'POST', headers: { Authorization: `Bearer ${current}` } }).catch(() => {})
+    }
     setUser(null)
     setProfile(null)
     setToken(null)
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('user_profile')
+    for (const key of ['access_token', 'refresh_token', 'user_profile']) {
+      localStorage.removeItem(key)
+      removeSessionValue(key)
+    }
   }
 
   async function refreshProfile() {
@@ -209,6 +261,7 @@ export function AuthProvider({ children }) {
       isAdmin,
       login,
       signup,
+      signInWithProvider,
       logout,
       refreshProfile
     }}>

@@ -159,7 +159,7 @@ Dish search reads real menu items from restaurant websites and menu PDFs. Result
 
 | Variable | Required for | Notes |
 | --- | --- | --- |
-| `GOOGLE_PLACES_API_KEY` | Richer nearby restaurants (website, hours, rating, photo) | Places API (New). Leave unset to use OpenStreetMap, which needs no key. This key does not contain menu items. Nearby Search Enterprise is about $35 per 1,000 requests after 1,000 free requests each month. A photo image is a separate request, about $7 per 1,000 after 1,000 free. A few dozen lookups a day stays at $0 or a few dollars. |
+| `GOOGLE_PLACES_API_KEY` | Richer nearby restaurants (website, hours, rating, photo) | Places API (New). Leave unset to use OpenStreetMap, which needs no key. This key does not contain menu items. Nearby Search Enterprise is about $35 per 1,000 requests after 1,000 free requests each month. A photo image is a separate request, about $7 per 1,000 after 1,000 free. A few dozen lookups a day stays at $0 or a few dollars. When this key is set, restaurant photos come from Places with the required photographer credit. Otherwise the server uses the preview image on the restaurant's own menu page, then a Wikimedia Commons image from the place's OpenStreetMap tag. Image addresses are cached for 7 days. The app does not search Google Images, Yelp, or Instagram. |
 | `MENU_CACHE_TTL_HOURS` | No | How long a fetched menu is reused. |
 | `MENU_CACHE_DIR` | No | Cache directory. Defaults to `data/menu-cache` and is not committed. |
 

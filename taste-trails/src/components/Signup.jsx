@@ -32,7 +32,6 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
       
       if (result?.success) {
         // Account created successfully - redirect to login
-        alert('Account created successfully! Please log in with your credentials.')
         onSwitchToLogin()
       } else {
         setError(result?.error || 'Signup failed')
@@ -49,11 +48,7 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
       <div className="w-full max-w-md">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full mb-4 shadow-lg">
-            <span className="text-3xl">🍽️</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">TasteTrails</h1>
-          <p className="text-gray-600">Join the food community</p>
+          <h1 className="font-display text-4xl text-[var(--ink)]">Create account</h1>
         </div>
 
         {/* Signup Card */}
@@ -65,17 +60,6 @@ export default function Signup({ onSignup, onSwitchToLogin }) {
               <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="text-sm text-red-600">{error}</p>
-                {error.includes('database not configured') && (
-                  <div className="mt-2 text-xs text-gray-600 bg-white p-2 rounded border border-gray-200">
-                    <p className="font-semibold mb-1">Setup Required:</p>
-                    <ol className="list-decimal list-inside space-y-1">
-                      <li>Create a Supabase account at supabase.com</li>
-                      <li>Update .env with your Supabase URL and key</li>
-                      <li>Run SQL scripts in backend/sql/ folder</li>
-                      <li>Restart the backend server</li>
-                    </ol>
-                  </div>
-                )}
               </div>
             </div>
           )}
